@@ -623,7 +623,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                                     <!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
-                                                                    <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
+                                                                    <iframe class="map-height" id="tdmap2" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
 
                                                                     <!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
                                                                 </div>
@@ -1878,7 +1878,14 @@
 
         $(function () {
 
+              InitialData();
 
+            MakeSpeedDometer('chartSpeedometer1_1', '', 12.5);
+            MakeSpeedDometer('chartSpeedometer1_2', '', 11);
+            MakeSpeedDometer('chartSpeedometer1_3', '', 16.7);
+            MakeSpeedDometer('chartSpeedometer1_4', '', 19);
+            MakeSpeedDometer('chartSpeedometer1_5', '', 22);
+            viewListManager.init();
             var iframeElement = document.getElementById('tdmap');
             iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
             gisIframeWindow = null;
@@ -1898,13 +1905,7 @@
             iframeElement2.onload = function () {
                 gisIframeWindow = iframeElement2.contentWindow;
             }*/
-            InitialData();
-
-            MakeSpeedDometer('chartSpeedometer1_1', '', 12.5);
-            MakeSpeedDometer('chartSpeedometer1_2', '', 11);
-            MakeSpeedDometer('chartSpeedometer1_3', '', 16.7);
-            MakeSpeedDometer('chartSpeedometer1_4', '', 19);
-            MakeSpeedDometer('chartSpeedometer1_5', '', 22);
+          
             //MakeSpeedDometer('chartSpeedometer2_1', '', 19);
           //  MakeSpeedDometer('chartSpeedometer2_1', '', 19);
           // // MakeSpeedDometer('chartSpeedometer2_2', '', 21);
@@ -1919,8 +1920,8 @@
 
             //     var selProv=$("#province").val();
             //    $.ajax({
-            //        type: "GET",
-            //        url: "/TDManagement/api/Address/GetProvinceShapeBy",
+            //        type: "GET",/TDManagement/api
+            //        url: "/Address/GetProvinceShapeBy",
             //        contentType: "application/json; charset=utf-8",
             //        data: { code: selProv },
             //        dataType: "json",
@@ -1934,7 +1935,7 @@
 
 
 
-            viewListManager.init();
+          
         });
 
 
@@ -2146,7 +2147,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: [[0.35, '#66ff66'], [0.7, '#f0f457'], [1, '#ff5c33']],
+                                color: [[0.35, '#ff5c33'], [0.7, '#f0f457'], [1, '#66ff66']],
                                 width: 30
                             }
 
