@@ -1,0 +1,242 @@
+﻿@{
+    string RegionId = ViewData["Region"].ToString();
+}
+ 
+<!-- Modal -->
+<div class="modal fade" id="ModalAppraiseMemberProvince" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 150%; margin-left: -188px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">การติดตามความคืบหน้าการประเมิน รายบุคคล</h4>
+            </div>
+            <div class="modal-body">
+                <table id="ModalAppraiseMemberProvincetTable" class="cell-border table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%; text-align:center">ชื่อบุคคล</th>
+                            <th style="width: 15%; text-align:center">จำนวน</th>
+                            <th style="width: 15%; text-align:center">ดำเนินการเสร็จสิ้น</th>
+                            <th style="width: 15%; text-align:center">อยู่ระหว่างดำเนินการ</th>
+                            <th style="width: 15%; text-align:center">ยังไม่ดำเนินการ</th>
+                            <th style="width: 15%; text-align:center">ดูรายละเอียด</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ModalAppraiseMemberProvincetbody"></tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalAppraiseMap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 150%; margin-left: -188px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">การติดตามความคืบหน้าการประเมิน รายบุคคล(แผนที่)</h4>
+            </div>
+            <div class="modal-body" style="height:900px">
+                <iframe id="tdmap" class="page-content clear--page-content clear-iframe" style="width: 100%; height:900px"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<h1 class="ui col-md-12">การติดตามความคืบหน้าการประเมิน รายจังหวัด</h1>
+<table id="TableProgressByProvince" class="cell-border table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 25%; text-align:center">จังหวัด</th>
+            <th style="width: 15%; text-align:center">จำนวน(อำเภอ)</th>
+            <th style="width: 15%; text-align:center">ดำเนินการเสร็จสิ้น</th>
+            <th style="width: 15%; text-align:center">อยู่ระหว่างดำเนินการ</th>
+            <th style="width: 15%; text-align:center">ยังไม่ดำเนินการ</th>
+            <th style="width: 15%; text-align:center">แสดงรายละเอียด บุคลกร</th>
+        </tr>
+    </thead>
+    <tbody id="BodyProgressByProvince"></tbody>
+</table>
+ 
+ 
+<script type="text/javascript">
+    var iframeElement = document.getElementById('tdmap');
+    iframeElement.src = config.mapUrl; //window.document.location.origin + '/TD2';
+    gisIframeWindow = null;
+    iframeElement.onload = function () {
+        gisIframeWindow = iframeElement.contentWindow;
+    }
+    gIdGlobal = null;
+    // === initial Page ===
+    $(document).ready(function () {
+        var radiotype = $('input[name=RadioTabTypeSearch]:checked').val();
+
+        ZoomBegin();
+
+
+        if (radiotype == undefined) {
+            radiotype = 'DC01';
+        }
+
+        if (@RegionId != '') {
+            console.log('start Page Province value==>', @RegionId);
+            http.get("/api/TraceProgress/GetTraceProgressByProvince", { Username: 'USER', YearCode: 'Y2561', DocumentType: radiotype,RegionId : @RegionId}, function (data) {
+                var htmlTable = '';
+                $.each(data, function (index, row) {
+                    htmlTable += '<tr>';
+                    htmlTable += '<td style="text-align:center"><u style="cursor: pointer;"><a onclick="GetTraceProgressByDistrict(' + row.Province +',\''+ row.ProvinceName  +'\')">' + row.ProvinceName + '</a></u></td>';
+                    htmlTable += '<td style="text-align:center">' + row.TotalCountDistrict + '</td>';
+                    htmlTable += '<td style="text-align:center">' + row.PercentSuccess + '</td>';
+                    htmlTable += '<td style="text-align:center">' + row.PercentOnProcess + '</td>';
+                    htmlTable += '<td style="text-align:center">' + row.PercentNoAction + '</td>';
+                    htmlTable += '<td style="text-align:center"><i class="fa fa-user" style="cursor:pointer" aria-hidden="true" onclick="GetAssignmentProvince(' + row.Province + ')"></i></td>';
+                    htmlTable += '</tr>';
+                });
+                $('#BodyProgressByProvince').empty();
+                $('#BodyProgressByProvince').append(htmlTable);
+            })
+        }
+    });
+
+   
+    function GetAssignmentProvince(Province) {
+        http.get("/api/TraceProgress/GetAppraiseMemberProvince", { Province: Province }, function (data) {
+            var htmlTable = "";
+            $.each(data, function (index, row) {
+                htmlTable += '<tr>';
+                htmlTable += '<td style="text-align:center">' + row.UserName + '</td>';
+                htmlTable += '<td style="text-align:center">' + row.TotalCount + '</td>';
+                htmlTable += '<td style="text-align:center">' + row.PercentSuccess + '</td>';
+                htmlTable += '<td style="text-align:center">' + row.PercentOnProcess + '</td>';
+                htmlTable += '<td style="text-align:center">' + row.PercentNoAction + '</td>';
+                htmlTable += '<td style="text-align:center"><i class="fa fa-map-marker" style="cursor: pointer;" aria-hidden="true" onclick="MemberProvinceViewMap(' + Province + ',' + row.Appraiser + ')"></i></td>';
+                htmlTable += '</tr>';
+            })
+
+            //$.getScript(jquer3PathJS, function () {
+            //    $.getScript(dataTableJS, function () {
+            //        $.getScript(bootStrapDataDableJS, function () {
+            //            $('#ModalAppraiseMemberProvincetbody').empty();
+            //            $('#ModalAppraiseMemberProvincetbody').append(htmlTable);
+            //        });
+            //    });
+            //});
+
+            $('#ModalAppraiseMemberProvincetbody').empty();
+            $('#ModalAppraiseMemberProvincetbody').append(htmlTable);
+        });
+
+        //$.getScript(jquer3PathJS, function () {
+        //    $.getScript(bootStrap, function () {
+        //        $('#ModalAppraiseMemberProvince').modal();
+        //    });
+        //});
+
+        $('#ModalAppraiseMemberProvince').modal();
+
+    }
+
+    function MemberProvinceViewMap(Province,Appraiser) {
+        //$.getScript(jquer3PathJS, function () {
+        //    $.getScript(bootStrap, function () {
+        //        $('#ModalAppraiseMap').modal();
+        //        console.log('Province:',Province);
+        //        console.log('Appraiser:',Appraiser);
+        //        MapAppraiser(Appraiser, Province); // Map.js
+        //    });
+        //});
+
+        MapAppraiser(Appraiser, Province); // Map.js
+        $('#ModalAppraiseMap').modal();
+        //MapAppraiser(Appraiser, Province); // Map.js
+    }
+
+
+    
+    function MapAppraiser(Appraiser, Province) {
+        http.get("/api/TraceProgress/GetShapeByAppraise", { Appraiser: Appraiser, ProvinceCode: '30' }, function (data) {
+            var i = 0;
+            var PolygonString = "POLYGON (";
+        
+            $.each(data, function (index, row) {
+                PolygonString += '(' + row.SHAPE.replace("POLYGON ", "").replace("POLYGON", "").replace("((", "").replace("))", "") + ')' + ',';
+            });
+
+            PolygonString = (PolygonString.substr(0, PolygonString.length - 1));
+        
+       
+            PolygonString += ")";
+
+            //204, 255, 102
+            var sridIn = 32647;
+            var sridOut = [102100];
+            var ParcelAddaddGraphic = gisIframeWindow.GIS.transform(PolygonString, sridIn, sridOut);
+            var symbol = {
+                "type": "esriSFS", "style": "esriSFSSolid", "color": [51, 51, 204, 150],
+                "outline": { "type": "esriSLS", "style": "esriSLSSolid", "color": [255, 0, 0, 255], "width": 1 }
+            }
+
+            //console.log(ParcelAddaddGraphic[0].shape);
+            removeGraphic();
+            setTimeout(function () {
+                console.log('Process Map');
+                gIdGlobal = gisIframeWindow.GIS.addGraphic(ParcelAddaddGraphic[0].shape, 102100, symbol);
+            }, 2000);
+        });
+    }
+
+    
+
+    function removeGraphic() {
+        if (gIdGlobal) {
+            gisIframeWindow.GIS.removeGraphic(gIdGlobal);
+            gIdGlobal = null;
+        }
+        else {
+            gisIframeWindow.GIS.removeGraphic();
+        }
+    }
+ 
+
+    function GetTraceProgressByDistrict(Province,ProvinceName){
+        var url = window.location.href;
+        url = url.replace('/Home/System_3_with_Layout', '');
+        gy = url.split("?");
+        cusparameter = gy[0];
+
+        var objectPage = { page: '_Province', value: Province,valuename: ProvinceName};
+        objectPageList.push(objectPage);
+        objectPageListOnchange();
+
+        $('#PartialView').load(cusparameter + "/Shared/GetPageDistrict", { Province: Province });
+        //zoomProc(Province);
+    }
+
+
+    function ZoomBegin(){
+        if(@RegionId == "4"){
+            setTimeout(function(){
+                clear();
+                zoomProcNotClear(46,'Late');
+                zoomProcNotClear(40,'Complete');
+                zoomProcNotClear(30,'Progress');
+            },2000);
+           
+        }
+    }
+
+
+    
+
+     
+
+
+
+</script>

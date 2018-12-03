@@ -1,0 +1,201 @@
+﻿
+ 
+<div class="map-canvas list-solid">
+    <div class="map" style="height:800px">
+        <iframe id="tdmap" class="map-height" width="100%" frameborder="0" style="border:0;height:800px"   allowfullscreen></iframe>
+    </div>
+</div>
+
+ 
+@section Scripts {
+    @*@Scripts.Render("~/Scripts/Search/Index-Map.js")*@
+    @Scripts.Render("~/Scripts/AreaAnalysis/Index.js")
+
+    @Scripts.Render("~/assets/js/datatable/datatables.js")
+    @Styles.Render("~/assets/css/datatable/datatables.css")
+}
+
+<script type="text/javascript">
+
+    console.log('In Index-Map')
+    var iframeElement = document.getElementById('tdmap');
+    iframeElement.src = config.mapUrl;//'http://tdwebsite/TD2';
+    console.log('configx', config.mapUrl);
+    gisIframeWindow = null;
+    iframeElement.onload = function () {
+        gisIframeWindow = iframeElement.contentWindow;
+    }
+
+
+    function encrpty(json) {
+        return http.post("/api/GIS/Encrypt", { text: JSON.stringify(json) });
+    }
+
+    function _mapPostMessage(senderData) {
+        //var encryptData = fnEncryptData(senderData);//เข้ารหัสข้อมูลโดยใช้ encryption-helper
+
+        //var iframe = document.getElementById('tdmap');
+        // iframe.contentWindow.postMessage(encryptData, domain); //send the message and target URI
+        encrpty(senderData).then(function (encryptData) {
+            var domain = window.document.location.origin;
+            gisIframeWindow.postMessage(encryptData, domain);
+        });
+    }
+
+    var map = {};
+    map.zoom2 = function (data) {
+        var shape = "POLYGON((11192608.387724396 1878156.1069176663,11265987.934878146 1770532.7710921667,11119228.840570647 1741180.9522306668,11192608.387724396 1878156.1069176663))";
+        var srid = 102100;
+        
+        var symbol = {
+            "type": "esriSLS",
+            "style": "esriSLSSolid",
+            "color": [115, 76, 0, 255],
+            "width": 1
+        }
+
+        var gIdGlobal = gisIframeWindow.GIS.addGraphic(shape, srid, symbol);
+        console.log(gIdGlobal);
+    }
+
+    map.zoom = function (data) {
+        var jsonData = {
+            zoomBy: "MapService",
+            "graphicLayerId": "parcel1",
+            mapServiceJsonList: [{
+                layerName: "TD_VIEW",
+                layerIndexName: "PARCEL_47_50",
+                where: "PARCEL_47_50",
+                titleField: "PARCEL_47_50",
+                detailField: "",
+                rendering: {
+                }
+            }]
+        }
+
+        var senderData = {
+            event: 'zoom-map',
+            data: jsonData
+        }
+        senderData = JSON.stringify(senderData);
+
+        encrpty(senderData).then(function (encryptData) {
+            gisIframeWindow.postMessage(encryptData, 'https://p-staging.treasury.go.th/TD2');
+        });
+    }
+
+
+    map.zoomProc = function (id) {
+        var senderData = zoom_select_province(id);
+        _mapPostMessage(senderData);
+    }
+
+    map.zoomAmphoe = function (id) {
+        var senderData = zoomBy_MapService_baseMap('AMPHOE', id);
+        _mapPostMessage(senderData);
+    }
+
+    map.zoomTambol = function (id) {
+        var senderData = zoomBy_MapService_baseMap('TAMBOL', id);
+        _mapPostMessage(senderData);
+    }
+
+    map.drawPOI = function (x, y, r) {
+        var transRes = map.transform(x, y);
+        map.buffer(transRes[0].shape, r);
+    }
+
+    map.clear = function () {
+        gisIframeWindow.GIS.removeGraphic();
+    }
+
+    map.addGraphic = function (shape, symbol) {
+        var sridIn = 32647;
+        var sridOut = [102100];
+        var trans = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+
+        symbol = symbol || {
+            "type": "esriSLS",
+            "style": "esriSLSSolid",
+            "color": [0, 0, 0, 255],
+            "width": 1
+        }
+
+        return gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
+    }
+
+    map.addGraphicCity = function (shape, symbol) {
+        var sridIn = 32647;
+        var sridOut = [102100];
+        var trans = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+
+        symbol = symbol || {
+            "type": "esriSLS",
+            "style": "esriSLSSolid",
+            "color": [115, 76, 0, 255],
+            "width": 2
+        }
+
+        return gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
+    }
+
+    map.removeGraphic = function (gId) {
+        gisIframeWindow.GIS.removeGraphic(gId);
+    }
+
+    map.transform = function (x, y) {
+        var shape = `POINT(${x} ${y})`,
+            sridIn = 32647,
+            sridOut = [102100];
+
+        var transRes = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+        return transRes;
+    }
+
+    map.buffer = function (shape, r) {
+        var srid = 102100,
+            radius = parseInt(r),
+            addGraphic = true;
+        gisIframeWindow.GIS.buffer(shape, srid, radius, addGraphic);
+    }
+
+    map.transformShape = function (x, y) {
+        var shape = `POINT(${x} ${y})`,
+            sridIn = 32647,
+            sridOut = [24047, 24048];
+
+        var transRes = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+        return transRes;
+    }
+
+    map.transformPolygon = function (polygon) {
+        var shape = polygon,
+            sridIn = 32647,
+            sridOut = [24047, 24048];
+
+        var transRes = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+        return transRes;
+    }
+
+    map.openMeasurementTool = function (toolName) {
+        gisIframeWindow.GIS.openFunction('measurement', { toolName: toolName });
+    }
+
+    map.activateDraw = function (callback) {
+        // Input
+        var toolType = 'polygon',
+            clearGraphicWhenComplete = true;
+
+        // Call method
+        gisIframeWindow.GIS.activateDraw(toolType, clearGraphicWhenComplete, function (drawEvent) {
+            var shape = drawEvent.shape,
+                sridIn = drawEvent.srid,
+                sridOut = [24047, 24048];
+
+            // Call method
+            var result = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+
+            callback(result);
+        });
+    }
+</script>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="commonModelStoreContainer" CdmEntityContainer="commonEntities">
+    <EntitySetMapping Name="TB_MAS_LANDOFFICE">
+      <EntityTypeMapping TypeName="commonModel.TB_MAS_LANDOFFICE">
+        <MappingFragment StoreEntitySet="TB_MAS_LANDOFFICE">
+          <ScalarProperty Name="LANDOFFICE_SEQ" ColumnName="LANDOFFICE_SEQ" />
+          <ScalarProperty Name="LANDOFFICE_ID" ColumnName="LANDOFFICE_ID" />
+          <ScalarProperty Name="LANDOFFICE_NAME_TH" ColumnName="LANDOFFICE_NAME_TH" />
+          <ScalarProperty Name="LANDOFFICE_NAME_EN" ColumnName="LANDOFFICE_NAME_EN" />
+          <ScalarProperty Name="PROVINCE_SEQ" ColumnName="PROVINCE_SEQ" />
+          <ScalarProperty Name="AMPHUR_SEQ" ColumnName="AMPHUR_SEQ" />
+          <ScalarProperty Name="TAMBOL_SEQ" ColumnName="TAMBOL_SEQ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_MAS_AMPHUR">
+      <EntityTypeMapping TypeName="commonModel.TB_MAS_AMPHUR">
+        <MappingFragment StoreEntitySet="TB_MAS_AMPHUR">
+          <ScalarProperty Name="AMPHUR_SEQ" ColumnName="AMPHUR_SEQ" />
+          <ScalarProperty Name="AMPHUR_ID" ColumnName="AMPHUR_ID" />
+          <ScalarProperty Name="AMPHUR_NAME_TH" ColumnName="AMPHUR_NAME_TH" />
+          <ScalarProperty Name="AMPHUR_NAME_EN" ColumnName="AMPHUR_NAME_EN" />
+          <ScalarProperty Name="PROVINCE_SEQ" ColumnName="PROVINCE_SEQ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_MAS_PROVINCE">
+      <EntityTypeMapping TypeName="commonModel.TB_MAS_PROVINCE">
+        <MappingFragment StoreEntitySet="TB_MAS_PROVINCE">
+          <ScalarProperty Name="PROVINCE_SEQ" ColumnName="PROVINCE_SEQ" />
+          <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+          <ScalarProperty Name="PROVINCE_NAME_TH" ColumnName="PROVINCE_NAME_TH" />
+          <ScalarProperty Name="PROVINCE_NAME_EN" ColumnName="PROVINCE_NAME_EN" />
+          <ScalarProperty Name="PROVINCE_ABBR" ColumnName="PROVINCE_ABBR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_MAS_TAMBOL">
+      <EntityTypeMapping TypeName="commonModel.TB_MAS_TAMBOL">
+        <MappingFragment StoreEntitySet="TB_MAS_TAMBOL">
+          <ScalarProperty Name="TAMBOL_SEQ" ColumnName="TAMBOL_SEQ" />
+          <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
+          <ScalarProperty Name="TAMBOL_NAME_TH" ColumnName="TAMBOL_NAME_TH" />
+          <ScalarProperty Name="TAMBOL_NAME_EN" ColumnName="TAMBOL_NAME_EN" />
+          <ScalarProperty Name="AMPHUR_SEQ" ColumnName="AMPHUR_SEQ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

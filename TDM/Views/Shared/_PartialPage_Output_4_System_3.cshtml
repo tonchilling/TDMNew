@@ -1,0 +1,318 @@
+﻿<style>
+
+     #header ul{
+         margin-top :6px;
+     }
+     #header ul li{
+         display:inline;
+     }
+
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/AreaAnalysis/Index.js")
+}
+ 
+
+<div class="col-md-12 col-sm-12 col-xs-12">  
+    <div class="x_panel">
+        <div class="x_title" id="header">
+            <h2>ผลการค้นหา</h2>
+            <ul id="rootwebfunction5" ></ul>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">Settings 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Settings 2</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="row">
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <div id="PartialView">
+                        @{
+                            //Html.RenderPartial("~/Views/TraceProgress/_Charts.cshtml");
+                            Html.RenderPartial("~/Views/TraceProgress/_Region.cshtml");
+                            //Html.RenderPartial("~/Views/TraceProgress/_TraceProgressCountry.cshtml");
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 col-sm-1 col-xs-12" style="background-color: rgb(112, 173, 71);">&nbsp;</div>
+                        <div class="col-md-3 col-sm-2 col-xs-12">ดำเนินการเรียบร้อย</div>
+
+                        <div class="col-md-1 col-sm-3 col-xs-12" style="background-color: rgb(255, 192, 0);">&nbsp;</div>
+                        <div class="col-md-3 col-sm-2 col-xs-12">อยู่ระหว่างการดำเนินการ</div>
+
+                        <div class="col-md-1 col-sm-3 col-xs-12" style="background-color: rgb(255, 0, 0);">&nbsp;</div>
+                        <div class="col-md-3 col-sm-2 col-xs-12">ล่าช้ากว่าแผนงาน</div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-1 col-sm-3 col-xs-12" style="background-color: rgb(191, 191, 191);">&nbsp;</div>
+                        <div class="col-md-3 col-sm-2 col-xs-12">รอดำเนินการ</div>
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-7 col-xs-12">
+                    <div class="modal-body" style="height:900px;" id="divtdmapMain">
+                        <iframe id="tdmapMain" class="page-content clear--page-content clear-iframe" style="width: 100%; height:900px"></iframe>
+                    </div>
+                </div>
+
+                <br />
+                <div class="col-md-5 col-sm-5 col-xs-12"></div>
+                <div class="col-md-7 col-sm-7 col-xs-12" style="margin-top: 30px">
+                </div>
+            </div>
+
+            <br />
+            <div class="row">
+                
+            </div>
+            <br />
+
+            
+
+           
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var iframeElement_Main = document.getElementById('tdmapMain');
+    iframeElement_Main.src = config.mapUrl; //window.document.location.origin + '/TD2';
+    gisIframeWindow_Main = null;
+    iframeElement_Main.onload = function () {
+        gisIframeWindow_Main = iframeElement_Main.contentWindow;
+    }
+    gIdGlobal = null;
+
+
+    function chartPie1Onlcike() {
+        var url = window.location.href;
+        url = url.replace('/Home/System_3_with_Layout', '');
+        gy = url.split("?");
+        cusparameter = gy[0];
+
+        var objectPage = { page: '_Charts', value: '', valuename: 'การประเมินราคาที่ดิน' };
+        objectPageList = [];
+        objectPageList.push(objectPage);
+        objectPageListOnchange();
+
+        $('#PartialView').load(cusparameter + "/Shared/GetPageRegion");
+        $('#divtdmapMain').show();
+        $('#divtdmapMain').css('display', 'block');
+    }
+
+    //=========================== MAP =============================
+
+    function zoomRegion(Region) {
+        //http.get("/api/TraceProgress/GetRegionShapeBy", { code: Region }, function (data) {
+        //console.log('data GetRegionShapeBy ==>', data);
+        //clear();
+        //drawCity(data.SHAPE);
+        //});
+    }
+
+    function zoomProc(Province) {
+        http.get("/api/Address/GetProvinceShapeBy", { code: Province }, function (data) {
+            clear();
+            drawCity(data.SHAPE);
+        });
+    }
+
+    function zoomProcNotClear(Province,status) {
+        http.get("/api/Address/GetProvinceShapeBy", { code: Province }, function (data) {
+            if (status == 'Late') {
+                drawCity_Late(data.SHAPE);
+            }
+            else if (status == 'Progress') {
+                drawCity_Progress(data.SHAPE);
+            }
+            else if (status == 'Complete') {
+                drawCity_Complete(data.SHAPE);
+            }
+            else {
+                drawCity(data.SHAPE);
+            }
+        });
+    }
+
+    function zoomDistrictNotClear(District, status) {
+        http.get("/api/Address/GetAmphoeShapeBy", { code: District }, function (data) {
+            if (status == 'Late') {
+                drawCity_Late(data.SHAPE);
+            }
+            else if (status == 'Progress') {
+                drawCity_Progress(data.SHAPE);
+            }
+            else if (status == 'Complete') {
+                drawCity_Complete(data.SHAPE);
+            }
+            else {
+                drawCity(data.SHAPE);
+            }
+        });
+    }
+
+    function zoomDistrict(District) {
+        http.get("/api/Address/GetAmphoeShapeBy", { code: District }, function (data) {
+            clear();
+            drawCity(data.SHAPE);
+        });
+    }
+
+    function zoomTambonNotClear(Tambol, status) {
+        http.get("/api/Address/GetTambolShapeBy", { code: Tambol }, function (data) {
+            if (status == 'Late') {
+                drawCity_Late(data.SHAPE);
+            }
+            else if (status == 'Progress') {
+                drawCity_Progress(data.SHAPE);
+            }
+            else if (status == 'Complete') {
+                drawCity_Complete(data.SHAPE);
+            }
+            else {
+                drawCity(data.SHAPE);
+            }
+        });
+    }
+
+    function zoomTambol(Tambol) {
+        http.get("/api/Address/GetTambolShapeBy", { code: Tambol }, function (data) {
+            clear();
+            drawCity(data.SHAPE);
+        });
+    }
+
+    function clear() {
+        gisIframeWindow_Main.GIS.removeGraphic();
+    }
+
+    function drawCity(shape) {
+        shapes = {};
+
+        var symbol = {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [0, 0, 0, 20],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0, 255],
+                "width": 2
+            }
+        };
+        drawShape(shape, symbol);
+    }
+
+
+
+    function drawCity_Late(shape) {
+        shapes = {};
+
+        var symbol2 = {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [0, 0, 0, 20],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [255, 0, 0, 255],
+                "width": 2
+            }
+        };
+        var symbol = {
+            "type": "esriSFS", "style": "esriSFSSolid", "color": [255, 0, 0, 150],
+            "outline": { "type": "esriSLS", "style": "esriSLSSolid", "color": [255, 0, 0, 255], "width": 1 }
+        }
+
+        drawShape(shape, symbol);
+    }
+
+
+    function drawCity_Progress(shape) {
+        shapes = {};
+
+        var symbol2 = {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [0, 0, 0, 20],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [173, 255, 47, 255],
+                "width": 2
+            }
+        };
+
+        var symbol = {
+            "type": "esriSFS", "style": "esriSFSSolid", "color": [255, 192, 0, 150],
+            "outline": { "type": "esriSLS", "style": "esriSLSSolid", "color": [255, 192, 0, 255], "width": 1 }
+        }
+        drawShape(shape, symbol);
+    }
+
+    function drawCity_Complete(shape){
+        shapes = {};
+
+        var symbol2 = {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [0, 0, 0, 20],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 128, 0, 255],
+                "width": 2
+            }
+        };
+
+        var symbol = {
+            "type": "esriSFS", "style": "esriSFSSolid", "color": [112, 173, 71, 190],
+            "outline": { "type": "esriSLS", "style": "esriSLSSolid", "color": [112, 173, 71, 255], "width": 1 }
+        }
+        drawShape(shape, symbol);
+    }
+
+
+
+
+    function drawShape(shape, symbol) {
+        if (shape) {
+            addGraphic(shape.split(';')[1], symbol);
+        }
+    }
+
+    function addGraphic(shape, symbol) {
+        var sridIn = 32647;
+        var sridOut = [102100];
+        var trans = gisIframeWindow_Main.GIS.transform(shape, sridIn, sridOut);
+
+        symbol = symbol || {
+            "type": "esriSLS",
+            "style": "esriSLSSolid",
+            "color": [0, 0, 0, 255],
+            "width": 1
+        }
+
+        return gisIframeWindow_Main.GIS.addGraphic(trans[0].shape, 102100, symbol);
+    }
+
+</script>
+
+</form>

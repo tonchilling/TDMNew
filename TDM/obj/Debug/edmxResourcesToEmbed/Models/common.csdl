@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="commonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TB_MAS_LANDOFFICE">
+    <Key>
+      <PropertyRef Name="LANDOFFICE_SEQ" />
+      <PropertyRef Name="LANDOFFICE_NAME_TH" />
+    </Key>
+    <Property Name="LANDOFFICE_SEQ" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+    <Property Name="LANDOFFICE_ID" Type="Decimal" Precision="8" Scale="0" />
+    <Property Name="LANDOFFICE_NAME_TH" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LANDOFFICE_NAME_EN" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="PROVINCE_SEQ" Type="Decimal" Precision="6" Scale="0" />
+    <Property Name="AMPHUR_SEQ" Type="Decimal" Precision="8" Scale="0" />
+    <Property Name="TAMBOL_SEQ" Type="Decimal" Precision="8" Scale="0" />
+  </EntityType>
+  <EntityType Name="TB_MAS_AMPHUR">
+    <Key>
+      <PropertyRef Name="AMPHUR_SEQ" />
+      <PropertyRef Name="AMPHUR_ID" />
+      <PropertyRef Name="AMPHUR_NAME_TH" />
+    </Key>
+    <Property Name="AMPHUR_SEQ" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+    <Property Name="AMPHUR_ID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AMPHUR_NAME_TH" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AMPHUR_NAME_EN" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="PROVINCE_SEQ" Type="Decimal" Precision="6" Scale="0" />
+  </EntityType>
+  <EntityType Name="TB_MAS_PROVINCE">
+    <Key>
+      <PropertyRef Name="PROVINCE_SEQ" />
+      <PropertyRef Name="PROVINCE_NAME_TH" />
+    </Key>
+    <Property Name="PROVINCE_SEQ" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
+    <Property Name="PROVINCE_ID" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PROVINCE_NAME_TH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PROVINCE_NAME_EN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PROVINCE_ABBR" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TB_MAS_TAMBOL">
+    <Key>
+      <PropertyRef Name="TAMBOL_SEQ" />
+      <PropertyRef Name="TAMBOL_ID" />
+      <PropertyRef Name="TAMBOL_NAME_TH" />
+    </Key>
+    <Property Name="TAMBOL_SEQ" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+    <Property Name="TAMBOL_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TAMBOL_NAME_TH" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TAMBOL_NAME_EN" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AMPHUR_SEQ" Type="Decimal" Precision="8" Scale="0" />
+  </EntityType>
+  <EntityContainer Name="commonEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TB_MAS_LANDOFFICE" EntityType="Self.TB_MAS_LANDOFFICE" />
+    <EntitySet Name="TB_MAS_AMPHUR" EntityType="Self.TB_MAS_AMPHUR" />
+    <EntitySet Name="TB_MAS_PROVINCE" EntityType="Self.TB_MAS_PROVINCE" />
+    <EntitySet Name="TB_MAS_TAMBOL" EntityType="Self.TB_MAS_TAMBOL" />
+  </EntityContainer>
+</Schema>

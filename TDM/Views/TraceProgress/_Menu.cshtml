@@ -1,0 +1,293 @@
+﻿@*@Scripts.Render("~/assets/js/jquery-3.3.1.js")
+    @Scripts.Render("~/assets/bootstrap/js/bootstrap.min.js")*@
+@*@Styles.Render("~/assets/css/bootstrap-select-1.6.5.min.css")
+    @Scripts.Render("~/assets/js/bootstrap-select.min-1.6.5.js")*@
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <select id="province" class="form-control" name="province" title="จังหวัด"></select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <select id="district" class="form-control" name="district" title="เขต/อำเภอ" class="selectpicker">
+                <option>อำเภอ</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <select id="tambol" class="form-control" title="แขวง/ตำบล">
+                <option>แขวง/ตำบล</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <select name="type" class="form-control" title="สำนักงานที่ดิน" id="type">
+                <option>สำนักงานที่</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="form-group">
+            <button class="btn btn-default" style="width: 100%" id="btnTraceProgress1Search" onclick="btnTraceProgress1SearchOnClick()"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <button type="clear" class="btn btn-grey-dark" style="width: 100%" onclick="window.location.reload()"><i class="fa fa-refresh"></i></button>
+        </div>
+    </div>
+</div>
+
+<div id="filter-search" class="filter" style="display: none;">
+    <header class="clearfix" style="margin-bottom: 0px">
+        <h3 class="pull-left" style="margin-bottom: 0px">เลือกค้นหาตามความต้องการ</h3>
+    </header>
+    <div class="row tab-search-icon">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div style="float: left; padding: 20px 0px 20px 10px;" class="button-width">
+                <button id="btn-detail-price" class="btn framed" title="ระบบแสดงผลข้อมูลราคาซื้อขาย ราคาประเมิน" style="background-color: #fff" disabled="disabled"><img src="~/assets/img/button-search-1.png"></button>
+            </div>
+            <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                <button id="btn-change-price" class="btn framed" title="ระบบแสดงการเปลี่ยนแปลงราคาซื้อขาย ราคาประเมิน" style="background-color: #fff" disabled="disabled"><img src="~/assets/img/button-search-2.png"></button>
+            </div>
+            <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                <button id="btn-analys" class="btn framed" title="การวิเคราะห์พื้นที่" style="background-color: #fff" disabled="disabled"><img src="~/assets/img/button-search-4.png"></button>
+            </div>
+            <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                <button id="btn-progress" class="btn framed" title="ระบบการติดตามความคืบหน้าการประเมิน" style="background-color: #fff"><img src="~/assets/img/button-search-5.png"></button>
+            </div>
+            <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                <button id="btn-loginhistory" class="btn framed" title="ระบบข้อมูลปริมาณการเข้าใช้ระบบ" style="background-color: #fff"><img src="~/assets/img/button-search-BU-6.png"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="blog-filter-detail" style="display: none;">
+    </div>
+
+    <div class="row" id="blog-filter-progress" style="display: none;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>แสดงผลข้อมูลราคาซื้อขาย / ราคาประเมิน </p>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="RadioTabTypeSearch" id="DC01" value="DC01" />
+                    ที่ดิน
+                </label>
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="RadioTabTypeSearch" id="DC02" value="DC02" />
+                    อาคารชุด
+                </label>
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="RadioTabTypeSearch" id="DC03" value="DC03" />
+                    สิ่งปลูกสร้าง
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <button class="btn btn-default" id="btnTraceProgress2Search" style="width: 100%" onclick="btnTraceProgress2SearchOnClick()"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <button type="clear" class="btn btn-grey-dark" style="width: 100%" onclick="MapRefresh()"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- แถบ ระบบข้อมูลปริมาณการเข้าใช้ระบบ-->
+    <div class="row" id="blog-filter-loginhistory" style="display: none;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>ระบุเงื่อนไขการเข้าใช้ระบบ </p>
+        </div>
+        <div class="input-row">
+            <div class="form-group col-md-6">
+                <div class="input-group input-medium date date-picker" data-date-format="dd/mm/yyyy">
+                    <input type="text" class="form-control" id="dateOnlyStart">
+                    <span class="input-group-btn">
+                        <button class="btn default" type="button">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="input-group input-medium date date-picker" data-date-format="dd/mm/yyyy">
+                    <input type="text" class="form-control" id="dateOnlyEnd">
+                    <span class="input-group-btn">
+                        <button class="btn default" type="button">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="timeOnlyStart" onkeypress='return  event.charCode == 58 || event.charCode >= 48 && event.charCode <= 57' maxlength="5" />
+                    <span class="input-group-btn">
+                        <button class="btn default" type="button">
+                            <i class="fa fa-clock-o"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="timeOnlyEnd" onkeypress='return  event.charCode == 58 || event.charCode >= 48 && event.charCode <= 57' maxlength="5" />
+                    <span class="input-group-btn">
+                        <button class="btn default" type="button">
+                            <i class="fa fa-clock-o"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>เลือกหัวข้อข้อมูลปริมาณการเข้าใช้ระบบ </p>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group" style="max-width:620px">
+                @*<select id="ddlsystem_" class="selectpicker show-menu-arrow" data-live-search="true" multiple="true"
+                    title="เลือกระบบ" data-selected-text-format="count>3" data-size="10"
+                    data-width="auto"  data-dropup-auto="false"
+                    data-mobile="false" data-show-subtext="true" ></select>*@
+
+
+                @*<select id="ddlsystem_" class="form-control" name="province" title="ทุกระบบ"></select>*@
+                <select id="ddlsystem_" class="form-control" name="ddlsystem_" title="ทุกระบบ" SelectionMode="Multiple"></select>
+
+
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <button class="btn btn-default" style="width: 100%" onclick="GetLoginHistory()"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <button type="clear" class="btn btn-grey-dark" style="width: 100%" onclick="btnSystemRefresh()"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- /.main-search -->
+</div>
+
+
+@section scripts {
+    <script>
+
+        $(function () {
+            $('#ddlsystem_').multiselect({
+                includeSelectAllOption: true
+            });
+
+            GetUMSystem();
+            DateTime();
+
+        });
+
+
+        function GetUMSystem() {
+            console.log('GetUMSystem');
+            http.get("/api/TraceProgress/GetUMSystem", {}, function (data) {
+                //console.log('GetUMSystem ==> ', data);
+                //$("#ddlsystem_").empty();
+                //$.each(data, function (index, row) {
+                //    $("#ddlsystem_").append("<option value='" + row.SYS_ID + "'>" + row.SYS_NAME + "</option>");
+                //});
+                //$('#ddlsystem_').selectpicker('refresh');
+
+
+            });
+        }
+
+        function btnTraceProgress2SearchOnClick() {
+            //$('#tdmap').css('display', 'none');
+            //$('#divGraphNew').css('display', 'block');
+            //$('#divTraceProgressByRegion').css('display', 'block');
+            //$('#divTraceProgressByProvince').css('display', 'none');
+            //$('#divTraceProgressByDistrict').css('display', 'none');
+            //$('#divTraceProgressByTambon').css('display', 'none');
+            //$('#divTabSystemTable').css('display', 'none');
+
+            var province = $('#province').val();
+            var district = $('#district').val();
+            var tambol = $('#tambol').val();
+
+            if (province.toString().length > 0) {
+                $.ajax({
+                    url: 'GetPageCharts',
+                    data: {
+                        Province: +province,
+                        District: +district,
+                        Tambol: +tambol
+                    },
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#PartialView').html(data);
+                    }
+                });
+            } else {
+                alert('กรุณาเลือกจังหวัด');
+            }
+
+
+            $('#DC01').prop('checked', false);
+            $('#DC02').prop('checked', false);
+            $('#DC03').prop('checked', false);
+        }
+
+        function GetLoginHistory() {
+            $.ajax({
+                url: 'GetPageLoginHistory',
+                dataType: 'html',
+                success: function (data) {
+                    $('#PartialView').html(data);
+                }
+            });
+        }
+
+        function DateTime() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+
+            var prefix_mm = today.getMonth() - 1;
+            var next_mm = today.getMonth() + 2;
+
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+
+            if (prefix_mm < 10) {
+                prefix_mm = '0' + prefix_mm;
+            }
+
+            if (next_mm < 10) {
+                next_mm = '0' + next_mm;
+            }
+
+            today = dd + '/' + mm + '/' + yyyy;
+
+            var prefixmonth = dd + '/' + prefix_mm + '/' + yyyy;
+            var nextmonth = dd + '/' + next_mm + '/' + yyyy;
+
+            $('#dateOnlyStart').val(prefixmonth);
+            $('#dateOnlyEnd').val(nextmonth);
+
+            $('#timeOnlyStart').val('08:00');
+            $('#timeOnlyEnd').val('18:00');
+        }
+    </script>
+}

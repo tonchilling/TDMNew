@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TDManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TDManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PROJECT_IMPACT" EntityType="TDManagementModel.PROJECT_IMPACT" />
+    <EntitySet Name="PROV_IMPACT" EntityType="TDManagementModel.PROV_IMPACT" />
+    <EntitySet Name="STATUS_IMPACT" EntityType="TDManagementModel.STATUS_IMPACT" />
+  </EntityContainer>
+  <EntityType Name="PROJECT_IMPACT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SUBJECT_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SUBJECT_NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CREATE_DATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CREATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UPDATE_DATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PUBLISH_DATE" Type="DateTime" Precision="3" />
+    <Property Name="IS_PUBLISHED" Type="Boolean" Nullable="false" />
+    <Property Name="IS_DELETED" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PROV_IMPACT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PROJECT_ID" Type="Int32" Nullable="false" />
+    <Property Name="PROV_CODE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="STATUS_IMPACT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="STATUS_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

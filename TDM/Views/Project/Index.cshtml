@@ -1,0 +1,541 @@
+﻿
+
+@{
+    ViewBag.Title = "View";
+
+}
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>กรมธนารักษ์</title>
+    @***************************
+        *   JS
+        ****************************@
+    <!-- jQuery -->
+    <script src="~/assets/js/jquery-2.1.0.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/assets/js/fastclick/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/assets/js/nprogress/nprogress.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="~/assets/js/custom_pera/custom.min.js"></script>
+    <!-- Custom Pera Scripts -->
+    <script src="~/assets/js/custom_pera/custom.pera.js"></script>
+    <!-- Datatables -->
+    <!--<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>-->
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    @*<script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>*@
+    <script src="~/assets/js/datatables/dataTables.bootstrap.min.js"></script>
+    @*<script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>*@
+    <script src="~/assets/js/datatables/dataTables.buttons.min.js"></script>
+    @*<script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>*@
+    <script src="~/assets/js/datatables/buttons.bootstrap.min.js"></script>
+    @*<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>*@
+    <script src="~/assets/js/datatables/buttons.flash.min.js"></script>
+    @*<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>*@
+    <script src="~/assets/js/datatables/buttons.html5.min.js"></script>
+    @*<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>*@
+    <script src="~/assets/js/datatables/buttons.print.min.js"></script>
+    @*<script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>*@
+    <script src="~/assets/js/datatables/dataTables.fixedHeader.min.js"></script>
+    @*<script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>*@
+    <script src="~/assets/js/datatables/dataTables.keyTable.min.js"></script>
+    @*<script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>*@
+    <script src="~/assets/js/datatables/dataTables.responsive.min.js"></script>
+    @*<script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>*@
+    <script src="~/assets/js/datatables/responsive.bootstrap.js"></script>
+    @*<script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>*@
+    <script src="~/assets/js/datatables/dataTables.scroller.min.js"></script>
+    @*<script src="../vendors/jszip/dist/jszip.min.js"></script>*@
+    <script src="~/assets/js/datatables/jszip.min.js"></script>
+    @*<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>*@
+    <script src="~/assets/js/datatables/pdfmake.min.js"></script>
+    @*<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>*@
+    <script src="~/assets/js/datatables/vfs_fonts.js"></script>
+    <!-- e Chart -->
+    <script src="~/assets/js/Chart/echarts.min.js"></script>
+    <!-- notification -->
+    <script src="~/assets/js/iziToast.js"></script>
+
+    <script src="~/Scripts/map_loader.js"></script>
+
+
+
+    @***************************
+            *    CSS
+        ****************************@
+    <!-- Bootstrap -->
+    <link href="~/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/assets/fonts/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/assets/css/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="~/assets/css/custom_pera/custom.min.css?ver=1.3" rel="stylesheet">
+    <!-- Fonts Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- Datatables -->
+    <link href="~/assets/css/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- notification -->
+    <link href="~/assets/css/iziToast.min.css" rel="stylesheet" />
+    <link href="~/assets/css/Kim_Style.css?ver=1.0" rel="stylesheet">
+    <style>
+        /*body ความกว้าง*/
+        .nav-md .container.body .right_col {
+            margin-left: 1px !important;
+        }
+
+        /*รูปกรมธนารักษ์*/
+        .main_container .top_nav {
+            margin-left: 0px !important;
+        }
+
+        /*ความสูง แถบติดตามความก้าวหน้าของการประเมินราคา*/
+        .fixed_height_950 {
+            height: 950px;
+        }
+
+        .fixed_height_750 {
+            height: 750px;
+        }
+
+        .fixed_height_800 {
+            height: 800px;
+        }
+
+        .fixed_height_371 {
+            height: 371px;
+        }
+
+        .x_title h2 {
+            width: 85% !important;
+        }
+
+        .td__Center {
+            text-align: center !important;
+        }
+
+        .th__center {
+            text-align: center !important;
+        }
+
+        .RecentActive__Label {
+            vertical-align: bottom !important;
+            padding-left: 7px;
+        }
+
+        .RecentActive__Label__Alert {
+            border-radius: 6px;
+            padding-right: 6px;
+            padding-left: 5px;
+            vertical-align: bottom !important;
+        }
+
+        .dataTables_filter {
+            width: 100% !important;
+        }
+
+        .Label__Header {
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .border__chart {
+            border-radius: 25px;
+            border: 2px solid #73AD21;
+            padding: 20px;
+            /*width: 1227px;*/
+            width: 100%;
+            height: 489px;
+            background-repeat: repeat;
+        }
+
+
+        .wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        #chart2 {
+            height: 600px;
+            min-width: 310px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .loading {
+            margin-top: 10em;
+            text-align: center;
+            color: gray;
+        }
+
+
+        /*แถบ ระบบ*/
+        /*.ul.quick-list{
+            width: 95% !important;
+        }*/
+    </style>
+
+
+    <script>
+
+        $(function () {
+            var $tabButtonItem = $('.tab-button li'),
+        $tabSelect = $('.tab-select'),
+        $tabContents = $('.tab-contents'),
+        activeClass = 'is-active';
+
+            $tabButtonItem.first().addClass(activeClass);
+            $tabContents.not(':first').hide();
+
+            $tabButtonItem.find('a').on('click', function (e) {
+                var target = $(this).attr('href');
+
+                $tabButtonItem.removeClass(activeClass);
+                $(this).parent().addClass(activeClass);
+                $tabSelect.val(target);
+                $tabContents.hide();
+                $(target).show();
+                e.preventDefault();
+            });
+
+            $tabSelect.on('change', function () {
+                var target = $(this).val(),
+                    targetSelectNum = $(this).prop('selectedIndex');
+
+                $tabButtonItem.removeClass(activeClass);
+                $tabButtonItem.eq(targetSelectNum).addClass(activeClass);
+                $tabContents.hide();
+                $(target).show();
+            });
+
+        });
+    </script>
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <ul class="nav navbar-nav ">
+                            <li class="">
+                                <a href="~/"><img src="~/assets/img/logo.png" alt="logo"></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+
+            <div class="right_col" role="main">
+                <!-- Header -->
+                <div class="row ">
+                    <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count" style="text-align:center">
+                        <!-- col-md-12 col-sm-12 col-xs-12-->
+                        <div class="count" style="margin-top:20px"><label style="font-size:30px">ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</label></div>
+                    </div>
+                </div>
+
+
+
+                <!--row 1-->
+                <div class="row" style="display:none">
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <div class="x_panel tile  ">
+                            <div class="x_title">
+                                <div class="col-md-10 col-sm-8 col-xs-9">
+                                    <label class="Label__Header">แผนงานปรับราคาประเมินที่ดินรายแปลง เพื่อจัดทำฐานข้อมูลราคาประเมินที่ดินรายแปล</label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-3">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <a href="#">Settings 1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Settings 2</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="dashboard-widget-content">
+                                    <div class="row">
+                                        <div id="chartSpeedometer1_" style="height:270px;margin-top:10px;" class="col-md-4 col-sm-4 col-xs-12"></div> <!-- echart_gauge-->
+                                        <div id="chartSpeedometer2_" style="height:270px;margin-top:10px;" class="col-md-4 col-sm-4 col-xs-12"></div>
+                                        <div id="chartSpeedometer3_" style="height:270px;margin-top:10px;" class="col-md-4 col-sm-4 col-xs-12"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="x_panel tile fixed_height_371">
+                            <div class="x_title">
+                                <div class="col-md-10 col-sm-8 col-xs-9">
+                                    <label class="Label__Header">จังหวัดที่มีการเปลี่ยนแปลงราคาซื้อขายของอาคารชุดสูงสุด</label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-3">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <a href="#">Settings 1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Settings 2</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="dashboard-widget-content">
+                                    <div class="row" style="text-align:center">
+                                        <div id="chartPie1" style="height:330px;margin-top:-62px" class="col-md-12 col-sm-12 col-xs-12"></div> <!-- echart_gauge-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="display:none">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel tile  ">
+                            <div class="x_title">
+                                <div class="col-md-10 col-sm-8 col-xs-9">
+                                    <label class="Label__Header">ติดตามความก้าวหน้าของการประเมินราคา</label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-3">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <a href="#">Settings 1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Settings 2</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="dashboard-widget-content">
+                                    <a href="~/Home/System_3_with_Layout?Menu=4" style="cursor:pointer">
+                                        <div class="row" style="text-align:center">
+                                            <div class="col-md-3 col-sm-3 col-xs-12" style="height:270px;margin-top:0px;">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">แผนงานปรับราคาประเมินที่ดินรายแปลง</div>
+                                                <div id="chartSpeedometer1_1_" class="col-md-12 col-sm-12 col-xs-12" style="height:270px;margin-top:0px;cursor:pointer"></div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12" style="height:270px;margin-top:0px;">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">แผนงานขยายพื้นที่ประเมินราคาที่ดินรายแปลง</div>
+                                                <div id="chartSpeedometer1_2_" class="col-md-12 col-sm-12 col-xs-12" style="height:270px;margin-top:0px;cursor:pointer"></div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12" style="height:270px;margin-top:0px;">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">แผนงานการปรับราคาประเมินทุนทรัพย์ห้องชุด</div>
+                                                <div id="chartSpeedometer1_3_" class="col-md-12 col-sm-12 col-xs-12" style="height:270px;margin-top:0px;cursor:pointer"></div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12" style="height:270px;margin-top:0px;">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">แผนงานการประเมินราคาทุนทรัพย์โรงเรือนสิ่งปลูกสร้าง</div>
+                                                <div id="chartSpeedometer1_4_" class="col-md-12 col-sm-12 col-xs-12" style="height:270px;margin-top:0px;cursor:pointer"></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel tile  ">
+                            <div class="x_title">
+                                <div class="col-md-10 col-sm-8 col-xs-9">
+                                    <label class="Label__Header">หน้าการจัดการโครงการ</label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-3">
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <a href="#">Settings 1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Settings 2</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <!--    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                    <li role="presentation" class="active" id="tab_label1" onclick="tab_label1Onclick()">
+                                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">ที่ดิน</a>
+                                    </li>
+                                    <li role="presentation" class="" id="tab_label2" onclick="tab_label2Onclick()">
+                                        <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">อาคารชุด</a>
+                                    </li>
+                                    <li role="presentation" class="" id="tab_label3" onclick="tab_label3Onclick()">
+                                        <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">สิ่งปลูกสร้าง</a>
+                                    </li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content">
+
+                                </div>
+                            </div>-->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                    
+                                          <div class="panel panel-login">
+                                              <div class="panel-heading">
+                                                <span>เงื่อนไขการค้นหา</span>
+
+                                              </div>
+                                              <div class="panel-body">
+
+                                                
+
+
+                                                  <div class="row">
+                                                      <div class="col-sm-2"></div>
+                                                          <div class="col-sm-4">
+
+                                                              <div class="form-group">
+
+                                                                  <input type="text" class="form-control" value="" placeholder="รหัสโครงการ" />
+                                                              </div>
+
+                                                          </div>
+
+                                                          <div class="col-sm-4">
+
+                                                              <div class="form-group">
+
+                                                                  <input type="text" class="form-control" value="" placeholder="ชื่อโครงการ" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  <div class="row">
+                                                      <div class="col-sm-2"></div>
+                                                      <div class="col-sm-4">
+
+                                                          <div class="form-group">
+
+                                                              <input type="text" class="form-control" value="" placeholder="พื้นที่ที่มีการพัฒนาโครงการรัฐ" />
+                                                          </div>
+
+                                                      </div>
+
+                                                      <div class="col-sm-4">
+
+                                                          <div class="input-group date" data-provide="datepicker">
+                                                              <input type="text" class="form-control datetimepicker  txtDateInstalled" id="txtDateInstalled">
+                                                              <div class="input-group-addon">
+                                                                  <span class="fa fa-calendar"></span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="col-sm-2"></div>
+
+                                                      <div class="col-sm-8 text-center">
+                                                          <p>
+                                                              <button type="button" class="btn btn-primary btn-lg">ค้นหา</button>
+                                                              <button type="button" class="btn btn-danger btn-lg">ยกเลิก</button>
+                                                              
+                                                          </p>
+                                                      
+                                                          
+                                                      </div>
+                                                      </div>
+
+
+                                              </div>
+
+                                          </div>
+
+                                    
+
+                                    </div>
+
+                                  
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            </div>
+        </div>
+    </body>
+</html>
