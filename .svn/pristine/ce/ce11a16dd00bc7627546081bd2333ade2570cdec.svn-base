@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="commonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'common.dbo.TB_MAS_AMPHUR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TB_MAS_AMPHUR">
+          <Key>
+            <PropertyRef Name="AMPHUR_SEQ" />
+            <PropertyRef Name="AMPHUR_ID" />
+            <PropertyRef Name="AMPHUR_NAME_TH" />
+          </Key>
+          <Property Name="AMPHUR_SEQ" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="AMPHUR_ID" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="AMPHUR_NAME_TH" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="AMPHUR_NAME_EN" Type="varchar" MaxLength="500" />
+          <Property Name="PROVINCE_SEQ" Type="numeric" Precision="6" Scale="0" />
+        </EntityType>
+        <EntityType Name="TB_MAS_LANDOFFICE">
+          <Key>
+            <PropertyRef Name="LANDOFFICE_SEQ" />
+            <PropertyRef Name="LANDOFFICE_NAME_TH" />
+          </Key>
+          <Property Name="LANDOFFICE_SEQ" Type="numeric" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="LANDOFFICE_ID" Type="numeric" Precision="8" Scale="0" />
+          <Property Name="LANDOFFICE_NAME_TH" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="LANDOFFICE_NAME_EN" Type="varchar" MaxLength="500" />
+          <Property Name="PROVINCE_SEQ" Type="numeric" Precision="6" Scale="0" />
+          <Property Name="AMPHUR_SEQ" Type="numeric" Precision="8" Scale="0" />
+          <Property Name="TAMBOL_SEQ" Type="numeric" Precision="8" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'common.dbo.TB_MAS_PROVINCE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TB_MAS_PROVINCE">
+          <Key>
+            <PropertyRef Name="PROVINCE_SEQ" />
+            <PropertyRef Name="PROVINCE_NAME_TH" />
+          </Key>
+          <Property Name="PROVINCE_SEQ" Type="numeric" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="PROVINCE_ID" Type="nvarchar" MaxLength="500" />
+          <Property Name="PROVINCE_NAME_TH" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PROVINCE_NAME_EN" Type="nvarchar" MaxLength="500" />
+          <Property Name="PROVINCE_ABBR" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'common.dbo.TB_MAS_TAMBOL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TB_MAS_TAMBOL">
+          <Key>
+            <PropertyRef Name="TAMBOL_SEQ" />
+            <PropertyRef Name="TAMBOL_ID" />
+            <PropertyRef Name="TAMBOL_NAME_TH" />
+          </Key>
+          <Property Name="TAMBOL_SEQ" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="TAMBOL_ID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TAMBOL_NAME_TH" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="TAMBOL_NAME_EN" Type="varchar" MaxLength="500" />
+          <Property Name="AMPHUR_SEQ" Type="numeric" Precision="8" Scale="0" />
+        </EntityType>
+        <EntityContainer Name="commonModelStoreContainer">
+          <EntitySet Name="TB_MAS_LANDOFFICE" EntityType="Self.TB_MAS_LANDOFFICE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_MAS_AMPHUR" EntityType="Self.TB_MAS_AMPHUR" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TB_MAS_AMPHUR].[AMPHUR_SEQ] AS [AMPHUR_SEQ], 
+    [TB_MAS_AMPHUR].[AMPHUR_ID] AS [AMPHUR_ID], 
+    [TB_MAS_AMPHUR].[AMPHUR_NAME_TH] AS [AMPHUR_NAME_TH], 
+    [TB_MAS_AMPHUR].[AMPHUR_NAME_EN] AS [AMPHUR_NAME_EN], 
+    [TB_MAS_AMPHUR].[PROVINCE_SEQ] AS [PROVINCE_SEQ]
+    FROM [dbo].[TB_MAS_AMPHUR] AS [TB_MAS_AMPHUR]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TB_MAS_PROVINCE" EntityType="Self.TB_MAS_PROVINCE" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TB_MAS_PROVINCE].[PROVINCE_SEQ] AS [PROVINCE_SEQ], 
+    [TB_MAS_PROVINCE].[PROVINCE_ID] AS [PROVINCE_ID], 
+    [TB_MAS_PROVINCE].[PROVINCE_NAME_TH] AS [PROVINCE_NAME_TH], 
+    [TB_MAS_PROVINCE].[PROVINCE_NAME_EN] AS [PROVINCE_NAME_EN], 
+    [TB_MAS_PROVINCE].[PROVINCE_ABBR] AS [PROVINCE_ABBR]
+    FROM [dbo].[TB_MAS_PROVINCE] AS [TB_MAS_PROVINCE]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TB_MAS_TAMBOL" EntityType="Self.TB_MAS_TAMBOL" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TB_MAS_TAMBOL].[TAMBOL_SEQ] AS [TAMBOL_SEQ], 
+    [TB_MAS_TAMBOL].[TAMBOL_ID] AS [TAMBOL_ID], 
+    [TB_MAS_TAMBOL].[TAMBOL_NAME_TH] AS [TAMBOL_NAME_TH], 
+    [TB_MAS_TAMBOL].[TAMBOL_NAME_EN] AS [TAMBOL_NAME_EN], 
+    [TB_MAS_TAMBOL].[AMPHUR_SEQ] AS [AMPHUR_SEQ]
+    FROM [dbo].[TB_MAS_TAMBOL] AS [TB_MAS_TAMBOL]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="commonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TB_MAS_LANDOFFICE">
+          <Key>
+            <PropertyRef Name="LANDOFFICE_SEQ" />
+            <PropertyRef Name="LANDOFFICE_NAME_TH" />
+          </Key>
+          <Property Name="LANDOFFICE_SEQ" Type="Decimal" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="LANDOFFICE_ID" Type="Decimal" Precision="8" Scale="0" />
+          <Property Name="LANDOFFICE_NAME_TH" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LANDOFFICE_NAME_EN" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PROVINCE_SEQ" Type="Decimal" Precision="6" Scale="0" />
+          <Property Name="AMPHUR_SEQ" Type="Decimal" Precision="8" Scale="0" />
+          <Property Name="TAMBOL_SEQ" Type="Decimal" Precision="8" Scale="0" />
+        </EntityType>
+        <EntityType Name="TB_MAS_AMPHUR">
+          <Key>
+            <PropertyRef Name="AMPHUR_SEQ" />
+            <PropertyRef Name="AMPHUR_ID" />
+            <PropertyRef Name="AMPHUR_NAME_TH" />
+          </Key>
+          <Property Name="AMPHUR_SEQ" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="AMPHUR_ID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AMPHUR_NAME_TH" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AMPHUR_NAME_EN" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PROVINCE_SEQ" Type="Decimal" Precision="6" Scale="0" />
+        </EntityType>
+        <EntityType Name="TB_MAS_PROVINCE">
+          <Key>
+            <PropertyRef Name="PROVINCE_SEQ" />
+            <PropertyRef Name="PROVINCE_NAME_TH" />
+          </Key>
+          <Property Name="PROVINCE_SEQ" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="PROVINCE_ID" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PROVINCE_NAME_TH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PROVINCE_NAME_EN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PROVINCE_ABBR" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TB_MAS_TAMBOL">
+          <Key>
+            <PropertyRef Name="TAMBOL_SEQ" />
+            <PropertyRef Name="TAMBOL_ID" />
+            <PropertyRef Name="TAMBOL_NAME_TH" />
+          </Key>
+          <Property Name="TAMBOL_SEQ" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="TAMBOL_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TAMBOL_NAME_TH" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TAMBOL_NAME_EN" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AMPHUR_SEQ" Type="Decimal" Precision="8" Scale="0" />
+        </EntityType>
+        <EntityContainer Name="commonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TB_MAS_LANDOFFICE" EntityType="Self.TB_MAS_LANDOFFICE" />
+          <EntitySet Name="TB_MAS_AMPHUR" EntityType="Self.TB_MAS_AMPHUR" />
+          <EntitySet Name="TB_MAS_PROVINCE" EntityType="Self.TB_MAS_PROVINCE" />
+          <EntitySet Name="TB_MAS_TAMBOL" EntityType="Self.TB_MAS_TAMBOL" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="commonModelStoreContainer" CdmEntityContainer="commonEntities">
+          <EntitySetMapping Name="TB_MAS_LANDOFFICE">
+            <EntityTypeMapping TypeName="commonModel.TB_MAS_LANDOFFICE">
+              <MappingFragment StoreEntitySet="TB_MAS_LANDOFFICE">
+                <ScalarProperty Name="LANDOFFICE_SEQ" ColumnName="LANDOFFICE_SEQ" />
+                <ScalarProperty Name="LANDOFFICE_ID" ColumnName="LANDOFFICE_ID" />
+                <ScalarProperty Name="LANDOFFICE_NAME_TH" ColumnName="LANDOFFICE_NAME_TH" />
+                <ScalarProperty Name="LANDOFFICE_NAME_EN" ColumnName="LANDOFFICE_NAME_EN" />
+                <ScalarProperty Name="PROVINCE_SEQ" ColumnName="PROVINCE_SEQ" />
+                <ScalarProperty Name="AMPHUR_SEQ" ColumnName="AMPHUR_SEQ" />
+                <ScalarProperty Name="TAMBOL_SEQ" ColumnName="TAMBOL_SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_MAS_AMPHUR">
+            <EntityTypeMapping TypeName="commonModel.TB_MAS_AMPHUR">
+              <MappingFragment StoreEntitySet="TB_MAS_AMPHUR">
+                <ScalarProperty Name="AMPHUR_SEQ" ColumnName="AMPHUR_SEQ" />
+                <ScalarProperty Name="AMPHUR_ID" ColumnName="AMPHUR_ID" />
+                <ScalarProperty Name="AMPHUR_NAME_TH" ColumnName="AMPHUR_NAME_TH" />
+                <ScalarProperty Name="AMPHUR_NAME_EN" ColumnName="AMPHUR_NAME_EN" />
+                <ScalarProperty Name="PROVINCE_SEQ" ColumnName="PROVINCE_SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_MAS_PROVINCE">
+            <EntityTypeMapping TypeName="commonModel.TB_MAS_PROVINCE">
+              <MappingFragment StoreEntitySet="TB_MAS_PROVINCE">
+                <ScalarProperty Name="PROVINCE_SEQ" ColumnName="PROVINCE_SEQ" />
+                <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+                <ScalarProperty Name="PROVINCE_NAME_TH" ColumnName="PROVINCE_NAME_TH" />
+                <ScalarProperty Name="PROVINCE_NAME_EN" ColumnName="PROVINCE_NAME_EN" />
+                <ScalarProperty Name="PROVINCE_ABBR" ColumnName="PROVINCE_ABBR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_MAS_TAMBOL">
+            <EntityTypeMapping TypeName="commonModel.TB_MAS_TAMBOL">
+              <MappingFragment StoreEntitySet="TB_MAS_TAMBOL">
+                <ScalarProperty Name="TAMBOL_SEQ" ColumnName="TAMBOL_SEQ" />
+                <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
+                <ScalarProperty Name="TAMBOL_NAME_TH" ColumnName="TAMBOL_NAME_TH" />
+                <ScalarProperty Name="TAMBOL_NAME_EN" ColumnName="TAMBOL_NAME_EN" />
+                <ScalarProperty Name="AMPHUR_SEQ" ColumnName="AMPHUR_SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

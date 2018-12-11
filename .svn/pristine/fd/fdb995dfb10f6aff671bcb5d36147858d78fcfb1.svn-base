@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        /**/
+        //var root = @Url.Content("~");
+        /**/
+    </script>
+ 
+
+
+    <link href="~/assets/fonts/font-awesome.css" rel="stylesheet" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="~/assets/css/bootstrap-select.min.css" type="text/css">
+        <link rel="stylesheet" href="~/assets/css/owl.carousel.css" type="text/css">
+        <link rel="stylesheet" href="~/assets/css/jquery.nouislider.min.css" type="text/css">
+        <link rel="stylesheet" href="~/assets/css/leaflet.css" type="text/css">
+        <link rel="stylesheet" href="~/assets/css/jquery.mCustomScrollbar.css" type="text/css">
+        <link rel="stylesheet" href="~/assets/css/colors/green.css" type="text/css">
+        <link rel="stylesheet" href="~/assets/css/user.style.css" type="text/css">
+
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script src="https://www.google.com/uds/?file=visualization&amp;v=1&amp;packages=bar%2Ccorechart%2Cline" type="text/javascript"></script>
+    <link href="https://www.google.com/uds/api/visualization/1.0/40ff64b1d9d6b3213524485974f36cc0/ui+en.css" type="text/css" rel="stylesheet">
+    <script src="https://www.google.com/uds/api/visualization/1.0/40ff64b1d9d6b3213524485974f36cc0/webfontloader,dygraph,format+en,default+en,ui+en,line+en,bar+en,corechart+en.I.js" type="text/javascript"></script>
+    <script src="https://www.google.com/uds/?file=visualization&amp;v=1.1&amp;packages=gantt&amp;have=line%2Cbar%2Ccorechart" type="text/javascript"></script>
+    <script src="https://www.google.com/uds/api/visualization/1.1/cc5d8333ad9d2dca8ea31ac15ed4e2df/gantt+en.js" type="text/javascript"></script>
+
+    <title>Treasury Map</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" href="~/~/assets/img/favicon.png" type="images/png" />
+
+    <!-- APPLE TOUCH ICON -->
+    <link rel="apple-touch-icon" href="img/webclip.png">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles" ,false)
+    <!-- OG TAGS -->
+    <meta property="og:title" content="Treasury Map" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="ค้นหาแปลงที่ดินจากจุดสนใจ" />
+</head>
+<body onunload="" class="map-fullscreen page-homepage navigation-off-canvas" id="page-top">
+    <!-- Outer Wrapper-->
+    <div id="outer-wrapper">
+        <!-- Inner Wrapper -->
+        <div id="inner-wrapper">
+            <!-- Navigation-->
+            <div class="header">
+                <div class="wrapper">
+                    <div class="brand" style="margin-top:15px;margin-left:9px">
+                        <a href="~/"><img src="~/assets/img/logo.png" alt="logo"></a>
+                    </div>
+                    <nav class="navigation-items" style="display:none">
+                        <div class="wrapper">
+                            <ul class="main-navigation navigation-top-header"></ul>
+                            <ul class="user-area">
+                                <li><a href="#"><strong>Log out</strong></a></li>
+                            </ul>
+                            <a href="#" class="submit-item">
+                                <div class="content"><span>My Account</span></div>
+                                <div class="icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                            </a>
+                            <div class="toggle-navigation">
+                                <div class="icon">
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!-- end Navigation-->
+            <!-- Page Canvas-->
+            <div id="page-canvas">
+                <!--Off Canvas Navigation-->
+                <nav class="off-canvas-navigation" style="display:none">
+                    <header>Navigation</header>
+                    <div class="main-navigation navigation-off-canvas"></div>
+                </nav>
+                <!--end Off Canvas Navigation-->
+                <!--Page Content-->
+                <div id="page-content">
+                    @RenderBody()
+
+                </div>
+                <!-- end Page Content-->
+            </div>
+            <!-- end Page Canvas-->
+
+        </div>
+        <!-- end Inner Wrapper -->
+    </div>
+    <!-- end Outer Wrapper-->
+
+    @Scripts.Render("~/Scripts/Shared/helper.js")
+    @Scripts.Render("~/Scripts/Shared/config.js")
+    <script>
+        config.root = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["root"]));
+        config.mapUrl = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["mapUrl"]));
+    </script>
+    @Scripts.Render("~/Scripts/Shared/http.js")
+    @Scripts.Render("~/Scripts/Shared/land_layer_map.js")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    @RenderSection("scripts", required: false)
+
+   
+    @*<script type="text/javascript" src="~/assets/js/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/before.load.js"></script>
+        <script type="text/javascript" src="~/assets/js/leaflet.js"></script>
+        <script type="text/javascript" src="~/assets/js/leaflet-providers.js"></script>
+        <script type="text/javascript" src="~/assets/js/leaflet.markercluster.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/smoothscroll.js"></script>
+        <script type="text/javascript" src="~/assets/js/bootstrap-select.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/icheck.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery.hotkeys.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery.nouislider.all.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/custom.js"></script>
+        <script type="text/javascript" src="~/assets/js/maps.js"></script>*@
+    @*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC1jJD77MZNqvFn0PT7JHYY_rcu2W_tA7I"></script>*@
+
+    <style type="text/css">
+    </style>
+
+
+
+    <!--[if lte IE 9]>
+    <script type="text/javascript" src="~/assets/js/ie-scripts.js"></script>
+    <![endif]-->
+</body>
+</html>

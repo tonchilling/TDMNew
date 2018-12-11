@@ -1,0 +1,118 @@
+﻿@model TDM.Models.TB_MAS_PROVINCE
+
+@{
+    ViewBag.Title = "Treasury Map";
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/Home/Index.js")
+}
+
+
+<section class="block banner center">
+    <div class="container">
+        <h2 class="big" style="line-height: 40px; color: #fff">ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</h2>
+    </div>
+    <div class="background">
+        <img src="~/assets/img/login-bg.png" alt="">
+    </div>
+</section>
+
+<section id="promo-boxes" class="block" style="margin-bottom: 0px; padding-bottom: 0px; padding-top: 90px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="~/Search" class="promo-box medium">
+                    <div class="image"><img src="~/assets/img/01-show-trading-price.png" alt=""></div>
+                    <div class="wrapper">
+                        <h3>การแสดงผลข้อมูลราคาซื้อขาย ราคาประเมิน</h3>
+                    </div>
+                </a>
+                <!--./promo-box-->
+            </div>
+            <!--./col-md-4-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="~/ChangesPrice" class="promo-box medium background-color-grey-dark1">
+                    <div class="image"><img src="~/assets/img/02-change-trading-price.png" alt=""></div>
+                    <div class="wrapper">
+                        <h3>การเปลี่ยนแปลงราคาซื้อขาย ราคาประเมิน</h3>
+                    </div>
+                </a>
+                <!--./promo-box-->
+            </div>
+            <!--./col-md-4-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="~/AreaInfo" class="promo-box medium background-color-default1">
+                    <div class="image"><img src="~/assets/img/03-amount-building.png" alt=""></div>
+                    <div class="wrapper">
+                        <h3>การแสดงผลข้อมูลปริมาณอาคารชุด และโรงเรือน<br>สิ่งปลูกสร้าง ในแต่ละพื้นที่</h3>
+                    </div>
+                </a>
+                <!--./promo-box-->
+            </div>
+            <!--./col-md-4-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="#" class="promo-box medium">
+                    <div class="image"><img src="~/assets/img/04-analyze-area.png" alt=""></div>
+                    <div class="wrapper">
+                        <h3>การวิเคราะห์พื้นที่</h3>
+                    </div>
+                </a>
+                <!--./promo-box-->
+            </div>
+            <!--./col-md-4-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="~/TrackValuation" class="promo-box medium background-color-grey-dark1">
+                    <div class="image"><img src="~/assets/img/05-follow-evaluation.png" alt=""></div>
+                    <div class="wrapper">
+                        <h3>การติดตามความก้าวหน้าของการประเมินราคา</h3>
+                    </div>
+                </a>
+                <!--./promo-box-->
+            </div>
+            <!--./col-md-4-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="~/UsageVolume" class="promo-box medium background-color-default1">
+                    <div class="image"><img src="~/assets/img/06-amount-user.png" alt=""></div>
+                    <div class="wrapper">
+                        <h3>แสดงปริมาณผู้ใช้งานระบบสารสนเทศด้านการประเมินราคา</h3>
+                    </div>
+                </a>
+                <!--./promo-box-->
+            </div>
+            <!--./col-md-4-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="~/OtherAnalysis" class="promo-box medium background-color-grey-dark1">
+                    <div class="image"><img src="~/assets/img/07-show-other.png" alt=""></div>
+                    <div class="wrapper">
+                        <h3>การแสดงผลการวิเคราะห์เรื่องอื่นๆ</h3>
+                    </div>
+                </a>
+                <!--./promo-box-->
+            </div>
+            <!--./col-md-4-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="~/OtherAnalysis" class="promo-box medium background-color-grey-dark1">
+                    <div class="image"><img src="~/assets/img/07-show-other.png" alt=""></div>
+                    <div class="wrapper">
+                        <h3>การแสดงผลการวิเคราะห์เรื่องอื่นๆ</h3>
+                    </div>
+                </a>
+                <!--./promo-box-->
+            </div>
+            <!--./col-md-4-->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="#" class="promo-box medium background-color-default1">
+                    <div class="image"><img src="~/assets/img/08-manage-users.png" alt=""></div>
+                    <div class="wrapper">
+                        <h3>ระบบบริหารจัดการผู้ใช้งาน</h3>
+                    </div>
+                </a>
+                <!--./promo-box-->
+            </div>
+            <!--./col-md-4-->
+        </div>
+    </div>
+    <!--./container-->
+</section>
+<!--end Promo Boxes-->

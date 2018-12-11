@@ -14,10 +14,15 @@ namespace TDM.Models
 
    public enum SetionType
     {
+        All = 0,
         Region = 1,
         Provice = 2,
         Amphur = 3,
-        Tumbol = 4
+        Tumbol = 4,
+
+        ProviceByID = 5,
+        AmphurByID = 6,
+        TumbolByID = 7,
     }
 
     public partial class SearchMap
@@ -59,7 +64,8 @@ namespace TDM.Models
 
     public partial class EstimateData
     {
-
+        public string DisplayCode { get; set; }
+        public string DisplayName { get; set; }
         public string RegionCode { get; set; }
         public string RegionName { get; set; }
         public string ProviceCode { get; set; }
@@ -69,12 +75,20 @@ namespace TDM.Models
         public string TAMBOLCode { get; set; }
         public string TAMBOLName { get; set; }
         public string MarketPrice { get; set; }
+        public string MarketPriceMin { get; set; }
+        public string MarketPriceMax { get; set; }
+        public string MarketPriceAvg { get; set; }
+        public string LAND_AREA { get; set; }
+        public string LAND_Total { get; set; }
         public string ParcelPrice { get; set; }
+        public string ParcelPriceMin { get; set; }
+        public string ParcelPriceMax { get; set; }
+        public string ParcelPriceAvg { get; set; }
 
         public string MarketColor { get; set; }
-    public string ParcelColor { get; set; }
-public string Shape { get; set; }
+        public string ParcelColor { get; set; }
+        public string Shape { get; set; }
 
     }
 
-    }
+}

@@ -1,0 +1,299 @@
+﻿@model TDM.Models.TB_MAS_PROVINCE
+
+@{
+    ViewBag.Title = "การแสดงผลข้อมูลปริมาณอาคารชุด และโรงเรือนสิ่งปลูกสร้าง ในแต่ละพื้นที่";
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/AreaInfo/SearchPOI.js")
+}
+
+    <!-- Map Canvas-->
+    <div class="map-canvas list-solid">
+        <!-- Map -->
+        <div class="map">
+            <iframe class="map-height" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248057.1877315285!2d100.4930263209879!3d13.72489362065799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d6032280d61f3%3A0x10100b25de24820!2sBangkok!5e0!3m2!1sen!2sth!4v1519632636409" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+        <!-- end Map -->
+        <!--Items List-->
+        <div class="items-list">
+            <div class="inner">
+                <div class="scroller1">
+                    <div class="filter">
+                        <form class="main-search" role="form" method="post" action="http://vh-projects.com/treasury-map/search-3-1.html?">
+                            <header class="clearfix">
+                                <h3 class="pull-left">ค้นหาข้อมูลจากจุดสนใจ</h3>
+                                <div class="buttons pull-right">
+                                    <a href="search-1.html" class="icon"><i class="fa fa-angle-left" style="color: #0eaa74"></i> Back</a>
+                                </div>
+                            </header>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select name="type" multiple title="ประเภทข้อมูลปริมาณ" data-live-search="true" id="type">
+                                            <option value="1">ทั้งหมด</option>
+                                            <option value="3">อาคารชุด</option>
+                                            <option value="4">โรงเรือนสิ่งปลูกสร้าง</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!--/.col-md-6-->
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select name="type" multiple title="จังหวัด" data-live-search="true" id="type">
+                                            <option value="1">ทั้งหมด</option>
+                                            <option value="2">กระบี่</option>
+                                            <option value="3">กรุงเทพมหานคร</option>
+                                            <option value="4">กาญจนบุรี</option>
+                                            <option value="5">กาฬสินธุ์</option>
+                                            <option value="6">กำแพงเพชร</option>
+                                            <option value="7">ขอนแก่น</option>
+                                            <option value="8">จันทบุรี</option>
+                                            <option value="9">ฉะเชิงเทรา</option>
+                                            <option value="10">ชลบุรี</option>
+                                            <option value="11">ชัยนาท</option>
+                                            <option value="12">....</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!--/.col-md-6-->
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select name="type" multiple title="เขต/อำเภอ" data-live-search="true" id="type">
+                                            <option value="1">ทั้งหมด</option>
+                                            <option value="2">พระนคร</option>
+                                            <option value="3">ดุสิต</option>
+                                            <option value="4">หนองจอก</option>
+                                            <option value="5">บางรัก</option>
+                                            <option value="6">บางเขน</option>
+                                            <option value="7">บางกะปิ</option>
+                                            <option value="8">ปทุมวัน</option>
+                                            <option value="9">ป้อมปราบศัตรูพ่าย</option>
+                                            <option value="10">พระโขนง</option>
+                                            <option value="11">มีนบุรี</option>
+                                            <option value="12">....</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!--/.col-md-6-->
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select name="type" multiple title="แขวง/ตำบล" data-live-search="true" id="type">
+                                            <option value="1">ทั้งหมด</option>
+                                            <option value="2">บางแค</option>
+                                            <option value="3">บางแคเหนือ</option>
+                                            <option value="4">บางไผ่</option>
+                                            <option value="5">หลักสอง</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!--/.col-md-6-->
+
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select name="type" multiple title="ประเภทแปลงที่ดิน" data-live-search="true" id="type">
+                                            <option value="1">ทั้งหมด</option>
+                                            <option value="2">โฉนดที่ดิน</option>
+                                            <option value="3">นส 3 ก.</option>
+                                            <option value="4">ที่ราชพัสดุ</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!--/.col-md-6-->
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <select name="type" multiple title="ประเภทข้อมูล" data-live-search="true" id="type">
+                                            <option value="1">ทั้งหมด</option>
+                                            <option value="2">ราคาประเมิณ</option>
+                                            <option value="3">ราคาซื้อขาย</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!--/.col-md-6-->
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-group location">
+                                            <input type="text" class="form-control" id="location" placeholder="รัสมี (เมตร)">
+                                        </div>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-group location">
+                                            <input type="text" class="form-control" id="location" placeholder="ชื่อจุดสนใจ">
+                                        </div>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <button type="clear" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                            </div>
+                            <!--/.row-->
+                        </form>
+                        <!-- /.main-search -->
+                    </div>
+                    <!--end Filter-->
+                    <header class="clearfix">
+                        <h3 class="pull-left">ผลการค้นหา</h3>
+                        <div class="buttons pull-right">
+                            30 รายการ
+                        </div>
+                    </header>
+                    <ul class="results list">
+                        <li>
+                            <div class="item" id="1">
+                                <a class="image">
+                                    <div class="inner">
+                                        <img src="~/assets/img/detail-sofitel.jpg" alt="" class="mCS_img_loaded">
+                                    </div>
+                                </a>
+                                <div class="wrapper">
+                                    <a href="#" id="1"><h3>โซฟิเทลสีลม</h3></a>
+                                    <figure>188 ถ.สีลม สุริยวงศ์ บางรัก กรุงเทพฯ</figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0">
+                                    <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <a href="#" class="image">
+                                    <div class="inner">
+                                        <img src="~/assets/img/detail-foodland.jpg" alt="" class="mCS_img_loaded">
+                                    </div>
+                                </a>
+                                <div class="wrapper">
+                                    <a href="#" id="1"><h3>ฟูดแลนด์ สาขาพัฒน์พงศ์</h3></a>
+                                    <figure>9 ชั้นล่าง ถ.พัฒน์พงษ์ แขวงสุริยวงศ์ กรุงเทพฯ</figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0">
+                                    <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <a href="#" class="image">
+                                    <div class="inner">
+                                        <img src="~/assets/img/detail-montien.jpg" alt="" class="mCS_img_loaded">
+                                    </div>
+                                </a>
+                                <div class="wrapper">
+                                    <a href="#" id="1"><h3>มณเทียร</h3></a>
+                                    <figure>54 ถ.สุรวงศ์ แขวงสี่พระยา บางรัก กรุงเทพฯ</figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0">
+                                    <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <a href="#" class="image">
+                                    <div class="inner">
+                                        <img src="~/assets/img/detail-silom-complex.jpg" alt="" class="mCS_img_loaded">
+                                    </div>
+                                </a>
+                                <div class="wrapper">
+                                    <a href="#" id="1"><h3>ห้างสรรพสินค้าเซ็นทรัล สาขาสีลมคอมเพล็กซ์</h3></a>
+                                    <figure>191 ถ.สีลม แขวงสีลม เขตบางรัก กรุงเทพฯ</figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0">
+                                    <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <a class="image">
+                                    <div class="inner">
+                                        <img src="~/assets/img/detail-sofitel.jpg" alt="" class="mCS_img_loaded">
+                                    </div>
+                                </a>
+                                <div class="wrapper">
+                                    <a href="#" id="1"><h3>โซฟิเทลสีลม</h3></a>
+                                    <figure>188 ถ.สีลม สุริยวงศ์ บางรัก กรุงเทพฯ</figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0">
+                                    <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <a href="#" class="image">
+                                    <div class="inner">
+                                        <img src="~/assets/img/detail-foodland.jpg" alt="" class="mCS_img_loaded">
+                                    </div>
+                                </a>
+                                <div class="wrapper">
+                                    <a href="#" id="1"><h3>ฟูดแลนด์ สาขาพัฒน์พงศ์</h3></a>
+                                    <figure>9 ชั้นล่าง ถ.พัฒน์พงษ์ แขวงสุริยวงศ์ กรุงเทพฯ</figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0">
+                                    <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <a href="#" class="image">
+                                    <div class="inner">
+                                        <img src="~/assets/img/detail-montien.jpg" alt="" class="mCS_img_loaded">
+                                    </div>
+                                </a>
+                                <div class="wrapper">
+                                    <a href="#" id="1"><h3>มณเทียร</h3></a>
+                                    <figure>54 ถ.สุรวงศ์ แขวงสี่พระยา บางรัก กรุงเทพฯ</figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0">
+                                    <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <a href="#" class="image">
+                                    <div class="inner">
+                                        <img src="~/assets/img/detail-silom-complex.jpg" alt="" class="mCS_img_loaded">
+                                    </div>
+                                </a>
+                                <div class="wrapper">
+                                    <a href="#" id="1"><h3>ห้างสรรพสินค้าเซ็นทรัล สาขาสีลมคอมเพล็กซ์</h3></a>
+                                    <figure>191 ถ.สีลม แขวงสีลม เขตบางรัก กรุงเทพฯ</figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0">
+                                    <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="scroller__track">
+                        <div class="scroller__bar"></div>
+                    </div>
+                </div>
+            </div>
+            <!--results-->
+        </div>
+        <!--end Items List-->
+    </div>
+    <!-- end Map Canvas-->
+

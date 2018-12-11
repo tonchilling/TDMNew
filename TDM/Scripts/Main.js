@@ -11,3 +11,8 @@ $.fn.visibilityToggle = function () {
         return (visibility == 'visible') ? 'hidden' : 'visible';
     });
 };
+
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

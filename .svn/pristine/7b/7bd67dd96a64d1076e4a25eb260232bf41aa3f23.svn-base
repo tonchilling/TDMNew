@@ -1,0 +1,819 @@
+﻿@{
+    ViewBag.Title = "การติดตามความคืบหน้าการประเมินราคา";
+}
+ 
+@section Scripts {
+    @Scripts.Render("~/assets/js/jquery-3.3.1.js")
+    @Scripts.Render("~/assets/bootstrap/js/bootstrap.min.js")
+    @Scripts.Render("~/assets/js/Datatable/jquery.dataTables-1.10.19.min-.js")
+    @Scripts.Render("~/assets/js/Datatable/dataTables.bootstrap-1.10.19.min.js")
+    @Scripts.Render("~/assets/js/Chart/echarts.min.js")
+    @Styles.Render("~/assets/css/bootstrap-select-1.6.5.min.css")
+    @Styles.Render("~/assets/fonts/font-awesome.css") 
+    @Styles.Render("~/assets/bootstrap/css/bootstrap.css");
+
+    @Scripts.Render("~/Scripts/TraceProgress/TraceProgressIndex.js")
+    @Scripts.Render("~/Scripts/TraceProgress/Index-Map.js")
+    @Scripts.Render("~/Scripts/TraceProgress/Index.js")
+}
+ 
+
+<style>
+    .pie {
+        width: 30% !important;
+        height: 39% !important;
+    }
+
+    .pie__full {
+        width: 50% !important;
+        height: 59% !important;
+    }
+
+    .bar {
+    }
+
+    html, body {
+        overflow: auto;
+    }
+
+    .tab-search-icon img {
+        width: 32px;
+    }
+
+    table__Center {
+        text-align: center;
+    }
+
+    .multiselect-container {
+        width: 100% !important;
+    }
+
+    .map-canvas {
+        height: 1400px !important;
+    }
+
+     
+
+</style>
+<!-- Map Canvas-->
+
+<div class="container-fluid">
+    <div class="row" style="margin-top:15px">
+        <div class="col-md-4">
+            @Html.Partial("_Menu")
+        </div>
+        <div class="col-md-8"  id="PartialView"> @*style="height:1200px"*@
+            <div class="content-wrap">
+            @Html.Partial("_Map")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="map-canvas list-solid" style="display:none">
+    <!-- Map -->
+    <div class="map">
+        @*<iframe id="tdmap" class="map-height" width="100%" frameborder="0" style="border:0" allowfullscreen></iframe>*@
+        <!--# TAB 1 กราฟ-->
+        <div id="divGraph" style="display:none">
+            <br />
+            <div class="row">
+                <canvas class="col-md-4 pie" id="divgraph1_Chart1" onclick="divgraph1_Chart1Onlcike()"></canvas>
+                <canvas class="col-md-4 pie" id="divgraph1_Chart2" onclick="divgraph2_Chart1Onlcike()"></canvas>
+                <canvas class="col-md-4 pie" id="divgraph1_Chart3" onclick="divgraph3_Chart1Onlcike()"></canvas>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <canvas class="col-md-4 bar" id="divgraph1_ChartBar"></canvas>
+            </div>
+            <div class="row">
+                <canvas class="col-md-4 pie" id="divgraph1_ChartSpeedometer1" onclick="divgraph1_ChartSpeedometer1Onlcike()"></canvas>
+            </div>
+        </div>
+        <div id="divGraphNew">
+            <br />
+            <div class="row">
+                <div class="col-md-4" id="chartPie1_" style="height: 350px; text-align: center;"  onclick="divgraph1_Chart1Onlcike()" >
+                </div>
+                <div class="col-md-4" id="chartPie2_" style="height: 350px; text-align: center;"  onclick="divgraph2_Chart1Onlcike()">
+                </div>
+                <div class="col-md-4" id="chartPie3_" style="height: 350px; text-align: center;"  onclick="divgraph3_Chart1Onlcike()">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="box box-solid box-primary" style="padding-left: 5px; padding-right: 5px;">
+                    <div class="row" style="margin-top: 5px;">
+                        <div class="col-md-4" id="chartSpeedometer1" style="height: 350px; text-align: center;">
+                        </div>
+                        <div class="col-md-4" id="chartSpeedometer2" style="height: 350px; text-align: center;">
+                        </div>
+                        <div class="col-md-4" id="chartSpeedometer3" style="height: 350px; text-align: center;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="box box-solid box-primary" style="padding-left: 5px; padding-right: 5px;">
+                    <div class="row" style="margin-top: 5px;">
+                        <div class="col-md-4" style="height: 315px; text-align: center;">
+                            <div id="chartTrafficLight1" style="height: 80%; margin-top: 30px;"></div>
+                        </div>
+                        <div class="col-md-4" style="height: 315px; text-align: center;">
+                            <div id="chartTrafficLight2" style="height: 80%; margin-top: 30px;"></div>
+                        </div>
+                        <div class="col-md-4" style="height: 315px; text-align: center;">
+                            <div id="chartTrafficLight3" style="height: 80%; margin-top: 30px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="box box-solid box-primary" style="padding-left: 5px; padding-right: 5px;">
+                    <div class="row" style="margin-top: 5px;">
+                        <div class="col-md-4" id="chartBar1" style="height: 350px; text-align: center;">
+                        </div>
+                        <div class="col-md-4" id="chartBar2" style="height: 350px; text-align: center;">
+                        </div>
+                        <div class="col-md-4" id="chartBar3" style="height: 350px; text-align: center;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--# TAB 2 Tables Region -->
+        <div id="divTraceProgressByRegion" style="display:none">
+            <br />
+            <section style="padding-top: 50px; padding-bottom: 50px; background-color: #fff;">
+                <div class="container">
+                    <div class="row">
+                        <div class="flexin">
+                            <div class="tabs tabs-style-flip">
+                                <div class="content-wrap">
+                                    <h1 class="ui col-md-12" style="margin-top: 40px;">การติดตามความคืบหน้าการประเมิน รายภาค</h1>
+                                    <div class="col-lg-12">
+                                        <table id="tTableTraceProgressByRegion2" class="cell-border table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 40%; text-align:center">ภาค</th>
+                                                    <th style="width: 15%; text-align:center">จำนวน</th>
+                                                    <th style="width: 15%; text-align:center">ดำเนินการเสร็จสิ้น</th>
+                                                    <th style="width: 15%; text-align:center">อยู่ระหว่างดำเนินการ</th>
+                                                    <th style="width: 15%; text-align:center">ยังไม่ดำเนินการ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tTraceProgressByRegion2"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /content -->
+                            </div>
+                            <!-- /tabs -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!--# TAB 2 Tables Province   -->
+        <div id="divTraceProgressByProvince" style="display:none">
+            <br />
+            <section style="padding-top: 50px; padding-bottom: 50px; background-color: #fff;">
+                <div class="container">
+                    <div class="row">
+                        <div class="flexin">
+                            <div class="tabs tabs-style-flip">
+                                <div class="content-wrap">
+                                    <h1 class="ui col-md-12" style="margin-top: 40px;">การติดตามความคืบหน้าการประเมิน รายจังหวัด</h1>
+                                    <div class="col-lg-12">
+                                        <table id="tTableTraceProgressByProvince" class="cell-border table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 40%; text-align:center">จังหวัด</th>
+                                                    <th style="width: 15%; text-align:center">จำนวน</th>
+                                                    <th style="width: 15%; text-align:center">ดำเนินการเสร็จสิ้น</th>
+                                                    <th style="width: 15%; text-align:center">อยู่ระหว่างดำเนินการ</th>
+                                                    <th style="width: 15%; text-align:center">ยังไม่ดำเนินการ</th>
+                                                    <th style="width: 15%; text-align:center">แสดงรายละเอียดบุคลกร</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tTraceProgressByProvince"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /content -->
+                            </div>
+                            <!-- /tabs -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!--# TAB 2 Tables District   -->
+        <div id="divTraceProgressByDistrict" style="display:none">
+            <br />
+            <section style="padding-top: 50px; padding-bottom: 50px; background-color: #fff;">
+                <div class="container">
+                    <div class="row">
+                        <div class="flexin">
+                            <div class="tabs tabs-style-flip">
+                                <div class="content-wrap">
+                                    <h1 class="ui col-md-12" style="margin-top: 40px;">การติดตามความคืบหน้าการประเมิน รายอำเภอ</h1>
+                                    <div class="col-lg-12">
+                                        <table id="tTableTraceProgressByDistrict" class="cell-border table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 40%; text-align:center">อำเภอ</th>
+                                                    <th style="width: 15%; text-align:center">จำนวน</th>
+                                                    <th style="width: 15%; text-align:center">ดำเนินการเสร็จสิ้น</th>
+                                                    <th style="width: 15%; text-align:center">อยู่ระหว่างดำเนินการ</th>
+                                                    <th style="width: 15%; text-align:center">ยังไม่ดำเนินการ</th>
+                                                    @*<th style="width: 15%; text-align:center">แสดงรายละเอียดบุคลกร</th>*@
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tTraceProgressByDistrict"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /content -->
+                            </div>
+                            <!-- /tabs -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!--# TAB 2 Tables Tambon   -->
+        <div id="divTraceProgressByTambon2" style="display:none">
+            <br />
+            <section style="padding-top: 50px; padding-bottom: 50px; background-color: #fff;">
+                <div class="container">
+                    <div class="row">
+                        <div class="flexin">
+                            <div class="tabs tabs-style-flip">
+                                <div class="content-wrap">
+                                    <h1 class="ui col-md-12" style="margin-top: 40px;">การติดตามความคืบหน้าการประเมิน ตำบล</h1>
+                                    <div class="col-lg-12">
+                                        <table id="tTableTraceProgressByTambon2" class="cell-border table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 40%; text-align:center">ตำบล</th>
+                                                    <th style="width: 15%; text-align:center">ดำเนินการเสร็จสิ้น</th>
+                                                    <th style="width: 15%; text-align:center">อยู่ระหว่างดำเนินการ</th>
+                                                    <th style="width: 15%; text-align:center">ยังไม่ดำเนินการ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tTraceProgressByTambon"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /content -->
+                            </div>
+                            <!-- /tabs -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!--# TAB 4 -->
+        <div id="divTabSystemTable" class="">
+            @*<br />
+            <p><b>การแสดงผลผู้เข้าใช้งานในจังหวัด <span id="ProvincetabSystem"></span></b></p>
+            <p>ช่วงวันที่ <span id="dateSearchStart"></span> – <span id="dateSearchEnd"></span></p>
+            <div class="col-lg-3"><span>ความถี่ในการแสดงข้อมูล</span></div>
+            <div class="col-lg-2">
+                <span class="form-check-label">
+                    <input class="form-check-input" type="radio" checked="checked" name="FrequencySearch" id="frequency1" value="frequency1" disabled="disabled" />
+                    1 ชั่วโมง
+                </span>
+            </div>
+            <div class="col-lg-2">
+                <span class="form-check-label">
+                    <input class="form-check-input" type="radio" name="FrequencySearch" id="frequency2" value="frequency2" disabled="disabled" />
+                    3 ชั่วโมง
+                </span>
+            </div>
+            <div class="col-lg-2">
+                <span class="form-check-label">
+                    <input class="form-check-input" type="radio" name="FrequencySearch" id="frequency3" value="frequency3" disabled="disabled" />
+                    6 ชั่วโมง
+                </span>
+            </div>
+            <div class="col-lg-3"></div>
+            <br />
+            <br />
+            <div class="col-lg-12">
+                <table id="tTableLoginHistory" class="cell-border table table-striped">
+                    <thead id="tLoginHistorythead">
+                        <tr></tr>
+                    </thead>
+                    <tbody id="tLoginHistorytdody"></tbody>
+                </table>
+            </div>
+
+            <div style="margin-top:500px"></div>
+            <div class="col-lg-12">
+                <canvas class="bar" id="divgraph4_ChartBar"></canvas>
+            </div>*@
+        </div>
+    </div>
+    <!-- end Map -->
+    <!--Items List-->
+    <div class="items-list">
+        <div class="inner">
+            <div class="scroller1">
+                <div class="filter">
+                    <!-- <form class="main-search" role="form" method="post" action="#"> -->
+                    <header class="clearfix">
+                        <h3 class="pull-left">เลือกจังหวัดที่ต้องการค้นหา</h3>
+                        <div class="buttons pull-right">
+                            <a href="search-1.html" class="icon"><i class="fa fa-angle-left" style="color: #0eaa74"></i> Back</a>
+                        </div>
+                    </header>
+                    <div class="row">
+                        <!--/.col-md-6-->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <select id="province" name="province" data-live-search="true" title="จังหวัด"></select>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!--/.col-md-6-->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <select id="district" name="district" data-live-search="true" title="เขต/อำเภอ" class="selectpicker">
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!--/.col-md-6-->
+                        <!--/.col-md-6-->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <select id="sub-district" name="sub-district"  data-live-search="true" title="แขวง/ตำบล"></select>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!--/.col-md-6-->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <select name="type" multiple title="สำนักงานที่ดิน" data-live-search="true" id="type"></select>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!--/.col-md-6-->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <!-- <button type="submit" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>-->
+                                <button class="btn btn-default" style="width: 100%" id="btnTraceProgress1Search" onclick="btnTraceProgress1SearchOnClick()"><i class="fa fa-search"></i></button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <button type="clear" class="btn btn-grey-dark" style="width: 100%" onclick="window.location.reload()"><i class="fa fa-refresh"></i></button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <!-- /.main-search -->
+                </div>
+                <!--end Filter-->
+                <div id="filter-search2" class="filter" style="display: none;">
+
+                    <header class="clearfix" style="margin-bottom: 0px">
+                        <h3 class="pull-left" style="margin-bottom: 0px">เลือกค้นหาตามความต้องการ</h3>
+                    </header>
+                    <div class="row tab-search-icon">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div style="float: left; padding: 20px 0px 20px 10px;" class="button-width">
+                                <a href="#"><button id="btn-detail-price" class="btn framed" title="ระบบแสดงผลข้อมูลราคาซื้อขาย ราคาประเมิน" style="background-color: #fff"><img src="~/assets/img/button-search-1.png"></button></a>
+                            </div>
+                            <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                                <a href="#"><button id="btn-change-price" class="btn framed" title="ระบบแสดงการเปลี่ยนแปลงราคาซื้อขาย ราคาประเมิน" style="background-color: #fff"><img src="~/assets/img/button-search-2.png"></button></a>
+                            </div>
+                            
+                            <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                                <a href="~/AreaAnalysis"><button id="btn-analys" class="btn framed" title="การวิเคราะห์พื้นที่" style="background-color: #fff"><img src="~/assets/img/button-search-4.png"></button></a>
+                            </div>
+                            <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                                <a href="#"><button id="btn-progress" class="btn framed" title="ระบบการติดตามความคืบหน้าการประเมิน" style="background-color: #fff"><img src="~/assets/img/button-search-5.png"></button></a>
+                            </div>
+                            <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                                <a href="#"><button id="btn-loginhistory" class="btn framed" title="ระบบข้อมูลปริมาณการเข้าใช้ระบบ" style="background-color: #fff"><img src="~/assets/img/button-search-BU-6.png"></button></a>
+                            </div>
+                        </div>
+                        <!--/.col-md-6-->
+                    </div>
+                    <!--/.row-->
+                    <div class="row" id="blog-filter-detail" style="display: none;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p>แสดงผลข้อมูลราคาซื้อขาย / ราคาประเมิน </p>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#land">ที่ดิน</a></li>
+                                <li><a data-toggle="tab" href="#condominium">อาคารชุด</a></li>
+                                <li><a data-toggle="tab" href="#building">สิ่งปลูกสร้าง</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="land" class="tab-pane fade in active">
+                                    <div class="clearfix">
+                                        <div style="margin: 20px 20px 20px 0; float: left; background-color: #fff">
+                                            <a id="btn-search-condition" href="#" onclick="conditionSearchMap('condition')" class="btn framed">ค้นหาแบบตามเงื่อนไข</a>
+                                        </div>
+                                        <div style="margin: 20px 20px 20px 0; float: left; background-color: #fff">
+                                            <a id="btn-search-map" href="#" onclick="conditionSearchMap('map')" class="btn framed">ค้นหาแบบแผนที่</a>
+                                        </div>
+                                        <div style="margin: 20px 20px 20px 0; float: left; background-color: #fff">
+                                            <a id="btn-search-rawang" href="#" onclick="conditionSearchMap('rawang')" class="btn framed">ค้นหาตามแบบระวาง</a>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px; display: none;" id="blog-filter-search">
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <select name="type" title="ประเภทเอกสารสิทธิ์" data-live-search="true" id="type">
+                                                    <option value="1">โฉนดที่ดิน</option>
+                                                    <option value="2">นส 3 ก</option>
+                                                </select>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <!--/.col-md-6-->
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <select name="type" title="ประเภทราคา" data-live-search="true" id="type">
+                                                    <option value="1">ราคาประเมิน</option>
+                                                    <option value="2">ราคาซื้อขาย</option>
+                                                </select>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <!--/.col-md-6-->
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="filter-location" style="padding-left: 0px; padding-right: 0px;">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group clearfix">
+                                                    <div class="input-group location" id="search-area">
+                                                        <input type="text" class="form-control" id="location" placeholder="ชื่อบริเวณที่สนใจ">
+                                                    </div>
+                                                    <div class="input-group location" id="search-map-choice" style="display: none;">
+                                                        <div style="margin-right: 10px; float: left; background-color: #fff; width: 45%;">
+                                                            <a id="btn-search-point" href="#" onclick="onSearchMapStyle('point')" class="btn framed" style="width: 100%;"><img src="~/assets/icons/TDM/measurement_tool_01_selected.png" /></a>
+                                                        </div>
+                                                        <div style="float: left; background-color: #fff; width: 45%;">
+                                                            <a id="btn-search-line" href="#" onclick="onSearchMapStyle('line')" class="btn framed" style="width: 100%;"><img src="~/assets/icons/TDM/measurement_tool_02_hover.png" /></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <!--/.col-md-6-->
+
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <select name="radius" title="รัศมี (เมตร)" data-live-search="true" id="radius">
+                                                        <option value="100" selected>รัศมี 100 เมตร</option>
+                                                        <option value="200">รัศมี 200 เมตร</option>
+                                                        <option value="300">รัศมี 300 เมตร</option>
+                                                        <option value="400">รัศมี 400 เมตร</option>
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="filter-rawang"
+                                             style="text-align: center; margin-bottom: 10px;">
+                                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding: 0px; text-align: left;">
+                                                ระวาง
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-5 col-xs-5" style="padding-right: 0px;">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+                                                -
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-5 col-xs-5" style="padding-left: 0px;">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-5 col-xs-5" style="padding-right: 0px;">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2" style="padding: 0px;">
+                                                -
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-5 col-xs-5" style="padding-left: 0px;">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <!--/.col-md-6-->
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <button type="button" onclick="onSearchPriceClick()" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <button type="clear" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                    </div>
+                                    <!-- other Tab-->
+                                </div>
+                                <div id="condominium" class="tab-pane fade in">
+                                    <div class="row" style="margin-bottom: 10px;" id="">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="margin-top: 20px;">
+                                                <select name="type" title="ประเภทราคา" data-live-search="true" id="type">
+                                                    <option value="1">ราคาประเมิน</option>
+                                                    <option value="2">ราคาซื้อขาย</option>
+                                                </select>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="padding-left: 0px;">
+                                                <input type="text" class="form-control" placeholder="เลขที่อาคารชุด">
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="padding-right: 0px;">
+                                                <input type="text" class="form-control" placeholder="ชื่ออาคารชุด">
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <!--/.col-md-6-->
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <button type="button" onclick="onSearchPriceClick()" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <button type="clear" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="building" class="tab-pane fade in">
+                                    <div class="row" style="margin-bottom: 10px;" id="">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="margin-top: 20px;">
+                                                <select name="type" title="ประเภทราคา" data-live-search="true" id="type">
+                                                    <option value="1">ราคาประเมิน</option>
+                                                    <option value="2">ราคาซื้อขาย</option>
+                                                </select>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="padding-left: 0px;">
+                                                <input type="text" class="form-control" placeholder="เลขที่อาคารชุด">
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="padding-right: 0px;">
+                                                <input type="text" class="form-control" placeholder="ชื่ออาคารชุด">
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="padding-left: 0px;">
+                                                <input type="text" class="form-control" placeholder="เลขที่อาคารชุด">
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="padding-right: 0px;">
+                                                <input type="text" class="form-control" placeholder="ชื่ออาคารชุด">
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <!--/.col-md-6-->
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <button type="button" onclick="onSearchPriceClick()" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <button type="clear" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <p>เลือกเปรียบเทียบรายจังหวัด</p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="margin-top: 20px;">
+                                                <select name="type" title="ประเภทราคา" data-live-search="true" id="type">
+                                                    <option value="1">ราคาประเมิน</option>
+                                                    <option value="2">ราคาซื้อขาย</option>
+                                                </select>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group" style="margin-top: 20px;">
+                                                <select name="type" title="ประเภทราคา" data-live-search="true" id="type">
+                                                    <option value="1">ราคาประเมิน</option>
+                                                    <option value="2">ราคาซื้อขาย</option>
+                                                </select>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="filter-rawang"
+                                             style="text-align: left; margin-bottom: 10px;">
+                                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4" style="padding: 0px;">
+                                                % ความต่าง
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4">
+                                                %
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <button type="button" onclick="onSearchPriceClick()" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <button type="clear" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="blog-filter-progress" style="display: none;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p>แสดงผลข้อมูลราคาซื้อขาย / ราคาประเมิน </p>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="RadioTabTypeSearch" id="DC01" value="DC01" />
+                                    ที่ดิน
+                                </label>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="RadioTabTypeSearch" id="DC02" value="DC02" />
+                                    อาคารชุด
+                                </label>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="RadioTabTypeSearch" id="DC03" value="DC03" />
+                                    สิ่งปลูกสร้าง
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <button class="btn btn-default" id="btnTraceProgress2Search" style="width: 100%" onclick="btnTraceProgress2SearchOnClick()"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <button type="clear" class="btn btn-grey-dark" style="width: 100%" onclick="MapRefresh()"><i class="fa fa-refresh"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- แถบ ระบบข้อมูลปริมาณการเข้าใช้ระบบ-->
+                    <div class="row" id="blog-filter-loginhistory" style="display: none;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p>ระบุเงื่อนไขการเข้าใช้ระบบ </p>
+                        </div>
+                        <div class="input-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group input-medium date date-picker" data-date-format="dd/mm/yyyy">
+                                    <input type="text" class="form-control" id="dateOnlyStart">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group input-medium date date-picker" data-date-format="dd/mm/yyyy">
+                                    <input type="text" class="form-control" id="dateOnlyEnd">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="timeOnlyStart" onkeypress='return  event.charCode == 58 || event.charCode >= 48 && event.charCode <= 57' maxlength="5" />
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button">
+                                            <i class="fa fa-clock-o"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="timeOnlyEnd" onkeypress='return  event.charCode == 58 || event.charCode >= 48 && event.charCode <= 57' maxlength="5" />
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button">
+                                            <i class="fa fa-clock-o"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p>เลือกหัวข้อข้อมูลปริมาณการเข้าใช้ระบบ </p>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group" style="max-width:620px">
+                                <select id="ddlsystem2" name="ddlsystem2" class="selectpicker" multiple data-actions-box="true" title="ทุกระบบ" style="width:100%"></select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <button class="btn btn-default" style="width: 100%" onclick="GetLoginHistory()"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <button type="clear" class="btn btn-grey-dark" style="width: 100%" onclick="btnSystemRefresh()"><i class="fa fa-refresh"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.main-search -->
+                </div>
+                <div class="scroller__track">
+                    <div class="scroller__bar"></div>
+                </div>
+            </div>
+        </div>
+        <!--results-->
+    </div>
+    <!--end Items List-->
+</div>
+<!-- end Map Canvas-->
+<div id="modalAppraiseMember2" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var jquer3PathJS = '../assets/js/jquery-3.3.1.js';
+    var dataTableJS = '../assets/js/Datatable/jquery.dataTables-1.10.19.min-.js';
+    var bootStrapDataDableJS = '../assets/js/Datatable/dataTables.bootstrap-1.10.19.min.js'
+    var bootStrap = '../assets/bootstrap/js/bootstrap.min.js';
+    var bootStrapSelectJS = '../assets/js/bootstrap-select.min.js';
+
+    //$('TableProgressByRegion').dataTable();
+    //$('#TableProgressByProvince').dataTable();
+
+    //$('#ModalAppraiseMemberProvincetTable').dataTable();
+    //$('#TableProgressByRegion').dataTable();
+    //$('#tTableTraceProgressByProvince').dataTable();
+    //$('#tTableTraceProgressByDistrict').dataTable();
+    //$('#tTableTraceProgressByTambon').dataTable();
+
+   
+</script>
+

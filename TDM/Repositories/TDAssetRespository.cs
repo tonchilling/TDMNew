@@ -71,15 +71,29 @@ namespace TDM.Repositories
                     while (reader.Read())
                     {
                         data = new Models.EstimateData();
+                        data.DisplayCode = reader["DisplayCode"].ToString();
+                        data.DisplayName = reader["DisplayName"].ToString();
                         data.RegionCode = reader["RegionCode"].ToString();
                         data.RegionName = reader["RegionName"].ToString();
                         data.ProviceCode = reader["ProviceCode"].ToString();
                         data.ProviceName = reader["ProviceName"].ToString();
+                        data.AmphureCode = reader["AmphureCode"].ToString();
+                        data.AmphureName = reader["AmphureName"].ToString();
+                        data.TAMBOLCode = reader["TAMBOLCode"].ToString();
+                        data.TAMBOLName = reader["TAMBOLName"].ToString();
                         data.MarketPrice = reader["MarketPrice"].ToString();
+                        data.MarketPriceMin = reader["MarketPriceMin"].ToString();
+                        data.MarketPriceMax = reader["MarketPriceMax"].ToString();
+                        data.MarketPriceAvg = reader["MarketPriceAvg"].ToString();
                         data.ParcelPrice = reader["ParcelPrice"].ToString();
+                        data.ParcelPriceMin = reader["ParcelPriceMin"].ToString();
+                        data.ParcelPriceMax = reader["ParcelPriceMax"].ToString();
+                        data.ParcelPriceAvg = reader["ParcelPriceAvg"].ToString();
+                        data.LAND_AREA = reader["LAND_AREA"].ToString();
+                        data.LAND_Total = reader["LAND_Total"].ToString();
                         data.MarketColor = reader["MarketColor"].ToString();
                         data.ParcelColor = reader["ParcelColor"].ToString();
-                        data.Shape= reader["Shape"].ToString();
+                        data.Shape = reader["Shape"].ToString();
                         result.Add(data);
 
                     }
@@ -87,7 +101,7 @@ namespace TDM.Repositories
             }
             catch (Exception ex)
             {
-                string error=ex.ToString();
+                string error = ex.ToString();
             }
 
             return result;

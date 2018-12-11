@@ -1,0 +1,699 @@
+﻿@model TDM.Models.TB_MAS_PROVINCE
+
+@{
+    ViewBag.Title = "การเปลี่ยนแปลงราคาซื้อขาย";
+}
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/ChangesPrice/Index.js")
+}
+    <!--Hero Image-->
+    <section class="hero-image search-filter-bottom" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="inner">
+            <div class="container">
+                <div class="search-bar horizontal">
+
+                    <form class="main-search " role="form" method="post" action="http://vh-projects.com/treasury-map/search-2.html?">
+
+                        <div class="input-row">
+                            <div class="col-md-1">
+                                <label for="year1">ช่วงปี ปี</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select name="year1" id="year1" multiple title="ปี" data-live-search="true">
+                                    <option value="1">2560</option>
+                                    <option value="2">2559</option>
+                                    <option value="3">2558</option>
+                                    <option value="4">2557</option>
+                                    <option value="5">2556</option>
+                                    <option value="6">2555</option>
+                                    <option value="7">2554</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="year2">ถึง</label>
+                            </div>
+                            <div class="form-group col-md-8" style="width: 23.2%;">
+                                <select name="year2" id="year2" multiple title="ปี" data-live-search="true">
+                                    <option value="1">2560</option>
+                                    <option value="2">2559</option>
+                                    <option value="3">2558</option>
+                                    <option value="4">2557</option>
+                                    <option value="5">2556</option>
+                                    <option value="6">2555</option>
+                                    <option value="7">2554</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="col-md-1">
+                                <label for="year3">ช่วงเดือน ปี</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select name="year3" id="year3" multiple title="ปี" data-live-search="true">
+                                    <option value="1">2560</option>
+                                    <option value="2">2559</option>
+                                    <option value="3">2558</option>
+                                    <option value="4">2557</option>
+                                    <option value="5">2556</option>
+                                    <option value="6">2555</option>
+                                    <option value="7">2554</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="day1">เดือน</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select name="day1" id="day1" multiple title="เดือน" data-live-search="true">
+                                    <option value="1">มกราคม</option>
+                                    <option value="2">กุมภาพันธ์</option>
+                                    <option value="3">มีนาคม</option>
+                                    <option value="4">เมษายน</option>
+                                    <option value="5">พฤษภาคม</option>
+                                    <option value="6">มิถุนายน</option>
+                                    <option value="7">กรกฎาคม</option>
+                                    <option value="8">สิงหาคม</option>
+                                    <option value="9">กันยายน</option>
+                                    <option value="10">ตุลาคม</option>
+                                    <option value="11">พฤศจิกายน</option>
+                                    <option value="12">ธันวาคม</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="day2">ถึง</label>
+                            </div>
+                            <div class="form-group col-md-5" style="width: 23.2%;">
+                                <select name="day2" id="day2" multiple title="เดือน" data-live-search="true">
+                                    <option value="1">มกราคม</option>
+                                    <option value="2">กุมภาพันธ์</option>
+                                    <option value="3">มีนาคม</option>
+                                    <option value="4">เมษายน</option>
+                                    <option value="5">พฤษภาคม</option>
+                                    <option value="6">มิถุนายน</option>
+                                    <option value="7">กรกฎาคม</option>
+                                    <option value="8">สิงหาคม</option>
+                                    <option value="9">กันยายน</option>
+                                    <option value="10">ตุลาคม</option>
+                                    <option value="11">พฤศจิกายน</option>
+                                    <option value="12">ธันวาคม</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="col-md-1">
+                                <label for="year4">ไตรมาส ปี</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select name="year4" id="year4" multiple title="ปี" data-live-search="true">
+                                    <option value="1">2560</option>
+                                    <option value="2">2559</option>
+                                    <option value="3">2558</option>
+                                    <option value="4">2557</option>
+                                    <option value="5">2556</option>
+                                    <option value="6">2555</option>
+                                    <option value="7">2554</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="num1">ไตรมาสที่</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select name="num1" id="num1" multiple title="ที่" data-live-search="true">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="num2">ถึง</label>
+                            </div>
+                            <div class="form-group col-md-5" style="width: 23.2%;">
+                                <select name="num2" id="num2" multiple title="เดือน" data-live-search="true">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="col-md-1">
+                                <label for="day3">ช่วงวันที่</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                    <input type="text" class="form-control" readonly>
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="day4">ถึง</label>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                    <input type="text" class="form-control" readonly>
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="col-md-1">
+                                <label for="province">จังหวัด</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select name="province" id="province" multiple title="ทั้งหมด" data-live-search="true">
+                                    <option value="1">กรุงเทพมหานคร</option>
+                                    <option value="2">กระบี่ </option>
+                                    <option value="3">กาญจนบุรี </option>
+                                    <option value="4">กาฬสินธุ์ </option>
+                                    <option value="5">กำแพงเพชร </option>
+                                    <option value="6">ขอนแก่น</option>
+                                    <option value="7">จันทบุรี</option>
+                                    <option value="8">ฉะเชิงเทรา </option>
+                                    <option value="9">ชัยนาท </option>
+                                    <option value="10">ชัยภูมิ </option>
+                                    <option value="11">ชุมพร </option>
+                                    <option value="12">ชลบุรี </option>
+                                    <option value="13">เชียงใหม่ </option>
+                                    <option value="14">เชียงราย </option>
+                                    <option value="15">ตรัง </option>
+                                    <option value="16">ตราด </option>
+                                    <option value="17">ตาก </option>
+                                    <option value="18">นครนายก </option>
+                                    <option value="19">นครปฐม </option>
+                                    <option value="20">นครพนม </option>
+                                    <option value="21">นครราชสีมา </option>
+                                    <option value="22">นครศรีธรรมราช </option>
+                                    <option value="23">นครสวรรค์ </option>
+                                    <option value="24">นราธิวาส </option>
+                                    <option value="25">น่าน </option>
+                                    <option value="26">นนทบุรี </option>
+                                    <option value="27">บึงกาฬ</option>
+                                    <option value="28">บุรีรัมย์</option>
+                                    <option value="29">ประจวบคีรีขันธ์ </option>
+                                    <option value="30">ปทุมธานี </option>
+                                    <option value="31">ปราจีนบุรี </option>
+                                    <option value="32">ปัตตานี </option>
+                                    <option value="33">พะเยา </option>
+                                    <option value="34">พระนครศรีอยุธยา </option>
+                                    <option value="35">พังงา </option>
+                                    <option value="36">พิจิตร </option>
+                                    <option value="37">พิษณุโลก </option>
+                                    <option value="38">เพชรบุรี </option>
+                                    <option value="39">เพชรบูรณ์ </option>
+                                    <option value="40">แพร่ </option>
+                                    <option value="41">พัทลุง </option>
+                                    <option value="42">ภูเก็ต </option>
+                                    <option value="43">มหาสารคาม </option>
+                                    <option value="44">มุกดาหาร </option>
+                                    <option value="45">แม่ฮ่องสอน </option>
+                                    <option value="46">ยโสธร </option>
+                                    <option value="47">ยะลา </option>
+                                    <option value="48">ร้อยเอ็ด </option>
+                                    <option value="49">ระนอง </option>
+                                    <option value="50">ระยอง </option>
+                                    <option value="51">ราชบุรี</option>
+                                    <option value="52">ลพบุรี </option>
+                                    <option value="53">ลำปาง </option>
+                                    <option value="54">ลำพูน </option>
+                                    <option value="55">เลย </option>
+                                    <option value="56">ศรีสะเกษ</option>
+                                    <option value="57">สกลนคร</option>
+                                    <option value="58">สงขลา </option>
+                                    <option value="59">สมุทรสาคร </option>
+                                    <option value="60">สมุทรปราการ </option>
+                                    <option value="61">สมุทรสงคราม </option>
+                                    <option value="62">สระแก้ว </option>
+                                    <option value="63">สระบุรี </option>
+                                    <option value="64">สิงห์บุรี </option>
+                                    <option value="65">สุโขทัย </option>
+                                    <option value="66">สุพรรณบุรี </option>
+                                    <option value="67">สุราษฎร์ธานี </option>
+                                    <option value="68">สุรินทร์ </option>
+                                    <option value="69">สตูล </option>
+                                    <option value="70">หนองคาย </option>
+                                    <option value="71">หนองบัวลำภู </option>
+                                    <option value="72">อำนาจเจริญ </option>
+                                    <option value="73">อุดรธานี </option>
+                                    <option value="74">อุตรดิตถ์ </option>
+                                    <option value="75">อุทัยธานี </option>
+                                    <option value="76">อุบลราชธานี</option>
+                                    <option value="77">อ่างทอง </option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="province1">สำนักงานที่ดิน</label>
+                            </div>
+                            <div class="form-group col-md-8" style="width: 23.2%;">
+                                <select name="province1" id="province1" multiple title="" data-live-search="true">
+                                    <option value="1">เขตพระนคร</option>
+                                    <option value="2">กระบี่ </option>
+                                    <option value="3">กาญจนบุรี </option>
+                                    <option value="4">กาฬสินธุ์ </option>
+                                    <option value="5">กำแพงเพชร </option>
+                                    <option value="6">ขอนแก่น</option>
+                                    <option value="7">จันทบุรี</option>
+                                    <option value="8">ฉะเชิงเทรา </option>
+                                    <option value="9">ชัยนาท </option>
+                                    <option value="10">ชัยภูมิ </option>
+                                    <option value="11">ชุมพร </option>
+                                    <option value="12">ชลบุรี </option>
+                                    <option value="13">เชียงใหม่ </option>
+                                    <option value="14">เชียงราย </option>
+                                    <option value="15">ตรัง </option>
+                                    <option value="16">ตราด </option>
+                                    <option value="17">ตาก </option>
+                                    <option value="18">นครนายก </option>
+                                    <option value="19">นครปฐม </option>
+                                    <option value="20">นครพนม </option>
+                                    <option value="21">นครราชสีมา </option>
+                                    <option value="22">นครศรีธรรมราช </option>
+                                    <option value="23">นครสวรรค์ </option>
+                                    <option value="24">นราธิวาส </option>
+                                    <option value="25">น่าน </option>
+                                    <option value="26">นนทบุรี </option>
+                                    <option value="27">บึงกาฬ</option>
+                                    <option value="28">บุรีรัมย์</option>
+                                    <option value="29">ประจวบคีรีขันธ์ </option>
+                                    <option value="30">ปทุมธานี </option>
+                                    <option value="31">ปราจีนบุรี </option>
+                                    <option value="32">ปัตตานี </option>
+                                    <option value="33">พะเยา </option>
+                                    <option value="34">พระนครศรีอยุธยา </option>
+                                    <option value="35">พังงา </option>
+                                    <option value="36">พิจิตร </option>
+                                    <option value="37">พิษณุโลก </option>
+                                    <option value="38">เพชรบุรี </option>
+                                    <option value="39">เพชรบูรณ์ </option>
+                                    <option value="40">แพร่ </option>
+                                    <option value="41">พัทลุง </option>
+                                    <option value="42">ภูเก็ต </option>
+                                    <option value="43">มหาสารคาม </option>
+                                    <option value="44">มุกดาหาร </option>
+                                    <option value="45">แม่ฮ่องสอน </option>
+                                    <option value="46">ยโสธร </option>
+                                    <option value="47">ยะลา </option>
+                                    <option value="48">ร้อยเอ็ด </option>
+                                    <option value="49">ระนอง </option>
+                                    <option value="50">ระยอง </option>
+                                    <option value="51">ราชบุรี</option>
+                                    <option value="52">ลพบุรี </option>
+                                    <option value="53">ลำปาง </option>
+                                    <option value="54">ลำพูน </option>
+                                    <option value="55">เลย </option>
+                                    <option value="56">ศรีสะเกษ</option>
+                                    <option value="57">สกลนคร</option>
+                                    <option value="58">สงขลา </option>
+                                    <option value="59">สมุทรสาคร </option>
+                                    <option value="60">สมุทรปราการ </option>
+                                    <option value="61">สมุทรสงคราม </option>
+                                    <option value="62">สระแก้ว </option>
+                                    <option value="63">สระบุรี </option>
+                                    <option value="64">สิงห์บุรี </option>
+                                    <option value="65">สุโขทัย </option>
+                                    <option value="66">สุพรรณบุรี </option>
+                                    <option value="67">สุราษฎร์ธานี </option>
+                                    <option value="68">สุรินทร์ </option>
+                                    <option value="69">สตูล </option>
+                                    <option value="70">หนองคาย </option>
+                                    <option value="71">หนองบัวลำภู </option>
+                                    <option value="72">อำนาจเจริญ </option>
+                                    <option value="73">อุดรธานี </option>
+                                    <option value="74">อุตรดิตถ์ </option>
+                                    <option value="75">อุทัยธานี </option>
+                                    <option value="76">อุบลราชธานี</option>
+                                    <option value="77">อ่างทอง </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="col-md-1">
+                                <label for="province">อำเภอ</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select name="province" id="province" multiple title="" data-live-search="true">
+                                    <option value="1">พระนคร</option>
+                                    <option value="2">ดุสิต</option>
+                                    <option value="3">หนองจอก</option>
+                                    <option value="4">บางรัก</option>
+                                    <option value="5">บางเขน</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="province1">ตำบล</label>
+                            </div>
+                            <div class="form-group col-md-8" style="width: 23.2%;">
+                                <select name="province1" id="province1" multiple title="" data-live-search="true">
+                                    <option value="1">ดุสิต</option>
+                                    <option value="2">วชิรพยาบาล</option>
+                                    <option value="3">สวนจิตรลดา</option>
+                                    <option value="4">สี่แยกมหานาค</option>
+                                    <option value="5">ถนนนครไชยศรี</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="form-group">
+                                <a href="#" class="btn btn-default"><i class="fa fa-search"></i> ค้นหา</a>
+                            </div>
+                            <!-- /.form-group -->
+
+                        </div>
+                    </form>
+
+                    <!-- /.main-search -->
+                </div>
+                <!-- /.search-bar -->
+            </div>
+        </div>
+
+    </section>
+    <!--end Hero Image-->
+    <!--Categories-->
+    <section style="padding-top: 50px; padding-bottom: 50px; background-color: #fff;">
+        <div class="container">
+            <div class="row">
+
+                <div class="flexin">
+                    <div class="tabs tabs-style-flip">
+                        <nav>
+                            <ul>
+                                <li><a href="#section-flip-1"><span> ตารางแสดงการวิเคราะห์</span></a></li>
+                                <li><a href="#section-flip-2"><span> แผนที่สรุปข้อมูล</span></a></li>
+                                <li><a href="#section-flip-3"><span> แผนภูมิแสดงข้อมูล</span></a></li>
+                            </ul>
+                        </nav>
+                        <div class="content-wrap">
+                            <section id="section-flip-1">
+                                <form class="ui large form">
+                                    <div class="ui segment" style="background-color: #fff;">
+
+                                        <div class="field col-md-12" style="margin-top: 20px;">
+                                            <div class="col-md-2">
+                                                <label for="year5">แสดงข้อมูล ปี</label>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <select name="year5" id="year5" multiple title="" data-live-search="true">
+                                                    <option value="1">2560</option>
+                                                    <option value="2">2559</option>
+                                                    <option value="3">2558</option>
+                                                    <option value="4">2557</option>
+                                                    <option value="5">2556</option>
+                                                    <option value="6">2555</option>
+                                                    <option value="7">2554</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="year6">ช่วงเวลา</label>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <select name="year6" id="year6" multiple title="" data-live-search="true">
+                                                    <option value="1">รายปี</option>
+                                                    <option value="2">ข้อมูลทุกไตรมาส</option>
+                                                    <option value="3">รายไตรมาสที่1</option>
+                                                    <option value="4">รายไตรมาสที่2</option>
+                                                    <option value="5">รายไตรมาสที่3</option>
+                                                    <option value="6">รายไตรมาสที่4</option>
+                                                    <option value="7">รายเดือน</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2" style="text-align: right;">
+                                                <a href="#" class="btn btn-default"> print</a>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="#" class="btn btn-default"> PDF</a>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="#" class="btn btn-default"> Excel</a>
+                                            </div>
+                                        </div>
+
+                                        <h1 class="ui col-md-12" style="margin-top: 40px;">ตารางแสดงการวิเคราะห์การเปลี่ยนแปลงราคาซื้อขาย ทั่วประเทศ ปี 2560</h1>
+
+                                        <div class="field col-md-12" style="margin-top: 20px;">
+                                            <div class="col-md-12" style="">
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2); height: 62px; background-color: #4367b0; color: #fff;">จังหวัด</div>
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2); height: 62px; background-color: #4367b0; color: #fff;">ช่วงเวลา</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2); background-color: #4367b0; color: #fff;">A/S Ratio ต่ำสุด</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2); background-color: #4367b0; color: #fff;">A/S Ratio สูงสุด</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2); background-color: #4367b0; color: #fff;">A/S Ratio เฉลี่ย</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2); background-color: #4367b0; color: #fff;">S/A Ratio ต่ำสุด</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2); background-color: #4367b0; color: #fff;">S/A Ratio สูงสุด</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2); background-color: #4367b0; color: #fff;">S/A Ratio เฉลี่ย</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">กรุงเทพมหานคร</div>
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">ไตรมาสที่1</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.80</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.20</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.95</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.80</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.20</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.95</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2); height: 22px;"></div>
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">ไตรมาสที่2</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.79</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.30</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.99</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.79</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.30</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.99</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2); height: 22px;"></div>
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">ไตรมาสที่3</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.83</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.19</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.95</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.83</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.19</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.95</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2); height: 22px;"></div>
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">ไตรมาสที่4</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.81</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.50</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.94</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.81</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.50</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.94</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">นนทบุรี</div>
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">ไตรมาสที่1</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.75</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.20</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.85</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.75</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.20</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.85</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2); height: 22px;"></div>
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">ไตรมาสที่2</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.98</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.51</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.95</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.98</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.51</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.95</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2); height: 22px;"></div>
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">ไตรมาสที่3</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.70</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.30</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.89</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.70</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.30</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.89</div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2); height: 22px;"></div>
+                                                <div class="col-md-3" style="border: 1px solid rgba(30, 30, 30, .2);">ไตรมาสที่4</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.80</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.59</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.95</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.80</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">1.59</div>
+                                                <div class="col-md-1" style="border: 1px solid rgba(30, 30, 30, .2);">0.954</div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
+                            </section>
+                            <section id="section-flip-2">
+                                <form class="ui large form">
+                                    <div class="ui segment" style="background-color: #fff;">
+
+                                        <div class="field col-md-12" style="margin-top: 20px;">
+                                            <div class="col-md-2">
+                                                <label for="year5">แสดงข้อมูล ปี</label>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <select name="year5" id="year5" multiple title="" data-live-search="true">
+                                                    <option value="1">2560</option>
+                                                    <option value="2">2559</option>
+                                                    <option value="3">2558</option>
+                                                    <option value="4">2557</option>
+                                                    <option value="5">2556</option>
+                                                    <option value="6">2555</option>
+                                                    <option value="7">2554</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="year6">ช่วงเวลา</label>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <select name="year6" id="year6" multiple title="" data-live-search="true">
+                                                    <option value="1">รายปี</option>
+                                                    <option value="2">ข้อมูลทุกไตรมาส</option>
+                                                    <option value="3">รายไตรมาสที่1</option>
+                                                    <option value="4">รายไตรมาสที่2</option>
+                                                    <option value="5">รายไตรมาสที่3</option>
+                                                    <option value="6">รายไตรมาสที่4</option>
+                                                    <option value="7">รายเดือน</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="year6">ประเภทข้อมูล</label>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <select name="year6" id="year6" multiple title="" data-live-search="true">
+                                                    <option value="1">A/S Ratio</option>
+                                                    <option value="2">S/A Ratio</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 20px;">
+                                                <div class="col-md-10" style="text-align: right;">
+                                                    <a href="#" class="btn btn-default"> print</a>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="#" class="btn btn-default"> PDF</a>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="#" class="btn btn-default"> Excel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h1 class="ui col-md-12" style="margin-top: 40px;">แผนที่สรุปข้อมูล S/A Ratio เฉลี่ย ปี 2560</h1>
+
+                                        <div class="field col-md-12" style="margin-top: 20px;">
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3259.213775302259!2d100.52454333341541!3d13.725701466914076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e298d25667f037%3A0xfb74608e99c397ec!2z4LiW4LiZ4LiZIOC4quC4teC4peC4oSDguYHguILguKfguIcg4Liq4Li14Lil4LihIOC5gOC4guC4lSDguJrguLLguIfguKPguLHguIEg4LiB4Lij4Li44LiH4LmA4LiX4Lie4Lih4Lir4Liy4LiZ4LiE4LijIDEwNTAw!5e0!3m2!1sth!2sth!4v1520935320095" width="1078" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
+                            </section>
+                            <section id="section-flip-3">
+                                <form class="ui large form">
+                                    <div class="ui segment" style="background-color: #fff;">
+
+                                        <div class="field col-md-12" style="margin-top: 20px;">
+                                            <div class="col-md-2">
+                                                <label for="year5">แสดงข้อมูล ปี</label>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <select name="year5" id="year5" multiple title="" data-live-search="true">
+                                                    <option value="1">2560</option>
+                                                    <option value="2">2559</option>
+                                                    <option value="3">2558</option>
+                                                    <option value="4">2557</option>
+                                                    <option value="5">2556</option>
+                                                    <option value="6">2555</option>
+                                                    <option value="7">2554</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="year6">ช่วงเวลา</label>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <select name="year6" id="year6" multiple title="" data-live-search="true">
+                                                    <option value="1">รายปี</option>
+                                                    <option value="2">ข้อมูลทุกไตรมาส</option>
+                                                    <option value="3">รายไตรมาสที่1</option>
+                                                    <option value="4">รายไตรมาสที่2</option>
+                                                    <option value="5">รายไตรมาสที่3</option>
+                                                    <option value="6">รายไตรมาสที่4</option>
+                                                    <option value="7">รายเดือน</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="year6">ประเภทข้อมูล</label>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <select name="year6" id="year6" multiple title="" data-live-search="true">
+                                                    <option value="1">A/S Ratio</option>
+                                                    <option value="2">S/A Ratio</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 20px;">
+                                                <div class="col-md-10" style="text-align: right;">
+                                                    <a href="#" class="btn btn-default"> print</a>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="#" class="btn btn-default"> PDF</a>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a href="#" class="btn btn-default"> Excel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h1 class="ui col-md-12" style="margin-top: 40px;">แผนภูมิแสดงข้อมูล S/A Ratio เฉลี่ย ปี 2560</h1>
+
+                                        <div class="field col-md-12" style="margin-top: 20px; text-align: center;">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-6">
+                                                <div class="portlet light portlet-fit bordered">
+
+                                                    <div class="portlet-body">
+                                                        <div id="gchart_col_1"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+                        <!-- /content -->
+                    </div>
+                    <!-- /tabs -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end Categories-->
