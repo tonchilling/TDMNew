@@ -1,101 +1,103 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="Keywords" content="กรมธนารักษ์">
-		<meta name="Description" content=" กรมธนารักษ์">
-		<!-- FAVICON -->
-		<link rel="icon" href="~/assets/img/favicon.png" type="images/png" />
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="กรมธนารักษ์">
+    <meta name="Description" content=" กรมธนารักษ์">
+    <!-- FAVICON -->
+    <link rel="icon" href="~/assets/img/favicon.png" type="images/png" />
 
-		<!-- APPLE TOUCH ICON -->
-		<link rel="apple-touch-icon" href="img/webclip.png">
-	  
-		<!-- OG TAGS -->
-		<meta property="og:title" content="Treasury Map" />
-		<meta property="og:type" content="website" />
-		<meta property="og:description" content="ค้นหาแปลงที่ดินจากจุดสนใจ" />
-		<title>กรมธนารักษ์</title>
-		<script>
+    <!-- APPLE TOUCH ICON -->
+    <link rel="apple-touch-icon" href="img/webclip.png">
+
+    <!-- OG TAGS -->
+    <meta property="og:title" content="Treasury Map" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="ค้นหาแปลงที่ดินจากจุดสนใจ" />
+    <title>กรมธนารักษ์</title>
+    <script>
 			config.root = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["root"]));
 			config.mapUrl = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["mapUrl"]));
-		</script>
-		<!-- jQuery -->
-		<script src="~/assets/js/jquery-2.1.0.min.js"></script>
-		<link rel="stylesheet" href="~/assets/js/jquery-ui.css">
-		<script src="~/assets/js/jquery-ui.js"></script>
-		<!-- Bootstrap -->
-		<script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
-		<!-- FastClick -->
-		<script src="~/assets/js/fastclick/fastclick.js"></script>
-		<!-- NProgress -->
-		<script src="~/assets/js/nprogress/nprogress.js"></script>
-		<!-- Custom Theme Scripts -->
-		<script src="~/assets/js/custom_pera/custom.min.js"></script>
-		<!-- Custom Pera Scripts -->
-		<script src="~/assets/js/custom_pera/custom.pera.js"></script>
+    </script>
+    <!-- jQuery -->
+    <script src="~/assets/js/jquery-2.1.0.min.js"></script>
+    <link rel="stylesheet" href="~/assets/js/jquery-ui.css">
+    <script src="~/assets/js/jquery-ui.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/assets/js/fastclick/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/assets/js/nprogress/nprogress.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="~/assets/js/custom_pera/custom.min.js"></script>
+    <!-- Custom Pera Scripts -->
+    <script src="~/assets/js/custom_pera/custom.pera.js"></script>
 
-		<script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
-		<script src="~/assets/js/datatables/dataTables.bootstrap.min.js"></script>
-		<script src="~/assets/js/datatables/dataTables.buttons.min.js"></script>
-		<script src="~/assets/js/datatables/buttons.bootstrap.min.js"></script>
-		<script src="~/assets/js/datatables/buttons.flash.min.js"></script>
-		<script src="~/assets/js/datatables/buttons.html5.min.js"></script>
-		<script src="~/assets/js/datatables/buttons.print.min.js"></script>
-		<script src="~/assets/js/datatables/dataTables.fixedHeader.min.js"></script>
-		<script src="~/assets/js/datatables/dataTables.keyTable.min.js"></script>
-		<script src="~/assets/js/datatables/dataTables.responsive.min.js"></script>
-		<script src="~/assets/js/datatables/responsive.bootstrap.js"></script>
-		<script src="~/assets/js/datatables/dataTables.scroller.min.js"></script>
-		<script src="~/assets/js/datatables/jszip.min.js"></script>
-		<script src="~/assets/js/datatables/pdfmake.min.js"></script>
-		<script src="~/assets/js/datatables/vfs_fonts.js"></script>
-		<script src="~/assets/css/bootstrap-daterangepicker/daterangepicker.min.js"></script>
-		<script src="~/assets/css/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-		<script src="~/assets/css/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-		<script src="~/assets/css/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-		<!-- e Chart -->
-		<script src="~/assets/js/Chart/echarts.min.js"></script>
-		<!-- notification -->
-		<script src="~/assets/js/iziToast.js"></script>
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/assets/js/datatables/buttons.bootstrap.min.js"></script>
+    <script src="~/assets/js/datatables/buttons.flash.min.js"></script>
+    <script src="~/assets/js/datatables/buttons.html5.min.js"></script>
+    <script src="~/assets/js/datatables/buttons.print.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.fixedHeader.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.keyTable.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/assets/js/datatables/responsive.bootstrap.js"></script>
+    <script src="~/assets/js/datatables/dataTables.scroller.min.js"></script>
+    <script src="~/assets/js/datatables/jszip.min.js"></script>
+    <script src="~/assets/js/datatables/pdfmake.min.js"></script>
+    <script src="~/assets/js/datatables/vfs_fonts.js"></script>
+    <script src="~/assets/css/bootstrap-daterangepicker/daterangepicker.min.js"></script>
+    <script src="~/assets/css/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/css/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="~/assets/css/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- e Chart -->
+    <script src="~/assets/js/Chart/echarts.min.js"></script>
+    <!-- notification -->
+    <script src="~/assets/js/iziToast.js"></script>
 
-		<!-- Bootstrap -->
-		<link href="~/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<!-- Font Awesome -->
-		<link href="~/assets/fonts/font-awesome.min.css" rel="stylesheet">
-		<!-- NProgress -->
-		<link href="~/assets/css/nprogress/nprogress.css" rel="stylesheet">
-		<!-- Custom Theme Style -->
-		<link href="~/assets/css/custom_pera/custom.min.css?ver=1.1" rel="stylesheet">
-		<!-- Fonts Awesome -->
-		<link rel="stylesheet" href="~/assets/css/all.css">
-		<!-- Datatables -->
-		<link href="~/assets/css/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
-		<link href="~/assets/css/datatables/buttons.bootstrap.min.css" rel="stylesheet">
-		<link href="~/assets/css/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet">
-		<link href="~/assets/css/datatables/responsive.bootstrap.min.css" rel="stylesheet">
-		<link href="~/assets/css/datatables/scroller.bootstrap.min.css" rel="stylesheet">
-		<link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-		<link href="~/assets/css/Kim_Style.css?v6" rel="stylesheet">
-		<!-- notification -->
-		<link href="~/assets/css/iziToast.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="~/assets/css/custom.css?ver=1.1">
-		<!--	<script src="~/assets/js/ViewListHandler.js"></script>-->
-		<script src="~/Scripts/map_loader.js"></script>
-		<script src="~/Scripts/Main.js"></script>
-		@*@Styles.Render("~/Content/css")*@
-		<style  type="text/css">
-			.main_container .top_nav {
-				display: block;
-				margin-left: 0px;
-			}
-			.table>tbody>tr.tdDetail>td {
-				padding:0px;			
-			}
-		</style>
-	</head>
+    <!-- Bootstrap -->
+    <link href="~/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/assets/fonts/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/assets/css/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="~/assets/css/custom_pera/custom.min.css?ver=1.1" rel="stylesheet">
+    <!-- Fonts Awesome -->
+    <link rel="stylesheet" href="~/assets/css/all.css">
+    <!-- Datatables -->
+    <link href="~/assets/css/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/scroller.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/bootstrap/css/custom.css" rel="stylesheet" />
+    <link href="~/assets/css/Kim_Style.css?v6" rel="stylesheet">
+    <link href="~/assets/css/Kim_Style.css?v6" rel="stylesheet">
+    <!-- notification -->
+    <link href="~/assets/css/iziToast.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/css/custom.css?ver=1.1">
+    <!--	<script src="~/assets/js/ViewListHandler.js"></script>-->
+    <script src="~/Scripts/map_loader.js"></script>
+    <script src="~/Scripts/Main.js"></script>
+    @*@Styles.Render("~/Content/css")*@
+    <style type="text/css">
+        .main_container .top_nav {
+            display: block;
+            margin-left: 0px;
+        }
+
+        .table > tbody > tr.tdDetail > td {
+            padding: 0px;
+        }
+    </style>
+</head>
 	<body class="nav-md">
 		<div class="container body">
 			<div class="main_container">
