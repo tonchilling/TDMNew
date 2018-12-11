@@ -332,7 +332,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\bootstrap\css\bootstrap-progressbar-3.3.4.min.css" />
-    <Content Include="assets\bootstrap\css\custom.css" />
     <Content Include="assets\css\bootstrap-datepicker\css\bootstrap-datepicker3.min.css" />
     <Content Include="assets\css\bootstrap-datepicker\js\bootstrap-datepicker.min.js" />
     <Content Include="assets\css\bootstrap-daterangepicker\daterangepicker.min.css" />
@@ -369,8 +368,6 @@
     <Content Include="assets\icons\TDM\measurement_tool_05_hover.png" />
     <Content Include="assets\img\button-search-BU-6.png" />
     <Content Include="assets\img\map.png" />
-    <Content Include="assets\img\tmp\pic-temp1.jpg" />
-    <Content Include="assets\img\tmp\pic-temp2.jpg" />
     <Content Include="assets\img\TrafficLights\Green.png" />
     <Content Include="assets\img\TrafficLights\Red.png" />
     <Content Include="assets\img\TrafficLights\Yellow.png" />
@@ -382,6 +379,7 @@
     <Content Include="assets\js\custom.min.js" />
     <Content Include="assets\js\custom_pera\custom.min.js" />
     <Content Include="assets\js\custom_pera\custom.pera.js" />
+    <Content Include="assets\js\DashboardSystem3\MapHandler.js" />
     <Content Include="assets\js\DashboardSystem3\ViewListHandler.js" />
     <Content Include="assets\js\DashboardSystem3\ViewListHandler_Index.js" />
     <Content Include="assets\js\datatables\buttons.bootstrap.min.js" />
@@ -1506,10 +1504,6 @@
     </Content>
     <Content Include="assets\css\flatpickr2.1.0.min.css" />
     <Content Include="assets\css\fontawesome5.3.1.css" />
-    <Content Include="assets\webfonts\fa-solid-900.ttf" />
-    <Content Include="assets\webfonts\fa-solid-900.woff" />
-    <Content Include="assets\webfonts\fa-solid-900.woff2" />
-    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1609,11 +1603,9 @@
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\AreaAnalysis\Manage_bk.cshtml" />
     <Content Include="Views\DashboardSystem3\ViewList.cshtml" />
-    <Content Include="Views\DashboardSystem3\Index_Temp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\bootstrap\css\custom_pera\" />
     <Folder Include="assets\css\pnotify\" />
     <Folder Include="assets\icheck\" />
     <Folder Include="assets\json\" />

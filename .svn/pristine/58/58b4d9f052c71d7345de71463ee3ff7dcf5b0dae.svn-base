@@ -1,0 +1,764 @@
+﻿@model TDM.Models.TB_MAS_PROVINCE
+
+@{
+    ViewBag.Title = "Address";
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/Search/jquery-state.min.js")
+    @Scripts.Render("~/Scripts/Search/Rx.min.js")
+    @Scripts.Render("~/Scripts/Search/Index-Map.js")
+    @Scripts.Render("~/Scripts/Search/helpers.js")
+    @Scripts.Render("~/Scripts/Search/Index.js?v=1")
+    @Scripts.Render("~/Scripts/Search/api.js")
+    @Scripts.Render("~/Scripts/Search/actions.js")
+    @Scripts.Render("~/Scripts/Search/components.js?v=1")
+
+    @Scripts.Render("~/Scripts/Search/pagination/pagination.min.js")
+}
+
+@section styles {
+    <style>
+        .tab-search-icon img {
+            width: 32px;
+        }
+
+        .timeline-item {
+            background: #fff;
+            border: 1px solid;
+            border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+            border-radius: 3px;
+            padding: 12px;
+            margin: 0 auto;
+            max-width: 472px;
+            min-height: 200px;
+        }
+    </style>
+    @Styles.Render("~/Scripts/Search/pagination/pagination.css")
+}
+<!-- Map Canvas-->
+<div class="map-canvas list-solid">
+
+    <!-- Map -->
+    <div class="map">
+        <iframe id="tdmap" class="map-height" width="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+        <div style="width: 100%; height: 70%; display: none;" id="list-condominium">
+            <h1 class="ui col-md-12" style="margin-top: 40px;">การแสดงผลข้อมูลปริมาณ อาคารชุด จังหวัดกรุงเทพฯ</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ชื่ออาคารชุด</th>
+                        <th>ที่ตั้ง</th>
+                        <th>จำนวนอาคาร</th>
+                        <th>จำนวนชั้น</th>
+                        <th>จำนวนห้องชุด</th>
+                        <th>ราคาประเมิน (บาท/ตารางเมตร)</th>
+                        <th>วันที่ประกาศใช้</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>กมล</td>
+                        <td>เขตบางแค จ.กรุงเทพมหานคร</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>150</td>
+                        <td>9,000-15,000</td>
+                        <td>1/01/2559</td>
+                    </tr>
+                    <tr>
+                        <td>เกศรี คอนโด</td>
+                        <td>เขตบางแค จ.กรุงเทพมหานคร</td>
+                        <td>1</td>
+                        <td>20</td>
+                        <td>220</td>
+                        <td>12,000-18,000</td>
+                        <td>1/01/2559</td>
+                    </tr>
+                    <tr>
+                        <td>คอนโด บ้านนันทพร</td>
+                        <td>เขตบางแค จ.กรุงเทพมหานคร</td>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>55</td>
+                        <td>8,500-11,900</td>
+                        <td>1/01/2559</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- end Map -->
+    <!--Items List-->
+    <div class="items-list">
+        <div class="inner">
+            <div class="scroller1">
+                <div class="filter">
+                    <form class="main-search" role="form" method="post" action="?">
+                        <header class="clearfix">
+                            <h3 class="pull-left">เลือกจังหวัดที่ต้องการค้นหา</h3>
+                            <div class="buttons pull-right">
+                                <a href="~/" class="icon"><i class="fa fa-angle-left" style="color: #4367b0"></i> Back</a>
+                            </div>
+                        </header>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <p>ระบุความสนใจตามเขตการปกครอง</p>
+                                <!-- /.form-group -->
+                            </div>
+                            <!--/.col-md-6-->
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <select id="province" name="province" data-live-search="true" title="จังหวัด"></select>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!--/.col-md-6-->
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <select id="district" name="district" data-live-search="true" title="เขต/อำเภอ"></select>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!--/.col-md-6-->
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <select id="sub-district" name="sub-district" data-live-search="true" title="แขวง/ตำบล"></select>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!--/.col-md-6-->
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <select name="branch" title="สำนักงานที่ดิน" multiple data-live-search="true" id="branch">
+                                        @*<option value="1">ทั้งหมด</option>*@
+                                    </select>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display:none;">
+                                <div class="form-group">
+                                    <select name="road" title="ถนน" data-live-search="true" id="road">
+                                        @*<option value="1">ทั้งหมด</option>*@
+                                    </select>
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                        </div>
+                        <!--/.row-->
+                    </form>
+                    <!-- /.main-search -->
+                </div>
+                <!--end Filter-->
+                <div id="filter-search" class="filter" style="display: none;">
+                    <form class="main-search" role="form" method="post" action="?">
+                        <header class="clearfix" style="margin-bottom: 0px">
+                            <h3 class="pull-left" style="margin-bottom: 0px">เลือกค้นหาตามความต้องการ</h3>
+                        </header>
+                        <div class="row tab-search-icon">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div style="float: left; padding: 20px 0px 20px 10px;" class="button-width">
+                                    <a href="#"><button id="btn-detail-price" class="btn framed" title="ระบบแสดงผลข้อมูลราคาซื้อขาย ราคาประเมิน" style="background-color: #fff"><img src="~/assets/img/button-search-1.png"></button></a>
+                                </div>
+                                <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                                    <a href="#"><button id="btn-change-price" class="btn framed" title="ระบบแสดงการเปลี่ยนแปลงราคาซื้อขาย ราคาประเมิน" style="background-color: #fff"><img src="~/assets/img/button-search-2.png"></button></a>
+                                </div>
+                                <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                                    <a href="~/AreaAnalysis"><button id="btn-analys" class="btn framed" title="การวิเคราะห์พื้นที่" style="background-color: #fff"><img src="~/assets/img/button-search-4.png"></button></a>
+                                </div>
+                                <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                                    <a href="~/TraceProgress"><button id="btn-progress" class="btn framed" title="ระบบการติดตามความคืบหน้าการประเมิน" style="background-color: #fff"><img src="~/assets/img/button-search-5.png"></button></a>
+                                </div>
+                                <div style="float: left; padding: 20px 0px 20px 10px" class="button-width">
+                                    <a href="~/TraceProgress"><button id="btn-loginhistory" class="btn framed" title="ระบบข้อมูลปริมาณการเข้าใช้ระบบ" style="background-color: #fff"><img src="~/assets/img/button-search-BU-6.png"></button></a>
+                                </div>
+                            </div>
+                            <!--/.col-md-6-->
+                        </div>
+                        <!--/.row-->
+                        <div class="row" id="blog-filter-detail" style="display: none;">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <p>แสดงผลข้อมูลราคาซื้อขาย / ราคาประเมิน </p>
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul class="nav nav-tabs data-types">
+                                    <li class="active"><a data-toggle="tab" href="#land" data-data-type="LAND">ที่ดิน</a></li>
+                                    <li><a data-toggle="tab" href="#condominium" data-data-type="CONDOMINIUM">อาคารชุด</a></li>
+                                    <li><a data-toggle="tab" href="#building" data-data-type="CONSTRUCTION">สิ่งปลูกสร้าง</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="land" class="tab-pane fade in active">
+                                        <div class="clearfix">
+                                            <div style="margin: 20px 20px 20px 0; float: left; background-color: #fff">
+                                                <a id="btn-search-condition" href="#" data-search-criteria="condition" onclick="conditionSearchMap('condition')" class="btn framed">ค้นหาแบบตามเงื่อนไข</a>
+                                            </div>
+                                            <div style="margin: 20px 20px 20px 0; float: left; background-color: #fff">
+                                                <a id="btn-search-map" href="#" data-search-criteria="map" onclick="conditionSearchMap('map')" class="btn framed">ค้นหาแบบแผนที่</a>
+                                            </div>
+                                            <div style="margin: 20px 20px 20px 0; float: left; background-color: #fff">
+                                                <a id="btn-search-rawang" href="#" data-search-criteria="rawang" onclick="conditionSearchMap('rawang')" class="btn framed">ค้นหาตามแบบระวาง</a>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-bottom: 10px; display: none;" id="blog-filter-search">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <select name="type" title="ประเภทเอกสารสิทธิ์" data-live-search="true" id="type">
+                                                        <option value="1">โฉนดที่ดิน</option>
+                                                        <option value="2">นส 3 ก</option>
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <!--/.col-md-6-->
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <select name="type" title="ประเภทราคา" data-live-search="true" id="valType">
+                                                        <option value="1">ราคาประเมิน</option>
+                                                        <option value="2">ราคาซื้อขาย</option>
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <!--/.col-md-6-->
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="filter-location" style="padding-left: 0px; padding-right: 0px;">
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <div class="form-group clearfix">
+                                                        <div class="input-group location" id="search-area">
+                                                            <input type="text" class="form-control" id="location" placeholder="ชื่อบริเวณที่สนใจ">
+                                                        </div>
+                                                        <div class="input-group location" id="search-map-choice" style="display: none;">
+                                                            <div style="margin-right: 10px; float: left; background-color: #fff; width: 45%;">
+                                                                <a id="btn-search-point" data-measure-type="areaCycle" href="#" onclick="return false;" class="btn framed" style="width: 100%;"><img src="~/assets/icons/TDM/measurement_tool_01_selected.png" /></a>
+                                                            </div>
+                                                            <div style="float: left; background-color: #fff; width: 45%;">
+                                                                <a id="btn-search-line" data-measure-type="distance" href="#" onclick="return false;" class="btn framed" style="width: 100%;"><img src="~/assets/icons/TDM/measurement_tool_02_hover.png" /></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                                <!--/.col-md-6-->
+
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <select name="radius" title="รัศมี (เมตร)" data-live-search="true" id="radius">
+                                                            <option value="100" selected>รัศมี 100 เมตร</option>
+                                                            <option value="200">รัศมี 200 เมตร</option>
+                                                            <option value="300">รัศมี 300 เมตร</option>
+                                                            <option value="400">รัศมี 400 เมตร</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="filter-rawang"
+                                                 style="text-align: center; margin-bottom: 10px;">
+                                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding: 0px; text-align: left;">
+                                                    ระวาง
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-sm-5 col-xs-5" style="padding-right: 0px;">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+                                                    -
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-sm-5 col-xs-5" style="padding-left: 0px;">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-sm-5 col-xs-5" style="padding-right: 0px;">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2" style="padding: 0px;">
+                                                    -
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-sm-5 col-xs-5" style="padding-left: 0px;">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+
+                                            <!--/.col-md-6-->
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <button type="button" id="btnSearch" class="btn btn-default btn-search" style="width: 100%"><i class="fa fa-search"></i></button>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <button type="clear" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                        </div>
+                                        <!--/.row-->
+                                        <!--<div id="blog-details-list" style="display: none;">
+                                            <hr style="margin: 0px 0px 10px 0px">
+                                            <header class="clearfix">
+                                                <h3 class="pull-left">ผลการค้นหา : 8 รายการ</h3>
+                                                <div class="buttons pull-right">
+                                                    <a href="" class="link-icon" style="margin-right: 15px"><i class="fa fa-print" style="margin-right: 5px"></i>Print</a>
+                                                    <a href="" class="link-icon" style="margin-right: 15px"><i class="fa fa-file-pdf-o" style="margin-right: 5px"></i>Pdf</a>
+                                                    <a href="" class="link-icon" style="margin-right: 15px"><i class="fa fa-file-excel-o" style="margin-right: 5px"></i>Excel</a>
+                                                </div>
+                                            </header>
+                                            <ul class="results list">
+                                                <li>
+                                                    <div class="item" id="1">
+                                                        <div class="wrapper">
+                                                            <a href="#" id="1"><h3>โซฟิเทลสีลม</h3></a>
+                                                            <figure>188 ถ.สีลม สุริยวงศ์ บางรัก กรุงเทพฯ</figure>
+                                                        </div>
+                                                        <div class="wrapper align-right padding-top-0">
+                                                            <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="item" id="1">
+                                                        <div class="wrapper">
+                                                            <a href="#" id="1"><h3>ฟูดแลนด์ สาขาพัฒน์พงศ์</h3></a>
+                                                            <figure>9 ชั้นล่าง ถ.พัฒน์พงษ์ แขวงสุริยวงศ์ กรุงเทพฯ</figure>
+                                                        </div>
+                                                        <div class="wrapper align-right padding-top-0">
+                                                            <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="item" id="1">
+                                                        <div class="wrapper">
+                                                            <a href="#" id="1"><h3>มณเทียร</h3></a>
+                                                            <figure>54 ถ.สุรวงศ์ แขวงสี่พระยา บางรัก กรุงเทพฯ</figure>
+                                                        </div>
+                                                        <div class="wrapper align-right padding-top-0">
+                                                            <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="item" id="1">
+                                                        <div class="wrapper">
+                                                            <a href="#" id="1"><h3>ห้างสรรพสินค้าเซ็นทรัล สาขาสีลมคอมเพล็กซ์</h3></a>
+                                                            <figure>191 ถ.สีลม แขวงสีลม เขตบางรัก กรุงเทพฯ</figure>
+                                                        </div>
+                                                        <div class="wrapper align-right padding-top-0">
+                                                            <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="item" id="1">
+                                                        <div class="wrapper">
+                                                            <a href="#" id="1"><h3>โซฟิเทลสีลม</h3></a>
+                                                            <figure>188 ถ.สีลม สุริยวงศ์ บางรัก กรุงเทพฯ</figure>
+                                                        </div>
+                                                        <div class="wrapper align-right padding-top-0">
+                                                            <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="item" id="1">
+                                                        <div class="wrapper">
+                                                            <a href="#" id="1"><h3>ฟูดแลนด์ สาขาพัฒน์พงศ์</h3></a>
+                                                            <figure>9 ชั้นล่าง ถ.พัฒน์พงษ์ แขวงสุริยวงศ์ กรุงเทพฯ</figure>
+                                                        </div>
+                                                        <div class="wrapper align-right padding-top-0">
+                                                            <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="item" id="1">
+                                                        <div class="wrapper">
+                                                            <a href="#" id="1"><h3>มณเทียร</h3></a>
+                                                            <figure>54 ถ.สุรวงศ์ แขวงสี่พระยา บางรัก กรุงเทพฯ</figure>
+                                                        </div>
+                                                        <div class="wrapper align-right padding-top-0">
+                                                            <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="item" id="1">
+                                                        <div class="wrapper">
+                                                            <a href="#" id="1"><h3>ห้างสรรพสินค้าเซ็นทรัล สาขาสีลมคอมเพล็กซ์</h3></a>
+                                                            <figure>191 ถ.สีลม แขวงสีลม เขตบางรัก กรุงเทพฯ</figure>
+                                                        </div>
+                                                        <div class="wrapper align-right padding-top-0">
+                                                            <a href="#"><i class="fa fa-crosshairs" style="font-size: 22px"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>-->
+                                    </div>
+                                    <div id="condominium" class="tab-pane fade in">
+                                        <div class="row" style="margin-bottom: 10px;" id="">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="margin-top: 20px;">
+                                                    <select name="type" title="ประเภทราคา" data-live-search="true" id="type">
+                                                        <option value="1">ราคาประเมิน</option>
+                                                        <option value="2">ราคาซื้อขาย</option>
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="padding-left: 0px;">
+                                                    <input type="text" class="form-control" placeholder="เลขที่อาคารชุด">
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="padding-right: 0px;">
+                                                    <input type="text" class="form-control" placeholder="ชื่ออาคารชุด">
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <!--/.col-md-6-->
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <button type="button" id="btnSearch" class="btn btn-default btn-search" style="width: 100%"><i class="fa fa-search"></i></button>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <button type="clear" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="building" class="tab-pane fade in">
+                                        <div class="row" style="margin-bottom: 10px;" id="">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="margin-top: 20px;">
+                                                    <select name="type" title="ประเภทราคา" data-live-search="true" id="type">
+                                                        <option value="1">ราคาประเมิน</option>
+                                                        <option value="2">ราคาซื้อขาย</option>
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="padding-left: 0px;">
+                                                    <input type="text" class="form-control" placeholder="เลขที่อาคารชุด">
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="padding-right: 0px;">
+                                                    <input type="text" class="form-control" placeholder="ชื่ออาคารชุด">
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="padding-left: 0px;">
+                                                    <input type="text" class="form-control" placeholder="เลขที่อาคารชุด">
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="padding-right: 0px;">
+                                                    <input type="text" class="form-control" placeholder="ชื่ออาคารชุด">
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <!--/.col-md-6-->
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <button type="button" class="btn btn-default btn-search" style="width: 100%"><i class="fa fa-search"></i></button>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <button type="clear" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <p>เลือกเปรียบเทียบรายจังหวัด</p>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="margin-top: 20px;">
+                                                    <select name="type" title="ประเภทราคา" data-live-search="true" id="type">
+                                                        <option value="1">ราคาประเมิน</option>
+                                                        <option value="2">ราคาซื้อขาย</option>
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group" style="margin-top: 20px;">
+                                                    <select name="type" title="ประเภทราคา" data-live-search="true" id="type">
+                                                        <option value="1">ราคาประเมิน</option>
+                                                        <option value="2">ราคาซื้อขาย</option>
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="filter-rawang"
+                                                 style="text-align: left; margin-bottom: 10px;">
+                                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4" style="padding: 0px;">
+                                                    % ความต่าง
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4">
+                                                    %
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <button type="button" onclick="onSearchPriceClick()" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <button type="clear" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                                </div>
+                                                <!-- /.form-group -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /.main-search -->
+                </div>
+                <!--end Filter-->
+                <!--Dinamic data-->
+                <div id="results-list" style="display: none;">
+                    <header class="clearfix">
+                        <h3 class="pull-left">
+                            จำนวนผลลัพธ์ <span id="search-total"></span> รายการ
+                        </h3>
+                        <div class="buttons pull-right">
+                            <a href="" class="link-icon" style="margin-right: 15px"><i class="fa fa-print" style="margin-right: 5px"></i>Print</a>
+                            <a href="" class="link-icon" style="margin-right: 15px"><i class="fa fa-file-pdf-o" style="margin-right: 5px"></i>Pdf</a>
+                            <a href="" class="link-icon" style="margin-right: 15px"><i class="fa fa-file-excel-o" style="margin-right: 5px"></i>Excel</a>
+                        </div>
+                    </header>
+                    <ul class="results list" id="search-result"></ul>
+                </div>
+                <!--End Dinamic data-->
+
+                <div id="results-detail" class="scroller__track" style="display: none;">
+                    <header class="clearfix">
+                        <h3 class="pull-left"></h3>
+                        <div class="buttons pull-right">
+                            <a href="#" id="btn-back-results-detail" class="icon"><i class="fa fa-angle-left" style="color: #4367b0"></i> Back</a>
+                        </div>
+                    </header>
+                    <ul class="results list">
+                        <li>
+                            <div class="item" id="1">
+                                <div class="wrapper" style="text-align: left;">
+                                    <a href="#" id="1"><h3>ห้างสรรพสินค้าเซ็นทรัล สาขาสีลมคอมเพล็กซ์</h3></a>
+                                    <figure>
+                                        จำนวนแปลงที่ดิน 5 แปลง
+                                    </figure>
+                                    <figure>
+                                        พื้นที่รวม  1,500 ตารางวา
+                                    </figure>
+                                    <figure>
+                                        ราคาประเมินรวม  200,000,000 บาท
+                                    </figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0" style="vertical-align: bottom;">
+                                    <a href="#" id="btn-results-detail"><i class="fa fa-info-circle" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="plots-list" class="scroller__track" style="display: none;">
+                    <header class="clearfix">
+                        <h3 class="pull-left">
+                            @*จำนวนแปลงที่ดิน  แปลง*@
+                        </h3>
+                        <div class="buttons pull-right">
+                            <a href="#" id="btn-back-plots-list" class="icon"><i class="fa fa-angle-left" style="color: #4367b0"></i> Back</a>
+                        </div>
+                    </header>
+                    <ul class="results list">
+                        <li>
+                            <div class="item" id="1">
+                                <div class="wrapper">
+                                    <figure>
+                                        รูปแปลงที่ดิน: โฉนด พาดผ่าน: 100%
+                                    </figure>
+                                    <figure>
+                                        โฉนดเลขที่: 232 เลขที่ดิน: 12
+                                    </figure>
+                                    <figure>
+                                        ราคาประเมิน (บาท/ตร.ว.) 39,500
+                                    </figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0" style="vertical-align: bottom;">
+                                    <a href="#" id="btn-plots-list"><i class="fa fa-info-circle" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <div class="wrapper">
+                                    <figure>
+                                        รูปแปลงที่ดิน: โฉนด พาดผ่าน: 100%
+                                    </figure>
+                                    <figure>
+                                        โฉนดเลขที่: 212 เลขที่ดิน: 15
+                                    </figure>
+                                    <figure>
+                                        ราคาประเมิน (บาท/ตร.ว.) 50,500
+                                    </figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0" style="vertical-align: bottom;">
+                                    <a href="#" id="btn-plots-list"><i class="fa fa-info-circle" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <div class="wrapper">
+                                    <figure>
+                                        รูปแปลงที่ดิน: โฉนด พาดผ่าน: 100%
+                                    </figure>
+                                    <figure>
+                                        โฉนดเลขที่: 32 เลขที่ดิน: 5
+                                    </figure>
+                                    <figure>
+                                        ราคาประเมิน (บาท/ตร.ว.) 9,500
+                                    </figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0" style="vertical-align: bottom;">
+                                    <a href="#" id="btn-plots-list"><i class="fa fa-info-circle" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <div class="wrapper">
+                                    <figure>
+                                        รูปแปลงที่ดิน: โฉนด พาดผ่าน: 100%
+                                    </figure>
+                                    <figure>
+                                        โฉนดเลขที่: 105 เลขที่ดิน: 10
+                                    </figure>
+                                    <figure>
+                                        ราคาประเมิน (บาท/ตร.ว.) 30,507
+                                    </figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0" style="vertical-align: bottom;">
+                                    <a href="#" id="btn-plots-list"><i class="fa fa-info-circle" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item" id="1">
+                                <div class="wrapper">
+                                    <figure>
+                                        รูปแปลงที่ดิน: โฉนด พาดผ่าน: 100%
+                                    </figure>
+                                    <figure>
+                                        โฉนดเลขที่: 188 เลขที่ดิน: 18
+                                    </figure>
+                                    <figure>
+                                        ราคาประเมิน (บาท/ตร.ว.) 58,500
+                                    </figure>
+                                </div>
+                                <div class="wrapper align-right padding-top-0" style="vertical-align: bottom;">
+                                    <a href="#" id="btn-plots-list"><i class="fa fa-info-circle" style="font-size: 22px"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="plots-detail" class="scroller__track" style="display: none;">
+                    <header class="clearfix">
+                        <h3 class="pull-left"></h3>
+                        <div class="buttons pull-right">
+                            <a href="#" id="btn-back-plots-detail" class="icon"><i class="fa fa-angle-left" style="color: #4367b0"></i> Back</a>
+                        </div>
+                    </header>
+                    <ul class="results list">
+                        <li>
+                            <div class="item" id="1">
+                                <div class="wrapper">
+                                    <h3>
+                                        ข้อมูลแปลงที่ดิน
+                                    </h3>
+                                    <figure>
+                                        ประเภทรูปแปลง: แปลงที่ดินมีโฉนด
+                                    </figure>
+                                    <figure>
+                                        หมายเลขระวางแผนที่ (1: 50,000): 5443
+                                    </figure>
+                                    <figure>
+                                        หมายเลขระวางแผนที่ (1: 4,000): 0214
+                                    </figure>
+                                    <figure>
+                                        เลขที่ดิน: 12
+                                    </figure>
+                                    <figure>
+                                        รหัสสำนักงานที่ดิน: 00
+                                    </figure>
+                                    <figure>
+                                        รหัสจังหวัด: 10
+                                    </figure>
+                                    <figure>
+                                        ชื่อจังหวัด: กรุงเทพมหานคร
+                                    </figure>
+                                    <figure>
+                                        รหัสอำเภอ: 04
+                                    </figure>
+                                    <figure>
+                                        ชื่ออำเภอ: บางรัก
+                                    </figure>
+                                    <figure>
+                                        รหัสตำบล: 04
+                                    </figure>
+                                    <figure>
+                                        ชื่อตำบล: บางรัก
+                                    </figure>
+                                    <figure>
+                                        โฉนดเลขที่: 232
+                                    </figure>
+                                    <figure>
+                                        หน้าสำรวจ: 18
+                                    </figure>
+                                    <figure>
+                                        ไร่: 6   งาน: 0   วา: 97  เศษวา: 0.8
+                                    </figure>
+                                    <figure>
+                                        จำนวนผู้ถือกรรมสิทธิ: 0
+                                    </figure>
+                                    <figure>
+                                        การพาดผ่าน: 100 %
+                                    </figure>
+                                    <figure>
+                                        ราคาประเมิน (บาท/ตร.ว.)  : 39,500
+                                    </figure>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--results-->
+    </div>
+    <!--end Items List-->
+</div>
+<!-- end Map Canvas-->

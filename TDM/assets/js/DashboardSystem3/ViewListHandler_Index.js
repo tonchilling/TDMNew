@@ -1,6 +1,10 @@
-﻿var viewListManager = {
+﻿
+var sectionType = '0';
+var code = '';
+var viewListManager = {
     init: function () {
         searchForm.initComp();
+
     }
 
 }
@@ -9,6 +13,7 @@ var searchForm = {
 
     initComp: function (eleName) {
         searchForm.setupSearchForm();
+        SearchAll('0','');
     },
     ddlProvince: $("#ddlProvince"),
     ddlDistrict: $("#ddlDistrict"),
@@ -126,7 +131,7 @@ var searchForm = {
         /**/
 
         var idOfAll = '999999';
-        var searchType = 'PROVINCE';
+        var searchType = '';
         var targetId = '';
 
         if ($("#ddlSubdistrict").val() != '') {
@@ -135,24 +140,47 @@ var searchForm = {
         } else if ($("#ddlDistrict").val() != '') {
             searchType = 'DISTRICT';
             targetId = $("#ddlDistrict").val();
-        } else {
+        }
+           else if( $("#ddlProvince").val() != ''){
             searchType = 'PROVINCE';
             targetId = $("#ddlProvince").val();
         }
 
 
+
+        if ($('#ddlSubdistrict').val() != "")
+        {
+            sectionType = '4';
+            code = $('#ddlSubdistrict').val();
+        }
+        else if ($("#ddlDistrict").val() != '')
+        {
+            sectionType = '3';
+            code = $('#ddlDistrict').val();
+        }
+        else if ($("#ddlProvince").val() != '')
+        {
+            sectionType = '2';
+            code = $('#ddlProvince').val();
+        }
+        else if ($("#ddlRegion ").val() != '') {
+            sectionType = '1';
+            code = $('#ddlRegion').val();
+        } else {
+            sectionType = '0';
+        }
         //  alert(searchType + '  ' + targetId);
 
         try {
 
 
-            var sectionType = '1';
-            var code = '';
-            SearchAll(sectionType, code)
+          
+          
+          
             //  map.clear();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
-                sectionType = '1';
-                code = $('#ddlRegion').val();
+                //sectionType = '1';
+               // code = $('#ddlRegion').val();
                 if (targetId == idOfAll) {
                     mapApi.getProvinceShapeByRegion($('#ddlRegion').val(), function (data) {
 
@@ -176,8 +204,8 @@ var searchForm = {
 
             } else if (searchType == 'DISTRICT') {/*render DISTRICT map*/
 
-                sectionType = '2';
-                code = $('#ddlProvince').val();
+                //sectionType = '2';
+               // code = $('#ddlProvince').val();
                 if (targetId == idOfAll) {
                     mapApi.getDistrictShapeByProvince($("#ddlProvince").val(), function (data) {
 
@@ -199,8 +227,8 @@ var searchForm = {
                 }
             } else { /*render subdistrict map*/
                 if (targetId == idOfAll) {
-                    sectionType = '3';
-                    code = $('#ddlDistrict').val();
+                 //   sectionType = '3';
+                 //   code = $('#ddlDistrict').val();
                     mapApi.getSubDistrictShapeByDistrict($("#ddlDistrict").val(), function (data) {
 
                         if (data != null && data.length > 0) {
@@ -219,7 +247,7 @@ var searchForm = {
                 }
             }
 
-
+            SearchAll(sectionType, code)
 
         } catch (e) {
             alert(e.message);
@@ -335,7 +363,7 @@ function SearchAll(sectionTypeTemp, codeTemp) {
 
     var objSearch = {};
 
-    objSearch = { SectionType: sectionTypeTemp, code: "1" };
+    objSearch = { SectionType: sectionTypeTemp, code: codeTemp };
 
     $.ajax({
         type: "POST",
@@ -343,8 +371,8 @@ function SearchAll(sectionTypeTemp, codeTemp) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify(objSearch),
-        success: function (response) {
-            alert('success');
+        success: function (data) {
+            InitailData(data);
         },
         error: function (response) {
             alert('failure');
@@ -352,6 +380,193 @@ function SearchAll(sectionTypeTemp, codeTemp) {
     });
 }
 
+
+function InitailData( data)
+{
+    $("#lbHeader").text("ราคาประเมิน ราย" + GetSectionDisplayText(sectionType));
+    $("#lbHeaderGraph").text("แผนภูมิแสดงราคาที่ดิน ราย" + GetSectionDisplayText(sectionType));
+    LoadEvalBox1_LeftBox(data);
+    LoadEvalBox1_Graph(data);
+    LoadEvalBox1_Table(data);
+
+
+}
+
+function LoadEvalBox1_LeftBox(data)
+{
+
+    var body = "";
+    $("#EvalBox1").empty();
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, data) {
+                body += '<div class="alert leftbox leftbox-' + data.DisplayCode + ' msg pmvByAreaBox">';
+                body += '<h4>' + data.DisplayName + '</h4>';
+                body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท </h5>';
+                body += ' <h5>ราคาต่ำสุด:  ' +   numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท </h5>';
+                body += '<h5>ราคาเฉลี่ย :  ' +  numberWithCommas(parseFloat(data.ParcelPriceAvg).toFixed(2)) + ' บาท </h5>';
+                body += ' </div>';
+            });
+        }
+    }
+
+    $("#EvalBox1").append(body);
+
+}
+
+function GetSectionDisplayText(sectionType)
+{
+    var text = 'ภาค';
+    
+    switch (sectionType)
+    {
+        case '0': text = 'ภาค'; break;
+        case '1': text = 'จังหวัด'; break;
+        case '2': text = 'อำเภอ'; break;
+        case '3': text = 'ตำบล'; break;
+    }
+
+    return text;
+}
+function LoadEvalBox1_Graph(data)
+{
+    var chartBar = echarts.init(document.getElementById('EvalBox1chartBar'));
+    var caption = [];
+    var maxValue = [];
+    var minValue = [];
+    var avgValue = [];
+
+
+    if (data != null)
+    {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, data) {
+                caption.push(data.DisplayName);
+                maxValue.push(parseFloat(data.ParcelPriceMax).toFixed(2));
+                minValue.push(parseFloat(data.ParcelPriceMin).toFixed(2));
+                avgValue.push(parseFloat(data.ParcelPriceAvg).toFixed(2));
+            });
+            }
+    }
+
+    var option2 = {
+        title: {
+            text: '',
+            subtext: ''
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['ราคาประเมินรวม']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: true, type: ['line', 'bar'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        yAxis: [
+            {
+                type: 'category',
+                data: caption
+            }
+        ],
+        series: [
+            {
+                name: 'ราคาเฉลี่ย',
+                type: 'bar',
+                data: avgValue,
+                itemStyle: {
+                    normal: {
+                        color: 'green'
+                    },
+                    emphasis: {
+                        color: '#00e600'
+
+                    }
+                }
+            },
+     {
+         name: 'ราคาต่ำสุด',
+         type: 'bar',
+         data: minValue,
+
+         itemStyle: {
+             normal: {
+                 color: 'yellow'
+             },
+             emphasis: {
+
+
+             }
+         }
+     },
+     {
+         name: 'สูงสุด',
+         type: 'bar',
+         data: maxValue,
+
+         itemStyle: {
+             normal: {
+                 color: 'red'
+             },
+             emphasis: {
+
+
+             }
+         }
+     }
+        ]
+    };
+
+    chartBar.setOption(option2);
+}
+
+function LoadEvalBox1_Table(data) {
+
+    var body = "";
+    $("#EvalBox1Table").empty();
+
+    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<thead>';
+    body += '<tr>';
+    body += '<th scope="col">' + GetSectionDisplayText(sectionType) + '</th>';
+    body += '<th scope="col">จำนวนแปลงที่ดิน</th>';
+    body += '<th scope="col">พื้นที่รวม</th>';
+    body += '<th scope="col">ราคาประเมินที่ดิน</th>';
+    body += '</tr>';
+    body += '</thead>';
+    body += '<tbody>';
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, data) {
+                body += '<tr>';
+                body += '<td>' + data.DisplayName + '</td>';
+                body += '<td>' + data.LAND_Total + ' แปลง</td>';
+                body += '<td>' + data.LAND_AREA + ' ตารางวา</td>';
+                body += '<td>' + data.ParcelPrice + ' บาท</td>';
+                body += '</tr>';
+            });
+        }
+    }
+
+    body += ' </tbody>';
+    body += ' </table>';
+
+    $("#EvalBox1Table").append(body);
+    $("#EvalBox1Table table").DataTable({ searching: false, info: false });
+}
 
 function searchSuccess(data) {
     if (data != null && data.length > 0) {
