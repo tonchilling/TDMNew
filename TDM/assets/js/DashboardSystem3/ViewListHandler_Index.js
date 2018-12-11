@@ -172,17 +172,9 @@ var searchForm = {
         //  alert(searchType + '  ' + targetId);
 
         try {
-<<<<<<< HEAD
             var sectionType = '1';
             var code = '';
             SearchAll(sectionType, code)
-=======
-
-
-          
-          
-          
->>>>>>> 1f86eacf51d54036a30a62eebf0b33b50be53d60
             //  map.clear();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 //sectionType = '1';
@@ -252,12 +244,7 @@ var searchForm = {
                     });
                 }
             }
-<<<<<<< HEAD
-=======
-
             SearchAll(sectionType, code)
-
->>>>>>> 1f86eacf51d54036a30a62eebf0b33b50be53d60
         } catch (e) {
             alert(e.message);
         }
@@ -391,8 +378,190 @@ function InitailData( data)
     LoadEvalBox1_LeftBox(data);
     LoadEvalBox1_Graph(data);
     LoadEvalBox1_Table(data);
+}
+
+function LoadEvalBox1_LeftBox(data)
+{
+
+    var body = "";
+    $("#EvalBox1").empty();
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, data) {
+                body += '<div class="alert leftbox leftbox-' + data.DisplayCode + ' msg pmvByAreaBox">';
+                body += '<h4>' + data.DisplayName + '</h4>';
+                body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท </h5>';
+                body += ' <h5>ราคาต่ำสุด:  ' +   numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท </h5>';
+                body += '<h5>ราคาเฉลี่ย :  ' +  numberWithCommas(parseFloat(data.ParcelPriceAvg).toFixed(2)) + ' บาท </h5>';
+                body += ' </div>';
+            });
+        }
+    }
+
+    $("#EvalBox1").append(body);
+
+}
+
+function GetSectionDisplayText(sectionType)
+{
+    var text = 'ภาค';
+    
+    switch (sectionType)
+    {
+        case '0': text = 'ภาค'; break;
+        case '1': text = 'จังหวัด'; break;
+        case '2': text = 'อำเภอ'; break;
+        case '3': text = 'ตำบล'; break;
+    }
+
+    return text;
+}
+function LoadEvalBox1_Graph(data)
+{
+    var chartBar = echarts.init(document.getElementById('EvalBox1chartBar'));
+    var caption = [];
+    var maxValue = [];
+    var minValue = [];
+    var avgValue = [];
 
 
+    if (data != null)
+    {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, data) {
+                caption.push(data.DisplayName);
+                maxValue.push(parseFloat(data.ParcelPriceMax).toFixed(2));
+                minValue.push(parseFloat(data.ParcelPriceMin).toFixed(2));
+                avgValue.push(parseFloat(data.ParcelPriceAvg).toFixed(2));
+            });
+            }
+    }
+
+    var option2 = {
+        title: {
+            text: '',
+            subtext: ''
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['ราคาประเมินรวม']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: true, type: ['line', 'bar'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        yAxis: [
+            {
+                type: 'category',
+                data: caption
+            }
+        ],
+        series: [
+            {
+                name: 'ราคาเฉลี่ย',
+                type: 'bar',
+                data: avgValue,
+                itemStyle: {
+                    normal: {
+                        color: 'green'
+                    },
+                    emphasis: {
+                        color: '#00e600'
+
+                    }
+                }
+            },
+     {
+         name: 'ราคาต่ำสุด',
+         type: 'bar',
+         data: minValue,
+
+         itemStyle: {
+             normal: {
+                 color: 'yellow'
+             },
+             emphasis: {
+
+
+             }
+         }
+     },
+     {
+         name: 'สูงสุด',
+         type: 'bar',
+         data: maxValue,
+
+         itemStyle: {
+             normal: {
+                 color: 'red'
+             },
+             emphasis: {
+
+
+             }
+         }
+     }
+        ]
+    };
+
+    chartBar.setOption(option2);
+}
+
+function LoadEvalBox1_Table(data) {
+
+    var body = "";
+    $("#EvalBox1Table").empty();
+
+    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<thead>';
+    body += '<tr>';
+    body += '<th scope="col">' + GetSectionDisplayText(sectionType) + '</th>';
+    body += '<th scope="col">จำนวนแปลงที่ดิน</th>';
+    body += '<th scope="col">พื้นที่รวม</th>';
+    body += '<th scope="col">ราคาประเมินที่ดิน</th>';
+    body += '</tr>';
+    body += '</thead>';
+    body += '<tbody>';
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, data) {
+                body += '<tr>';
+                body += '<td>' + data.DisplayName + '</td>';
+                body += '<td>' + data.LAND_Total + ' แปลง</td>';
+                body += '<td>' + data.LAND_AREA + ' ตารางวา</td>';
+                body += '<td>' + data.ParcelPrice + ' บาท</td>';
+                body += '</tr>';
+            });
+        }
+    }
+
+    body += ' </tbody>';
+    body += ' </table>';
+
+    $("#EvalBox1Table").append(body);
+    $("#EvalBox1Table table").DataTable({ searching: false, info: false });
+}
+
+function searchSuccess(data) {
+    if (data != null && data.length > 0) {
+        $.each(data, function (index, data) {
+            // drawCity(shape.SHAPE);
+        });
+    }
 }
 
 function LoadEvalBox1_LeftBox(data)
