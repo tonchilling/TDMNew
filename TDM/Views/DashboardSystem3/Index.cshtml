@@ -39,24 +39,24 @@
 															</div>
 														</div>
 													</div>
-													<div class="row justify-content-md-center" style="overflow-x:auto">
-														<div class="col col-md-2 col-sm-2 col-xs-12 chartTab1 tab1">
+													<div class="row justify-content-md-center rowChartTab">
+														<div class="col col-md-2 chartTab1 tab1">
 															<h4>แผนงานปรับราคาประเมินที่ดินรายแปลง</h4>
 															<div id="chartSpeedometer1_1" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div>
 														</div>
-														<div class="col col-md-2 col-sm-2 col-xs-12 chartTab1 tab2">
+														<div class="col col-md-2 chartTab1 tab2">
 															<h4>แผนงานขยายพื้นที่ประเมินราคาที่ดินรายแปลง</h4>
 															<div id="chartSpeedometer1_2" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div>
 														</div>
-														<div class="col col-md-2 col-sm-2 col-xs-12 chartTab1 tab3">
+														<div class="col col-md-2 chartTab1 tab3">
 															<h4>แผนงานการปรับราคาประเมินที่ดินภาคใต้</h4>
 															<div id="chartSpeedometer1_3" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div>
 														</div>
-														<div class="col col-md-2 col-sm-2 col-xs-12 chartTab1 tab4">
+														<div class="col col-md-2 chartTab1 tab4">
 															<h4>แผนงานการปรับราคาประเมินที่ดินภาคเหนือ</h4>
 															<div id="chartSpeedometer1_4" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div>
 														</div>
-														<div class="col col-md-2 col-sm-2 col-xs-12 chartTab1 tab5">
+														<div class="col col-md-2 chartTab1 tab5">
 															<h4>แผนงานการปรับราคาประเมินที่ดินภาคตะวันออก</h4>
 															<div id="chartSpeedometer1_5" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div>
 														</div>
@@ -81,12 +81,12 @@
 															</div>
 														</div>
 													</div>
-													<div class="row justify-content-md-center" style="overflow-x:auto">
-														<div class="col col-md-2 col-sm-2 col-xs-12 chartTab2 tab1">
+													<div class="row justify-content-md-center rowChartTab" style="overflow-x:auto">
+														<div class="col col-md-2 chartTab2 tab1">
 															<h4>แผนงานการปรับราคาประเมินทุนทรัพย์ห้องชุด</h4>
 															<div id="chartSpeedometer2_1" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div>
 														</div>
-														<div class="col col-md-2 col-sm-2 col-xs-12 chartTab2 tab2">
+														<div class="col col-md-2 chartTab2 tab2">
 															<h4>แผนงานการประเมินราคาทุนทรัพย์โรงเรือนสิ่งปลูกสร้าง</h4>
 															<div id="chartSpeedometer2_2" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div>
 														</div>
@@ -111,12 +111,12 @@
 															</div>
 														</div>
 													</div>
-													<div class="row justify-content-md-center" style="overflow-x:auto">
-														<div class="col col-md-2 col-sm-2 col-xs-12 chartTab3 tab1">
+													<div class="row justify-content-md-center rowChartTab" style="overflow-x:auto">
+														<div class="col col-md-2 chartTab3 tab1">
 															<h4>แผนงานปรับราคาประเมินที่สิ่งปลูกสร้างรายแปลง</h4>
 															<div id="chartSpeedometer3_1" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div>
 														</div>
-														<div class="col col-md-2 col-sm-2 col-xs-12 chartTab3 tab2">
+														<div class="col col-md-2 chartTab3 tab2">
 															<h4>แผนงานขยายพื้นที่สิ่งปลูกสร้าง</h4>
 															<div id="chartSpeedometer3_2" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div>
 														</div>
@@ -134,9 +134,9 @@
 							<div class="panel with-nav-tabs panel-primary">
 								<div class="panel-heading">
 									<ul class="nav nav-tabs">
-										<li class="active tabSection" data-index="0"><a href="#tabSection0" data-toggle="tab">ราคาประเมิน</a></li>
-										<li class="tabSection" data-index="1"><a href="#tabSection1" data-toggle="tab">ราคาขาย</a></li>
-										<li class="tabSection" data-index="2"><a href="#tabSection2" data-toggle="tab">พื้นที่ที่มีการพัฒนาโครงการรัฐ</a></li>
+										<li class="active tabSection" data-index="0" data-tab="ราคาประเมิน"><a href="#tabSection0" data-toggle="tab">ราคาประเมิน</a></li>
+										<li class="tabSection" data-index="1" data-tab="ราคาซื้อขาย"><a href="#tabSection0" data-toggle="tab">ราคาซื้อขาย</a></li>
+										<li class="tabSection" data-index="2" data-tab="พื้นที่ที่มีการพัฒนาโครงการรัฐ"><a href="#tabSection1" data-toggle="tab">พื้นที่ที่มีการพัฒนาโครงการรัฐ</a></li>
 									</ul>
 								</div>
 								<div class="panel-body">
@@ -146,7 +146,7 @@
 												<div class="x_panel tile">
 													<div class="x_title">
 														<div class="col-md-10 col-sm-8 col-xs-9">
-															<label>ราคาประเมิน</label>
+															<label id="tabLabelTitle">ราคาประเมิน</label>
 														</div>
 														<div class="col-md-2 col-sm-4 col-xs-3">
 															<ul class="nav navbar-right panel_toolbox">
@@ -174,7 +174,7 @@
 													<div class="x_content">
 														<div class="row">
 															<div class="col-md-2 col-sm-2 col-xs-12">
-																<div class="row">
+																<div class="row sectionTab0">
 																	<div class="col-md-12 col-sm-12 col-xs-12">
 																		<div class="form-group">
 																			<select class="form-control form-control-lg" id="CostEstimateType">
@@ -185,90 +185,130 @@
 																		</div>
 																	</div>
 																</div>
-																<h3 id="CostEstimateListTitle">ราคาประเมิน รายภาค</h3>
-																<div id="pmvByArea0" class="pmvByArea">
-																	<!-- Add ราคาประเมิน รายภาค -->
+																<h4 id="CostListTitle">No Title</h4>
+																<div class="sectionTab0">
+																	<div id="pmvByArea0" class="pmvByArea">
+																		<!-- Add ราคาประเมิน รายภาค -->
+																		<div class="alert alert-1 msg pmvByAreaBox">
+																			<h4>เหนือ </h4>
+																			<h5>สูงสุด : 1,500,000 บาท </h5>
+																			<h5>ต่ำสุด: 20,000 บาท </h5>
+																			<h5>เฉลี่ย : 700,000 บาท </h5>
+																		</div>
+																		<div class="alert alert-2 msg pmvByAreaBox">
+																			<h4>กลาง  </h4>
+																			<h5>สูงสุด : 3,000,000 บาท </h5>
+																			<h5>กตำสุด: 50,000 บาท </h5>
+																			<h5>เฉลี่ย : 600,000 บาท </h5>
+																		</div>
+																		<div class="alert alert-3 msg pmvByAreaBox">
+																			<h4>ใต้  </h4>
+																			<h5>สูงสุด : 1,100,000 บาท </h5>
+																			<h5>ต่ำสุด: 30,000 บาท </h5>
+																			<h5>เฉลี่ย : 520,000 บาท </h5>
+																		</div>
+																		<div class="alert alert-4 msg pmvByAreaBox">
+																			<h4>ตะวันออก </h4>
+																			<h5>สูงสุด : 900,000 บาท </h5>
+																			<h5>ต่ำสุด: 30,000 บาท </h5>
+																			<h5>เฉลี่ย : 400,000 บาท </h5>
+																		</div>
+																		<div class="alert alert-5 msg pmvByAreaBox">
+																			<h4>ตะวันออก </h4>
+																			<h5>สูงสุด : 1,800,000 บาท </h5>
+																			<h5>ต่ำสุด: 30,000 บาท </h5>
+																			<h5>เฉลี่ย : 700,000 บาท </h5>
+																		</div>
+																		<div class="alert alert-6 msg pmvByAreaBox">
+																			<h5>ตะวันออก </h5>
+																			<h5>สูงสุด : 1,300,000 บาท </h5>
+																			<h5>ต่ำสุด: 20,000 บาท </h5>
+																			<h5>เฉลี่ย : 600,000 บาท </h5>
+																		</div>
+																		<!-- Add ราคาประเมิน รายภาค -->
+																	</div>
+																	<div id="pmvByArea1" class="pmvByArea">
+																		<!-- Add ราคาประเมิน รายภาค -->
+																		<div class="alert alert-1 msg pmvByAreaBox">
+																			<h5>เหนือ  159,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-2 msg pmvByAreaBox">
+																			<h5>กลาง  90,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-3 msg pmvByAreaBox">
+																			<h5>ใต้  180,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-4 msg pmvByAreaBox">
+																			<h5>ตะวันออก  120,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-5 msg pmvByAreaBox">
+																			<h5>ตะวันตก  134,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-6 msg pmvByAreaBox">
+																			<h5>ตะวันออกเฉียงเหนือ 134,000 ล้านบาท</h5>
+																		</div>
+																		<!-- Add ราคาประเมิน รายภาค -->
+																	</div>
+																	<div id="pmvByArea2" class="pmvByArea">
+																		<!-- Add ราคาประเมิน รายภาค -->
+																		<div class="alert alert-1 msg pmvByAreaBox">
+																			<h5>เหนือ  159,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-2 msg pmvByAreaBox">
+																			<h5>กลาง  90,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-3 msg pmvByAreaBox">
+																			<h5>ใต้  180,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-4 msg pmvByAreaBox">
+																			<h5>ตะวันออก  120,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-5 msg pmvByAreaBox">
+																			<h5>ตะวันตก  134,000 ล้านบาท</h5>
+																		</div>
+																		<div class="alert alert-6 msg pmvByAreaBox">
+																			<h5>ตะวันออกเฉียงเหนือ 134,000 ล้านบาท</h5>
+																		</div>
+																		<!-- Add ราคาประเมิน รายภาค -->
+																	</div>
+																</div>
+																<div class="sectionTab1">
 																	<div class="alert alert-1 msg pmvByAreaBox">
 																		<h4>เหนือ </h4>
-																		<h5>ราคาสูงสุด : 1,500,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 20,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 700,000 บาท </h5>
+																		<h5>สูงสุด : 1,500,000 บาท </h5>
+																		<h5>ต่ำสุด: 20,000 บาท </h5>
+																		<h5>เฉลี่ย : 700,000 บาท </h5>
 																	</div>
 																	<div class="alert alert-2 msg pmvByAreaBox">
 																		<h4>กลาง  </h4>
-																		<h5>ราคาสูงสุด : 3,000,000 บาท </h5>
-																		<h5>ราคากตำสุด: 50,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 600,000 บาท </h5>
+																		<h5>สูงสุด : 3,000,000 บาท </h5>
+																		<h5>ตำสุด: 50,000 บาท </h5>
+																		<h5>เฉลี่ย : 600,000 บาท </h5>
 																	</div>
 																	<div class="alert alert-3 msg pmvByAreaBox">
 																		<h4>ใต้  </h4>
-																		<h5>ราคาสูงสุด : 1,100,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 30,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 520,000 บาท </h5>
+																		<h5>สูงสุด : 1,100,000 บาท </h5>
+																		<h5>ต่ำสุด: 30,000 บาท </h5>
+																		<h5>เฉลี่ย : 520,000 บาท </h5>
 																	</div>
 																	<div class="alert alert-4 msg pmvByAreaBox">
 																		<h4>ตะวันออก </h4>
-																		<h5>ราคาสูงสุด : 900,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 30,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 400,000 บาท </h5>
+																		<h5>สูงสุด : 900,000 บาท </h5>
+																		<h5>ต่ำสุด: 30,000 บาท </h5>
+																		<h5>เฉลี่ย : 400,000 บาท </h5>
 																	</div>
 																	<div class="alert alert-5 msg pmvByAreaBox">
 																		<h4>ตะวันออก </h4>
-																		<h5>ราคาสูงสุด : 1,800,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 30,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 700,000 บาท </h5>
+																		<h5>สูงสุด : 1,800,000 บาท </h5>
+																		<h5>ต่ำสุด: 30,000 บาท </h5>
+																		<h5>เฉลี่ย : 700,000 บาท </h5>
 																	</div>
 																	<div class="alert alert-6 msg pmvByAreaBox">
 																		<h5>ตะวันออก </h5>
-																		<h5>ราคาสูงสุด : 1,300,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 20,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 600,000 บาท </h5>
+																		<h5>สูงสุด : 1,300,000 บาท </h5>
+																		<h5>ต่ำสุด: 20,000 บาท </h5>
+																		<h5>เฉลี่ย : 600,000 บาท </h5>
 																	</div>
-																	<!-- Add ราคาประเมิน รายภาค -->
-																</div>
-																<div id="pmvByArea1" class="pmvByArea">
-																	<!-- Add ราคาประเมิน รายภาค -->
-																	<div class="alert alert-1 msg pmvByAreaBox">
-																		<h5>เหนือ  159,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-2 msg pmvByAreaBox">
-																		<h5>กลาง  90,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-3 msg pmvByAreaBox">
-																		<h5>ใต้  180,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-4 msg pmvByAreaBox">
-																		<h5>ตะวันออก  120,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-5 msg pmvByAreaBox">
-																		<h5>ตะวันตก  134,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-6 msg pmvByAreaBox">
-																		<h5>ตะวันออกเฉียงเหนือ 134,000 ล้านบาท</h5>
-																	</div>
-																	<!-- Add ราคาประเมิน รายภาค -->
-																</div>
-																<div id="pmvByArea2" class="pmvByArea">
-																	<!-- Add ราคาประเมิน รายภาค -->
-																	<div class="alert alert-1 msg pmvByAreaBox">
-																		<h5>เหนือ  159,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-2 msg pmvByAreaBox">
-																		<h5>กลาง  90,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-3 msg pmvByAreaBox">
-																		<h5>ใต้  180,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-4 msg pmvByAreaBox">
-																		<h5>ตะวันออก  120,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-5 msg pmvByAreaBox">
-																		<h5>ตะวันตก  134,000 ล้านบาท</h5>
-																	</div>
-																	<div class="alert alert-6 msg pmvByAreaBox">
-																		<h5>ตะวันออกเฉียงเหนือ 134,000 ล้านบาท</h5>
-																	</div>
-																	<!-- Add ราคาประเมิน รายภาค -->
 																</div>
 															</div>
 															<div class="col-md-10 col-sm-10 col-xs-12">
@@ -284,16 +324,35 @@
 																						</div>
 																						<div class="panel-body">
 																							<!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
-																							<div class="row">
-																								<div class="col-sm-12 center">
-																									<div class="form-check form-check-inline">
-																										<label for="RegionSearch"><input type="radio" name="SearchType" id="RegionSearch" class="form-check-input" value="" checked="checked"/> Region</label>
-																									</div>
-																									<div class="form-check form-check-inline">
-																										<label for="ClusterSearch"><input type="radio" name="SearchType" id="ClusterSearch" class="form-check-input"/> Cluster</label>
+																							<div class="row justify-content-md-center">
+																								<div class="col-md-4 col-sm-4 col-xs-12 sectionTab1">
+																									<div class="form-group">
+																										<input class="form-control date" id="dateFrom" placeholder="วันที่เริ่ม" />
 																									</div>
 																								</div>
-																								<div class="col-sm-6">
+																								<div class="col-md-4 col-sm-4 col-xs-12 sectionTab1">
+																									<div class="form-group">
+																										<input class="form-control date" id="dateTo" placeholder="วันที่สิ้นสุด" />
+																									</div>
+																								</div>
+																								<div class="col-md-4 col-sm-4 col-xs-12 center">
+																									<div class="form-check form-check-inline">
+																										<label for="RegionSearch"><input type="radio" name="SearchType" id="RegionSearch" class="form-check-input SearchType" value="Region" checked="checked" > Region</label>
+																									</div>
+																									<div class="form-check form-check-inline">
+																										<label for="ClusterSearch"><input type="radio" name="SearchType" id="ClusterSearch" class="form-check-input SearchType" value="Cluster" > Cluster</label>
+																									</div>
+																								</div>
+																							</div>
+																							<div class="row">
+																								<div class="col-md-4 col-sm-4 col-xs-12">
+																									<div class="form-group">
+																										<select class="form-control form-control-lg" name="ddlCluster" id="ddlCluster" disabled="disabled" required>
+																											<option value="">เลือก Cluster</option>
+																										</select>
+																									</div>
+																								</div>
+																								<div class="col-md-4 col-sm-4 col-xs-12">
 																									<div class="form-group">
 																										<select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
 																											<option value="">เลือกภาค</option>
@@ -306,35 +365,30 @@
 																										</select>
 																									</div>
 																								</div>
-																								<div class="col-sm-6">
-																									<div class="form-group">
-																										<select class="form-control form-control-lg" name="ddlCluster" id="ddlCluster" required>
-																											<option value="">เลือก Cluster</option>
-																										</select>
-																									</div>
-																								</div>
-																								<div class="col-sm-6">
+																								<div class="col-md-4 col-sm-4 col-xs-12">
 																									<div class="form-group">
 																										<select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
 																											<option value="">เลือกจังหวัด</option>
 																										</select>
 																									</div>
 																								</div>
-																								<div class="col-sm-6">
+																							</div>
+																							<div class="row">
+																								<div class="col-md-4 col-sm-4 col-xs-12">
 																									<div class="form-group">
 																										<select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
 																											<option value="">เลือกอำภอ</option>
 																										</select>
 																									</div>
 																								</div>
-																								<div class="col-sm-6">
+																								<div class="col-md-4 col-sm-4 col-xs-12">
 																									<div class="form-group">
 																										<select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
 																											<option value="">เลือกตำบล</option>
 																										</select>
 																									</div>
 																								</div>
-																								<div class="col-sm-6 center">
+																								<div class="col-md-4 col-sm-4 col-xs-12 center">
 																									<div class="form-check form-check-inline">
 																										<label for="CostEstimatePerSquare"><input type="radio" name="CostEstimate" id="CostEstimatePerSquare" class="form-check-input" checked="checked"/> ราคาประเมิน / ตร.ว.</label>
 																									</div>
@@ -342,29 +396,27 @@
 																										<label for="CostEstimatePerPlots"><input type="radio" name="CostEstimate" id="CostEstimatePerPlots" class="form-check-input"/> ราคาประเมิน / แปลง</label>
 																									</div>
 																								</div>
-																								<div class="col-md-2">
+																							</div>
+																							<div class="row">
+																								<div class="col-md-2 col-sm-2 col-xs-12">
 																									<div class="form-group">
-																										<input class="form-control MinCostEstimate" id="MinCostEstimate0" placeholder="ราคาประเมินต่ำสุด" />
+																										<input class="form-control MinCostEstimate" id="MinCostEstimate" placeholder="ราคาประเมินต่ำสุด" />
 																									</div>
 																								</div>
-																								<div class="col-md-8">
-																									<div class="row">
-																										<div class="col-md-12">
-																											<div id="CostEstimateSlider0"></div>
-																										</div>
-																									</div>
-																									<div class="row">
-																										<div class="col-md-1 minDiv" id="minDiv0"></div>
-																										<div class="col-md-1 offset-md-10 maxDiv" id="maxDiv0"></div>
-																									</div>
-																								</div>
-																								<div class="col-md-2">
+																								<div class="col-md-8 col-sm-8 col-xs-12">
 																									<div class="form-group">
-																										<input class="form-control MaxCostEstimate" id="MaxCostEstimate0" placeholder="ราคาประเมินสูงสุด" />
+																										<div id="CostEstimateSlider"></div>
 																									</div>
 																								</div>
-																								<div class="col-md-1 offset-md-11">
-																									<button class="form-control btn btn-primary btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
+																								<div class="col-md-2 col-sm-2 col-xs-12">
+																									<div class="form-group">
+																										<input class="form-control MaxCostEstimate" id="MaxCostEstimate" placeholder="ราคาประเมินสูงสุด" />
+																									</div>
+																								</div>
+																							</div>
+																							<div class="row justify-content-md-center">
+																								<div class="col-md-1 col-sm-1 col-xs-12">
+																									<button class="form-control btn btn-primary btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i> ค้นหา </button>
 																								</div>
 																							</div>
 																							<!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
@@ -387,308 +439,128 @@
 														</div>
 														<div class="row">
 															<div class="col-md-12 col-sm-12 col-xs-12">
-																<br />
-																<h3 id="CostEstimateChartTitle">แผนภูมิแสดงราคาที่ดินรายภาค</h3>
+																<h3 id="CostChartTitle" class="CostChartTitle">แผนภูมิแสดงราคาที่ดินรายภาค</h3>
 															</div>
 														</div>
-														<div class="row">
-															<div class="col-md-12 col-sm-12 col-xs-12">
-																<div id="EstimateChartBar" class="chartBarNormal"></div>
-															</div>
-														</div>
-														<div>
-															<div class="col-md-12 col-sm-12 col-xs-12">
-																<div id="EstimateChartTable">
-																	<!-- Add ตาราง แผนภูมิแสดงราคาที่ดินรายภาค -->
-																	<table class="table table-bordered table-striped tblInfo EstimateChartTable" id="EstimateChartTable0">
-																		<thead>
-																			<tr>
-																				<th scope="col">ภาค</th>
-																				<th scope="col">จำนวนแปลงที่ดิน</th>
-																				<th scope="col">พื้นที่รวม</th>
-																				<th scope="col">ราคาประเมินที่ดิน</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr>
-																				<td>ใต้</td>
-																				<td>190,000 แปลง</td>
-																				<td>100000 ตารางวา</td>
-																				<td>100000 บาท</td>
-																			</tr>
-																			<tr>
-																				<td>ตะวันออก</td>
-																				<td>160,000 แปลง</td>
-																				<td>245000 ตารางวา</td>
-																				<td>4400000 บาท</td>
-																			</tr>
-																			<tr>
-																				<td>ตะวันตก</td>
-																				<td>190,000 แปลง</td>
-																				<td>566000 ตารางวา</td>
-																				<td>1999000 บาท</td>
-																			</tr>
-																		</tbody>
-																	</table>
-																	<table class="table table-bordered table-striped tblInfo EstimateChartTable" id="EstimateChartTable1">
-																		<thead>
-																			<tr>
-																				<th scope="col">ภาค</th>
-																				<th scope="col">จำนวนแปลงที่ดิน</th>
-																				<th scope="col">พื้นที่รวม</th>
-																				<th scope="col">ราคาประเมินที่ดิน</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr>
-																				<td>ใต้</td>
-																				<td>190,000 แปลง</td>
-																				<td>100000 ตารางวา</td>
-																				<td>100000 บาท</td>
-																			</tr>
-																			<tr>
-																				<td>ตะวันออก</td>
-																				<td>160,000 แปลง</td>
-																				<td>245000 ตารางวา</td>
-																				<td>4400000 บาท</td>
-																			</tr>
-																			<tr>
-																				<td>ตะวันตก</td>
-																				<td>190,000 แปลง</td>
-																				<td>566000 ตารางวา</td>
-																				<td>1999000 บาท</td>
-																			</tr>
-																		</tbody>
-																	</table>
-																	<table class="table table-bordered table-striped tblInfo EstimateChartTable" id="EstimateChartTable2">
-																		<thead>
-																			<tr>
-																				<th scope="col">ภาค</th>
-																				<th scope="col">จำนวนแปลงที่ดิน</th>
-																				<th scope="col">พื้นที่รวม</th>
-																				<th scope="col">ราคาประเมินที่ดิน</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr>
-																				<td>ใต้</td>
-																				<td>190,000 แปลง</td>
-																				<td>100000 ตารางวา</td>
-																				<td>100000 บาท</td>
-																			</tr>
-																			<tr>
-																				<td>ตะวันออก</td>
-																				<td>160,000 แปลง</td>
-																				<td>245000 ตารางวา</td>
-																				<td>4400000 บาท</td>
-																			</tr>
-																			<tr>
-																				<td>ตะวันตก</td>
-																				<td>190,000 แปลง</td>
-																				<td>566000 ตารางวา</td>
-																				<td>1999000 บาท</td>
-																			</tr>
-																		</tbody>
-																	</table>
-																	<!-- Add ตาราง แผนภูมิแสดงราคาที่ดินรายภาค -->
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="tab-pane fade in" id="tabSection1">
-											<div class="col-md-12 col-sm-12 col-xs-12">
-												<div class="x_panel tile">
-													<div class="x_content">
-														<div class="row">
-															<div class="col-md-2 col-sm-2 col-xs-12">
-																<h3>ภาพรวมราคาซื้อขายที่ดินรายภาค</h3>
-																<div id="pmvByArea2">
-																	<div class="alert alert-1 msg pmvByAreaBox">
-																		<h4>เหนือ </h4>
-																		<h5>ราคาสูงสุด : 1,500,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 20,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 700,000 บาท </h5>
-																	</div>
-																	<div class="alert alert-2 msg pmvByAreaBox">
-																		<h4>กลาง  </h4>
-																		<h5>ราคาสูงสุด : 3,000,000 บาท </h5>
-																		<h5>ราคากตำสุด: 50,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 600,000 บาท </h5>
-																	</div>
-																	<div class="alert alert-3 msg pmvByAreaBox">
-																		<h4>ใต้  </h4>
-																		<h5>ราคาสูงสุด : 1,100,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 30,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 520,000 บาท </h5>
-																	</div>
-																	<div class="alert alert-4 msg pmvByAreaBox">
-																		<h4>ตะวันออก </h4>
-																		<h5>ราคาสูงสุด : 900,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 30,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 400,000 บาท </h5>
-																	</div>
-																	<div class="alert alert-5 msg pmvByAreaBox">
-																		<h4>ตะวันออก </h4>
-																		<h5>ราคาสูงสุด : 1,800,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 30,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 700,000 บาท </h5>
-																	</div>
-																	<div class="alert alert-6 msg pmvByAreaBox">
-																		<h5>ตะวันออก </h5>
-																		<h5>ราคาสูงสุด : 1,300,000 บาท </h5>
-																		<h5>ราคาต่ำสุด: 20,000 บาท </h5>
-																		<h5>ราคาเฉลี่ย : 600,000 บาท </h5>
-																	</div>
-																</div>
-															</div>
-															<div class="col-md-10 col-sm-10 col-xs-12">
-																<div class="row">
-																	<!-- Search section1 part 1(Search) -->
-																	<div class="col-md-12 col-sm-12 col-xs-12">
-																		<section>
-																			<div class="row">
-																				<div class="col-xs-12">
-																					<div class="panel panel-primary">
-																						<div class="panel-heading">
-																							<h4 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h4>
-																						</div>
-																						<div class="panel-body">
-																							<!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
-																							<div class="row">
-																								<div class="col-sm-12 center">
-																									<div class="form-check form-check-inline">
-																										<label for="RegionSearch"><input type="radio" name="SearchType" id="RegionSearch" class="form-check-input" value="" checked="checked"/> Region</label>
-																									</div>
-																									<div class="form-check form-check-inline">
-																										<label for="ClusterSearch"><input type="radio" name="SearchType" id="ClusterSearch" class="form-check-input"/> Cluster</label>
-																									</div>
-																								</div>
-																								<div class="col-sm-6">
-																									<div class="form-group">
-																										<select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
-																											<option value="">เลือกภาค</option>
-																											<option value="1">ภาคกลาง</option>
-																											<option value="2">ตะวันตก</option>
-																											<option value="3">เหนือ</option>
-																											<option value="4">ตะวันออกเฉียงเหนือ</option>
-																											<option value="5">ใต้</option>
-																											<option value="6">ตะวันออก</option>
-																										</select>
-																									</div>
-																								</div>
-																								<div class="col-sm-6">
-																									<div class="form-group">
-																										<select class="form-control form-control-lg" name="ddlCluster" id="ddlCluster" required>
-																											<option value="">เลือก Cluster</option>
-																										</select>
-																									</div>
-																								</div>
-																								<div class="col-sm-6">
-																									<div class="form-group">
-																										<select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
-																											<option value="">เลือกจังหวัด</option>
-																										</select>
-																									</div>
-																								</div>
-																								<div class="col-sm-6">
-																									<div class="form-group">
-																										<select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
-																											<option value="">เลือกอำภอ</option>
-																										</select>
-																									</div>
-																								</div>
-																								<div class="col-sm-6">
-																									<div class="form-group">
-																										<select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
-																											<option value="">เลือกตำบล</option>
-																										</select>
-																									</div>
-																								</div>
-																								<div class="col-sm-6 center">
-																									<div class="form-check form-check-inline">
-																										<label for="CostEstimatePerSquare"><input type="radio" name="CostEstimate" id="CostEstimatePerSquare" class="form-check-input" checked="checked"/> ราคาประเมิน / ตร.ว.</label>
-																									</div>
-																									<div class="form-check form-check-inline">
-																										<label for="CostEstimatePerPlots"><input type="radio" name="CostEstimate" id="CostEstimatePerPlots" class="form-check-input"/> ราคาประเมิน / แปลง</label>
-																									</div>
-																								</div>
-																								<div class="col-md-2">
-																									<div class="form-group">
-																										<input class="form-control MinCostEstimate" id="MinCostEstimate1" placeholder="ราคาประเมินต่ำสุด" />
-																									</div>
-																								</div>
-																								<div class="col-md-8">
-																									<div class="row">
-																										<div class="col-md-12">
-																											<div id="CostEstimateSlider1"></div>
-																										</div>
-																									</div>
-																									<div class="row">
-																										<div class="col-md-1 minDiv" id="minDiv1"></div>
-																										<div class="col-md-1 offset-md-10 maxDiv" id="maxDiv1"></div>
-																									</div>
-																								</div>
-																								<div class="col-md-2">
-																									<div class="form-group">
-																										<input class="form-control MaxCostEstimate" id="MaxCostEstimate1" placeholder="ราคาประเมินสูงสุด" />
-																									</div>
-																								</div>
-																								<div class="col-md-1 offset-md-11">
-																									<button class="form-control btn btn-primary btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
-																								</div>
-																							</div>
-																							<!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
-																						</div>
-																					</div>
-																				</div>
-																			</div>
-																		</section>
-																	</div>
-																</div>
-																<div class="row">
-																	<div class="col-md-12 col-sm-12 col-xs-12">
-																		<!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
-																		<iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
-																		<!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
-																	</div>
-																</div>
-																<!-- Search section1 part 1(Search) -->
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-12 col-sm-12 col-xs-12">
-																<br />
-																<h3>แผนภูมิแสดงราคาที่ดินรายภาค</h3>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-3 col-sm-3 col-xs-3">
+														<div class="row justify-content-md-center sectionTab1">
+															<div class="col-md-3 col-sm-3 col-xs-12">
 																<div class="form-group">
 																	<!-- <label for="txtFromDate">จากวันที่</label>-->
 																	<input class="form-control txtFromDate" id="txtFromDate"  placeholder="จากวันที่" />
 																</div>
 															</div>
-															<div class="col-md-3 col-sm-3 col-xs-3">
+															<div class="col-md-3 col-sm-3 col-xs-12">
 																<div class="form-group">
 																	<!-- <label for="txtFromDate">ถึงวันที่</label>-->
 																	<input class="form-control txtToDate" placeholder="ถึงวันที่" />
 																</div>
 															</div>
-															<div class="col-md-3 col-sm-3 col-xs-3">
-																<button type="button" class="btn btn-primary" >ค้นหา</button>
+															<div class="col-md-3 col-sm-3 col-xs-12">
+																<button class="form-control btn btn-primary" ><i class="fa fa-search"></i>  ค้นหา </button>
 															</div>
 														</div>
 														<div class="row">
 															<div class="col-md-12 col-sm-12 col-xs-12">
-																<div id="SalePriceChartBar" class="chartBarNormal"></div>
+																<div id="CostChartBar" class="chartBarNormal"></div>
 															</div>
 														</div>
 														<div class="row">
 															<div class="col-md-12 col-sm-12 col-xs-12">
-																<div id="SalePriceChartTable">
+																<div class="sectionTab0">
+																	<!-- Add ตาราง แผนภูมิแสดงราคาที่ดินรายภาค -->
+																	<table class="table table-bordered table-striped tblInfo CostChartTable" id="CostChartTable0">
+																		<thead>
+																			<tr>
+																				<th scope="col">ภาค</th>
+																				<th scope="col">จำนวนแปลงที่ดิน</th>
+																				<th scope="col">พื้นที่รวม</th>
+																				<th scope="col">ราคาประเมินที่ดิน</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td>ใต้</td>
+																				<td>190,000 แปลง</td>
+																				<td>100000 ตารางวา</td>
+																				<td>100000 บาท</td>
+																			</tr>
+																			<tr>
+																				<td>ตะวันออก</td>
+																				<td>160,000 แปลง</td>
+																				<td>245000 ตารางวา</td>
+																				<td>4400000 บาท</td>
+																			</tr>
+																			<tr>
+																				<td>ตะวันตก</td>
+																				<td>190,000 แปลง</td>
+																				<td>566000 ตารางวา</td>
+																				<td>1999000 บาท</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																	<table class="table table-bordered table-striped tblInfo CostChartTable" id="CostChartTable1">
+																		<thead>
+																			<tr>
+																				<th scope="col">ภาค</th>
+																				<th scope="col">จำนวนแปลงที่ดิน</th>
+																				<th scope="col">พื้นที่รวม</th>
+																				<th scope="col">ราคาประเมินที่ดิน</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td>ใต้</td>
+																				<td>190,000 แปลง</td>
+																				<td>100000 ตารางวา</td>
+																				<td>100000 บาท</td>
+																			</tr>
+																			<tr>
+																				<td>ตะวันออก</td>
+																				<td>160,000 แปลง</td>
+																				<td>245000 ตารางวา</td>
+																				<td>4400000 บาท</td>
+																			</tr>
+																			<tr>
+																				<td>ตะวันตก</td>
+																				<td>190,000 แปลง</td>
+																				<td>566000 ตารางวา</td>
+																				<td>1999000 บาท</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																	<table class="table table-bordered table-striped tblInfo CostChartTable" id="CostChartTable2">
+																		<thead>
+																			<tr>
+																				<th scope="col">ภาค</th>
+																				<th scope="col">จำนวนแปลงที่ดิน</th>
+																				<th scope="col">พื้นที่รวม</th>
+																				<th scope="col">ราคาประเมินที่ดิน</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td>ใต้</td>
+																				<td>190,000 แปลง</td>
+																				<td>100000 ตารางวา</td>
+																				<td>100000 บาท</td>
+																			</tr>
+																			<tr>
+																				<td>ตะวันออก</td>
+																				<td>160,000 แปลง</td>
+																				<td>245000 ตารางวา</td>
+																				<td>4400000 บาท</td>
+																			</tr>
+																			<tr>
+																				<td>ตะวันตก</td>
+																				<td>190,000 แปลง</td>
+																				<td>566000 ตารางวา</td>
+																				<td>1999000 บาท</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																	<!-- Add ตาราง แผนภูมิแสดงราคาที่ดินรายภาค -->
+																</div>
+																<div class="sectionTab1">
 																	<!-- Add ตาราง แผนภูมิแสดงราคาที่ดินรายภาค -->
 																	<table class="table table-bordered table-striped tblInfo">
 																		<thead>
@@ -724,22 +596,23 @@
 																</div>
 															</div>
 														</div>
-														<div class="row">
+														<div class="row sectionTab1">
 															<div class="col-md-12 col-sm-12 col-xs-12">
-																<br />
-																<h3>ราคาซื้อขายที่ดินรายจังหวัด</h3>
+																<h3 class="CostChartTitle">ราคาซื้อขายที่ดินรายจังหวัด</h3>
 															</div>
 														</div>
-														<div class="row">
-															<div class="col-md-12 col-sm-12 col-xs-12">
-																<div id="SalePriceProvinceChartBar" class="chartBarNormal"></div>
+														<div class="row sectionTab1">
+															<div class="row">
+																<div class="col-md-12 col-sm-12 col-xs-12">
+																	<div id="SalePriceProvinceChartBar" class="chartBarNormal"></div>
+																</div>
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="tab-pane fade in" id="tabSection2">
+										<div class="tab-pane fade in" id="tabSection1">
 											<!--div class="col-md-12 col-sm-12 col-xs-12"-->
 												<div class="x_panel tile">
 													<div class="x_content">
@@ -773,121 +646,184 @@
 																	<div class="clearfix"></div>
 																</div>
 																<div class="x_content">
-																	<table id="datatable4" class="table   datatable4 tblInfo">
-																		<thead>
-																			<tr>
-																				<th class="th__center">ชื่อโครงการ</th>
-																				<th class="th__center">พื้นที่</th>
-																				<th class="th__center">จำนวนแปลงที่ดินที่กระทบ</th>
-																				<th class="th__center">เนื้อที่รวม</th>
-																				<th class="th__center">ราคาประเมินทั้งหมด</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<tr data-toggle="collapse" data-target="#accordion" class="clickable">
-																				<td class="td__Center">โครงการพื้นที่ 4</td>
-																				<td class="td__Center">นครราชสีมา</td>
-																				<td class="td__Center">31</td>
-																				<td class="td__Center">1,000,000</td>
-																				<td class="td__Center">ไม่พบ</td>
-																			</tr>
-																			<tr  class="tdDetail">
-																				<td colspan="5" class="td__Center">
-																					<div id="accordion" class="collapse">
-																						<div class="panel ">
-																						   <div class="panel-heading">
-																								<label> จำนวนแปลงที่ดิน 31 แปลง</label>
-																								<label class="pull-right clickable" data-toggle="collapse" data-target="#accordion" ><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
-																							</div>
-																							<div class="panel-body">
-																								<table  class="table table-hover table-bordered tblDetail">
-																									<thead style="visibility:hidden;position:absolute">
-																										<tr>
-																										   <th class="th__center"></th>
-																										</tr>
-																									</thead>
-																									<tbody>
-																										<tr>
-																											<td>
-																												<p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-																												<p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-																												<p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-																											</td>
-																										</tr>
-																										<tr>
-																											<td>
-																												<p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-																												<p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-																												<p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-																											</td>
-																										</tr>
-																										<tr>
-																											<td>
-																												<p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-																												<p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-																												<p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-																											</td>
-																										</tr>
-																									</tbody>
-																								</table>
-																							</div>
-																						</div>
-																					</div>
-																				</td>
-																			</tr>
-																			<tr data-toggle="collapse" data-target="#accordion2" class="clickable">
-																				<td class="td__Center">โครงการพื้นที่ 3</td>
-																				<td class="td__Center">นครราชสีมา</td>
-																				<td class="td__Center">37</td>
-																				<td class="td__Center">2,000,000</td>
-																				<td class="td__Center">ไม่พบ</td>
-																			</tr>
-																			<tr class="tdDetail">
-																				<td colspan="5" class="td__Center">
-																					<div id="accordion2" class="collapse">
-																						<div class="panel ">
-																							<div class="panel-heading">
-																								<label> จำนวนแปลงที่ดิน 31 แปลง</label>
-																								<label class="pull-right clickable" data-toggle="collapse" data-target="#accordion2"><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
-																							</div>
-																							<div class="panel-body">
-																								<table class="table table-hover table-bordered tblDetail">
-																									<thead style="visibility:hidden;position:absolute">
-																										<tr>
-																											<th class="th__center"></th>
-																										</tr>
-																									</thead>
-																									<tbody>
-																										<tr>
-																											<td>
-																												<p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-																												<p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-																												<p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-																											</td>
-																										</tr>
-																										<tr>
-																											<td>
-																												<p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-																												<p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-																												<p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-																											</td>
-																										</tr>
-																										<tr>
-																											<td>
-																												<p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-																												<p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-																												<p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-																											</td>
-																										</tr>
-																									</tbody>
-																								</table>
+																	<div class="row">
+																		<div class="col-md-6 col-sm-6 col-xs-12">
+																			<div class="row">
+																				<div class="col-md-2 col-sm-2 col-xs-12">
+																					<label for="pagingLimit">Show </label>
+																				</div>
+																				<div class="col-md-4 col-sm-4 col-xs-12">
+																					<select name="pagingLimit" id="pagingLimit" aria-controls="projectListTable" class="form-control input-sm pagingLimit">
+																						<option value="10">10</option>
+																						<option value="25">25</option>
+																						<option value="50">50</option>
+																						<option value="100">100</option>
+																					</select>
+																				</div>
+																				<div class="col-md-2 col-sm-2 col-xs-12">
+																					<label for="pagingLimit"> entries</label>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<table id="projectListTable" class="table tblInfo">
+																			<thead>
+																				<tr>
+																					<th class="th__center">ชื่อโครงการ</th>
+																					<th class="th__center">พื้นที่</th>
+																					<th class="th__center">จำนวนแปลงที่ดินที่กระทบ</th>
+																					<th class="th__center">เนื้อที่รวม</th>
+																					<th class="th__center">ราคาประเมินทั้งหมด</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<tr data-toggle="collapse" data-target="#accordion" class="clickable">
+																					<td class="td__Center">โครงการพื้นที่ 4</td>
+																					<td class="td__Center">นครราชสีมา</td>
+																					<td class="td__Center">31</td>
+																					<td class="td__Center">1,000,000</td>
+																					<td class="td__Center">ไม่พบ</td>
+																				</tr>
+																				<tr  class="tdDetail">
+																					<td colspan="5">
+																						<div id="accordion" class="collapse">
+																							<div class="panel projectListTablePanel">
+																							   <div class="panel-heading">
+																									<label> จำนวนแปลงที่ดิน 31 แปลง</label>
+																									<label class="pull-right clickable" data-toggle="collapse" data-target="#accordion" ><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
+																								</div>
+																								<div class="panel-body">
+																									<table  class="table table-hover table-bordered tblDetail">
+																										<thead style="visibility:hidden;position:absolute">
+																											<tr>
+																											   <th class="th__center"></th>
+																											</tr>
+																										</thead>
+																										<tbody>
+																											<tr>
+																												<td class="projectInfo">
+																													<p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+																													<p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+																													<p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+																													<a href="#" class="projectInfoIcon"><i class="glyphicon glyphicon-info-sign"> </i></a>
+																												</td>
+																											</tr>
+																											<tr>
+																												<td class="projectInfo">
+																													<p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+																													<p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+																													<p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+																													<a href="#" class="projectInfoIcon"><i class="glyphicon glyphicon-info-sign"> </i></a>
+																												</td>
+																											</tr>
+																											<tr>
+																												<td class="projectInfo">
+																													<p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+																													<p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+																													<p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+																													<a href="#" class="projectInfoIcon"><i class="glyphicon glyphicon-info-sign"> </i></a>
+																												</td>
+																											</tr>
+																										</tbody>
+																									</table>
+																								</div>
 																							</div>
 																						</div>
-																					</div>
-																				</td>
-																			</tr>
-																		</tbody>
-																	</table>
+																					</td>
+																				</tr>
+																				<tr data-toggle="collapse" data-target="#accordion2" class="clickable">
+																					<td class="td__Center">โครงการพื้นที่ 3</td>
+																					<td class="td__Center">นครราชสีมา</td>
+																					<td class="td__Center">37</td>
+																					<td class="td__Center">2,000,000</td>
+																					<td class="td__Center">ไม่พบ</td>
+																				</tr>
+																				<tr class="tdDetail">
+																					<td colspan="5">
+																						<div id="accordion2" class="collapse">
+																							<div class="panel projectListTablePanel">
+																								<div class="panel-heading">
+																									<label> จำนวนแปลงที่ดิน 31 แปลง</label>
+																									<label class="pull-right clickable" data-toggle="collapse" data-target="#accordion2"><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
+																								</div>
+																								<div class="panel-body">
+																									<table class="table table-hover table-bordered tblDetail">
+																										<thead style="visibility:hidden;position:absolute">
+																											<tr>
+																												<th class="th__center"></th>
+																											</tr>
+																										</thead>
+																										<tbody>
+																											<tr>
+																												<td class="projectInfo">
+																													<p>รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+																													<p>โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+																													<p>ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+																													<a href="#" class="projectInfoIcon"><i class="glyphicon glyphicon-info-sign"> </i></a>
+																												</td>
+																											</tr>
+																											<tr>
+																												<td class="projectInfo">
+																													<p>รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+																													<p>โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+																													<p>ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+																													<a href="#" class="projectInfoIcon"><i class="glyphicon glyphicon-info-sign"> </i></a>
+																												</td>
+																											</tr>
+																											<tr>
+																												<td class="projectInfo">
+																													<p>รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+																													<p>โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+																													<p>ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+																													<a href="#" class="projectInfoIcon"><i class="glyphicon glyphicon-info-sign"> </i></a>
+																												</td>
+																											</tr>
+																										</tbody>
+																									</table>
+																								</div>
+																							</div>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																	<div class="row">
+																		<div class="col-sm-5">
+																			<div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+																		</div>
+																		<div class="col-sm-7">
+																			<div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+																				<ul class="pagination">
+																					<li class="paginate_button previous disabled" id="example_previous">
+																						<a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a>
+																					</li>
+																					<li class="paginate_button active">
+																						<a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a>
+																					</li>
+																					<li class="paginate_button ">
+																						<a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">2</a>
+																					</li>
+																					<li class="paginate_button ">
+																						<a href="#" aria-controls="example" data-dt-idx="3" tabindex="0">3</a>
+																					</li>
+																					<li class="paginate_button ">
+																						<a href="#" aria-controls="example" data-dt-idx="4" tabindex="0">4</a>
+																					</li>
+																					<li class="paginate_button ">
+																						<a href="#" aria-controls="example" data-dt-idx="5" tabindex="0">5</a>
+																					</li>
+																					<li class="paginate_button ">
+																						<a href="#" aria-controls="example" data-dt-idx="6" tabindex="0">6</a>
+																					</li>
+																					<li class="paginate_button next" id="example_next">
+																						<a href="#" aria-controls="example" data-dt-idx="7" tabindex="0">Next</a>
+																					</li>
+																				</ul>
+																			</div>
+																		</div>
+																	</div>
 																</div>
 															</div>
 														</div>
@@ -1421,8 +1357,8 @@
 				}
 
 
-				var iframeElement2 = document.getElementById('tdmap2');
-				iframeElement2.src = 'https://p-staging.treasury.go.th/TD2';
+				/*var iframeElement2 = document.getElementById('tdmap2');
+				iframeElement2.src = 'https://p-staging.treasury.go.th/TD2';*/
 
 
 				var iframeElement4 = document.getElementById('tdmapSec4');
@@ -1634,82 +1570,6 @@
 				};
 				chartBar.setOption(option2);
 				*/
-				var SalePriceChartBar = echarts.init(document.getElementById('SalePriceChartBar'));
-				var option = {
-					title: {
-						text: '',
-						subtext: ''
-					},
-					tooltip: {
-						trigger: 'axis'
-					},
-					legend: {
-						data: ['ราคาประเมินรวม']
-					},
-					toolbox: {
-						show: false,
-						feature: {
-							mark: { show: true },
-							dataView: { show: false, readOnly: false },
-							magicType: { show: false, type: ['line', 'bar'] },
-							restore: { show: false },
-							saveAsImage: { show: false }
-						}
-					},
-					calculable: true,
-					xAxis: [
-						{
-							type: 'value'
-						}
-					],
-					yAxis: [
-						{
-							type: 'category',
-							data: [{ label: 'ใต้', value: 'ใต้', labelColor: 'yellow' }, 'กลาง', 'เหนือ', 'ตะวันตก', 'ตะวันออก', 'ตะวันออกเฉียงเหนือ']
-						}
-					],
-					series: [
-						{
-							name: 'ราคาเฉลี่ย',
-							type: 'bar',
-							data: [60000, 300000, 700000, 67000, 460000, 550000],
-							itemStyle: {
-								normal: {
-									color: 'green'
-								},
-								emphasis: {
-									color: '#00e600'
-
-								}
-							}
-						},
-						{
-							name: 'ราคาต่ำสุด',
-							type: 'bar',
-							data: [20000, 300000, 40000, 50000, 60000, 40000],
-							itemStyle: {
-								normal: {
-									color: 'yellow'
-								},
-								emphasis: {
-								}
-							}
-						},
-						{
-							name: 'สูงสุด',
-							type: 'bar',
-							data: [120000, 1300000, 140000, 150000, 160000, 140000],
-							itemStyle: {
-								normal: {
-									color: 'red'
-								},
-								emphasis: {
-								}
-							}
-						}
-					]
-				};
-				SalePriceChartBar.setOption(option);
 			}
 		</script>
 		}
