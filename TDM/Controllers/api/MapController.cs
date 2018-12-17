@@ -105,10 +105,21 @@ namespace TDM.Controllers.api
 
                 cmd = conn.CreateCommand();
                 cmd.CommandType = System.Data.CommandType.Text;
-                cmd.CommandText = $@"select PRO_C,NAME_T FROM province WHERE pro_c IN
+
+                if (id == 1)
+                {
+                    cmd.CommandText = $@"select PRO_C,NAME_T FROM province WHERE pro_c IN
+                                    (
+                                        SELECT AD_CHANGWA FROM MUNISAN where AD_REGION!='' AND AD_REGION = {id} Group By AD_REGION,AD_CHANGWA
+                                    ) 
+                                     union all select PRO_C,NAME_T FROM province WHERE pro_c='10'";
+                }
+                else {
+                    cmd.CommandText = $@"select PRO_C,NAME_T FROM province WHERE pro_c IN
                                     (
                                         SELECT AD_CHANGWA FROM MUNISAN where AD_REGION!='' AND AD_REGION = {id} Group By AD_REGION,AD_CHANGWA
                                     )";
+                }
 
                 string name = "";
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -275,7 +286,7 @@ namespace TDM.Controllers.api
                 }), jsonSetting);
                 */
 
-                var result = GetMapInfo(SetionType.TumbolByID, id).FirstOrDefault();
+                var result = GetMapInfo(SetionType.TumbolByID, id);
 
 
                 return Json(result);
@@ -327,6 +338,21 @@ namespace TDM.Controllers.api
 
         }
 
+        private string DisplayPopupName(EstimateData data, SetionType type)
+        {
+            string value = "";
+
+            switch (type)
+            {
+                case SetionType.Region: value = data.RegionName; break;
+                case SetionType.Provice: value = data.ProviceName; break;
+                case SetionType.Amphur: value = data.AmphureName; break;
+                case SetionType.Tumbol: value = data.DisplayName; break;
+            }
+
+            return value;
+
+        }
 
         private List<Models.ViewModels.MAP_ViewModel> GetMapInfo(SetionType type, string code)
         {
@@ -343,10 +369,11 @@ namespace TDM.Controllers.api
             {
                 result = searchResult.Select(r => new TDM.Models.ViewModels.MAP_ViewModel()
                 {
-                    Name = r.ProviceName,
+
+                    Name = r.DisplayName,
 
                     ParcelPrice = DecimalHelper.ToDecimal(r.ParcelPrice,-1),
-                    MarketPrice = decimal.Zero,
+                    MarketPrice = DecimalHelper.ToDecimal(r.MarketPrice, -1),
                     MapStructure = new Models.ViewModels.MapStructureInfo()
                     {
                         ParcelDrawingCode = r.ParcelColor,

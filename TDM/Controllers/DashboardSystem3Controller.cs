@@ -14,6 +14,11 @@ namespace TDM.Controllers
             return View();
         }
 
+        public ActionResult IndexTu()
+        {
+            return View();
+        }
+
 
         // GET: DashboardSystem3
         public ActionResult ViewList()

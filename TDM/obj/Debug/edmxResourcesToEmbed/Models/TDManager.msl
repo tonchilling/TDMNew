@@ -4,6 +4,11 @@
     <EntitySetMapping Name="PROJECT_IMPACT">
       <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT">
         <MappingFragment StoreEntitySet="PROJECT_IMPACT">
+          <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
+          <ScalarProperty Name="AMPHOE_ID" ColumnName="AMPHOE_ID" />
+          <ScalarProperty Name="Shape" ColumnName="Shape" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
           <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
           <ScalarProperty Name="IS_PUBLISHED" ColumnName="IS_PUBLISHED" />
           <ScalarProperty Name="PUBLISH_DATE" ColumnName="PUBLISH_DATE" />

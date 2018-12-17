@@ -381,6 +381,7 @@
     <Content Include="assets\js\custom_pera\custom.pera.js" />
     <Content Include="assets\js\DashboardSystem3\MapHandler.js" />
     <Content Include="assets\js\DashboardSystem3\ViewListHandler.js" />
+    <Content Include="assets\js\DashboardSystem3\ViewListHandlerT.js" />
     <Content Include="assets\js\DashboardSystem3\ViewListHandler_Index.js" />
     <Content Include="assets\js\datatables\buttons.bootstrap.min.js" />
     <Content Include="assets\js\datatables\buttons.flash.min.js" />
@@ -1603,6 +1604,9 @@
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\AreaAnalysis\Manage_bk.cshtml" />
     <Content Include="Views\DashboardSystem3\ViewList.cshtml" />
+    <Content Include="Views\DashboardSystem3\Index_Temp.cshtml" />
+    <Content Include="Views\DashboardSystem3\IndexT.cshtml" />
+    <Content Include="Views\DashboardSystem3\IndexTu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

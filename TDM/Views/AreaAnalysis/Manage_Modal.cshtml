@@ -1,46 +1,80 @@
 ﻿@model TDM.Models.PROJECT_IMPACT_ViewModel
 
+
 <div>
+    
     <form id="myForm">
-        @Html.HiddenFor(model => model.ID, new { @id = "ProjectID" })
-        <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
-            <div>รหัสโครงการ</div>
-            @Html.TextBoxFor(model => model.SUBJECT_ID, new { @class = " form-control input__screen-full", @placeholder = "รหัสโครงการ" })
-        </div>
-        <div class="col-md-6 col-sm-6 co-xs-6" style="padding-right: 0px;">
-            <div>ชื่อโครงการ</div>
-            @Html.TextBoxFor(model => model.SUBJECT_NAME, new { @class = "col-md-6 col-sm-6 co-xs-6 form-control input__screen-full", @placeholder = "ชื่อโครงการ" })
-        </div>
-
-        <div class="form-group" id="PublishedCheck">
-            <div class="btn-group" data-toggle="buttons">
-                <label id="publishedYes" class="btn btn-primary active" onclick="checkPublished(true)">
-                    @Html.RadioButtonFor(model => model.IS_PUBLISHED, true, new { name = "IS_PUBLISHED", @Value = true }) เปิดเผย
-                </label>
-
-                <label id="publishedNo" class="btn btn-primary" onclick="checkPublished(false)">
-                    @Html.RadioButtonFor(model => model.IS_PUBLISHED, false, new { name = "IS_PUBLISHED", @Value = false }) ไม่เปิดเผย
-                </label>
+        <div class="row">
+            @Html.HiddenFor(model => model.ID, new { @id = "ProjectID" })
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
+                <div>รหัสโครงการ</div>
+                @Html.TextBoxFor(model => model.SUBJECT_ID, new { @class = " form-control input__screen-full", @placeholder = "รหัสโครงการ" })
+            </div>
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-right: 0px;">
+                <div>ชื่อโครงการ</div>
+                @Html.TextBoxFor(model => model.SUBJECT_NAME, new { @class = "col-md-6 col-sm-6 co-xs-6 form-control input__screen-full", @placeholder = "ชื่อโครงการ" })
             </div>
         </div>
 
-        <div id="PublishedDate">
-            <div style="margin-top: 15px;">ระบุวันที่เผยแพร่</div>
-            @Html.TextBoxFor(model => model.PUBLISH_DATE, new { @class = "form-control input__screen-full", @id = "publishDateSet", @placeholder = "ระบุวันที่เผยแพร่", @Value = (Model.ID > 0) ? Model.PUBLISH_DATE : System.DateTime.Now })
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
+                <div>พื้นที่กระทบ</div>
+        
+                    @Html.DropDownListFor(model => model.PROVINCE_ID, new SelectList(Model.PROVINCE, "PRO_C", "ON_PRO_THA"), "เลือกจังหวัด", new { @id = "PROVINCE_ID", @class = "form-control" })
+              
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
+                <div>อำเภอ</div>
+
+                @Html.DropDownListFor(model => model.AMPHOE_ID, new SelectList(Model.AMPHOE, "DIS_C", "ON_DIS_THA"), "เลือกอำเภอ", new { @id = "AMPHOE_ID", @class = "form-control" })
+
+            </div>
+
+          
+            </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
+                <div>ตำบล</div>
+
+                @Html.DropDownListFor(model => model.TAMBOL_ID, new SelectList(Model.TAMBOL, "SUB_C", "ON_SUB_THA"), "เลือกตำบล", new { @id = "TAMBOL_ID", @class = "form-control" })
+
+            </div>
+
+
+          
+
+
+        </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-12 col-sm-12 co-xs-12">
+                <div>นำเข้าแผนที่</div>
+                @Html.TextAreaFor(model => model.Shape, new { @id = "Shape", @class = "col-md-12 col-sm-12 co-xs-12 form-control input__screen-full", @placeholder = "Shape" })
+            </div>
         </div>
 
-        @Html.HiddenFor(model => model.CREATE_BY, new { @class = "form-control input__screen-full", @placeholder = "สร้างโดย", @Value = "admin" })
-
-        @Html.HiddenFor(model => model.CREATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่สร้าง", @Value = (Model.ID > 0) ? Model.CREATE_DATE : System.DateTime.Now })
-
-        @Html.HiddenFor(model => model.UPDATE_BY, new { @class = "form-control input__screen-full", @placeholder = "แก้ไขโดย", @Value = "admin" })
-
-        @Html.HiddenFor(model => model.UPDATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่แก้ไข", @Value = System.DateTime.Now })
-
-        @Html.HiddenFor(model => model.IS_DELETED, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @Value = "false" })
-
-        @Html.HiddenFor(model => model.STATUS_ID, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @id = "StatusID" })
-    </form>
+            <div class="form-group" id="PublishedCheck">
+                <div class="btn-group" data-toggle="buttons">
+                    <label id="publishedYes" class="btn btn-primary active" onclick="checkPublished(true)">
+                        @Html.RadioButtonFor(model => model.IS_PUBLISHED, true, new { name = "IS_PUBLISHED", @Value = true }) เปิดเผย
+                    </label>
+                    <label id="publishedNo" class="btn btn-primary" onclick="checkPublished(false)">
+                        @Html.RadioButtonFor(model => model.IS_PUBLISHED, false, new { name = "IS_PUBLISHED", @Value = false }) ไม่เปิดเผย
+                    </label>
+                </div>
+            </div>
+            <div id="PublishedDate">
+                <div style="margin-top: 15px;">ระบุวันที่เผยแพร่</div>
+                @Html.TextBoxFor(model => model.PUBLISH_DATE, new { @class = "form-control input__screen-full", @id = "publishDateSet", @placeholder = "ระบุวันที่เผยแพร่", @Value = (Model.ID > 0) ? Model.PUBLISH_DATE : System.DateTime.Now })
+            </div>
+            @Html.HiddenFor(model => model.CREATE_BY, new { @class = "form-control input__screen-full", @placeholder = "สร้างโดย", @Value = "admin" })
+            @Html.HiddenFor(model => model.CREATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่สร้าง", @Value = (Model.ID > 0) ? Model.CREATE_DATE : System.DateTime.Now })
+            @Html.HiddenFor(model => model.UPDATE_BY, new { @class = "form-control input__screen-full", @placeholder = "แก้ไขโดย", @Value = "admin" })
+            @Html.HiddenFor(model => model.UPDATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่แก้ไข", @Value = System.DateTime.Now })
+            @Html.HiddenFor(model => model.IS_DELETED, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @Value = "false" })
+            @Html.HiddenFor(model => model.STATUS_ID, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @id = "StatusID" })
+</form>
     <div class="clearfix">
         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
             <button type="button" id="btnSubmit" class="btn btn-default" style="width: 150px;" onclick="btnSubmit(@Model.ID)">
@@ -65,12 +99,11 @@
         </div>
     }
 </div>
-
 <script>
 
     var AddProvince = [];
     var RemoveProvince = [];
-    
+
     $(document).ready(function () {
         var isPublished = $('input[name=IS_PUBLISHED]:checked').val();
         var statusID = $('#StatusID').val();
@@ -93,6 +126,61 @@
             $('#PublishedDate').css('display', 'none');
             $('#PublishedCheck').css('display', 'none');
         }
+
+
+        $('#PublishedDate').datetimepicker({
+            format: 'mm-dd-yyyy',
+            minView: 2,
+            pickTime: false,
+            autoclose: true
+        });
+
+
+
+
+        $("#PROVINCE_ID").change(function () {
+            $('#AMPHOE_ID').empty();
+            $('#TAMBOL_ID').empty();
+             $('#AMPHOE_ID').append("<option value=''>เลือกอำเภอ</option>");
+             $('#TAMBOL_ID').append("<option value=''>เลือกตำบล</option>");
+             $.get(rootUrl + "/api/Map/GetDistrictsByProvince", { id: $(this).val() }, function (data) {
+                 if (data != null && data.length > 0) {
+
+
+                     $.each(data, function (index, data) {
+                         $("#AMPHOE_ID").append("<option value='" + data.ID + "'>" + data.Name + "</option>");
+                     });
+                 }
+             });
+
+
+
+
+
+    });
+        $("#AMPHOE_ID").change(function () {
+
+            $('#TAMBOL_ID').empty();
+            $('#TAMBOL_ID').append("<option value=''>เลือกตำบล</option>");
+             $.get(rootUrl + "/api/Map/GetSubDistrictsByDistrict", { id: $(this).val() }, function (data) {
+                 if (data != null && data.length > 0) {
+
+
+                     $.each(data, function (index, data) {
+                         $("#TAMBOL_ID").append("<option value='" + data.ID + "'>" + data.Name + "</option>");
+                     });
+                 }
+             });
+
+
+
+    });
+
+
+
+   // $("#ddlProvince").selectpicker('refresh');
+   // $("#ddlDistrict").selectpicker('refresh');
+   // $("#ddlSubdistrict").selectpicker('refresh');
     });
 
     function checkPublished(value) {
@@ -105,14 +193,14 @@
 
     function btnSubmit(id) {
         var myFormData = JSON.stringify($('#myForm').serializeObject());
-        var url = "/TDM/api/AreaAnalysis/AddProject";
+        var url = rootUrl + "/api/AreaAnalysis/AddProject";
 
         if (id > 0) {
-            url = "/TDM/api/AreaAnalysis/UpdateProject";
+            url = rootUrl + "/api/AreaAnalysis/UpdateProject";
         }
 
         url = http.url(url);
-
+      
         $.ajax({
             url,
             type: "POST",
@@ -121,7 +209,7 @@
             contentType: 'application/json',
             success: function (response) {
                 $("#myModal").modal("hide");
-                window.location.href = http.url("/TDM/AreaAnalysis/Manage");
+                window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
             }
         });
     }

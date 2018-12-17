@@ -19,6 +19,11 @@
           <Property Name="PUBLISH_DATE" Type="datetime" />
           <Property Name="IS_PUBLISHED" Type="bit" Nullable="false" />
           <Property Name="IS_DELETED" Type="bit" Nullable="false" />
+          <Property Name="PROVINCE_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="Shape" Type="varchar" MaxLength="8000" />
+          <Property Name="AMPHOE_ID" Type="nvarchar" MaxLength="10" />
+          <Property Name="TAMBOL_ID" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="PROV_IMPACT">
           <Key>
@@ -63,6 +68,11 @@
           <Property Name="PUBLISH_DATE" Type="DateTime" Precision="3" />
           <Property Name="IS_PUBLISHED" Type="Boolean" Nullable="false" />
           <Property Name="IS_DELETED" Type="Boolean" Nullable="false" />
+          <Property Name="PROVINCE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Shape" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="AMPHOE_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TAMBOL_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PROV_IMPACT">
           <Key>
@@ -88,6 +98,11 @@
           <EntitySetMapping Name="PROJECT_IMPACT">
             <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT">
               <MappingFragment StoreEntitySet="PROJECT_IMPACT">
+                <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
+                <ScalarProperty Name="AMPHOE_ID" ColumnName="AMPHOE_ID" />
+                <ScalarProperty Name="Shape" ColumnName="Shape" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
                 <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
                 <ScalarProperty Name="IS_PUBLISHED" ColumnName="IS_PUBLISHED" />
                 <ScalarProperty Name="PUBLISH_DATE" ColumnName="PUBLISH_DATE" />

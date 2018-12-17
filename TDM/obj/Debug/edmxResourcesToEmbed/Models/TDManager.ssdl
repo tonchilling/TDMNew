@@ -14,6 +14,11 @@
     <Property Name="PUBLISH_DATE" Type="datetime" />
     <Property Name="IS_PUBLISHED" Type="bit" Nullable="false" />
     <Property Name="IS_DELETED" Type="bit" Nullable="false" />
+    <Property Name="PROVINCE_ID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+    <Property Name="Shape" Type="varchar" MaxLength="8000" />
+    <Property Name="AMPHOE_ID" Type="nvarchar" MaxLength="10" />
+    <Property Name="TAMBOL_ID" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="PROV_IMPACT">
     <Key>

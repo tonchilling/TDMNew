@@ -95,7 +95,10 @@ namespace TDM.Controllers.api
                 updateProject.UPDATE_DATE = project.UPDATE_DATE;
                 updateProject.CREATE_DATE = project.CREATE_DATE;
                 updateProject.CREATE_BY = project.CREATE_BY;
-
+                updateProject.PROVINCE_ID = project.PROVINCE_ID;
+                updateProject.AMPHOE_ID = project.AMPHOE_ID;
+                updateProject.TAMBOL_ID = project.TAMBOL_ID;
+                updateProject.Shape = project.Shape!=null ? project.Shape:null;
                 tdmEntities.SaveChanges();
 
                 return Json(project, jsonSetting);
@@ -191,25 +194,57 @@ namespace TDM.Controllers.api
         {
             try
             {
+
+
                 var PROVINCES = tdaEntities.PROVINCEs.Where(p => p.NAME_T.Contains(prov_name));
 
                 var _projects = tdmEntities.PROJECT_IMPACT.Where(x => !x.IS_DELETED).ToList();
                 var projects = _projects.Where(x =>
                     (subject_id == null || x.SUBJECT_ID.Contains(subject_id))
                     && (subject_name == null || x.SUBJECT_NAME.Contains(subject_name))
-                    && (prov_name == null || prov_name.Length == 0 || (PROVINCES.Count() > 0 && (
-                        tdaEntities.PROJECT_AREA_47.Any(y => y.SUBJECT_ID.Equals(x.SUBJECT_ID) && PROVINCES.Any(z => z.PRO_C.Equals(y.PROV_CODE)))
-                        || tdaEntities.PROJECT_AREA_48.Any(y => y.SUBJECT_ID.Equals(x.SUBJECT_ID) && PROVINCES.Any(z => z.PRO_C.Equals(y.PROV_CODE))))))
+                    && (prov_name == null || prov_name.Length == 0 || (PROVINCES.Count() > 0 
+                    && (
+                          x.PROVINCE_ID==PROVINCES.FirstOrDefault().PRO_C 
+                        /* tdaEntities.PROJECT_AREA_47.Any(y => y.SUBJECT_ID.Equals(x.SUBJECT_ID) && PROVINCES.Any(z => z.PRO_C.Equals(y.PROV_CODE)))
+                         || tdaEntities.PROJECT_AREA_48.Any(y => y.SUBJECT_ID.Equals(x.SUBJECT_ID) && PROVINCES.Any(z => z.PRO_C.Equals(y.PROV_CODE))))*/
+                        )
+                        ))
                     && (publish_date == null || (x.PUBLISH_DATE.HasValue && x.PUBLISH_DATE.Value.Date == publish_date.Value.Date))
                     ).ToList().Select(x => Mapper.Map<PROJECT_IMPACT_ViewModel>(x)).ToList();
 
                 List<dynamic> result = new List<dynamic>();
+                /* foreach (var c in projects)
+                 {
+                     List<PROJECT_AREA_ViewModel> projectArea = tdaEntities.PROJECT_AREA_47.Where(x => x.SUBJECT_ID.Equals(c.SUBJECT_ID)).ToList().Select(x => Mapper.Map<PROJECT_AREA_ViewModel>(x)).ToList();
+                     projectArea.AddRange(tdaEntities.PROJECT_AREA_48.Where(x => x.SUBJECT_ID.Equals(c.SUBJECT_ID)).ToList().Select(x => Mapper.Map<PROJECT_AREA_ViewModel>(x)).ToList());
+                     c.PROVINCE = projectArea.GroupBy(x => x.PROV_CODE).Select(x => Mapper.Map<PROVINCE_ViewModel>(tdaEntities.PROVINCEs.Where(y => y.PRO_C.Equals(x.Key)).First())).ToList();
+                     int statusId = projectArea.Count() == 0 ? 1 : (projectArea.Any(x => x.STATUS_PROCESS.Equals("N")) ? 2 : 3);
+                     dynamic project = new
+                     {
+                         c.ID,
+                         c.SUBJECT_ID,
+                         c.SUBJECT_NAME,
+                         c.PUBLISH_DATE,
+                         c.CREATE_DATE,
+                         c.CREATE_BY,
+                         c.UPDATE_DATE,
+                         c.UPDATE_BY,
+                         c.PROVINCE,
+                         c.IS_PUBLISHED,
+                         STATUS = tdmEntities.STATUS_IMPACT.Where(y => y.ID == statusId).First()
+                     };
+                     result.Add(project);
+                 }*/
+
                 foreach (var c in projects)
                 {
-                    List<PROJECT_AREA_ViewModel> projectArea = tdaEntities.PROJECT_AREA_47.Where(x => x.SUBJECT_ID.Equals(c.SUBJECT_ID)).ToList().Select(x => Mapper.Map<PROJECT_AREA_ViewModel>(x)).ToList();
-                    projectArea.AddRange(tdaEntities.PROJECT_AREA_48.Where(x => x.SUBJECT_ID.Equals(c.SUBJECT_ID)).ToList().Select(x => Mapper.Map<PROJECT_AREA_ViewModel>(x)).ToList());
-                    c.PROVINCE = projectArea.GroupBy(x => x.PROV_CODE).Select(x => Mapper.Map<PROVINCE_ViewModel>(tdaEntities.PROVINCEs.Where(y => y.PRO_C.Equals(x.Key)).First())).ToList();
-                    int statusId = projectArea.Count() == 0 ? 1 : (projectArea.Any(x => x.STATUS_PROCESS.Equals("N")) ? 2 : 3);
+                    c.PROVINCE = tdaEntities.PROVINCEs.Where(p => p.PRO_C == c.PROVINCE_ID).Select(r => new PROVINCE_ViewModel()
+                    {
+                        PRO_C = r.PRO_C,
+                        NAME_T = r.NAME_T
+
+                    }).ToList();
+
                     dynamic project = new
                     {
                         c.ID,
@@ -220,14 +255,15 @@ namespace TDM.Controllers.api
                         c.CREATE_BY,
                         c.UPDATE_DATE,
                         c.UPDATE_BY,
-                        c.PROVINCE,
+                       c.PROVINCE,
+                       
                         c.IS_PUBLISHED,
-                        STATUS = tdmEntities.STATUS_IMPACT.Where(y => y.ID == statusId).First()
+                        STATUS = tdmEntities.STATUS_IMPACT.Where(y => y.ID == (c.Shape!=null?2:1)).First()
                     };
                     result.Add(project);
                 }
 
-                result = result.Skip(start).Take(count).ToList();
+                    result = result.Skip(start).Take(count).ToList();
                 return Json(result, jsonSetting);
             }
             catch (Exception ex)

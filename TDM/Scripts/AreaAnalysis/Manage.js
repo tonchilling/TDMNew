@@ -1,4 +1,6 @@
-﻿var paging = {
+﻿
+
+var paging = {
     start: 0,
     count: 1000
 };
@@ -11,7 +13,7 @@ $(function () {
         autoclose: true
     });
 
-    $.get("/TDM/api/AreaAnalysis/GetAllProvince", {}, function (data) {
+    $.get(rootUrl + "/api/AreaAnalysis/GetAllProvince", {}, function (data) {
         console.log("GetAllProvince")
         $("#allProvince").empty();
         $("#allProvince").append("<option value=''>เลือกพื้นที่ที่กระทบกับโครงการ</option>");
@@ -23,6 +25,33 @@ $(function () {
 
     searchProjectImpactList(0, 1000, null);
 
+
+    $("#ddlProvince").change(function () {
+        $('#ddlDistrict').empty();
+        $.get(rootUrl + "/api/Map/GetDistrictsByProvince/", { id: $(this).val() }, function (data) {
+            $('#ddlDistrict').empty();
+            if (data != null && data.length > 0) {
+
+
+                $.each(data, function (index, data) {
+                    $("#ddlDistrict").append("<option value='" + data.ID + "'>" + district.Name + "</option>");
+                });
+            }
+        });
+    });
+    $("#ddlDistrict").change(function () {
+        $.get(rootUrl + "/api/Map/GetSubDistrictsByDistrict/", { id: $(this).val() }, function (data) {
+            $('#ddlSubdistrict').empty();
+            if (data != null && data.length > 0) {
+
+
+                $.each(data, function (index, data) {
+                    $("#ddlSubdistrict").append("<option value='" + data.ID + "'>" + district.Name + "</option>");
+                });
+            }
+        });
+    });
+   
 
     $.fn.serializeObject = function () {
         var o = Object.create(null),
@@ -61,7 +90,7 @@ function searchProjectImpactList(start, count, keyword) {
     paging.start = start;
     paging.count = count;
 
-    $.get("/TDM/api/AreaAnalysis/GetAllProjectImpact",
+    $.get(rootUrl + "/api/AreaAnalysis/GetAllProjectImpact",
         { start, count, subject_id, subject_name, prov_name, publish_date }, function (data) {
             {
 
@@ -112,7 +141,7 @@ function searchProjectImpactList(start, count, keyword) {
                         targets: 2,
                         data: function (row, type, val, meta) {
                             var Province = row.PROVINCE.map(function (item) {
-                                return item['ON_PRO_THA'];
+                                return item['NAME_T'];
                             });
                             return Province.join(',');
                         }
@@ -201,11 +230,14 @@ function onSearchProjectClick(value) {
 
 function AddProject(projectId, statusId) {
 
-    var url = http.url("/TDM/AreaAnalysis/AddEditProject?projectId=" + projectId + "&statusId=" + statusId);
+    var url = http.url("/AreaAnalysis/AddEditProject?projectId=" + projectId + "&statusId=" + statusId);
 
-    $("#myModalBodyDiv1").load(url, function () {
-        $("#myModal1").modal("show");
-        $("#myModal1").appendTo("body");
+    $("#myModalBodyDiv1").load(url, function (response, status, xhr) {
+        if (status == "error") {
+        } else {
+            $("#myModal1").modal("show");
+            $("#myModal1").appendTo("body");
+        }
     });
 }
 
@@ -231,7 +263,7 @@ function DelProvImpact(projectId, projectName) {
                 };
 
                 $.ajax({
-                    url: http.url("/TDM/api/AreaAnalysis/DeleteProject"),
+                    url: http.url(rootUrl + "/api/AreaAnalysis/DeleteProject"),
                     type: "POST",
                     data: JSON.stringify(data),
                     dataType: "json",
@@ -250,7 +282,7 @@ function DelSuccess(projectName) {
         title: "ยืนยันการลบข้อมูล",
         message: `ยืนยันการลบข้อมูล ${projectName} เรียบร้อยแล้ว`,
         callback: function () {
-            window.location.href = http.url("/TDM/AreaAnalysis/Manage");
+            window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
         }
     });
 }

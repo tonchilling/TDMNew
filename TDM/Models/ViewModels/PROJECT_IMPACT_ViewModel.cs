@@ -8,6 +8,9 @@ namespace TDM.Models
     public class PROJECT_IMPACT_ViewModel
     {
         public int ID { get; set; }
+        public string PROVINCE_ID { get; set; }
+        public string AMPHOE_ID { get; set; }
+        public string TAMBOL_ID { get; set; }
         public string SUBJECT_ID { get; set; }
         public string SUBJECT_NAME { get; set; }
         public Nullable<System.DateTime> PUBLISH_DATE { get; set; }
@@ -18,7 +21,9 @@ namespace TDM.Models
         public int STATUS_ID { get; set; }
         public bool IS_DELETED { get; set; }
         public bool IS_PUBLISHED { get; set; }
-
+        public string Shape { get; set; }
         public virtual ICollection<PROVINCE_ViewModel> PROVINCE { get; set; }
+        public virtual ICollection<AMPHOE_ViewModel> AMPHOE { get; set; }
+        public virtual ICollection<TAMBOL_ViewModel> TAMBOL { get; set; }
     }
 }
