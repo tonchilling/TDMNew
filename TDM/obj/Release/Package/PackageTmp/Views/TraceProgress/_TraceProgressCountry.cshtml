@@ -1,0 +1,206 @@
+﻿@{
+//string RegionId = ViewData["Region"].ToString();
+}
+
+<style>
+    .x_content {
+        z-index: 1 !important;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .progressbar {
+        counter-reset: step;
+    }
+
+        .progressbar li {
+            list-style: none;
+            display: inline-block;
+            width: 10.111111%;
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+        }
+
+    .progressbar_header li {
+        list-style: none;
+        display: inline-block;
+        width: 10.111111%;
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+        -webkit-transform: rotate(321deg);
+        -moz-transform: rotate(321deg);
+        -o-transform: rotate(321deg);
+        writing-mode: lr-tb;
+        font-size: 10px !important;
+    }
+
+    .progressbar li:before {
+        content: counter(step);
+        counter-increment: step;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        /*border: 1px solid #ddd; */
+        border: 1px solid rgb(191, 191, 191);
+        border-radius: 100%;
+        display: block;
+        text-align: center;
+        margin: 0 auto 10px auto;
+        background-color: #fff;
+    }
+
+    .progressbar li:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        /*background-color: #ddd;*/
+        background-color: rgb(191, 191, 191);
+        top: 15px;
+        left: -50%;
+        z-index: -1;
+    }
+
+    .progressbar li.complete:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: green;
+        top: 15px;
+        left: -50%;
+        z-index: -1;
+    }
+
+    .progressbar li:first-child:after {
+        content: none;
+    }
+
+    .progressbar li.active {
+        color: green;
+    }
+
+        .progressbar li.active:before {
+            border-color: green;
+        }
+
+        .progressbar li.active + li:after {
+            background-color: green;
+        }
+
+    /*late*/
+    .progressbar li.worklate {
+        color: red;
+    }
+
+        .progressbar li.worklate:before {
+            border-color: red;
+            background-color: rgb(255, 0, 0);
+        }
+
+    .nav-md li.worklate {
+        color: white !important;
+    }
+
+    /*progress*/
+    .progressbar li.workprogress {
+        color: yellow;
+    }
+
+        .progressbar li.workprogress:before {
+            border-color: yellow;
+            background-color: rgb(255, 192, 0);
+        }
+
+    .nav-md li.workprogress {
+        color: #73879C !important;
+    }
+
+    /*perfect*/
+    .progress li.workperfect {
+        color: white !important;
+    }
+
+    .progressbar li.workperfect:before {
+        border-color: white !important;
+        background-color: rgb(112, 173, 71);
+    }
+
+    .nav-md li.workperfect {
+        color: wheat !important;
+    }
+</style>
+
+
+
+<h1>_TraceProgressCountry</h1>
+<h1 class="ui col-md-12">การติดตามความคืบหน้าการประเมิน รายจังหวัด</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2">
+        </div>
+        <div class="col-md-10 col-sm-10 col-xs-10">
+            <ul class="progressbar_header">
+                <li>ขั้นตอน 1</li>
+                <li>ขั้นตอน 2</li>
+                <li>ขั้นตอน 3</li>
+                <li>ขั้นตอน 4</li>
+                <li>ขั้นตอน 5</li>
+                <li>ขั้นตอน 6</li>
+                <li>ขั้นตอน 7</li>
+                <li>ขั้นตอน 8</li>
+                <li>ขั้นตอน 9</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            ภาคเหนือ
+        </div>
+        <div class="col-md-10 col-sm-10 col-xs-10">
+            <ul class="progressbar">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            ภาคเหนือ
+        </div>
+        <div class="col-md-10 col-sm-10 col-xs-10">
+            <ul class="progressbar">
+                <li class="complete workperfect" title="เริ่มต้น ขั้นตอนที่ 1 วันที่ 22/08/2018 ถึง วันที่ 23/09/2018 "></li>
+                <li class="complete worklate" title="เริ่มต้น ขั้นตอนที่ 2 วันที่ 24/09/2018 ถึง วันที่ 14/10/2018 "></li>
+                <li class="complete workprogress" title="เริ่มต้น ขั้นตอนที่ 3 วันที่ 15/10/2018 ถึง วันที่ 14/11/2018"></li>
+                <li class=""></li>
+                <li class=""></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="late"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    // === initial Page ===
+    $(document).ready(function () {
+    });
+
+</script>

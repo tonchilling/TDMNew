@@ -1,0 +1,29 @@
+﻿.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background-color:#ffffff;
+    margin:6px;
+    padding-top:5px;
+}
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.border-list {
+    background-color: #f7f7f7;
+    cursor: pointer;
+    border-radius:5px;
+    margin-left:5px;
+    margin-bottom:5px;
+}
+.promo-box.custom {
+    margin-bottom: 10px !important;
+}
+.promo-box.custom .image {
+    width: 60px;
+    margin-right: 20px;
+}
+
+.table.customTable {
+    overflow-x: auto;
+}

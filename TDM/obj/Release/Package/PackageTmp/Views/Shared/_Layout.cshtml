@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        /**/
+        //var root = @Url.Content("~");
+        /**/
+    </script>
+ 
+
+   
+
+    <!-- Bootstrap -->
+    <link href="~/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/assets/fonts/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/assets/css/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="~/assets/css/custom_pera/custom.min.css?ver=1.1" rel="stylesheet">
+    <!-- Fonts Awesome -->
+    <link rel="stylesheet" href="~/assets/css/all.css">
+    <!-- Datatables -->
+    <link href="~/assets/css/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/datatables/scroller.bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <!-- notification -->
+    <link href="~/assets/css/iziToast.min.css" rel="stylesheet" />
+    <link href="~/assets/css/Kim_Style.css?v1.3" rel="stylesheet">
+   
+    <link rel="stylesheet" href="~/assets/css/custom.css?ver=1.1">
+    <!--	<script src="~/assets/js/ViewListHandler.js"></script>-->
+
+    <script src="~/assets/js/jquery-2.1.0.min.js"></script>
+    <script src="~/assets/js/jquery-3.3.1.js"></script>
+    <!-- Bootstrap -->
+   
+
+    <script>
+   // var rootUrl = '/TDManagement';
+        var rootUrl = '';
+    </script>
+   
+  
+
+   @* @Styles.Render("~/Content/css")*@
+ 
+ 
+    <style type="text/css">
+        .main_container .top_nav {
+            display: block;
+            margin-left: 0px;
+        }
+
+        .table > tbody > tr.tdDetail > td {
+            padding: 0px;
+        }
+    </style>
+    <title>Treasury Map</title>
+
+    <!-- FAVICON -->
+    <link rel="icon" href="~/assets/img/favicon.png" type="images/png" />
+
+    <!-- APPLE TOUCH ICON -->
+    <link rel="apple-touch-icon" href="img/webclip.png">
+  
+    <!-- OG TAGS -->
+    <meta property="og:title" content="Treasury Map" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="ค้นหาแปลงที่ดินจากจุดสนใจ" />
+</head>
+<body onunload="" class="map-fullscreen page-homepage navigation-off-canvas" id="page-top">
+    <!-- Outer Wrapper-->
+    <div id="outer-wrapper">
+        <!-- Inner Wrapper -->
+        <div id="inner-wrapper">
+            <!-- Navigation-->
+            <div class="header">
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <nav>
+                            <ul class="nav navbar-nav ">
+                                <li class="">
+                                    <a href="~/"><img src="~/assets/img/logo.png" alt="logo"></a>
+                                </li>
+                               
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- end Navigation-->
+            <!-- Page Canvas-->
+            <div id="page-canvas">
+                <!--Off Canvas Navigation-->
+                <nav class="off-canvas-navigation" style="display:none">
+                    <header>Navigation</header>
+                    <div class="main-navigation navigation-off-canvas"></div>
+                </nav>
+                <!--end Off Canvas Navigation-->
+                <!--Page Content-->
+                <div id="page-content">
+                    @RenderBody()
+
+                </div>
+                <!-- end Page Content-->
+            </div>
+            <!-- end Page Canvas-->
+
+        </div>
+        <!-- end Inner Wrapper -->
+    </div>
+    <!-- end Outer Wrapper-->
+
+ 
+
+    <script>
+        config.root = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["root"]));
+        config.mapUrl = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["mapUrl"]));
+    </script>
+   
+
+    <!-- FastClick -->
+    <script src="~/assets/js/fastclick/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/assets/js/nprogress/nprogress.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="~/assets/js/custom_pera/custom.min.js"></script>
+    <!-- Custom Pera Scripts -->
+    <script src="~/assets/js/custom_pera/custom.pera.js"></script>
+
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/assets/js/datatables/buttons.bootstrap.min.js"></script>
+    <script src="~/assets/js/datatables/buttons.flash.min.js"></script>
+    <script src="~/assets/js/datatables/buttons.html5.min.js"></script>
+    <script src="~/assets/js/datatables/buttons.print.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.fixedHeader.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.keyTable.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/assets/js/datatables/responsive.bootstrap.js"></script>
+    <script src="~/assets/js/datatables/dataTables.scroller.min.js"></script>
+    <script src="~/assets/js/datatables/jszip.min.js"></script>
+    <script src="~/assets/js/datatables/pdfmake.min.js"></script>
+    <script src="~/assets/js/datatables/vfs_fonts.js"></script>
+    <script src="~/assets/css/bootstrap-daterangepicker/daterangepicker.min.js"></script>
+    <script src="~/assets/css/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/css/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="~/assets/css/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- e Chart -->
+    <script src="~/assets/js/Chart/echarts.min.js?revV122"></script>
+    <!-- notification -->
+    <script src="~/assets/js/iziToast.js"></script>
+
+    <script src="~/Scripts/map_loader.js"></script>
+    <script src="~/Scripts/Main.js?ver=1"></script>
+
+   
+    @*<script type="text/javascript" src="~/assets/js/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/before.load.js"></script>
+        <script type="text/javascript" src="~/assets/js/leaflet.js"></script>
+        <script type="text/javascript" src="~/assets/js/leaflet-providers.js"></script>
+        <script type="text/javascript" src="~/assets/js/leaflet.markercluster.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/smoothscroll.js"></script>
+        <script type="text/javascript" src="~/assets/js/bootstrap-select.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/icheck.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery.hotkeys.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery.nouislider.all.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/custom.js"></script>
+        <script type="text/javascript" src="~/assets/js/maps.js"></script>*@
+    @*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC1jJD77MZNqvFn0PT7JHYY_rcu2W_tA7I"></script>*@
+
+    <style type="text/css">
+    </style>
+
+
+
+    <!--[if lte IE 9]>
+    <script type="text/javascript" src="~/assets/js/ie-scripts.js"></script>
+    <![endif]-->
+</body>
+</html>

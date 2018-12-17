@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_for_System_3.cshtml";
+}
+
+<!--<div class="container body"> -->
+<div class="">
+    <div class="main_container">
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="clearfix"></div>
+                <div class="row">
+                    @{ 
+                        var Menu = Request.QueryString["Menu"];
+                       
+                     }
+                    
+                    @Html.Partial("~/Views/Shared/_PartialPage_Header_System_3.cshtml") 
+                </div>
+                <div class="row">
+                    
+                    @Html.Partial("~/Views/Shared/_PartialPage_Search_System_3.cshtml")
+                    <div id="SessionContent">
+                    @{
+
+                    @**********************************************************************@
+                    @* เลือก output file ที่ต้องการตาม Tab ที่ selected เพื่อ render output ที่ต้องการ *@
+                    @**********************************************************************@
+                    var tab_selected_no = Request.QueryString["tab_selected_name"];
+                    var assess_or_selling = Request.QueryString["price"];
+                    Response.Write(assess_or_selling);
+
+                    if (tab_selected_no == "1")
+                    {
+                        Html.RenderPartial("~/Views/Shared/_PartialPage_Output_System_3.cshtml");
+                    }
+                    else
+                        if (tab_selected_no == "2")
+                        {
+                            if (assess_or_selling == "assessing")
+                            {
+                                Html.RenderPartial("~/Views/Shared/_PartialPage_Output_2_System_3.cshtml");
+                            } else
+                            {
+                                Html.RenderPartial("~/Views/Shared/_PartialPage_Output_2_1_System_3.cshtml");
+                            } 
+                        }
+                        else
+                                if (tab_selected_no == "3")
+                                {
+
+                                    //Html.RenderPartial("~/Views/Shared/_PartialPage_Output_3_System_3.cshtml");
+                                } 
+                                else
+                                {
+                                    if (tab_selected_no == "4")
+                                    {
+                                        //Html.RenderPartial("~/Views/Shared/_PartialPage_Output_4_System_3.cshtml");
+                                    }
+                                    else
+                                    {
+                                        if (tab_selected_no == "5")
+                                        {
+                                            //Html.RenderPartial("~/Views/Shared/_PartialPage_Output_5_System_3.cshtml");
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+        @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
+    </div>
+</div>
