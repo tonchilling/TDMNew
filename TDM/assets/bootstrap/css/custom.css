@@ -149,7 +149,7 @@ a {
 }
 
 .pmvByAreaBox {
-	margin-right: 1.5em;
+	*margin-right: 1.5em;
 }
 
 #chartBar1 {
@@ -807,52 +807,33 @@ body {
 }
 
 .alert-1 {
-   
-    background-color: #bafaa1;
-    border-color:none;
-    border:none;
-    color:#1CA347;
+	background-color: #d3ffe1;
+    border-color: #0c6b2a;
 }
 
 .alert-2 {
-   
-    background-color: #f7a9a3;
-    border-color:none;
-    border:none;
-    color:#e11d1d;
+	background-color: #ffdad7;
+    border-color: #e11d1d;
 }
 
 .alert-3 {
-   
-    background-color: #cdf3fa;
-    border-color:none;
-    border:none;
-    color:#3ac0c8;
+	background-color: #d4f8ff;
+    border-color: #3ac0c8;
 }
 
 .alert-4 {
-   
     background-color: #dcd0d9;
-    border-color:none;
-    border:none;
-    color:#923f96;
+    border-color: #923f96;
 }
 
-
 .alert-5 {
-   
     background-color: #f6fbb8;
-    border-color:none;
-    border:none;
-    color:#dbd123;
+    border-color: #dbd123;
 }
 
 .alert-6 {
-   
     background-color: #fce5b6;
-    border-color:none;
-    border:none;
-    color:#bf7a0c;
+    border-color: #bf7a0c;
 }
 
 .tblInfo thead > tr {

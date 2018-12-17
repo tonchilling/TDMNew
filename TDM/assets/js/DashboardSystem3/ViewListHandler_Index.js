@@ -382,6 +382,7 @@ function SearchAll(sectionTypeTemp, codeTemp) {
 
 
 function InitailDataView(data)
+
 {
     $("#lbHeader").text("ราคาประเมิน ราย" + GetSectionDisplayText(sectionType));
     $("#lbHeaderGraph").text("แผนภูมิแสดงราคาที่ดิน ราย" + GetSectionDisplayText(sectionType));
@@ -394,7 +395,6 @@ function InitailDataView(data)
 
 function LoadEvalBox1_LeftBox(data)
 {
-
     var body = "";
     $("#EvalBox1").empty();
     if (data != null) {
@@ -644,4 +644,501 @@ $(document).on("change", "#ddlBuild", function () {
 });
 
 
+}
+
+var minCostLimit = 0;
+var maxCostLimit = 10000000;
+var minCost = minCostLimit;
+var maxCost = maxCostLimit;
+var slider = null;
+var datetimepickerFormat = {format: 'mm-dd-yyyy', minView: 2, pickTime: false, autoclose: true};
+
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+$(document).ready(function(){
+	controlBS = $('.col-xs-12');
+	$('.chartBarNormal').css({'width' : $(controlBS[0]).width()});
+	$('.date').datetimepicker(datetimepickerFormat);
+	$('#ddlLand, #ddlTown, #ddlBuild').change(function(){
+		switch ($(this).val()) {
+			case "0": $("." + $(this).attr("data-tab")).fadeIn();
+				break;
+			default:
+				$("." + $(this).attr("data-tab")).fadeOut(0);
+				$("." + $(this).attr("data-tab") + ".tab" + $(this).val()).fadeIn();
+		}
+	});
+	$('#ddlLand').change(function(){
+		switch($(this).val()) {
+			case "0" : $('.chartTab1').fadeIn();
+				break;
+			default : $('.chartTab1').fadeOut(0);
+				$('#tab1primary .tab' + $(this).val()).fadeIn();
+				break;
+		}
+	});
+	$('#ddlTown').change(function(){
+		switch($(this).val()) {
+			case "0" : $('.chartTab2').fadeIn();
+				break;
+			default : $('.chartTab2').fadeOut(0);
+				$('#tab2primary .tab' + $(this).val()).fadeIn();
+				break;
+		}
+	});
+	$('#ddlBuild').change(function(){
+		switch($(this).val()) {
+			case "0" : $('.chartTab3').fadeIn();
+				break;
+			default : $('.chartTab3').fadeOut(0);
+				$('#tab3primary .tab' + $(this).val()).fadeIn();
+				break;
+		}
+	});
+	$('.SearchType').click(function() {
+		if ($(this).val() == "Region") {
+			$('#ddlCluster').attr("disabled", "disabled");
+		}
+		else {
+			$('#ddlCluster').removeAttr("disabled");
+		}
+	});
+    slider = $("#CostEstimateSlider").slider({
+		range: true,
+		min: minCostLimit,
+		max: maxCostLimit,
+		step: 10,
+		values: [minCost,maxCost],
+		slide: function( event, ui ) {
+			$("#MinCostEstimate").val(ui.values[0]);
+			$("#MaxCostEstimate").val(ui.values[1]);
+		}
+    });
+	$('.MinCostEstimate').val(minCost);
+	$('.MaxCostEstimate').val(maxCost);
+	$("#MinCostEstimate").on( "change", function() {
+		value = $(this).val();
+		if (!isNaN(value)) {
+			minCost = parseFloat($(this).val());
+		}
+		else {
+			value = minCostLimit;
+		}
+		slider.slider("values", [minCost,maxCost]);
+		slider.slider('refresh');
+	});
+	$("#MaxCostEstimate").on( "change", function() {
+		value = $(this).val();
+		if (!isNaN(value)) {
+			maxCost = parseFloat($(this).val());
+		}
+		else {
+			value = maxCostLimit;
+		}
+		slider.slider("values", [minCost,maxCost]);
+		slider.slider('refresh');
+	});
+	$('#CostEstimateType').change(function(){
+		indexSelect = $(this)[0].selectedIndex;
+		typeSelect = $(this).val();
+		$('#CostListTitle').html('ราคาประเมิน' + typeSelect + ' รายภาค');
+		$('#CostChartTitle').html('แผนภูมิแสดงราคา' + typeSelect + 'รายภาค');
+		$('#CostChartBar').html('');
+		$('.CostChartTable, .pmvByArea').fadeOut();
+		$('#CostChartTable' + indexSelect).fadeIn();
+		$('#pmvByArea' + indexSelect).fadeIn();
+		optionChart = null;
+		switch (indexSelect) {
+			case 1 : 
+				optionChart = {
+					title: {
+						text: '',
+						subtext: ''
+					},
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data: ['ราคาประเมินรวม']
+					},
+					toolbox: {
+						show: true,
+						feature: {
+							mark: { show: true },
+							dataView: { show: true, readOnly: false },
+							magicType: { show: true, type: ['line', 'bar'] },
+							restore: { show: true },
+							saveAsImage: { show: true }
+						}
+					},
+					calculable: true,
+					xAxis: [
+						{
+							type: 'value',
+							boundaryGap: [0, 0.01]
+						}
+					],
+					yAxis: [
+						{
+							type: 'category',
+							data: [{ label: 'ใต้', value: 'ใต้', labelColor: 'yellow' }, 'กลาง', 'เหนือ', 'ตะวันตก', 'ตะวันออก', 'ตะวันออกเฉียงเหนือ']
+						}
+					],
+					series: [
+						{
+							name: 'ราคาประเมินรวม',
+							type: 'bar',
+							data: [18203, 23489, 29034, 104970, 131744, 630230],
+							itemStyle: {
+								normal: {
+									color: function (params) {
+										// build a color map as your need.
+										var colorList = [
+											'#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+											'#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+											'#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+										];
+										return colorList[params.dataIndex]
+									},
+									label: {
+										show: false,
+										position: 'top',
+										formatter: '{b}\n{c}'
+									}
+								}
+							}
+
+						}
+					]
+				};
+				break;
+			case 2 : 
+				optionChart = {
+					title: {
+						text: '',
+						subtext: ''
+					},
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data: ['ราคาประเมินรวม']
+					},
+					toolbox: {
+						show: true,
+						feature: {
+							mark: { show: true },
+							dataView: { show: true, readOnly: false },
+							magicType: { show: true, type: ['line', 'bar'] },
+							restore: { show: true },
+							saveAsImage: { show: true }
+						}
+					},
+					calculable: true,
+					xAxis: [
+						{
+							type: 'value',
+							boundaryGap: [0, 0.01]
+						}
+					],
+					yAxis: [
+						{
+							type: 'category',
+							data: [{ label: 'ใต้', value: 'ใต้', labelColor: 'yellow' }, 'กลาง', 'เหนือ', 'ตะวันตก', 'ตะวันออก', 'ตะวันออกเฉียงเหนือ']
+						}
+					],
+					series: [
+						{
+							name: 'ราคาประเมินรวม',
+							type: 'bar',
+							data: [18203, 23489, 29034, 104970, 131744, 630230],
+							itemStyle: {
+								normal: {
+									color: function (params) {
+										// build a color map as your need.
+										var colorList = [
+											'#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+											'#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+										   '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+										];
+										return colorList[params.dataIndex]
+									},
+									label: {
+										show: false,
+										position: 'top',
+										formatter: '{b}\n{c}'
+									}
+								}
+							}
+						}
+					]
+				};
+				break;
+			default : 
+				optionChart = {
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data: ['蒸发量', '降水量']
+					},
+					toolbox: {
+						show: false,
+						feature: {
+							mark: { show: true },
+							dataView: { show: true, readOnly: false },
+							magicType: { show: true, type: ['line', 'bar'] },
+							restore: { show: true },
+							saveAsImage: { show: true }
+						}
+					},
+					calculable: true,
+					xAxis: [
+						{
+							type: 'category',
+							data: ['เชียงราย', 'เชียงใหม่', 'แพร่', 'น่าน', 'พะเยา', 'ลำพูน', 'ลำปาง', 'แม่ฮ่องสอน']
+						}
+					],
+					yAxis: [
+						{
+							type: 'value',
+							splitArea: { show: true }
+						}
+					],
+					series: [
+						{
+							name: 'ราคาซื้อขายที่ดินเฉลี่ยต่อตารางวา',
+							type: 'bar',
+							data: [150000, 300000, 200000, 90000, 70000, 150000, 190000, 30000],
+							itemStyle: {
+								normal: {
+									color: '#017b01'
+								},
+								emphasis: {
+									color: '#00e600'
+
+								}
+							}
+						},
+						{
+							name: 'ราคาซื้อขายที่ดินต่ำสุดเต่อตารางวา',
+							type: 'bar',
+							data: [30000, 60000, 200000, 43000, 32000, 50000, 60000, 10000],
+							itemStyle: {
+								normal: {
+									color: '#bf9001'
+								},
+								emphasis: {
+									color: '#ffff00'
+
+								}
+							}
+						}
+						,
+						{
+							name: 'ราคาซื้อขายที่ดินสูงสุดเต่อตารางวา',
+							type: 'bar',
+							data: [200000, 500000, 250000, 170000, 89000, 260000, 390000, 10000],
+							itemStyle: {
+								normal: {
+									color: '#d61c00'
+								},
+								emphasis: {
+									color: '#ff7043'
+
+								}
+							}
+						}
+					]
+				};
+		}
+		var CostChartBar = echarts.init(document.getElementById('CostChartBar'));
+		CostChartBar.setOption(optionChart);
+	});
+	$('#CostEstimateType').change();
+	$('.tabSection').click(function(){
+		$('#tabLabelTitle').html($(this).attr('data-tab'));
+		$('.sectionTab0, .sectionTab1, .sectionTab2').fadeOut(0);
+		$('#CostListTitle').fadeOut(0);
+		indexSelect = $(this).attr('data-index');
+		$('.CostChartTable, .pmvByArea').fadeOut();
+		switch (indexSelect) {
+			case "0" : 
+				$('#CostEstimateType').change();
+				$('#CostListTitle').fadeIn();
+				$('#CostChartTable0').fadeIn();
+				$('.sectionTab0').fadeIn();
+				break;
+			case "1" : $('#CostListTitle').html('ภาพรวมราคาซื้อขายจดทะเบียน').fadeIn();
+				$('#CostChartBar').html('');
+				$('#CostChartTable' + indexSelect).fadeIn();
+				$('#pmvByArea' + indexSelect).fadeIn();
+				var CostChartBar = echarts.init(document.getElementById('CostChartBar'));
+				var option = {
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data: ['蒸发量', '降水量']
+					},
+					toolbox: {
+						show: false,
+						feature: {
+							mark: { show: true },
+							dataView: { show: true, readOnly: false },
+							magicType: { show: true, type: ['line', 'bar'] },
+							restore: { show: true },
+							saveAsImage: { show: true }
+						}
+					},
+					calculable: true,
+					xAxis: [
+						{
+							type: 'category',
+							data: ['เชียงราย', 'เชียงใหม่', 'แพร่', 'น่าน', 'พะเยา', 'ลำพูน', 'ลำปาง', 'แม่ฮ่องสอน']
+						}
+					],
+					yAxis: [
+						{
+							type: 'value',
+							splitArea: { show: true }
+						}
+					],
+					series: [
+						{
+							name: 'ราคาซื้อขายที่ดินเฉลี่ยต่อตารางวา',
+							type: 'bar',
+							data: [150000, 300000, 200000, 90000, 70000, 150000, 190000, 30000],
+							itemStyle: {
+								normal: {
+									color: '#017b01'
+								},
+								emphasis: {
+									color: '#00e600'
+
+								}
+							}
+						},
+						{
+							name: 'ราคาซื้อขายที่ดินต่ำสุดเต่อตารางวา',
+							type: 'bar',
+							data: [30000, 60000, 200000, 43000, 32000, 50000, 60000, 10000],
+							itemStyle: {
+								normal: {
+									color: '#bf9001'
+								},
+								emphasis: {
+									color: '#ffff00'
+
+								}
+							}
+						}
+						,
+						{
+							name: 'ราคาซื้อขายที่ดินสูงสุดเต่อตารางวา',
+							type: 'bar',
+							data: [200000, 500000, 250000, 170000, 89000, 260000, 390000, 10000],
+							itemStyle: {
+								normal: {
+									color: '#d61c00'
+								},
+								emphasis: {
+									color: '#ff7043'
+
+								}
+							}
+						}
+					]
+				};
+				CostChartBar.setOption(option);
+				SalePriceProvinceChartBar = echarts.init(document.getElementById('SalePriceProvinceChartBar'));
+				var SalePriceProvinceChartBarOption = {
+					tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data: ['蒸发量', '降水量']
+					},
+					toolbox: {
+						show: false,
+						feature: {
+							mark: { show: true },
+							dataView: { show: true, readOnly: false },
+							magicType: { show: true, type: ['line', 'bar'] },
+							restore: { show: true },
+							saveAsImage: { show: true }
+						}
+					},
+					calculable: true,
+					xAxis: [
+						{
+							type: 'category',
+							data: ['เชียงราย', 'เชียงใหม่', 'แพร่', 'น่าน', 'พะเยา', 'ลำพูน', 'ลำปาง', 'แม่ฮ่องสอน']
+						}
+					],
+					yAxis: [
+						{
+							type: 'value',
+							splitArea: { show: true }
+						}
+					],
+					series: [
+						{
+							name: 'ราคาซื้อขายที่ดินเฉลี่ยต่อตารางวา',
+							type: 'bar',
+							data: [150000, 300000, 200000, 90000, 70000, 150000, 190000, 30000],
+							itemStyle: {
+								normal: {
+									color: '#017b01'
+								},
+								emphasis: {
+									color: '#00e600'
+
+								}
+							}
+						},
+						{
+							name: 'ราคาซื้อขายที่ดินต่ำสุดเต่อตารางวา',
+							type: 'bar',
+							data: [30000, 60000, 200000, 43000, 32000, 50000, 60000, 10000],
+							itemStyle: {
+								normal: {
+									color: '#bf9001'
+								},
+								emphasis: {
+									color: '#ffff00'
+
+								}
+							}
+						}
+						,
+						{
+							name: 'ราคาซื้อขายที่ดินสูงสุดเต่อตารางวา',
+							type: 'bar',
+							data: [200000, 500000, 250000, 170000, 89000, 260000, 390000, 10000],
+							itemStyle: {
+								normal: {
+									color: '#d61c00'
+								},
+								emphasis: {
+									color: '#ff7043'
+
+								}
+							}
+						}
+					]
+				}
+				SalePriceProvinceChartBar.setOption(SalePriceProvinceChartBarOption);
+				$('.sectionTab1').fadeIn();
+				break;
+			default : $('.sectionTab2').fadeIn();
+		}
+		$('#tabSection').fadeIn();
+	});
+	$('.tabSection')[0].click();
+	$('#example').DataTable();
+	//$("#projectListTable").DataTable();
+});
 
