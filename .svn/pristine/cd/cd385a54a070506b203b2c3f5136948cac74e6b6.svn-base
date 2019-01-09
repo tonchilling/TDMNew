@@ -1,0 +1,191 @@
+﻿@model TDM.Models.PROJECT_IMPACT_ViewModel
+
+
+<div>
+    
+    <form id="myForm">
+        <div class="row">
+            @Html.HiddenFor(model => model.ID, new { @id = "ProjectID" })
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
+                <div>รหัสโครงการ</div>
+                @Html.TextBoxFor(model => model.SUBJECT_ID, new { @class = " form-control input__screen-full", @placeholder = "รหัสโครงการ" })
+            </div>
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-right: 0px;">
+                <div>ชื่อโครงการ</div>
+                @Html.TextBoxFor(model => model.SUBJECT_NAME, new { @class = "col-md-6 col-sm-6 co-xs-6 form-control input__screen-full", @placeholder = "ชื่อโครงการ" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
+                <div>พื้นที่กระทบ</div>
+        
+                    @Html.DropDownListFor(model => model.PROVINCE_ID, new SelectList(Model.PROVINCE, "PRO_C", "NAME_T"), "เลือกพื้นที่ที่กระทบโครงการ", new { @id = "PROVINCE_ID", @class = "form-control" })
+              
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
+                <div>อำเภอ</div>
+
+                @Html.DropDownListFor(model => model.AMPHOE_ID, new SelectList(Model.AMPHOE, "DIS_C", "NAME_T"), "เลือกพื้นที่ที่กระทบโครงการ", new { @id = "PROVINCE_ID", @class = "form-control" })
+
+            </div>
+
+          
+            </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
+                <div>ตำบล</div>
+
+                @Html.DropDownListFor(model => model.TAMBOL_ID, new SelectList(Model.TAMBOL, "SUB_C", "NAME_T"), "เลือกพื้นที่ที่กระทบโครงการ", new { @id = "PROVINCE_ID", @class = "form-control" })
+
+            </div>
+
+
+          
+
+
+        </div>
+
+            <div class="col-md-12 col-sm-12 co-xs-12" style="padding-right: 0px;">
+                <div>นำเข้าแผนที่</div>
+                @Html.TextAreaFor(model => model.Shape, new { @id = "Shape", @class = "col-md-12 col-sm-12 co-xs-12 form-control input__screen-full", @placeholder = "Shape" })
+            </div>
+
+          
+            <div class="form-group" id="PublishedCheck">
+                <div class="btn-group" data-toggle="buttons">
+                    <label id="publishedYes" class="btn btn-primary active" onclick="checkPublished(true)">
+                        @Html.RadioButtonFor(model => model.IS_PUBLISHED, true, new { name = "IS_PUBLISHED", @Value = true }) เปิดเผย
+                    </label>
+                    <label id="publishedNo" class="btn btn-primary" onclick="checkPublished(false)">
+                        @Html.RadioButtonFor(model => model.IS_PUBLISHED, false, new { name = "IS_PUBLISHED", @Value = false }) ไม่เปิดเผย
+                    </label>
+                </div>
+            </div>
+            <div id="PublishedDate">
+                <div style="margin-top: 15px;">ระบุวันที่เผยแพร่</div>
+                @Html.TextBoxFor(model => model.PUBLISH_DATE, new { @class = "form-control input__screen-full", @id = "publishDateSet", @placeholder = "ระบุวันที่เผยแพร่", @Value = (Model.ID > 0) ? Model.PUBLISH_DATE : System.DateTime.Now })
+            </div>
+            @Html.HiddenFor(model => model.CREATE_BY, new { @class = "form-control input__screen-full", @placeholder = "สร้างโดย", @Value = "admin" })
+            @Html.HiddenFor(model => model.CREATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่สร้าง", @Value = (Model.ID > 0) ? Model.CREATE_DATE : System.DateTime.Now })
+            @Html.HiddenFor(model => model.UPDATE_BY, new { @class = "form-control input__screen-full", @placeholder = "แก้ไขโดย", @Value = "admin" })
+            @Html.HiddenFor(model => model.UPDATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่แก้ไข", @Value = System.DateTime.Now })
+            @Html.HiddenFor(model => model.IS_DELETED, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @Value = "false" })
+            @Html.HiddenFor(model => model.STATUS_ID, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @id = "StatusID" })
+</form>
+    <div class="clearfix">
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
+            <button type="button" id="btnSubmit" class="btn btn-default" style="width: 150px;" onclick="btnSubmit(@Model.ID)">
+                <i class="fa fa-save"></i>
+                @if (Model.ID > 0)
+                {<span>แก้ไข</span> }
+                else
+                { <span>บันทึก</span>}
+            </button>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <button type="button" data-dismiss="modal" class="btn btn-grey-dark" style="width: 150px;"><i class="fa fa-refresh"></i> ยกเลิก</button>
+        </div>
+    </div>
+    @if (Model.ID > 0)
+    {
+        <div class="clearfix" style="font-size: 10px; margin-top:20px;">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-left: 0px;">ผู้สร้าง: @Model.CREATE_BY</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">วันเวลาที่สร้าง: @Model.CREATE_DATE.ToString("dd-MM-yyyy h:mm")</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ผู้แก้ไข: @Model.UPDATE_BY</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding-right: 0px;">วันเวลาที่แก้ไขล่าสุด: @Model.UPDATE_DATE.ToString("dd-MM-yyyy h:mm")</div>
+        </div>
+    }
+</div>
+<script>
+
+    var AddProvince = [];
+    var RemoveProvince = [];
+    
+    $(document).ready(function () {
+        var isPublished = $('input[name=IS_PUBLISHED]:checked').val();
+        var statusID = $('#StatusID').val();
+
+        if ($("#ProjectID").val() > 0 && statusID === "3") {
+            if (isPublished === "True" ) {
+                $('#publishedYes').addClass('active');
+                $('#publishedNo').removeClass('active');
+            } else {
+                $('#publishedNo').addClass('active');
+                $('#publishedYes').removeClass('active');
+                $('#PublishedDate').css('display', 'none');
+            }
+        } else {
+            $('input:radio[name=IS_PUBLISHED]')[0].checked = false;
+            $('#publishDateSet').val('00/00/0000 00:00');
+            $("#test3").val("Dolly Duck");
+            $('#publishedNo').addClass('active');
+            $('#publishedYes').removeClass('active');
+            $('#PublishedDate').css('display', 'none');
+            $('#PublishedCheck').css('display', 'none');
+        }
+
+
+        $('#PublishedDate').datetimepicker({
+            format: 'mm-dd-yyyy',
+            minView: 2,
+            pickTime: false,
+            autoclose: true
+        });
+
+        $("#PROVINCE_ID").selectpicker('refresh');
+    });
+
+    function checkPublished(value) {
+        if (value) {
+            $('#PublishedDate').css('display', 'block');
+        } else {
+            $('#PublishedDate').css('display', 'none');
+        }
+    }
+
+    function btnSubmit(id) {
+        var myFormData = JSON.stringify($('#myForm').serializeObject());
+        var url = rootUrl + "/api/AreaAnalysis/AddProject";
+
+        if (id > 0) {
+            url = rootUrl + "/api/AreaAnalysis/UpdateProject";
+        }
+
+        url = http.url(url);
+
+        $.ajax({
+            url,
+            type: "POST",
+            data: myFormData,
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (response) {
+                $("#myModal").modal("hide");
+                window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
+            }
+        });
+    }
+
+    $.fn.serializeObject = function () {
+        var o = Object.create(null),
+            elementMapper = function (element) {
+                element.name = $.camelCase(element.name);
+                return element;
+            },
+            appendToResult = function (i, element) {
+                var node = o[element.name];
+
+                if ('undefined' != typeof node && node !== null) {
+                    o[element.name] = node.push ? node.push(element.value) : [node, element.value];
+                } else {
+                    o[element.name] = element.value;
+                }
+            };
+
+        $.each($.map(this.serializeArray(), elementMapper), appendToResult);
+        return o;
+    };
+</script>

@@ -10,9 +10,17 @@ namespace TDM.Models.ViewModels
 
         public string Name { get; set; }
         public decimal MarketPrice { get; set; }
+        public decimal MarketPriceMax { get; set; }
+        public decimal MarketPriceMin { get; set; }
+        public decimal MarketPriceAvg { get; set; }
+
+
         public decimal ParcelPrice { get; set; }
-
-
+        public decimal ParcelPriceMin { get; set; }
+        public decimal ParcelPriceMax { get; set; }
+        public decimal ParcelPriceAvg { get; set; }
+        public  string LATITUDE { get; set; }
+        public string LONGITUDE { get; set; }
         public MapStructureInfo MapStructure { get; set; }
 
     }

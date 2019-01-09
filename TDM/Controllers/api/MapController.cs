@@ -24,12 +24,14 @@ namespace TDM.Controllers.api
         private TDManagementEntities tdmEntities = null;
         private TDASSETEntities tdaEntities = null;
         private commonEntities cmEntities = null;
-
+        private TDAssetRespository repos = null;
+        SearchMap searchMap = null;
         protected MapController()
         {
             tdmEntities = new TDManagementEntities();
             tdaEntities = new TDASSETEntities();
             cmEntities = new commonEntities();
+             repos = new TDAssetRespository();
             tdmEntities.Configuration.ProxyCreationEnabled = false;
             tdaEntities.Configuration.ProxyCreationEnabled = false;
             cmEntities.Configuration.ProxyCreationEnabled = false;
@@ -68,6 +70,21 @@ namespace TDM.Controllers.api
             //return Json(cmEntities.TB_MAS_AMPHUR.Where(p => p.PROVINCE_SEQ == id).OrderBy(o => o.AMPHUR_NAME_TH));
         }
 
+        [HttpGet]
+        public IHttpActionResult GetDistrictsByProvince(int LocationType,string id)
+        {
+            searchMap = new SearchMap();
+            searchMap.LocationType = (LocationType)LocationType;
+            searchMap.Code = id;
+            var provinces = repos.GetAMPHOE(searchMap);
+
+            return Json(provinces.Select(p => new { ID = p.DIS_C, Name = p.ON_DIS_THA }));
+
+           // return Json(tdaEntities.AMPHOEs.Where(ap => ap.PRO_C == id.ToString()).Select(s => new { ID = s.DIS_C, Name = ((s.NAME_T != null) ? s.NAME_T.Replace("อ.", "") : "") }).ToList());
+
+            //return Json(cmEntities.TB_MAS_AMPHUR.Where(p => p.PROVINCE_SEQ == id).OrderBy(o => o.AMPHUR_NAME_TH));
+        }
+
 
         //[Route("api/channels/{code}/{search}")]
         public IHttpActionResult GetSubDistricts()
@@ -90,6 +107,26 @@ namespace TDM.Controllers.api
             //return Json(cmEntities.TB_MAS_TAMBOL.Where(p => p.AMPHUR_SEQ == id).OrderBy(o => o.TAMBOL_NAME_TH));
 
         }
+
+        public IHttpActionResult GetSubDistrictsByDistrict(int LocationType,string id)
+        {
+
+            searchMap = new SearchMap();
+            searchMap.LocationType = (LocationType)LocationType;
+            searchMap.Code = id;
+            var provinces = repos.GetTAMBOL(searchMap);
+
+            return Json(provinces.Select(p => new { ID = p.SUB_C, Name = p.ON_SUB_THA }));
+
+
+
+         //   return Json(tdaEntities.TAMBOLs.Where(t => t.DIS_C == id.ToString()).Select(s => new { ID = s.SUB_C, Name = ((s.NAME_T != null) ? s.NAME_T.Replace("ต.", "") : "") }));
+
+
+            //return Json(cmEntities.TB_MAS_TAMBOL.Where(p => p.AMPHUR_SEQ == id).OrderBy(o => o.TAMBOL_NAME_TH));
+
+        }
+
 
         private List<PROVINCE> GetProvincesByRegionId(int id)
         {
@@ -158,6 +195,18 @@ namespace TDM.Controllers.api
             var provinces = GetProvincesByRegionId(id);
 
             return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.NAME_T }));
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetProvincesByRegion(int LocationType,string id)
+        {
+
+            searchMap = new SearchMap();
+            searchMap.LocationType = (LocationType)LocationType;
+            searchMap.Code = id;
+            var provinces = repos.GetProvince(searchMap);
+
+            return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.ON_PRO_THA }));
         }
 
 
@@ -344,9 +393,9 @@ namespace TDM.Controllers.api
 
             switch (type)
             {
-                case SetionType.Region: value = data.RegionName; break;
-                case SetionType.Provice: value = data.ProviceName; break;
-                case SetionType.Amphur: value = data.AmphureName; break;
+                case SetionType.Region: value = data.DisplayName; break;
+                case SetionType.Provice: value = data.DisplayName; break;
+                case SetionType.Amphur: value = data.DisplayName; break;
                 case SetionType.Tumbol: value = data.DisplayName; break;
             }
 
@@ -372,8 +421,17 @@ namespace TDM.Controllers.api
 
                     Name = r.DisplayName,
 
-                    ParcelPrice = DecimalHelper.ToDecimal(r.ParcelPrice,-1),
+                    ParcelPrice = DecimalHelper.ToDecimal(r.ParcelPrice, -1),
+                    ParcelPriceMin = DecimalHelper.ToDecimal(r.ParcelPriceMin, -1),
+                    ParcelPriceMax = DecimalHelper.ToDecimal(r.ParcelPriceMax, -1),
+                    ParcelPriceAvg = DecimalHelper.ToDecimal(r.ParcelPriceAvg, -1),
+
                     MarketPrice = DecimalHelper.ToDecimal(r.MarketPrice, -1),
+                    MarketPriceMin = DecimalHelper.ToDecimal(r.MarketPriceMin, -1),
+                    MarketPriceMax = DecimalHelper.ToDecimal(r.MarketPriceMax, -1),
+                    MarketPriceAvg = DecimalHelper.ToDecimal(r.MarketPriceAvg, -1),
+                    LATITUDE = r.LATITUDE,
+                    LONGITUDE=r.LONGITUDE,
                     MapStructure = new Models.ViewModels.MapStructureInfo()
                     {
                         ParcelDrawingCode = r.ParcelColor,

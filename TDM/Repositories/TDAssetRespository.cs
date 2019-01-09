@@ -51,6 +51,188 @@ namespace TDM.Repositories
         }
 
 
+
+
+        /// <summary>
+        /// get Province by Region or Cluster
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<PROVINCE> GetProvince(SearchMap search)
+        {
+            IDataReader reader = null;
+            List<PROVINCE> result = null;
+            PROVINCE data = null;
+            var p = new DynamicParameters();
+            p.Add("@LocationType", (int)search.LocationType); // Region=1, Cluster=2
+            p.Add("@Code", search.Code, dbType: DbType.String);    // Region=Code, Cluster=47 or 48
+
+            try
+            {
+                result = new List<PROVINCE>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetProvince", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.PROVINCE();
+                        data.PRO_C = reader["PRO_C"].ToString();
+                        data.ON_PRO_THA = reader["ON_PRO_THA"].ToString();
+                        data.ON_PRO_ENG = reader["ON_PRO_ENG"].ToString();
+                      //  data.OBJECTID = Convert.ToInt32(reader["OBJECTID"].ToString());
+                        data.NAME_T = reader["NAME_T"].ToString();
+                        data.NAME_E = reader["NAME_E"].ToString();
+                       
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// get Province by Region or Cluster
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<AMPHOE> GetAMPHOE(SearchMap search)
+        {
+            IDataReader reader = null;
+            List<AMPHOE> result = null;
+            AMPHOE data = null;
+            var p = new DynamicParameters();
+            p.Add("@LocationType", (int)search.LocationType); // Region=1, Cluster1=47,Cluster1=48
+            p.Add("@Code", search.Code, dbType: DbType.String);    // ProvinceCode
+
+            try
+            {
+                result = new List<AMPHOE>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("[GetAMPHOE]", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.AMPHOE();
+                        data.PRO_C = reader["PRO_C"].ToString();
+                        data.ON_PRO_THA = reader["ON_PRO_THA"].ToString();
+                        data.ON_DIS_THA = reader["ON_DIS_THA"].ToString();
+                        data.ON_DIS_ENG = reader["ON_DIS_ENG"].ToString();
+                        data.DIS_C = reader["DIS_C"].ToString();
+                       // data.NAME_T = reader["NAME_T"].ToString();
+                        //  data.OBJECTID = Convert.ToInt32(reader["OBJECTID"].ToString());
+                        data.NAME_T = reader["NAME_T"].ToString();
+                      //  data.NAME_E = reader["NAME_E"].ToString();
+
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+        public List<TAMBOL> GetTAMBOL(SearchMap search)
+        {
+            IDataReader reader = null;
+            List<TAMBOL> result = null;
+            TAMBOL data = null;
+            var p = new DynamicParameters();
+            p.Add("@LocationType", (int)search.LocationType); // Region=1, Cluster1=47,Cluster1=48
+            p.Add("@Code", search.Code, dbType: DbType.String);    // AMPHOECode
+
+            try
+            {
+                result = new List<TAMBOL>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetTAMBOL", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+
+                      //  pro_c,on_pro_tha,NAME_T,dis_c,SUB_C,ON_DIS_THA,ON_DIS_ENG,ON_SUB_THA,ON_SUB_ENG
+                        data = new Models.TAMBOL();
+                        data.PRO_C = reader["PRO_C"].ToString();
+                        data.ON_PRO_THA = reader["ON_PRO_THA"].ToString();
+                        data.NAME_T = reader["ON_DIS_THA"].ToString();
+                        data.DIS_C = reader["DIS_C"].ToString();
+                        data.SUB_C = reader["SUB_C"].ToString();
+                        data.ON_DIS_THA = reader["ON_DIS_THA"].ToString();
+                        data.ON_DIS_ENG = reader["ON_DIS_ENG"].ToString();
+                        data.ON_PRO_THA = reader["ON_PRO_THA"].ToString();
+                        data.ON_SUB_ENG = reader["ON_SUB_ENG"].ToString();
+                        data.ON_SUB_THA = reader["ON_SUB_THA"].ToString();
+                        data.NAME_T = reader["NAME_T"].ToString();
+                    
+
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
+
+        public List<DropdownObj> GetCluster()
+        {
+            IDataReader reader = null;
+            List<DropdownObj> result = null;
+            DropdownObj data = null;
+            var p = new DynamicParameters();
+           // p.Add("@SectionType", (int)search.SectionType);
+           // p.Add("@Code", search.Code, dbType: DbType.String);
+
+            try
+            {
+                result = new List<DropdownObj>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetCluster", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.DropdownObj();
+                        data.Name = reader["Name"].ToString();
+                        data.Value = reader["Value"].ToString();
+                        result.Add(data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            { }
+
+            return result;
+        }
+        /// <summary>
+        /// Section 2,3
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
         public List<EstimateData> GetPrice(SearchMap search)
         {
             IDataReader reader = null;
@@ -97,6 +279,196 @@ namespace TDM.Repositories
                         result.Add(data);
 
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Section 2,3
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<EstimateData> GetPriceOfCondo(SearchMap search)
+        {
+            IDataReader reader = null;
+            List<EstimateData> result = null;
+            EstimateData data = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+
+            try
+            {
+                result = new List<EstimateData>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("[GetPrice_Condo]", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.EstimateData();
+                        data.DisplayCode = reader["DisplayCode"].ToString();
+                        data.DisplayName = reader["DisplayName"].ToString();
+                        data.RegionCode = reader["RegionCode"].ToString();
+                        data.RegionName = reader["RegionName"].ToString();
+                        data.ProviceCode = reader["ProviceCode"].ToString();
+                        data.ProviceName = reader["ProviceName"].ToString();
+                        data.AmphureCode = reader["AmphureCode"].ToString();
+                        data.AmphureName = reader["AmphureName"].ToString();
+                        data.TAMBOLCode = reader["TAMBOLCode"].ToString();
+                        data.TAMBOLName = reader["TAMBOLName"].ToString();
+                        data.MarketPrice = reader["MarketPrice"].ToString();
+                        data.MarketPriceMin = reader["MarketPriceMin"].ToString();
+                        data.MarketPriceMax = reader["MarketPriceMax"].ToString();
+                        data.MarketPriceAvg = reader["MarketPriceAvg"].ToString();
+                        data.ParcelPrice = reader["ParcelPrice"].ToString();
+                        data.ParcelPriceMin = reader["ParcelPriceMin"].ToString();
+                        data.ParcelPriceMax = reader["ParcelPriceMax"].ToString();
+                        data.ParcelPriceAvg = reader["ParcelPriceAvg"].ToString();
+                        data.LAND_AREA = reader["LAND_AREA"].ToString();
+                        data.LAND_Total = reader["LAND_Total"].ToString();
+                        data.MarketColor = reader["MarketColor"].ToString();
+                        data.ParcelColor = reader["ParcelColor"].ToString();
+                        data.Shape = reader["Shape"].ToString();
+                        data.RegisterNo = reader["RegisterNo"].ToString();
+                        data.LATITUDE = reader["LATITUDE"].ToString();
+                        data.LONGITUDE = reader["LONGITUDE"].ToString();
+
+        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Section 4
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<PROJECT_IMPACTDto> GetPROJECT_IMPACT(PROJECT_IMPACTDto search)
+        {
+            IDataReader reader = null;
+            List<PROJECT_IMPACTDto> result = null;
+            PROJECT_IMPACTDto data = null;
+            var p = new DynamicParameters();
+            p.Add("@SUBJECT_NAME", search.SUBJECT_NAME);
+            p.Add("@PROVINCE_ID", search.PROVINCE_ID, dbType: DbType.String);
+            p.Add("@AMPHOE_ID", search.AMPHOE_ID, dbType: DbType.String);
+            p.Add("@TAMBOL_ID", search.TAMBOL_ID, dbType: DbType.String);
+    
+
+            try
+            {
+                result = new List<PROJECT_IMPACTDto>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("sp_PROJECT_IMPACT_FindByColumn", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.PROJECT_IMPACTDto();
+                        data.ID = reader["ID"].ToString();
+                        data.SUBJECT_ID = reader["SUBJECT_ID"].ToString();
+                        data.SUBJECT_NAME = reader["SUBJECT_NAME"].ToString();
+                        data.CREATE_DATE = reader["CREATE_DATE"].ToString();
+                        data.CREATE_BY = reader["CREATE_BY"].ToString();
+                        data.UPDATE_DATE = reader["UPDATE_DATE"].ToString();
+                        data.UPDATE_BY = reader["UPDATE_BY"].ToString();
+                        data.PUBLISH_DATE = reader["PUBLISH_DATE"].ToString();
+                        data.IS_PUBLISHED = reader["IS_PUBLISHED"].ToString();
+                        data.PROVINCE_ID = reader["PROVINCE_ID"].ToString();
+                        data.ProvinceName = reader["ProvinceName"].ToString();
+                        data.Description = reader["Description"].ToString();
+                        data.ShapeText = reader["ShapeText"].ToString();
+                        data.AMPHOE_ID = reader["AMPHOE_ID"].ToString();
+                        data.AmphoeName = reader["AmphoeName"].ToString();
+                        data.TAMBOL_ID = reader["TAMBOL_ID"].ToString();
+                        data.TambolName = reader["TambolName"].ToString();
+                        data.Shape = reader["Shape"].ToString();
+                        
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Section 1
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public EstimateData GetSection1EstimateList(SearchMap search)
+        {
+            IDataReader reader = null;
+            EstimateData result = null;
+
+            List<EstimateDataType> EstimateDataTypeList =new List<EstimateDataType>();
+            EstimateDataType EstimateDataType = null;
+            List<EstimateDataDetail> EstimateDataDetailList =new List<EstimateDataDetail>();
+            EstimateDataDetail EstimateDataDetail = null;
+
+        var p = new DynamicParameters();
+            p.Add("@SelectType", (int)search.EstimateType); // tab section
+            p.Add("@Code", search.Code, dbType: DbType.String);
+
+
+            try
+            {
+                result = new EstimateData();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("sp_Section1_EstimateList", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        EstimateDataType = new EstimateDataType();
+                        EstimateDataType.Code= reader["Code"].ToString();
+                        EstimateDataType.Name = reader["Name"].ToString();
+
+
+                        EstimateDataTypeList.Add(EstimateDataType);
+
+                    }
+                    result.EstimateDataTypeList = EstimateDataTypeList;
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EstimateDataDetail = new EstimateDataDetail();
+                      //  EstimateDataDetail.Name= reader["Name"].ToString();
+                        EstimateDataDetail.Title = reader["Title"].ToString();
+                        EstimateDataDetail.Value= reader["Value"].ToString();
+
+
+                        EstimateDataDetailList.Add(EstimateDataDetail);
+
+                    }
+
+                    result.EstimateDataDetailList = EstimateDataDetailList;
                 }
             }
             catch (Exception ex)

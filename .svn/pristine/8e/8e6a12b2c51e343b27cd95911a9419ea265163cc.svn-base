@@ -1,0 +1,588 @@
+﻿var sectionType = '0'; // ton
+var code = ''; // ton
+
+
+var tabSelect = '1';
+var resultAll;
+
+var section1Tab = '1';
+
+var viewListManager = {
+    init: function () {
+        searchForm.initComp();
+        
+    }
+
+}
+
+/*
+1 Parcel
+2 Market
+*/
+var _mapCurrModule = 1;
+
+
+var searchForm = {
+
+    initComp: function (eleName) {
+        searchForm.setupSearchForm();
+        setTimeout(function () {
+            var target = $('#pnlSectionSearch1');
+            
+            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+
+            $("#overlay")
+               .height(target.height())
+               .width(target.width()+20)
+               .css({
+                   'opacity': 0.4,
+                   'position': 'absolute',
+                   'top': target.offset().top,
+                   'left': target.offset().left,
+                   'background-color': 'black',
+                   'z-index': 5000,
+                   'margin-left': 'auto',
+                   'margin-right': 'auto'
+               })
+                .hide();
+
+        }, 5000);
+        
+    },
+    ddlProvince: $("#ddlProvince"),
+    ddlDistrict: $("#ddlDistrict"),
+    ddlSubDistrict: $("#ddlSubdistrict"),
+    clearDropDown: function (eleName) {
+        var name = '#' + eleName;
+        $(name).empty();
+        $(name).append("<option value=''>-</option>");
+        $(name).append("<option value='999999'>ทั้งหมด</option>");
+    },
+    setupSearchForm: function () {
+        searchForm.clearDropDown('ddlDistrict');
+        $('#ddlDistrict').prop('disabled', 'disabled');
+
+        searchForm.clearDropDown('ddlSubdistrict');
+        $('#ddlSubdistrict').prop('disabled', 'disabled');
+
+        $('#bttSearch').click(function () {
+            searchForm.search();
+        });
+
+        $('#bttClear').click(function () {
+            document.getElementById('ddlProvince').selectedIndex = 0;
+            document.getElementById('ddlDistrict').selectedIndex = 0;
+            document.getElementById('ddlSubdistrict').selectedIndex = 0;
+
+            $('#ddlDistrict').prop('disabled', 'disabled');
+            $('#ddlSubdistrict').prop('disabled', 'disabled');
+
+            map.clear();
+        });
+
+
+        $('#ddlProvince').empty();
+        $('#ddlProvince').append("<option value='999999'>ทั้งหมด</option>");
+
+       
+      
+     
+
+        $('#ddlRegion').change(function (event) {
+
+            var regionId = $('#ddlRegion').val();
+            mapApi.getProvincesByRegion(LocationType, regionId, function (provinces) {
+
+                if (provinces != null && provinces.length > 0) {
+                    $('#ddlProvince').empty();
+                    $('#ddlProvince').append("<option value='999999'>ทั้งหมด</option>");
+
+                    $.each(provinces, function (index, province) {
+                        $("#ddlProvince").append("<option value='" + province.ID + "'>" + province.Name + "</option>");
+                    });
+
+                    $("#ddlProvince").change(function (event) {
+
+                        var provinceId = $("#ddlProvince").val();
+                       
+
+                        if (provinceId == '' || provinceId == '999999') {
+                            $('#ddlDistrict').prop('disabled', 'disabled');
+                            $('#ddlSubdistrict').prop('disabled', 'disabled');
+
+                        } else {
+                            $('#ddlDistrict').prop('disabled', false);
+                            mapApi.getDistrictsByProvince(regionId, provinceId, function (districts) {
+                                if (districts != null && districts.length > 0) {
+
+                                    searchForm.clearDropDown('ddlDistrict');
+                                    searchForm.clearDropDown('ddlSubdistrict');
+
+                                 
+
+                                    $.each(districts, function (index, district) {
+                                        $("#ddlDistrict").append("<option value='" + district.ID + "'>" + district.Name + "</option>");
+                                    });
+
+                                    $('#ddlDistrict').change(function (event) {
+                                        var districtId = $("#ddlDistrict").val();
+                                      
+
+                                        if (districtId == '' || districtId == '999999') {
+                                            $('#ddlSubdistrict').prop('disabled', 'disabled');
+                                        } else {
+                                            mapApi.getSubDistrictsByDistrict(regionId,districtId, function (subDistricts) {
+
+                                                searchForm.clearDropDown('ddlSubdistrict');
+                                               // $('#ddlSubdistrict').empty();
+                                               // $('#ddlSubdistrict').append("<option value='999999'>ทั้งหมด</option>");
+
+                                                $('#ddlSubdistrict').prop('disabled', false);
+
+
+                                              
+
+                                                $.each(subDistricts, function (index, subDistrict) {
+                                                    $("#ddlSubdistrict").append("<option value='" + subDistrict.ID + "'>" + subDistrict.Name + "</option>");
+                                                });
+                                            })
+                                        }
+
+                                        event.stopPropagation();
+
+                                    });
+
+                                }
+
+                            });
+                        }
+                        event.stopPropagation();
+                    });
+                }
+            });
+
+            event.stopPropagation();
+        });
+        $('#ddlRegion').trigger("change");
+      
+    },
+    switchMode: function (mode) {
+        if (_mapCurrModule == mode) {
+            return;
+        } else {
+            if (mode < 1 || mode > 2) {
+                mode = 1;
+            }
+            _mapCurrModule = mode;
+
+            map.clear();
+        }
+        
+        
+    },
+    search: function () {
+        /**/
+
+        $("#overlay").show();
+
+        var idOfAll = '999999';
+        var searchType = 'PROVINCE';
+        var targetId = '';
+
+        if ($("#ddlSubdistrict").val() != '') {
+            searchType = 'SUB_DISTRICT';
+            targetId = $("#ddlSubdistrict").val();
+        } else if ($("#ddlDistrict").val() != '') {
+            searchType = 'DISTRICT';
+            targetId = $("#ddlDistrict").val();
+        } else {
+            searchType = 'PROVINCE';
+            targetId = $("#ddlProvince").val();
+        }
+
+
+        //ton
+        if ($('#ddlSubdistrict').val() != "" && $("#ddlSubdistrict").val() != '999999') {
+            sectionType = '4';
+            code = $('#ddlSubdistrict').val();
+        }
+        else if ($("#ddlDistrict").val() != '' && $("#ddlDistrict").val() != '999999') {
+            sectionType = '3';
+            code = $('#ddlDistrict').val();
+        }
+        else if ($("#ddlProvince").val() != '' && $("#ddlProvince").val() != '999999') {
+            sectionType = '2';
+            code = $('#ddlProvince').val();
+        }
+        else if ($("#ddlRegion ").val() != '') {
+            sectionType = '1';
+            code = $('#ddlRegion').val();
+        } else {
+            sectionType = '0';
+
+        }
+
+
+        try {
+
+            //ton
+            SearchAll(sectionType, code)
+
+            map.clear();
+            if (searchType == 'PROVINCE') {/*render PROVINCE map*/
+                if (targetId == idOfAll) {
+                    mapApi.getProvinceShapeByRegion($('#ddlRegion').val(), function (data) {
+                        
+                        if (data != null && data.length > 0) {
+
+                            $.each(data, function (index, shape) {
+
+                                
+                                ParcelMapController.draw(shape,ParcelMapController.ProvinceType);
+                                $("#overlay").hide();
+                                //drawCity(shape.SHAPE);
+                            });
+                        }
+                    });
+                } else {
+                    mapApi.getProvinceShapeByID(targetId, function (data) {
+
+                        if (data != null) {
+                            
+                            ParcelMapController.draw(data,ParcelMapController.ProvinceType);
+                            $("#overlay").hide();
+                            //drawCity(data.SHAPE);
+                        }
+                    });
+                }
+
+            } else if (searchType == 'DISTRICT') {/*render DISTRICT map*/
+                if (targetId == idOfAll) {
+                    mapApi.getDistrictShapeByProvince($("#ddlProvince").val(), function (data) {
+
+                        if (data != null && data.length > 0) {
+                            $.each(data, function (index, shape) {
+                                ParcelMapController.draw(shape,ParcelMapController.DistrictType);
+                                $("#overlay").hide();
+                                //drawCity(shape.SHAPE);
+                            });
+                        }
+                    });
+                } else {
+                    mapApi.getDistrictShapeByID(targetId, function (data) {
+
+                        if (data != null) {
+                            ParcelMapController.draw(data,ParcelMapController.DistrictType);
+                            $("#overlay").hide();
+                            //drawCity(data.SHAPE);
+                        }
+                    });
+                }
+            } else { /*render subdistrict map*/
+                if (targetId == idOfAll) {
+                    mapApi.getSubDistrictShapeByDistrict($("#ddlDistrict").val(), function (data) {
+
+                        if (data != null && data.length > 0) {
+                            $.each(data, function (index, shape) {
+                                ParcelMapController.draw(shape,ParcelMapController.SubDistrictType);
+                                $("#overlay").hide();
+                                //drawCity(shape.SHAPE);
+                            });
+                        }
+                    });
+                } else {
+                    mapApi.getSubDistrictShapeByID(targetId, function (data) {
+
+                        if (data != null) {
+                            ParcelMapController.draw(data,ParcelMapController.SubDistrictType);
+                            $("#overlay").hide();
+                            //drawCity(data.SHAPE);
+                        }
+                    });
+                }
+            }
+
+
+
+        } catch (e) {
+            alert(e.message);
+        }
+
+    }
+
+
+
+}
+
+function testx() {
+    alert('xxxx');
+    searchForm.setupSearchForm();
+
+}
+
+var TDMap = {
+    getYellowSymbol: function () {
+        return {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [173, 255, 47],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0, 255],
+                "width": 1
+            }
+        };
+    },
+    getRedSymbol: function () {
+        return {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [255, 0, 0],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0, 255],
+                "width": 1
+            }
+        };
+    },
+    getGreenSymbol: function () {
+        return {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [0, 128, 0],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0, 255],
+                "width": 1
+            }
+        };
+    }
+}
+
+function toDisplayDecimal(val) {
+    return Number(parseFloat(val).toFixed(2)).toLocaleString('en');
+}
+
+var ParcelMapController = {
+    ProvinceType:1,
+    DistrictType:2,
+    SubDistrictType:3,
+    draw: function (targetInfo,type) {
+	
+        var price = (_mapCurrModule == 1) ? targetInfo.ParcelPrice : targetInfo.MarketPrice;
+        targetInfo.MapStructure.ParcelDrawingCode = ParcelMapController.getParcelMapColor(price, type);
+        
+        var symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
+        
+        
+        if (targetInfo.MapStructure.Shape) {
+            
+            var targetShape = targetInfo.MapStructure.Shape;
+            if (targetInfo.MapStructure.Shape.indexOf(';') !== -1) {
+                targetShape=targetInfo.MapStructure.Shape.split(';')[1];
+            }
+            map.addGraphic(targetShape, symbol);
+            ParcelMapController.drawWithInfo(targetInfo);
+        } else {
+            alert('Shap Not OK');
+        }
+        return null;
+    },
+    drawWithInfo: function (targetInfo) {
+	
+        /*
+        var symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
+
+       
+        if (targetInfo.MapStructure.Shape) {
+            var targetShape = targetInfo.MapStructure.Shape;
+            if (targetInfo.MapStructure.Shape.indexOf(';') !== -1) {
+                targetShape=targetInfo.MapStructure.Shape.split(';')[1];
+            }
+            return map.addGraphic(targetShape, symbol);
+        }
+        return null;*/
+
+        var sridIn = 32647;
+        var sridOut = [102100];
+        var trans = gisIframeWindow.GIS.transform(targetInfo.MapStructure.Shape, sridIn, sridOut);
+
+
+
+        var shape = trans[0].shape;
+        var srid = 102100;
+        var symbol = {
+            "type": "esriPMS",
+            "url": "471E7E31",
+            "imageData": "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ABAASAAAAAEAAgBIAAAAAQACOEJJTQQmAAAAAAAOAAAAAAAAAAAAAD+AAAA4QklNBA0AAAAAAAQAAAB4OEJJTQQZAAAAAAAEAAAAHjhCSU0D8wAAAAAACQAAAAAAAAAAAQA4QklNJxAAAAAAAAoAAQAAAAAAAAACOEJJTQP1AAAAAABIAC9mZgABAGxmZgAGAAAAAAABAC9mZgABAKGZmgAGAAAAAAABADIAAAABAFoAAAAGAAAAAAABADUAAAABAC0AAAAGAAAAAAABOEJJTQP4AAAAAABwAAD/////////////////////////////A+gAAAAA/////////////////////////////wPoAAAAAP////////////////////////////8D6AAAAAD/////////////////////////////A+gAADhCSU0ECAAAAAAAEAAAAAEAAAJAAAACQAAAAAA4QklNBB4AAAAAAAQAAAAAOEJJTQQaAAAAAANJAAAABgAAAAAAAAAAAAAAMgAAADIAAAAKAFUAbgB0AGkAdABsAGUAZAAtADQAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAADIAAAAyAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAEAAAAAAABudWxsAAAAAgAAAAZib3VuZHNPYmpjAAAAAQAAAAAAAFJjdDEAAAAEAAAAAFRvcCBsb25nAAAAAAAAAABMZWZ0bG9uZwAAAAAAAAAAQnRvbWxvbmcAAAAyAAAAAFJnaHRsb25nAAAAMgAAAAZzbGljZXNWbExzAAAAAU9iamMAAAABAAAAAAAFc2xpY2UAAAASAAAAB3NsaWNlSURsb25nAAAAAAAAAAdncm91cElEbG9uZwAAAAAAAAAGb3JpZ2luZW51bQAAAAxFU2xpY2VPcmlnaW4AAAANYXV0b0dlbmVyYXRlZAAAAABUeXBlZW51bQAAAApFU2xpY2VUeXBlAAAAAEltZyAAAAAGYm91bmRzT2JqYwAAAAEAAAAAAABSY3QxAAAABAAAAABUb3AgbG9uZwAAAAAAAAAATGVmdGxvbmcAAAAAAAAAAEJ0b21sb25nAAAAMgAAAABSZ2h0bG9uZwAAADIAAAADdXJsVEVYVAAAAAEAAAAAAABudWxs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MVQyMjo1MjozMiswNzowMCIgeG1wOk1vZGlmeURhdGU9IjIwMTktMDEtMDFUMjI6NTI6MzIrMDc6MDAiIGRjOmZvcm1hdD0iaW1hZ2UvanBlZyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCMEQ1RkFFNUQ3MERFOTExOTk1MUJCN0U5OTczRUY2NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCMEQ1RkFFNUQ3MERFOTExOTk1MUJCN0U5OTczRUY2NyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOkIwRDVGQUU1RDcwREU5MTE5OTUxQkI3RTk5NzNFRjY3IiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiBwaG90b3Nob3A6SUNDUHJvZmlsZT0ic1JHQiBJRUM2MTk2Ni0yLjEiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOkIwRDVGQUU1RDcwREU5MTE5OTUxQkI3RTk5NzNFRjY3IiBzdEV2dDp3aGVuPSIyMDE5LTAxLTAxVDIyOjUyOjMyKzA3OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPD94cGFja2V0IGVuZD0idyI/Pv/iDFhJQ0NfUFJPRklM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",
+            "contentType": "image/png",
+            "width": 32.0,
+            "height": 32.0,
+            "angle": 0,
+            "xoffset": 0,
+            "yoffset": 0
+        };
+        var attributes = {
+            "Target": targetInfo.Name + "<br/>",
+            "Price": "<br/>&nbsp;&nbsp;&nbsp;&nbsp;ราคาประเมิน : " + toDisplayDecimal(targetInfo.ParcelPrice) + "<br/>&nbsp;&nbsp;&nbsp;&nbsp;ราคาขาย : " + toDisplayDecimal(targetInfo.MarketPrice) + "<br/><br/>"
+        }
+
+        gIdGlobal = gisIframeWindow.GIS.addGraphicWithInfoWindow(shape, srid, symbol, attributes);
+
+    },
+    getParcelMapColor:function(price,type){
+        var provinceRangs = [{ min: 0.00, max: 100000.00, color: 'green' },
+                                { min: 100000.01, max: 1000000.00, color: 'yellow' },
+                                { min: 1000000.01, max: 100000000000000.00, color: 'red' }
+        ];
+        var districtRangs = [{ min: 0.00, max: 100000.00, color: 'green' },
+                                { min: 100000.01, max: 1000000.00, color: 'yellow' },
+                                { min: 1000000.01, max: 100000000000000.00, color: 'red' }
+        ];
+        var subDistrictRangs = [{ min: 0.00, max: 100000.00, color: 'green' },
+                                { min: 100000.01, max: 1000000.00, color: 'yellow' },
+                                { min: 1000000.01, max: 100000000000000.00, color: 'red' }
+        ];
+
+        var target = provinceRangs;
+        switch (type) {
+            case 1: target = provinceRangs; break;
+            case 2: target = districtRangs; break;
+            case 3: target = subDistrictRangs; break;
+        }
+        var color = 'green';
+        target.forEach(function (item, index, arr) {
+            if (item.min <= price && item.max >= price) {
+                color = item.color;
+            }
+        });
+        return color;
+
+    },
+    getMapPhysicalInfo: function (mapStructure) {
+        var symbol = TDMap.getYellowSymbol();
+
+        switch (mapStructure.ParcelDrawingCode) {
+            case "yellow":
+                symbol = TDMap.getYellowSymbol();
+                break;
+            case "red":
+                symbol = TDMap.getRedSymbol();
+                break;
+            case "green":
+                symbol = TDMap.getGreenSymbol();
+                break;
+            default:
+                /*default to YELLOW*/
+                symbol = TDMap.getYellowSymbol();
+                break;
+
+        }
+
+        return symbol;
+
+    }
+}
+
+
+
+
+
+var mapApi = {
+    getServerPath:function(){
+        return rootUrl;
+        //return '';
+    },
+    getProvincesByRegion: function (locationType,regionId, fnSuccess) {
+
+        $.get(mapApi.getServerPath() + "/api/Map/GetProvincesByRegion", { LocationType: locationType, id: regionId }, function (provinces) {
+            fnSuccess(provinces);
+        });
+    },
+    getDistricts: function (provinceId, fnSuccess) {
+
+        $.get(mapApi.getServerPath()+ "/api/Map/GetDistrictsByProvince/", {}, function (data) {
+            fnSuccess(data);
+        });
+    },
+    getDistrictsByProvince: function (locationType, provinceId, fnSuccess) {
+
+        $.get(mapApi.getServerPath() + "/api/Map/GetDistrictsByProvince/", { LocationType: locationType, id: provinceId }, function (data) {
+            fnSuccess(data);
+        });
+    },
+    getSubDistricts: function (districtId, fnSuccess) {
+
+        $.get(mapApi.getServerPath()+ "/api/Map/GetSubDistricts/", {}, function (data) {
+            fnSuccess(data);
+        });
+    },
+    getSubDistrictsByDistrict: function (locationType ,districtId, fnSuccess) {
+
+        $.get(mapApi.getServerPath() + "/api/Map/GetSubDistrictsByDistrict/", { LocationType: locationType, id: districtId }, function (data) {
+            fnSuccess(data);
+        });
+    },
+
+    getProvinceShapByCode: function (provinceCode, fnSuccess) {
+        $.get(mapApi.getServerPath()+ "/api/Address/GetProvinceShapeBy", { code: provinceCode }, function (data) {
+            fnSuccess(data);
+        });
+    },
+    getProvinceShapeByID: function (provinceID, fnSuccess) {
+        $.get(mapApi.getServerPath()+ "/api/Map/GetProvinceShapeByID", { id: provinceID }, function (data) {
+            fnSuccess(data);
+        });
+    },
+    getProvinceShapeByRegion: function (regionId, fnSuccess) {
+        $.get(mapApi.getServerPath()+ "/api/Map/GetProvinceShapeByRegion", { id: regionId }, function (data) {
+            fnSuccess(data);
+        });
+    },
+    getDistrictShapeByID: function (districtId, fnSuccess) {
+        $.get(mapApi.getServerPath()+ "/api/Map/GetDistrictShapeByID", { id: districtId }, function (data) {
+            fnSuccess(data);
+        });
+    },
+    getDistrictShapeByProvince: function (provinceId, fnSuccess) {
+        $.get(mapApi.getServerPath()+ "/api/Map/GetDistrictShapeByProvince", { id: provinceId }, function (data) {
+            fnSuccess(data);
+        });
+    },
+    getSubDistrictShapeByID: function (subDistrictId, fnSuccess) {
+        $.get(mapApi.getServerPath()+ "/api/Map/GetSubDistrictShapeByID", { id: subDistrictId }, function (data) {
+            fnSuccess(data);
+        });
+    },
+    getSubDistrictShapeByDistrict: function (districtId, fnSuccess) {
+        $.get(mapApi.getServerPath()+ "/api/Map/getSubDistrictShapeByDistrict", { id: districtId }, function (data) {
+            fnSuccess(data);
+        });
+    },
+    onFailure: function (response) {
+        alert(response.responseText);
+    },
+    onError: function (response) {
+        alert(response.responseText);
+    }
+}
+
+
+var jAjax = {
+    get: function (url, fnSuccess, fnFailure, fnError) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: fnSuccess(response),
+            failure: fnFailure(response),
+            error: fnError(response)
+        });
+    }
+}
+
+

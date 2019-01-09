@@ -1,8 +1,12 @@
-﻿
-var sectionType = '0';
-var code = '';
+﻿var sectionType = '0'; // ton
+var code = ''; // ton
+
+
 var tabSelect = '1';
 var resultAll;
+
+var section1Tab = '1';
+
 var viewListManager = {
     init: function () {
         searchForm.initComp();
@@ -22,8 +26,6 @@ var searchForm = {
 
     initComp: function (eleName) {
         searchForm.setupSearchForm();
-
-        SearchAll('0', '');
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
             
@@ -82,11 +84,14 @@ var searchForm = {
         $('#ddlProvince').empty();
         $('#ddlProvince').append("<option value='999999'>ทั้งหมด</option>");
 
+       
+      
+     
 
-        $('#ddlRegion').change(function () {
+        $('#ddlRegion').change(function (event) {
 
             var regionId = $('#ddlRegion').val();
-            mapApi.getProvincesByRegion(regionId, function (provinces) {
+            mapApi.getProvincesByRegion(LocationType, regionId, function (provinces) {
 
                 if (provinces != null && provinces.length > 0) {
                     $('#ddlProvince').empty();
@@ -96,36 +101,46 @@ var searchForm = {
                         $("#ddlProvince").append("<option value='" + province.ID + "'>" + province.Name + "</option>");
                     });
 
-                    $("#ddlProvince").change(function () {
+                    $("#ddlProvince").change(function (event) {
 
                         var provinceId = $("#ddlProvince").val();
-                        searchForm.clearDropDown('ddlDistrict');
+                       
 
                         if (provinceId == '' || provinceId == '999999') {
                             $('#ddlDistrict').prop('disabled', 'disabled');
-
-                            searchForm.clearDropDown('ddlSubdistrict');
                             $('#ddlSubdistrict').prop('disabled', 'disabled');
 
                         } else {
                             $('#ddlDistrict').prop('disabled', false);
-                            mapApi.getDistrictsByProvince(provinceId, function (districts) {
+                            mapApi.getDistrictsByProvince(regionId, provinceId, function (districts) {
                                 if (districts != null && districts.length > 0) {
+
+                                    searchForm.clearDropDown('ddlDistrict');
+                                    searchForm.clearDropDown('ddlSubdistrict');
+
+                                 
 
                                     $.each(districts, function (index, district) {
                                         $("#ddlDistrict").append("<option value='" + district.ID + "'>" + district.Name + "</option>");
                                     });
 
-                                    $('#ddlDistrict').change(function () {
+                                    $('#ddlDistrict').change(function (event) {
                                         var districtId = $("#ddlDistrict").val();
-                                        $('#ddlSubdistrict').empty();
-                                        searchForm.clearDropDown('ddlSubdistrict');
+                                      
 
                                         if (districtId == '' || districtId == '999999') {
                                             $('#ddlSubdistrict').prop('disabled', 'disabled');
                                         } else {
-                                            mapApi.getSubDistrictsByDistrict(districtId, function (subDistricts) {
+                                            mapApi.getSubDistrictsByDistrict(regionId,districtId, function (subDistricts) {
+
+                                                searchForm.clearDropDown('ddlSubdistrict');
+                                               // $('#ddlSubdistrict').empty();
+                                               // $('#ddlSubdistrict').append("<option value='999999'>ทั้งหมด</option>");
+
                                                 $('#ddlSubdistrict').prop('disabled', false);
+
+
+                                              
 
                                                 $.each(subDistricts, function (index, subDistrict) {
                                                     $("#ddlSubdistrict").append("<option value='" + subDistrict.ID + "'>" + subDistrict.Name + "</option>");
@@ -133,7 +148,7 @@ var searchForm = {
                                             })
                                         }
 
-
+                                        event.stopPropagation();
 
                                     });
 
@@ -141,14 +156,15 @@ var searchForm = {
 
                             });
                         }
-
+                        event.stopPropagation();
                     });
                 }
             });
 
-
+            event.stopPropagation();
         });
         $('#ddlRegion').trigger("change");
+      
     },
     switchMode: function (mode) {
         if (_mapCurrModule == mode) {
@@ -185,6 +201,7 @@ var searchForm = {
         }
 
 
+        //ton
         if ($('#ddlSubdistrict').val() != "" && $("#ddlSubdistrict").val() != '999999') {
             sectionType = '4';
             code = $('#ddlSubdistrict').val();
@@ -205,9 +222,11 @@ var searchForm = {
 
         }
 
+
         try {
 
-
+            //ton
+            SearchAll(sectionType, code)
 
             map.clear();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
@@ -274,23 +293,16 @@ var searchForm = {
                 } else {
                     mapApi.getSubDistrictShapeByID(targetId, function (data) {
 
-                        if (data != null && data.length > 0) {
-                            $.each(data, function (index, shape) {
-                                ParcelMapController.draw(shape, ParcelMapController.SubDistrictType);
-                                $("#overlay").hide();
-                                //drawCity(shape.SHAPE);
-                            });
-                        }
-                      /*  if (data != null) {
+                        if (data != null) {
                             ParcelMapController.draw(data,ParcelMapController.SubDistrictType);
                             $("#overlay").hide();
-                           
-                        }*/
+                            //drawCity(data.SHAPE);
+                        }
                     });
                 }
             }
 
-            SearchAll(sectionType, code)
+
 
         } catch (e) {
             alert(e.message);
@@ -300,340 +312,6 @@ var searchForm = {
 
 
 
-}
-
-
-
-//ton
-$(document).on("click", ".liTab", function () {
-    $(".liTab").removeClass("active");
-    $(this).addClass("active");
-
-    //  $('#lblHeaderMain').text("")
-    // $('#lbHeader').text("")
-    // alert($(this).attr("id"))
-    if ($(this).attr("id") == "tab1") {
-       
-       
-        setTimeout(function () {
-            tabSelect = '1';
-            InitailDataView(resultAll);
-            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน'));
-            $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน'));
-
-        }
-        , 400);
-    } ($(this).attr("id") == "tab2")
-    {  
-       
-        
-        setTimeout(function () {
-            tabSelect = '2';
-            InitailDataView(resultAll);
-            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาประเมิน', 'ราคาซื้อขาย'));
-            $('#lbHeader').text($('#lbHeader').text().replace('ราคาประเมิน', 'ราคาซื้อขาย'));
-
-        }
-       , 300);
-
-    }
-
-
-});
-function SearchAll(sectionTypeTemp, codeTemp) {
-
-
-    var objSearch = {};
-
-    objSearch = { SectionType: sectionTypeTemp, code: codeTemp };
-
-    $.ajax({
-        type: "POST",
-        url: mapApi.getServerPath()+ '/api/PriceSys/GetPrice',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(objSearch),
-        success: function (data) {
-
-            resultAll = data;
-            InitailDataViewSection23(data);
-        },
-        error: function (response) {
-            alert('failure');
-        }
-    });
-}
-
-
-function InitailDataViewSection23(data) {
-
-   
-  //  $("#lbHeader").text(tabSelect == '1' ? "ราคาประเมิน ราย" : "ราคาซื้อขาย ราย" + GetSectionDisplayText(sectionType));
-   // $("#lbHeaderGraph").text("แผนภูมิแสดงราคาที่ดิน ราย" + GetSectionDisplayText(sectionType));
-    LoadEvalBox1_LeftBox(data);
-    LoadEvalBox1_Graph(data);
-    LoadEvalBox1_Table(data);
-
-
-}
-
-function LoadSection4() {
-
-    var subject_id = "";
-    var subject_name = "";
-    var prov_name = "";
-    var publish_date = "";
-    var start = "1";
-    var count = "1000";
-    var tableStr = "";
-
-    subject_id = "";
-    subject_name = "";
-    prov_name = "";
-    publish_date = "";
-    $("#tblInfoSection4").empty();
-    tableStr+='<thead>';
-    tableStr+='<tr>';
-    tableStr+='<th class="th__center">ชื่อโครงการ</th>';
-    tableStr+='<th class="th__center">พื้นที่</th>';
-    tableStr+='<th class="th__center">จำนวนแปลงที่ดินที่กระทบ</th>';
-    tableStr+='<th class="th__center">เนื้อที่รวม</th>';
-    tableStr+='<th class="th__center">ราคาประเมินทั้งหมด</th>';
-    tableStr+='</tr>';
-    tableStr += '</thead>';
-    tableStr += '<tbody>';
-    $.get(rootUrl + "/api/AreaAnalysis/GetAllProjectImpact",
-      { start, count, subject_id, subject_name, prov_name, publish_date }, function (data) {
-          {
-
-              if (data != null) {
-                  if (data != null && data.length > 0) {
-                      $.each(data, function (index, item) {
-
-                          tableStr += '<tr data-toggle="collapse" data-target="#accordion" class="clickable">';
-                          tableStr += ' <td class="td__Center">' + item.SUBJECT_ID + '</td>';
-                          tableStr += '<td class="td__Center">' + item.SUBJECT_NAME + '</td>';
-                          tableStr += '<td class="td__Center">xx</td>';
-                          tableStr += '<td class="td__Center">xx</td>';
-                          tableStr += '<td class="td__Center">xx</td>';
-                          tableStr += '</tr>';
-                      });
-                      }
-              }
-      }
-      });
-    tableStr += ' </tbody>';
-    $("#tblInfoSection4").append(tableStr);
-    $("#tblInfoSection4").DataTable({ searching: true, info: false });
-  /*  $.ajax({
-        type: "POST",
-        url: mapApi.getServerPath() + '/api/PriceSys/GetPrice',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(objSearch),
-        success: function (data) {
-
-            resultAll = data;
-            InitailDataViewSection23(data);
-        },
-        error: function (response) {
-            alert('failure');
-        }
-    });*/
-
-}
-
-function LoadEvalBox1_LeftBox(data) {
-
-    var body = "";
-    $("#EvalBox1").empty();
-    if (data != null) {
-        if (data != null && data.length > 0) {
-            $.each(data, function (index, data) {
-                body += '<div class="alert leftbox leftbox-' + data.DisplayCode + ' msg pmvByAreaBox">';
-                body += '<h4>' + data.DisplayName + '</h4>';
-                if (tabSelect == '1') {
-                    body += '<h5>ราคาประเมิน : ' + numberWithCommas(parseFloat(data.ParcelPrice).toFixed(2)) + ' บาท </h5>';
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท </h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท </h5>';
-                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.ParcelPriceAvg).toFixed(2)) + ' บาท </h5>';
-                } else {
-                    body += '<h5>ราคาซื้อขาย : ' + numberWithCommas(parseFloat(data.MarketPrice).toFixed(2)) + ' บาท </h5>';
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketPriceMax).toFixed(2)) + ' บาท </h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketPriceMin).toFixed(2)) + ' บาท </h5>';
-                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.MarketPriceAvg).toFixed(2)) + ' บาท </h5>';
-                }
-                body += ' </div>';
-            });
-        }
-    }
-
-    $("#EvalBox1").append(body);
-
-}
-
-function GetSectionDisplayText(sectionType) {
-    var text = 'ภาค';
-
-    switch (sectionType) {
-        case '0': text = 'ภาค'; break;
-        case '1': text = 'จังหวัด'; break;
-        case '2': text = 'อำเภอ'; break;
-        case '3': text = 'ตำบล'; break;
-    }
-
-    return text;
-}
-function LoadEvalBox1_Graph(data) {
-    var chartBar = echarts.init(document.getElementById('EvalBox1chartBar'));
-    var caption = [];
-    var maxValue = [];
-    var minValue = [];
-    var avgValue = [];
-
-
-    if (data != null) {
-        if (data != null && data.length > 0) {
-            $.each(data, function (index, data) {
-                caption.push(data.DisplayName);
-                if (tabSelect == '1') {
-                    maxValue.push(parseFloat(data.ParcelPriceMax).toFixed(2));
-                    minValue.push(parseFloat(data.ParcelPriceMin).toFixed(2));
-                    avgValue.push(parseFloat(data.ParcelPriceAvg).toFixed(2));
-                } else {
-                    maxValue.push(parseFloat(data.MarketPriceMax).toFixed(2));
-                    minValue.push(parseFloat(data.MarketPriceMin).toFixed(2));
-                    avgValue.push(parseFloat(data.MarketPriceAvg).toFixed(2));
-                }
-            });
-        }
-    }
-
-    var option2 = {
-        title: {
-            text: '',
-            subtext: ''
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data: ['ราคาประเมินรวม']
-        },
-        toolbox: {
-            show: true,
-            feature: {
-                mark: { show: true },
-                dataView: { show: true, readOnly: false },
-                magicType: { show: true, type: ['line', 'bar'] },
-                restore: { show: true },
-                saveAsImage: { show: true }
-            }
-        },
-        calculable: true,
-        xAxis: [
-            {
-                type: 'value'
-            }
-        ],
-        yAxis: [
-            {
-                type: 'category',
-                data: caption
-            }
-        ],
-        series: [
-            {
-                name: 'ราคาเฉลี่ย',
-                type: 'bar',
-                data: avgValue,
-                itemStyle: {
-                    normal: {
-                        color: 'green'
-                    },
-                    emphasis: {
-                        color: '#00e600'
-
-                    }
-                }
-            },
-     {
-         name: 'ราคาต่ำสุด',
-         type: 'bar',
-         data: minValue,
-
-         itemStyle: {
-             normal: {
-                 color: 'yellow'
-             },
-             emphasis: {
-
-
-             }
-         }
-     },
-     {
-         name: 'สูงสุด',
-         type: 'bar',
-         data: maxValue,
-
-         itemStyle: {
-             normal: {
-                 color: 'red'
-             },
-             emphasis: {
-
-
-             }
-         }
-     }
-        ]
-    };
-
-    chartBar.setOption(option2);
-}
-
-function LoadEvalBox1_Table(data) {
-
-    var body = "";
-    $("#EvalBox1Table").empty();
-
-    body += '<table class="table table-bordered table-striped tblInfo">';
-    body += '<thead>';
-    body += '<tr>';
-    body += '<th scope="col">' + GetSectionDisplayText(sectionType) + '</th>';
-    body += '<th scope="col">จำนวนแปลงที่ดิน</th>';
-    body += '<th scope="col">พื้นที่รวม</th>';
-    if (tabSelect == "1") {
-        body += '<th scope="col">ราคาประเมินที่ดิน</th>';
-    } else {
-        body += '<th scope="col">ราคาซื้อขายที่ดิน</th>';
-    }
-    body += '</tr>';
-    body += '</thead>';
-    body += '<tbody>';
-    if (data != null) {
-        if (data != null && data.length > 0) {
-            $.each(data, function (index, data) {
-                body += '<tr>';
-                body += '<td>' + data.DisplayName + '</td>';
-                body += '<td>' + numberWithCommas(data.LAND_Total) + ' แปลง</td>';
-                body += '<td>' + numberWithCommas(data.LAND_AREA) + ' ตารางวา</td>';
-                if (tabSelect == "1") {
-                    body += '<td>' + numberWithCommas(data.ParcelPrice) + ' บาท</td>';
-                } else {
-                    body += '<td>' + numberWithCommas(data.MarketPrice) + ' บาท</td>';
-                }
-                body += '</tr>';
-            });
-        }
-    }
-
-    body += ' </tbody>';
-    body += ' </table>';
-
-    $("#EvalBox1Table").append(body);
-    $("#EvalBox1Table table").DataTable({ searching: false, info: false });
 }
 
 function testx() {
@@ -678,6 +356,19 @@ var TDMap = {
                 "type": "esriSLS",
                 "style": "esriSLSSolid",
                 "color": [0, 0, 0, 255],
+                "width": 1
+            }
+        };
+    },
+    getBlackSymbol: function () {
+        return {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [0, 0, 0],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0],
                 "width": 1
             }
         };
@@ -736,12 +427,10 @@ var ParcelMapController = {
 
         var shape = trans[0].shape;
         var srid = 102100;
-        var symbol = {
+       var symbol = {
             "type": "esriPMS",
             "url": "471E7E31",
-            "imageData":"iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAQAAAC0NkA6AAAACXBIWXMAAAsTAAALEwEAmpwYAAADGGlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjaY2BgnuDo4uTKJMDAUFBUUuQe5BgZERmlwH6egY2BmYGBgYGBITG5uMAxIMCHgYGBIS8/L5UBFTAyMHy7xsDIwMDAcFnX0cXJlYE0wJpcUFTCwMBwgIGBwSgltTiZgYHhCwMDQ3p5SUEJAwNjDAMDg0hSdkEJAwNjAQMDg0h2SJAzAwNjCwMDE09JakUJAwMDg3N+QWVRZnpGiYKhpaWlgmNKflKqQnBlcUlqbrGCZ15yflFBflFiSWoKAwMD1A4GBgYGXpf8EgX3xMw8BSMDVQYqg4jIKAUICxE+CDEESC4tKoMHJQODAIMCgwGDA0MAQyJDPcMChqMMbxjFGV0YSxlXMN5jEmMKYprAdIFZmDmSeSHzGxZLlg6WW6x6rK2s99gs2aaxfWMPZ9/NocTRxfGFM5HzApcj1xZuTe4FPFI8U3mFeCfxCfNN45fhXyygI7BD0FXwilCq0A/hXhEVkb2i4aJfxCaJG4lfkaiQlJM8JpUvLS19QqZMVl32llyfvIv8H4WtioVKekpvldeqFKiaqP5UO6jepRGqqaT5QeuA9iSdVF0rPUG9V/pHDBYY1hrFGNuayJsym740u2C+02KJ5QSrOutcmzjbQDtXe2sHY0cdJzVnJRcFV3k3BXdlD3VPXS8Tbxsfd99gvwT//ID6wIlBS4N3hVwMfRnOFCEXaRUVEV0RMzN2T9yDBLZE3aSw5IaUNak30zkyLDIzs+ZmX8xlz7PPryjYVPiuWLskq3RV2ZsK/cqSql01jLVedVPrHzbqNdU0n22VaytsP9op3VXUfbpXta+x/+5Em0mzJ/+dGj/t8AyNmf2zvs9JmHt6vvmCpYtEFrcu+bYsc/m9lSGrTq9xWbtvveWGbZtMNm/ZarJt+w6rnft3u+45uy9s/4ODOYd+Hmk/Jn58xUnrU+fOJJ/9dX7SRe1LR68kXv13fc5Nm1t379TfU75/4mHeY7En+59lvhB5efB1/lv5dxc+NH0y/fzq64Lv4T8Ffp360/rP8f9/AA0ADzT6lvFdAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAA0SURBVHja7M0xAQAACAOgaf/OmsHDDwpQk38diUQikUgkEolEIpFIJBKJRHKyAAAA//8DAJSuAWNezU68AAAAAElFTkSuQmCC",
-            //"imageData": "iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAMNJREFUSIntlcENwyAMRZ+lSMyQFcI8rJA50jWyQuahKzCDT+6h0EuL1BA1iip8Qg/Ex99fYuCkGv5bKK0EcB40YgSE7bnTxsa58LeOnMd0QhwGXkxB3L0w0IDxPaMqpBFxjLMuaSVmRjurWIcRDHxaiWZuEbRcEhpZpSNhE9O81GiMN5E0ZRt2M0iVjshek8UkTQfZy8JqGHYP/rJhODD4T6wehtbB9zD0MPQwlOphaAxD/uPLK7Z8MB5gFet+WKcJPQDx29XkRhqr/AAAAABJRU5ErkJggg==",
-
+            "imageData": "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",
             "contentType": "image/png",
             "width": 32.0,
             "height": 32.0,
@@ -749,41 +438,47 @@ var ParcelMapController = {
             "xoffset": 0,
             "yoffset": 0
         };
+
+       targetInfo.ParcelPrice    = (targetInfo.ParcelPrice > 0) ? targetInfo.ParcelPrice : 0;
+       targetInfo.ParcelPriceMin = (targetInfo.ParcelPriceMin > 0) ? targetInfo.ParcelPriceMin : 0;
+       targetInfo.ParcelPriceMax = (targetInfo.ParcelPriceMax > 0) ? targetInfo.ParcelPriceMax : 0;
+       targetInfo.ParcelPriceAvg = (targetInfo.ParcelPriceAvg > 0) ? targetInfo.ParcelPriceAvg : 0;
+
+       targetInfo.MarketPrice    = (targetInfo.MarketPrice > 0) ? targetInfo.MarketPrice : 0;
+       targetInfo.MarketPriceMin = (targetInfo.MarketPriceMin > 0) ? targetInfo.MarketPriceMin : 0;
+       targetInfo.MarketPriceMax = (targetInfo.MarketPriceMax > 0) ? targetInfo.MarketPriceMax : 0;
+       targetInfo.MarketPriceAvg = (targetInfo.MarketPriceAvg > 0) ? targetInfo.MarketPriceAvg : 0;
+        
+       var price = '';
+       if (tabSelect == '1') {
+           price = '<br/>ราคาประเมิน ' + toDisplayDecimal(targetInfo.ParcelPrice) +
+              '<ul>' +
+              '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMax) +
+              '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMin) +
+              '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(targetInfo.ParcelPriceAvg) +
+              '</ul>'
+       } else if (tabSelect == '2') {
+           price = '<br/>ราคาขาย ' + toDisplayDecimal(targetInfo.MarketPrice) +
+           '<ul>' +
+           '<li>ราคาขายสูงสุด ' + toDisplayDecimal(targetInfo.MarketPriceMax) +
+           '<li>ราคาขายต่ำสุด ' + toDisplayDecimal(targetInfo.MarketPriceMin) +
+           '<li>ราคาขายเฉลี่ย ' + toDisplayDecimal(targetInfo.MarketPriceAvg) +
+           '</ul><br/><br/>'
+       }
+
         var attributes = {
             "Target": targetInfo.Name + "<br/>",
-            "Price": "<br/>&nbsp;&nbsp;&nbsp;&nbsp;ราคาประเมิน : " + toDisplayDecimal(targetInfo.ParcelPrice) + "<br/>&nbsp;&nbsp;&nbsp;&nbsp;ราคาขาย : " + toDisplayDecimal(targetInfo.MarketPrice) + "<br/><br/>"
+            "Price": price
+
+            
+
         }
 
         gIdGlobal = gisIframeWindow.GIS.addGraphicWithInfoWindow(shape, srid, symbol, attributes);
 
     },
     getParcelMapColor:function(price,type){
-        var provinceRangs = [{ min: 0.00, max: 100000.00, color: 'green' },
-                                { min: 100000.01, max: 1000000.00, color: 'yellow' },
-                                { min: 1000000.01, max: 100000000000000.00, color: 'red' }
-        ];
-        var districtRangs = [{ min: 0.00, max: 100000.00, color: 'green' },
-                                { min: 100000.01, max: 1000000.00, color: 'yellow' },
-                                { min: 1000000.01, max: 100000000000000.00, color: 'red' }
-        ];
-        var subDistrictRangs = [{ min: 0.00, max: 100000.00, color: 'green' },
-                                { min: 100000.01, max: 1000000.00, color: 'yellow' },
-                                { min: 1000000.01, max: 100000000000000.00, color: 'red' }
-        ];
-
-        var target = provinceRangs;
-        switch (type) {
-            case 1: target = provinceRangs; break;
-            case 2: target = districtRangs; break;
-            case 3: target = subDistrictRangs; break;
-        }
-        var color = 'green';
-        target.forEach(function (item, index, arr) {
-            if (item.min <= price && item.max >= price) {
-                color = item.color;
-            }
-        });
-        return color;
+        return (price > 0) ? 'green' : 'black';
 
     },
     getMapPhysicalInfo: function (mapStructure) {
@@ -798,6 +493,9 @@ var ParcelMapController = {
                 break;
             case "green":
                 symbol = TDMap.getGreenSymbol();
+                break;
+            case "black":
+                symbol = TDMap.getBlackSymbol();
                 break;
             default:
                 /*default to YELLOW*/
@@ -817,12 +515,12 @@ var ParcelMapController = {
 
 var mapApi = {
     getServerPath:function(){
-      //  return '/TDManagement';
-        return '';
+        return rootUrl;
+        //return '';
     },
-    getProvincesByRegion: function (regionId, fnSuccess) {
+    getProvincesByRegion: function (locationType,regionId, fnSuccess) {
 
-        $.get(mapApi.getServerPath()+ "/api/Map/GetProvincesByRegion", { id: regionId }, function (provinces) {
+        $.get(mapApi.getServerPath() + "/api/Map/GetProvincesByRegion", { LocationType: locationType, id: regionId }, function (provinces) {
             fnSuccess(provinces);
         });
     },
@@ -832,9 +530,9 @@ var mapApi = {
             fnSuccess(data);
         });
     },
-    getDistrictsByProvince: function (provinceId, fnSuccess) {
+    getDistrictsByProvince: function (locationType, provinceId, fnSuccess) {
 
-        $.get(mapApi.getServerPath()+ "/api/Map/GetDistrictsByProvince/", { id: provinceId }, function (data) {
+        $.get(mapApi.getServerPath() + "/api/Map/GetDistrictsByProvince/", { LocationType: locationType, id: provinceId }, function (data) {
             fnSuccess(data);
         });
     },
@@ -844,9 +542,9 @@ var mapApi = {
             fnSuccess(data);
         });
     },
-    getSubDistrictsByDistrict: function (districtId, fnSuccess) {
+    getSubDistrictsByDistrict: function (locationType ,districtId, fnSuccess) {
 
-        $.get(mapApi.getServerPath()+ "/api/Map/GetSubDistrictsByDistrict/", { id: districtId }, function (data) {
+        $.get(mapApi.getServerPath() + "/api/Map/GetSubDistrictsByDistrict/", { LocationType: locationType, id: districtId }, function (data) {
             fnSuccess(data);
         });
     },
@@ -908,117 +606,5 @@ var jAjax = {
         });
     }
 }
-
-
-
-
-$(document).on("change", "#ddlLand", function () {
-
-    switch ($(this).val()) {
-        case "0": $(".chartTab1").visible();
-            $(".chartTab1").css({
-                position: 'relative',
-                top: '10px',
-                left: '10px'
-            });
-            break;
-        default:
-            $(".chartTab1").visible().invisible();
-            $(".chartTab1.tab" + $(this).val()).visible();
-            $(".chartTab1.tab" + $(this).val()).css({
-                position: 'absolute',
-                top: '10px',
-                left: '10px'
-            });
-    }
-});
-
-
-
-$(document).on("change", "#ddlTown", function () {
-
-    switch ($(this).val()) {
-        case "0": $(".chartTab2").visible();
-            $(".chartTab2").css({
-                position: 'relative',
-                top: '10px',
-                left: '10px'
-            });
-            break;
-        default:
-            $(".chartTab2").visible().invisible();
-            $(".chartTab2.tab" + $(this).val()).visible();
-            $(".chartTab2.tab" + $(this).val()).css({
-                position: 'absolute',
-                top: '10px',
-                left: '10px'
-            });
-    }
-});
-
-$(document).on("change", "#ddlBuild", function () {
-
-    switch ($(this).val()) {
-        case "0": $(".chartTab3").visible();
-            $(".chartTab3").css({
-                position: 'relative',
-                top: '10px',
-                left: '10px'
-            });
-            break;
-        default:
-            $(".chartTab3").visible().invisible();
-            $(".chartTab3.tab" + $(this).val()).visible();
-            $(".chartTab3.tab" + $(this).val()).css({
-                position: 'absolute',
-                top: '10px',
-                left: '10px'
-            });
-    }
-});
-
-
-var minCostLimit = 0;
-var maxCostLimit = 10000000;
-var minCost = minCostLimit;
-var maxCost = maxCostLimit;
-var slider0 = null;
-var slider1 = null;
-
-
-$(document).ready(function () {
-
-    LoadSection4();
-
-    slider0 = $("#CostEstimateSlider0").slider({
-        range: true,
-        min: minCostLimit,
-        max: maxCostLimit,
-        values: [minCost, maxCost],
-        slide: function (event, ui) {
-            $("#MinCostEstimate0").val(ui.values[0]);
-            $("#MaxCostEstimate0").val(ui.values[1]);
-            $('#minDiv0').html(numberWithCommas(ui.values[0]));
-            $('#maxDiv0').html(numberWithCommas(ui.values[1]));
-        }
-    });
-    slider1 = $("#CostEstimateSlider1").slider({
-        range: true,
-        min: minCostLimit,
-        max: maxCostLimit,
-        values: [minCost, maxCost],
-        slide: function (event, ui) {
-            $("#MinCostEstimate1").val(ui.values[0]);
-            $("#MaxCostEstimate1").val(ui.values[1]);
-            $('#minDiv1').html(numberWithCommas(ui.values[0]));
-            $('#maxDiv1').html(numberWithCommas(ui.values[1]));
-        }
-    });
-    $('.minDiv').html(numberWithCommas(minCost));
-    $('.maxDiv').html(numberWithCommas(maxCost));
-
-   
-});
-
 
 

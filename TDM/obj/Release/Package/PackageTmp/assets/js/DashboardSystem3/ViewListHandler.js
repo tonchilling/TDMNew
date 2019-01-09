@@ -1,8 +1,12 @@
 ﻿
-var sectionType = '0';
-var code = '';
+var sectionType = '0'; // ton
+var code = ''; // ton
+
+
 var tabSelect = '1';
 var resultAll;
+
+var section1Tab = '1';
 var viewListManager = {
     init: function () {
         searchForm.initComp();
@@ -23,7 +27,7 @@ var searchForm = {
     initComp: function (eleName) {
         searchForm.setupSearchForm();
 
-        SearchAll('0', '');
+       
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
             
@@ -100,7 +104,8 @@ var searchForm = {
 
                         var provinceId = $("#ddlProvince").val();
                         searchForm.clearDropDown('ddlDistrict');
-
+                        searchForm.clearDropDown('ddlSubdistrict');
+                   
                         if (provinceId == '' || provinceId == '999999') {
                             $('#ddlDistrict').prop('disabled', 'disabled');
 
@@ -118,7 +123,7 @@ var searchForm = {
 
                                     $('#ddlDistrict').change(function () {
                                         var districtId = $("#ddlDistrict").val();
-                                        $('#ddlSubdistrict').empty();
+
                                         searchForm.clearDropDown('ddlSubdistrict');
 
                                         if (districtId == '' || districtId == '999999') {
@@ -184,7 +189,7 @@ var searchForm = {
             targetId = $("#ddlProvince").val();
         }
 
-
+        //ton
         if ($('#ddlSubdistrict').val() != "" && $("#ddlSubdistrict").val() != '999999') {
             sectionType = '4';
             code = $('#ddlSubdistrict').val();
@@ -204,6 +209,7 @@ var searchForm = {
             sectionType = '0';
 
         }
+        //ton
 
         try {
 
@@ -281,15 +287,13 @@ var searchForm = {
                                 //drawCity(shape.SHAPE);
                             });
                         }
-                      /*  if (data != null) {
-                            ParcelMapController.draw(data,ParcelMapController.SubDistrictType);
-                            $("#overlay").hide();
-                           
-                        }*/
+
+                      
                     });
                 }
             }
 
+            //ton
             SearchAll(sectionType, code)
 
         } catch (e) {
@@ -305,270 +309,6 @@ var searchForm = {
 
 
 //ton
-$(document).on("click", ".liTab", function () {
-    $(".liTab").removeClass("active");
-    $(this).addClass("active");
-
-    //  $('#lblHeaderMain').text("")
-    // $('#lbHeader').text("")
-    // alert($(this).attr("id"))
-    if ($(this).attr("id") == "tab1") {
-       
-       
-        setTimeout(function () {
-            tabSelect = '1';
-            InitailDataView(resultAll);
-            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน'));
-            $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน'));
-
-        }
-        , 400);
-    } ($(this).attr("id") == "tab2")
-    {  
-       
-        
-        setTimeout(function () {
-            tabSelect = '2';
-            InitailDataView(resultAll);
-            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาประเมิน', 'ราคาซื้อขาย'));
-            $('#lbHeader').text($('#lbHeader').text().replace('ราคาประเมิน', 'ราคาซื้อขาย'));
-
-        }
-       , 300);
-
-    }
-
-
-});
-function SearchAll(sectionTypeTemp, codeTemp) {
-
-
-    var objSearch = {};
-
-    objSearch = { SectionType: sectionTypeTemp, code: codeTemp };
-
-    $.ajax({
-        type: "POST",
-        url: mapApi.getServerPath()+ '/api/PriceSys/GetPrice',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(objSearch),
-        success: function (data) {
-
-            resultAll = data;
-            InitailDataView(data);
-        },
-        error: function (response) {
-            alert('failure');
-        }
-    });
-}
-
-
-function InitailDataView(data) {
-
-   
-  //  $("#lbHeader").text(tabSelect == '1' ? "ราคาประเมิน ราย" : "ราคาซื้อขาย ราย" + GetSectionDisplayText(sectionType));
-   // $("#lbHeaderGraph").text("แผนภูมิแสดงราคาที่ดิน ราย" + GetSectionDisplayText(sectionType));
-    LoadEvalBox1_LeftBox(data);
-    LoadEvalBox1_Graph(data);
-    LoadEvalBox1_Table(data);
-
-
-}
-
-function LoadEvalBox1_LeftBox(data) {
-
-    var body = "";
-    $("#EvalBox1").empty();
-    if (data != null) {
-        if (data != null && data.length > 0) {
-            $.each(data, function (index, data) {
-                body += '<div class="alert leftbox leftbox-' + data.DisplayCode + ' msg pmvByAreaBox">';
-                body += '<h4>' + data.DisplayName + '</h4>';
-                if (tabSelect == '1') {
-                    body += '<h5>ราคาประเมิน : ' + numberWithCommas(parseFloat(data.ParcelPrice).toFixed(2)) + ' บาท </h5>';
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท </h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท </h5>';
-                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.ParcelPriceAvg).toFixed(2)) + ' บาท </h5>';
-                } else {
-                    body += '<h5>ราคาซื้อขาย : ' + numberWithCommas(parseFloat(data.MarketPrice).toFixed(2)) + ' บาท </h5>';
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketPriceMax).toFixed(2)) + ' บาท </h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketPriceMin).toFixed(2)) + ' บาท </h5>';
-                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.MarketPriceAvg).toFixed(2)) + ' บาท </h5>';
-                }
-                body += ' </div>';
-            });
-        }
-    }
-
-    $("#EvalBox1").append(body);
-
-}
-
-function GetSectionDisplayText(sectionType) {
-    var text = 'ภาค';
-
-    switch (sectionType) {
-        case '0': text = 'ภาค'; break;
-        case '1': text = 'จังหวัด'; break;
-        case '2': text = 'อำเภอ'; break;
-        case '3': text = 'ตำบล'; break;
-    }
-
-    return text;
-}
-function LoadEvalBox1_Graph(data) {
-    var chartBar = echarts.init(document.getElementById('EvalBox1chartBar'));
-    var caption = [];
-    var maxValue = [];
-    var minValue = [];
-    var avgValue = [];
-
-
-    if (data != null) {
-        if (data != null && data.length > 0) {
-            $.each(data, function (index, data) {
-                caption.push(data.DisplayName);
-                if (tabSelect == '1') {
-                    maxValue.push(parseFloat(data.ParcelPriceMax).toFixed(2));
-                    minValue.push(parseFloat(data.ParcelPriceMin).toFixed(2));
-                    avgValue.push(parseFloat(data.ParcelPriceAvg).toFixed(2));
-                } else {
-                    maxValue.push(parseFloat(data.MarketPriceMax).toFixed(2));
-                    minValue.push(parseFloat(data.MarketPriceMin).toFixed(2));
-                    avgValue.push(parseFloat(data.MarketPriceAvg).toFixed(2));
-                }
-            });
-        }
-    }
-
-    var option2 = {
-        title: {
-            text: '',
-            subtext: ''
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data: ['ราคาประเมินรวม']
-        },
-        toolbox: {
-            show: true,
-            feature: {
-                mark: { show: true },
-                dataView: { show: true, readOnly: false },
-                magicType: { show: true, type: ['line', 'bar'] },
-                restore: { show: true },
-                saveAsImage: { show: true }
-            }
-        },
-        calculable: true,
-        xAxis: [
-            {
-                type: 'value'
-            }
-        ],
-        yAxis: [
-            {
-                type: 'category',
-                data: caption
-            }
-        ],
-        series: [
-            {
-                name: 'ราคาเฉลี่ย',
-                type: 'bar',
-                data: avgValue,
-                itemStyle: {
-                    normal: {
-                        color: 'green'
-                    },
-                    emphasis: {
-                        color: '#00e600'
-
-                    }
-                }
-            },
-     {
-         name: 'ราคาต่ำสุด',
-         type: 'bar',
-         data: minValue,
-
-         itemStyle: {
-             normal: {
-                 color: 'yellow'
-             },
-             emphasis: {
-
-
-             }
-         }
-     },
-     {
-         name: 'สูงสุด',
-         type: 'bar',
-         data: maxValue,
-
-         itemStyle: {
-             normal: {
-                 color: 'red'
-             },
-             emphasis: {
-
-
-             }
-         }
-     }
-        ]
-    };
-
-    chartBar.setOption(option2);
-}
-
-function LoadEvalBox1_Table(data) {
-
-    var body = "";
-    $("#EvalBox1Table").empty();
-
-    body += '<table class="table table-bordered table-striped tblInfo">';
-    body += '<thead>';
-    body += '<tr>';
-    body += '<th scope="col">' + GetSectionDisplayText(sectionType) + '</th>';
-    body += '<th scope="col">จำนวนแปลงที่ดิน</th>';
-    body += '<th scope="col">พื้นที่รวม</th>';
-    if (tabSelect == "1") {
-        body += '<th scope="col">ราคาประเมินที่ดิน</th>';
-    } else {
-        body += '<th scope="col">ราคาซื้อขายที่ดิน</th>';
-    }
-    body += '</tr>';
-    body += '</thead>';
-    body += '<tbody>';
-    if (data != null) {
-        if (data != null && data.length > 0) {
-            $.each(data, function (index, data) {
-                body += '<tr>';
-                body += '<td>' + data.DisplayName + '</td>';
-                body += '<td>' + numberWithCommas(data.LAND_Total) + ' แปลง</td>';
-                body += '<td>' + numberWithCommas(data.LAND_AREA) + ' ตารางวา</td>';
-                if (tabSelect == "1") {
-                    body += '<td>' + numberWithCommas(data.ParcelPrice) + ' บาท</td>';
-                } else {
-                    body += '<td>' + numberWithCommas(data.MarketPrice) + ' บาท</td>';
-                }
-                body += '</tr>';
-            });
-        }
-    }
-
-    body += ' </tbody>';
-    body += ' </table>';
-
-    $("#EvalBox1Table").append(body);
-    $("#EvalBox1Table table").DataTable({ searching: false, info: false });
-}
 
 function testx() {
     alert('xxxx');
@@ -673,10 +413,8 @@ var ParcelMapController = {
         var symbol = {
             "type": "esriPMS",
             "url": "471E7E31",
-            "imageData":"iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAQAAAC0NkA6AAAACXBIWXMAAAsTAAALEwEAmpwYAAADGGlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjaY2BgnuDo4uTKJMDAUFBUUuQe5BgZERmlwH6egY2BmYGBgYGBITG5uMAxIMCHgYGBIS8/L5UBFTAyMHy7xsDIwMDAcFnX0cXJlYE0wJpcUFTCwMBwgIGBwSgltTiZgYHhCwMDQ3p5SUEJAwNjDAMDg0hSdkEJAwNjAQMDg0h2SJAzAwNjCwMDE09JakUJAwMDg3N+QWVRZnpGiYKhpaWlgmNKflKqQnBlcUlqbrGCZ15yflFBflFiSWoKAwMD1A4GBgYGXpf8EgX3xMw8BSMDVQYqg4jIKAUICxE+CDEESC4tKoMHJQODAIMCgwGDA0MAQyJDPcMChqMMbxjFGV0YSxlXMN5jEmMKYprAdIFZmDmSeSHzGxZLlg6WW6x6rK2s99gs2aaxfWMPZ9/NocTRxfGFM5HzApcj1xZuTe4FPFI8U3mFeCfxCfNN45fhXyygI7BD0FXwilCq0A/hXhEVkb2i4aJfxCaJG4lfkaiQlJM8JpUvLS19QqZMVl32llyfvIv8H4WtioVKekpvldeqFKiaqP5UO6jepRGqqaT5QeuA9iSdVF0rPUG9V/pHDBYY1hrFGNuayJsym740u2C+02KJ5QSrOutcmzjbQDtXe2sHY0cdJzVnJRcFV3k3BXdlD3VPXS8Tbxsfd99gvwT//ID6wIlBS4N3hVwMfRnOFCEXaRUVEV0RMzN2T9yDBLZE3aSw5IaUNak30zkyLDIzs+ZmX8xlz7PPryjYVPiuWLskq3RV2ZsK/cqSql01jLVedVPrHzbqNdU0n22VaytsP9op3VXUfbpXta+x/+5Em0mzJ/+dGj/t8AyNmf2zvs9JmHt6vvmCpYtEFrcu+bYsc/m9lSGrTq9xWbtvveWGbZtMNm/ZarJt+w6rnft3u+45uy9s/4ODOYd+Hmk/Jn58xUnrU+fOJJ/9dX7SRe1LR68kXv13fc5Nm1t379TfU75/4mHeY7En+59lvhB5efB1/lv5dxc+NH0y/fzq64Lv4T8Ffp360/rP8f9/AA0ADzT6lvFdAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAA0SURBVHja7M0xAQAACAOgaf/OmsHDDwpQk38diUQikUgkEolEIpFIJBKJRHKyAAAA//8DAJSuAWNezU68AAAAAElFTkSuQmCC",
-            //"imageData": "iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAMNJREFUSIntlcENwyAMRZ+lSMyQFcI8rJA50jWyQuahKzCDT+6h0EuL1BA1iip8Qg/Ex99fYuCkGv5bKK0EcB40YgSE7bnTxsa58LeOnMd0QhwGXkxB3L0w0IDxPaMqpBFxjLMuaSVmRjurWIcRDHxaiWZuEbRcEhpZpSNhE9O81GiMN5E0ZRt2M0iVjshek8UkTQfZy8JqGHYP/rJhODD4T6wehtbB9zD0MPQwlOphaAxD/uPLK7Z8MB5gFet+WKcJPQDx29XkRhqr/AAAAABJRU5ErkJggg==",
-
-            "contentType": "image/png",
+      "imageData": "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",
+           "contentType": "image/png",
             "width": 32.0,
             "height": 32.0,
             "angle": 0,
@@ -751,7 +489,7 @@ var ParcelMapController = {
 
 var mapApi = {
     getServerPath:function(){
-      //  return '/TDManagement';
+       
         return '';
     },
     getProvincesByRegion: function (regionId, fnSuccess) {
@@ -911,44 +649,6 @@ $(document).on("change", "#ddlBuild", function () {
     }
 });
 
-
-var minCostLimit = 0;
-var maxCostLimit = 10000000;
-var minCost = minCostLimit;
-var maxCost = maxCostLimit;
-var slider0 = null;
-var slider1 = null;
-
-
-$(document).ready(function () {
-
-    slider0 = $("#CostEstimateSlider0").slider({
-        range: true,
-        min: minCostLimit,
-        max: maxCostLimit,
-        values: [minCost, maxCost],
-        slide: function (event, ui) {
-            $("#MinCostEstimate0").val(ui.values[0]);
-            $("#MaxCostEstimate0").val(ui.values[1]);
-            $('#minDiv0').html(numberWithCommas(ui.values[0]));
-            $('#maxDiv0').html(numberWithCommas(ui.values[1]));
-        }
-    });
-    slider1 = $("#CostEstimateSlider1").slider({
-        range: true,
-        min: minCostLimit,
-        max: maxCostLimit,
-        values: [minCost, maxCost],
-        slide: function (event, ui) {
-            $("#MinCostEstimate1").val(ui.values[0]);
-            $("#MaxCostEstimate1").val(ui.values[1]);
-            $('#minDiv1').html(numberWithCommas(ui.values[0]));
-            $('#maxDiv1').html(numberWithCommas(ui.values[1]));
-        }
-    });
-    $('.minDiv').html(numberWithCommas(minCost));
-    $('.maxDiv').html(numberWithCommas(maxCost));
-});
 
 
 

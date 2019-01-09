@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using TDM.Models;
-
+using TDM.Repositories;
 namespace TDM.Controllers.api
 {
     [RoutePrefix("api/Address")]
@@ -33,12 +33,36 @@ namespace TDM.Controllers.api
             cmEntities.Configuration.ProxyCreationEnabled = false;
         }
 
+
+
+        [HttpPost]
+        public IHttpActionResult GetCluster()
+        {
+            var repos = new TDAssetRespository();
+
+
+            /* switch (SectionType)
+             {
+                 case "1":sectionT = SetionType.Region;break;
+                 case "2": sectionT = SetionType.Provice; break;
+                 case "3": sectionT = SetionType.Amphur; break;
+             }*/
+
+
+
+            var results = repos.GetCluster();
+
+            return Json(results);
+        }
+
+
         [HttpGet]
         [Route("GetProvinceShapeBy")]
         public IHttpActionResult GetProvinceShapeBy(string code)
         {
             try
             {
+               
                 return Json(tdaEntities.PROVINCEs.Where(x=>x.PRO_C.Equals(code)).ToList().Select(x=>new SHAPE_ViewModel(x.Shape)).FirstOrDefault(), jsonSetting);
             }
             catch (Exception ex)

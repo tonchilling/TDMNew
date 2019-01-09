@@ -1,0 +1,531 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using TDM.Models;
+using Dapper;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Text.RegularExpressions;
+
+namespace TDM.Repositories
+{
+    public class TDAssetRespository : BaseRepository
+    {
+        const int SRID_24047 = 24047;
+        const int SRID_24048 = 24048;
+
+        enum THAILAND_ZONE
+        {
+            TH_ZONE_47 = 47,
+            TH_ZONE_48 = 48,
+        }
+
+        public override IDbConnection CreateConnection()
+        {
+            var regex = new Regex("(data source)=\\w.*");
+            var connectionString = regex.Match(ConfigurationManager.ConnectionStrings["TDASSETEntities"].ConnectionString).Value.TrimEnd(new char[] { '"' });
+            return new SqlConnection(connectionString);
+        }
+
+
+        public  IDbConnection CreateConnectionManage()
+        {
+            var regex = new Regex("(data source)=\\w.*");
+            var connectionString = regex.Match(ConfigurationManager.ConnectionStrings["TDManagementEntities"].ConnectionString).Value.TrimEnd(new char[] { '"' });
+            return new SqlConnection(connectionString);
+        }
+
+        public List<POI> GetPOIs(string prov_code, string amph_cod, string tumb_code)
+        {
+            using(IDbConnection conn = CreateConnection())
+            {
+                var sql = @"SELECT OBJECTID,NAME_T,X,Y,PROV_NAME_T,AMPH_NAME_T,TUMB_NAME_T,TUMB_CODE FROM [POI] WHERE PROV_CODE = @PROV_CODE AND (@AMPH_CODE IS NULL OR AMPH_CODE = @AMPH_CODE) AND (@TUMB_CODE IS NULL OR TUMB_CODE = @TUMB_CODE) ORDER BY NAME_T";
+                return conn.Query<POI>(sql, new {
+                    PROV_CODE = prov_code,
+                    AMPH_CODE = amph_cod,
+                    TUMB_CODE = tumb_code,
+                }).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Section 2,3
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<EstimateData> GetPrice(SearchMap search)
+        {
+            IDataReader reader = null;
+            List<EstimateData> result = null;
+            EstimateData data = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+
+            try
+            {
+                result = new List<EstimateData>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetPrice", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.EstimateData();
+                        data.DisplayCode = reader["DisplayCode"].ToString();
+                        data.DisplayName = reader["DisplayName"].ToString();
+                        data.RegionCode = reader["RegionCode"].ToString();
+                        data.RegionName = reader["RegionName"].ToString();
+                        data.ProviceCode = reader["ProviceCode"].ToString();
+                        data.ProviceName = reader["ProviceName"].ToString();
+                        data.AmphureCode = reader["AmphureCode"].ToString();
+                        data.AmphureName = reader["AmphureName"].ToString();
+                        data.TAMBOLCode = reader["TAMBOLCode"].ToString();
+                        data.TAMBOLName = reader["TAMBOLName"].ToString();
+                        data.MarketPrice = reader["MarketPrice"].ToString();
+                        data.MarketPriceMin = reader["MarketPriceMin"].ToString();
+                        data.MarketPriceMax = reader["MarketPriceMax"].ToString();
+                        data.MarketPriceAvg = reader["MarketPriceAvg"].ToString();
+                        data.ParcelPrice = reader["ParcelPrice"].ToString();
+                        data.ParcelPriceMin = reader["ParcelPriceMin"].ToString();
+                        data.ParcelPriceMax = reader["ParcelPriceMax"].ToString();
+                        data.ParcelPriceAvg = reader["ParcelPriceAvg"].ToString();
+                        data.LAND_AREA = reader["LAND_AREA"].ToString();
+                        data.LAND_Total = reader["LAND_Total"].ToString();
+                        data.MarketColor = reader["MarketColor"].ToString();
+                        data.ParcelColor = reader["ParcelColor"].ToString();
+                        data.Shape = reader["Shape"].ToString();
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Section 4
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<PROJECT_IMPACTDto> GetPROJECT_IMPACT(PROJECT_IMPACTDto search)
+        {
+            IDataReader reader = null;
+            List<PROJECT_IMPACTDto> result = null;
+            PROJECT_IMPACTDto data = null;
+            var p = new DynamicParameters();
+            p.Add("@SUBJECT_NAME", search.SUBJECT_NAME);
+            p.Add("@PROVINCE_ID", search.PROVINCE_ID, dbType: DbType.String);
+            p.Add("@AMPHOE_ID", search.AMPHOE_ID, dbType: DbType.String);
+            p.Add("@TAMBOL_ID", search.TAMBOL_ID, dbType: DbType.String);
+    
+
+            try
+            {
+                result = new List<PROJECT_IMPACTDto>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("sp_PROJECT_IMPACT_FindByColumn", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.PROJECT_IMPACTDto();
+                        data.ID = reader["ID"].ToString();
+                        data.SUBJECT_ID = reader["SUBJECT_ID"].ToString();
+                        data.SUBJECT_NAME = reader["SUBJECT_NAME"].ToString();
+                        data.CREATE_DATE = reader["CREATE_DATE"].ToString();
+                        data.CREATE_BY = reader["CREATE_BY"].ToString();
+                        data.UPDATE_DATE = reader["UPDATE_DATE"].ToString();
+                        data.UPDATE_BY = reader["UPDATE_BY"].ToString();
+                        data.PUBLISH_DATE = reader["PUBLISH_DATE"].ToString();
+                        data.IS_PUBLISHED = reader["IS_PUBLISHED"].ToString();
+                        data.PROVINCE_ID = reader["PROVINCE_ID"].ToString();
+                        data.ProvinceName = reader["ProvinceName"].ToString();
+                        data.Description = reader["Description"].ToString();
+                        data.ShapeText = reader["ShapeText"].ToString();
+                        data.AMPHOE_ID = reader["AMPHOE_ID"].ToString();
+                        data.AmphoeName = reader["AmphoeName"].ToString();
+                        data.TAMBOL_ID = reader["TAMBOL_ID"].ToString();
+                        data.TambolName = reader["TambolName"].ToString();
+                        data.Shape = reader["Shape"].ToString();
+                        
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Section 1
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public EstimateData GetSection1EstimateList(SearchMap search)
+        {
+            IDataReader reader = null;
+            EstimateData result = null;
+
+            List<EstimateDataType> EstimateDataTypeList =new List<EstimateDataType>();
+            EstimateDataType EstimateDataType = null;
+            List<EstimateDataDetail> EstimateDataDetailList =new List<EstimateDataDetail>();
+            EstimateDataDetail EstimateDataDetail = null;
+
+        var p = new DynamicParameters();
+            p.Add("@SelectType", (int)search.EstimateType); // tab section
+            p.Add("@Code", search.Code, dbType: DbType.String);
+
+
+            try
+            {
+                result = new EstimateData();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("sp_Section1_EstimateList", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        EstimateDataType = new EstimateDataType();
+                        EstimateDataType.Code= reader["Code"].ToString();
+                        EstimateDataType.Name = reader["Name"].ToString();
+
+
+                        EstimateDataTypeList.Add(EstimateDataType);
+
+                    }
+                    result.EstimateDataTypeList = EstimateDataTypeList;
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EstimateDataDetail = new EstimateDataDetail();
+                      //  EstimateDataDetail.Name= reader["Name"].ToString();
+                        EstimateDataDetail.Title = reader["Title"].ToString();
+                        EstimateDataDetail.Value= reader["Value"].ToString();
+
+
+                        EstimateDataDetailList.Add(EstimateDataDetail);
+
+                    }
+
+                    result.EstimateDataDetailList = EstimateDataDetailList;
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+        public dynamic GetChanodDetail(string objectId, string changwatCode, string chanod_no)
+        {
+            using(IDbConnection conn = CreateConnection())
+            {
+                #region Query 
+                var sql = @"
+                        SELECT P.OBJECTID, P.UTMMAP1, P.UTMMAP3 , P.PARCEL_TYPE, P.BRANCH_CODE, P.CHANOD_NO, LAND_NO, CHANGWAT_CODE, AMPHUR_CODE, TUMBON_CODE,
+						PROV.NAME_T AS CHANGWAT_NAME, AMPH.NAME_T AS AMPHUR_NAME , TAMBOL.NAME_T AS TUMBON_NAME, VAL.SURVEY_NO,
+                        VAL.VAL_AMT, VAL.NNHAN, VAL.NRAI, VAL.NWAH, VAL.DREMAIN
+                        FROM [PARCEL_{1}_{0}] P
+                        LEFT JOIN (
+	                        SELECT V.BRANCH_CODE,V.VAL_P_WA, V.VAL_AMT, H.NNHAN, H.NRAI, H.NWAH, H.DREMAIN ,
+	                        V.UTM_CODE,V.UTM_NO_P,V.UTM_NO,V.UTM_PAGE,V.UTM_RATIO,V.UTM_LANDNO,V.CHANODE_NO , H.SURVEY_NO
+	                        FROM [land].[dbo].[parcel_val_{0}] V
+	                        LEFT JOIN [land].[dbo].[parcel_hd_{0}] H
+	                        ON V.UTM_CODE = H.UTM_CODE AND V.UTM_NO_P = H.UTM_NO_P 
+	                        AND V.UTM_NO = H.UTM_NO AND V.UTM_PAGE = H.UTM_PAGE AND V.UTM_RATIO = H.UTM_RATIO
+	                        AND V.UTM_LANDNO = H.UTM_LANDNO AND V.CHANODE_NO = H.CHANODE_NO
+	                        AND V.BRANCH_CODE = H.BRANCH_CODE
+							AND V.CHANODE_NO = @CHANOD_CODE
+                        ) VAL
+	 	                ON VAL.UTM_CODE = P.UTMMAP1 AND VAL.UTM_NO_P = P.UTMMAP2 AND VAL.UTM_NO = P.UTMMAP3 
+		                AND VAL.UTM_PAGE = P.UTMMAP4 AND VAL.UTM_RATIO = P.UTMSCALE AND VAL.UTM_LANDNO = P.LAND_NO
+						LEFT JOIN [province] PROV
+						ON PROV.PRO_C = P.CHANGWAT_CODE
+						LEFT JOIN [amphoe] AMPH
+						ON AMPH.DIS_C = CONCAT(P.CHANGWAT_CODE, P.AMPHUR_CODE)
+						LEFT JOIN [tambol] TAMBOL
+						ON TAMBOL.SUB_C = CONCAT(P.CHANGWAT_CODE, P.AMPHUR_CODE, P.TUMBON_CODE)
+						WHERE P.OBJECTID = @OBJECT_ID;
+                        ";
+                #endregion
+                var check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 47", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if(check > 0)
+                {
+                    var obj = conn.Query<dynamic>(string.Format(sql, changwatCode, (int) THAILAND_ZONE.TH_ZONE_47) , new { OBJECT_ID = objectId, CHANOD_CODE = chanod_no }).FirstOrDefault();
+                    if (obj != null) return obj;
+                }
+
+                check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 48", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if (check > 0)
+                {
+                    var obj = conn.Query<dynamic>(string.Format(sql, changwatCode, (int) THAILAND_ZONE.TH_ZONE_48), new { OBJECT_ID = objectId, CHANOD_CODE = chanod_no }).FirstOrDefault();
+                    if (obj != null) return obj;
+                }
+            }
+
+            return null;
+        }
+
+        public dynamic GetNS3KDetail(string objectId, string changwatCode, string chanod_no)
+        {
+            using (IDbConnection conn = CreateConnection())
+            {
+                #region Query 
+                var sql = @"
+                        SELECT P.OBJECTID, P.UTMMAP1, P.UTMMAP3 , P.PARCEL_TYPE, P.BRANCH_CODE, P.NS3A_ID AS CHANOD_NO, LAND_NO, CHANGWAT_CODE, AMPHUR_CODE, TUMBON_CODE,
+						PROV.NAME_T AS CHANGWAT_NAME, AMPH.NAME_T AS AMPHUR_NAME , TAMBOL.NAME_T AS TUMBON_NAME, VAL.SURVEY_NO,
+                        VAL.VAL_AMT, VAL.NNHAN, VAL.NRAI, VAL.NWAH, VAL.DREMAIN
+                        FROM [PARCEL_{1}_NS3K_{0}] P
+                        LEFT JOIN (
+	                        SELECT V.BRANCH_CODE,V.VAL_P_WA, V.VAL_AMT, H.NNHAN, H.NRAI, H.NWAH, H.DREMAIN ,
+	                        V.UTM_CODE,V.UTM_NO_P,V.UTM_NO,V.UTM_PAGE,V.UTM_RATIO,V.UTM_LANDNO,V.NS3A_NO, H.SURVEY_NO 
+	                        FROM [land].[dbo].[parcel_val_{0}] V
+	                        LEFT JOIN [land].[dbo].[parcel_hd_{0}] H
+	                        ON V.UTM_CODE = H.UTM_CODE AND V.UTM_NO_P = H.UTM_NO_P 
+	                        AND V.UTM_NO = H.UTM_NO AND V.UTM_PAGE = H.UTM_PAGE AND V.UTM_RATIO = H.UTM_RATIO
+	                        AND V.UTM_LANDNO = H.UTM_LANDNO AND V.NS3A_NO = H.NS3A_NO
+	                        AND V.BRANCH_CODE = H.BRANCH_CODE
+							AND V.NS3A_NO = @NS3A_NO
+                        ) VAL
+                        ON VAL.UTM_CODE = P.UTMMAP1 AND VAL.UTM_NO_P = P.UTMMAP2 AND VAL.UTM_NO = P.UTMMAP3 
+		                AND VAL.UTM_PAGE = P.UTMMAP4 AND VAL.UTM_RATIO = P.UTMSCALE AND VAL.UTM_LANDNO = P.LAND_NO
+						LEFT JOIN [province] PROV
+						ON PROV.PRO_C = P.CHANGWAT_CODE
+						LEFT JOIN [amphoe] AMPH
+						ON AMPH.DIS_C = CONCAT(P.CHANGWAT_CODE, P.AMPHUR_CODE)
+						LEFT JOIN [tambol] TAMBOL
+						ON TAMBOL.SUB_C = CONCAT(P.CHANGWAT_CODE, P.AMPHUR_CODE, P.TUMBON_CODE)
+						WHERE P.OBJECTID = @OBJECT_ID;
+                        ";
+                #endregion
+                var check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 47", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if (check > 0)
+                {
+                    var obj = conn.Query<dynamic>(string.Format(sql, changwatCode, (int) THAILAND_ZONE.TH_ZONE_47), new { OBJECT_ID = objectId, NS3A_NO = chanod_no }).FirstOrDefault();
+                    if (obj != null) return obj;
+                }
+
+                check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 48", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if (check > 0)
+                {
+                    var obj = conn.Query<dynamic>(string.Format(sql, changwatCode, (int) THAILAND_ZONE.TH_ZONE_48), new { OBJECT_ID = objectId, NS3A_NO = chanod_no }).FirstOrDefault();
+                    if (obj != null) return obj;
+                }
+
+             
+            }
+
+            return null;
+        }
+
+        public List<dynamic> GetChanods(List<dynamic> shapes, string changwatCode, string radius, string[] branchCodes)
+        {
+            using (IDbConnection conn = CreateConnection())
+            {
+                List<dynamic> result = new List<dynamic>();
+                #region Query
+                var sql = @"
+                        SELECT P.OBJECTID, UTMMAP1,UTMMAP2,UTMMAP3,UTMMAP4,UTMSCALE,LAND_NO,CHANOD_NO,
+                        VAL.VAL_P_WA, VAL.VAL_AMT, VAL.NNHAN, VAL.NRAI, VAL.NWAH, VAL.DREMAIN
+                        FROM [PARCEL_{1}_{0}] P
+                        LEFT JOIN (
+	                        SELECT V.BRANCH_CODE,V.VAL_P_WA, V.VAL_AMT, H.NNHAN, H.NRAI, H.NWAH, H.DREMAIN ,
+	                        V.UTM_CODE,V.UTM_NO_P,V.UTM_NO,V.UTM_PAGE,V.UTM_RATIO,V.UTM_LANDNO,V.CHANODE_NO 
+	                        FROM [land].[dbo].[parcel_val_{0}] V
+	                        LEFT JOIN [land].[dbo].[parcel_hd_{0}] H
+	                        ON V.UTM_CODE = H.UTM_CODE AND V.UTM_NO_P = H.UTM_NO_P 
+	                        AND V.UTM_NO = H.UTM_NO AND V.UTM_PAGE = H.UTM_PAGE AND V.UTM_RATIO = H.UTM_RATIO
+	                        AND V.UTM_LANDNO = H.UTM_LANDNO AND V.CHANODE_NO = H.CHANODE_NO
+	                        AND V.BRANCH_CODE = H.BRANCH_CODE
+                        ) VAL
+                        ON VAL.UTM_CODE = P.UTMMAP1 AND VAL.UTM_NO_P = P.UTMMAP2 AND VAL.UTM_NO = P.UTMMAP3 
+		                AND VAL.UTM_PAGE = P.UTMMAP4 AND VAL.UTM_RATIO = P.UTMSCALE AND VAL.UTM_LANDNO = P.LAND_NO
+                        WHERE geometry::STGeomFromText(@POINT, @SRID).STBuffer(@BUFFER).STIntersects(SHAPE) = 1 
+                        AND (@BRANCH_CODE IS NULL OR P.BRANCH_CODE IN @BRANCH_CODE)";
+                #endregion
+                var check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 47", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if (check > 0)
+                {
+                    
+                    var shape47 = shapes.FirstOrDefault(s => s.srid == SRID_24047);
+                    var parcels47 = conn.Query<dynamic>(string.Format(sql, changwatCode, (int) THAILAND_ZONE.TH_ZONE_47), 
+                        new { POINT = Convert.ToString(shape47.shape), SRID = SRID_24047, BUFFER = radius, BRANCH_CODE = branchCodes }).ToList();
+                    result.AddRange(parcels47);
+                }
+
+                check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 48", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if (check > 0)
+                {
+                    var shape48 = shapes.FirstOrDefault(s => s.srid == SRID_24048);
+                    var parcels48 = conn.Query<dynamic>(string.Format(sql, changwatCode, (int) THAILAND_ZONE.TH_ZONE_48),
+                        new { POINT = Convert.ToString(shape48.shape), SRID = SRID_24048, BUFFER = radius, BRANCH_CODE = branchCodes }).ToList();
+                    result.AddRange(parcels48);
+                }
+
+                return result;
+            }
+        }
+
+        public List<dynamic> GetNS3Ks(List<dynamic> shapes, string changwatCode, string radius, string[] branchCodes)
+        {
+            using (IDbConnection conn = CreateConnection())
+            {
+                List<dynamic> result = new List<dynamic>();
+                #region Query
+                var sql = @"
+                         SELECT P.OBJECTID, UTMMAP1,UTMMAP2,UTMMAP3,UTMMAP4,UTMSCALE,LAND_NO,NS3A_ID AS CHANOD_NO,
+                        VAL.VAL_P_WA, VAL.VAL_AMT, VAL.NNHAN, VAL.NRAI, VAL.NWAH, VAL.DREMAIN
+                        FROM [PARCEL_{1}_NS3K_{0}] P
+                        LEFT JOIN (
+	                        SELECT V.BRANCH_CODE,V.VAL_P_WA, V.VAL_AMT, H.NNHAN, H.NRAI, H.NWAH, H.DREMAIN ,
+	                        V.UTM_CODE,V.UTM_NO_P,V.UTM_NO,V.UTM_PAGE,V.UTM_RATIO,V.UTM_LANDNO,V.NS3A_NO 
+	                        FROM [land].[dbo].[ns3a_val_{0}] V
+	                        LEFT JOIN [land].[dbo].[ns3a_hd_{0}] H
+	                        ON V.UTM_CODE = H.UTM_CODE AND V.UTM_NO_P = H.UTM_NO_P 
+	                        AND V.UTM_NO = H.UTM_NO AND V.UTM_PAGE = H.UTM_PAGE AND V.UTM_RATIO = H.UTM_RATIO
+	                        AND V.UTM_LANDNO = H.UTM_LANDNO AND V.NS3A_NO = H.NS3A_NO
+	                        AND V.BRANCH_CODE = H.BRANCH_CODE
+                        ) VAL
+                        ON VAL.UTM_CODE = P.UTMMAP1 AND VAL.UTM_NO_P = P.UTMMAP2 AND VAL.UTM_NO = P.UTMMAP3 
+		                AND VAL.UTM_PAGE = P.UTMMAP4 AND VAL.UTM_RATIO = P.UTMSCALE AND VAL.UTM_LANDNO = P.LAND_NO
+                        WHERE geometry::STGeomFromText(@POINT, @SRID).STBuffer(@BUFFER).STIntersects(SHAPE) = 1 
+                        AND (@BRANCH_CODE IS NULL OR P.BRANCH_CODE IN @BRANCH_CODE)";
+                #endregion
+                var check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 47", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if (check > 0)
+                {
+                    
+                    var shape47 = shapes.FirstOrDefault(s => s.srid == SRID_24047);
+                    var parcels47 = conn.Query<dynamic>(string.Format(sql, changwatCode, (int) THAILAND_ZONE.TH_ZONE_47),
+                        new { POINT = Convert.ToString(shape47.shape), SRID = SRID_24047, BUFFER = radius, BRANCH_CODE = branchCodes }).ToList();
+                    result.AddRange(parcels47);
+                }
+
+                check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 48", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if (check > 0)
+                {
+                    var shape48 = shapes.FirstOrDefault(s => s.srid == SRID_24048);
+                    var parcels48 = conn.Query<dynamic>(string.Format(sql, changwatCode, (int) THAILAND_ZONE.TH_ZONE_48),
+                        new { POINT = Convert.ToString(shape48.shape), SRID = SRID_24048, BUFFER = radius, BRANCH_CODE = branchCodes }).ToList();
+                    result.AddRange(parcels48);
+                }
+
+                return result;
+            }
+        }
+
+        public POI GetPOI(string id)
+        {
+            using(IDbConnection conn = CreateConnection())
+            {
+                return conn.Query<POI>("SELECT OBJECTID, NAME_T FROM [POI] WHERE OBJECTID = @OBJECTID", new { OBJECTID = id }).FirstOrDefault();
+            }
+        }
+
+        public List<dynamic> GetStreets(string changwatCode, string amphurCode, string tumbonCode)
+        {
+            using(IDbConnection conn = CreateConnection())
+            {
+                List<dynamic> result = new List<dynamic>();
+                #region Qeury
+                var sql = @" 
+                      SELECT OBJECTID, STREET_NAME, STREET_NO, STREET_CODE, CHANGWAT_CODE, AMPHUR_CODE, TUMBON_CODE FROM [ROAD_{0}]
+                      WHERE CHANGWAT_CODE = @CHANGWAT_CODE AND( @AMPHUR_CODE IS NULL OR AMPHUR_CODE = @AMPHUR_CODE) 
+                      AND  (@TUMBON_CODE IS NULL OR TUMBON_CODE = @TUMBON_CODE)";
+
+
+                #endregion
+
+                var check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 47", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if (check > 0)
+                {
+                    var streets = conn.Query<dynamic>(string.Format(sql, (int) THAILAND_ZONE.TH_ZONE_48), new
+                    {
+                        CHANGWAT_CODE = changwatCode,
+                        AMPHUR_CODE = amphurCode,
+                        TUMBON_CODE = tumbonCode,
+                    });
+
+                    if (streets.Count() > 0)
+                    {
+                        result.AddRange(streets);
+                    }
+                }
+
+                check = conn.Query<int>(@"SELECT 1 FROM [PROVINCE_ZONE] WHERE PROV_CODE = @PROV_CODE AND ZONE = 48", new { PROV_CODE = changwatCode }).FirstOrDefault();
+                if (check > 0)
+                {
+                    var streets = conn.Query<dynamic>(string.Format(sql, (int) THAILAND_ZONE.TH_ZONE_48), new
+                    {
+                        CHANGWAT_CODE = changwatCode,
+                        AMPHUR_CODE = amphurCode,
+                        TUMBON_CODE = tumbonCode,
+                    });
+
+                    if (streets.Count() > 0)
+                    {
+                        result.AddRange(streets);
+                    }
+                }
+
+                return result;
+            }
+        }
+       
+        public List<dynamic> GetCondos(string changwatCode, string amphurCode, string tumbonCode, string branchCode, string raduis)
+        {
+            using(IDbConnection conn = CreateConnection())
+            {
+                var result = new List<dynamic>();
+
+                #region Query
+                var sql = @"
+                      SELECT P.CONDO_NAME, P.BRANCH AS BRANCH_CODE, V.CHANODE_PRICE, V.CHANODE_VAL_AMT, V.CHANODE_VAL, V.CHANODE_PRICE_AMT, V.CHANODE_NO, V.LANDNO   
+                      FROM [condo].[dbo].[NCONDOS] P LEFT JOIN (
+                      SELECT C.BRANCH, C.CHANGWAT_CODE, C.CHANODE_SEQ, C.N_REGIST_NO, V.CHANODE_PRICE, V.CHANODE_VAL_AMT, 
+                      V.CHANODE_VAL, V.CHANODE_PRICE_AMT, C.CHANODE_NO, C.LANDNO 
+                      FROM [condo].[dbo].[NCONDO_CHANODE] C LEFT JOIN [condo].[dbo].[NCONDO_CHANODE_VAL] V
+                      ON C.BRANCH = V.BRANCH AND C.CHANGWAT_CODE = V.CHANGWAT_CODE
+                      AND C.CHANODE_SEQ = V.CHANODE_SEQ AND C.N_REGIST_NO = V.N_REGIST_NO ) V
+                      ON P.BRANCH = V.BRANCH AND P.CHANGWAT_CODE = V.CHANGWAT_CODE
+                      AND P.N_REGIST_NO = V.N_REGIST_NO 
+                      WHERE CHANGWAT_CODE = @CHANGWAT_CODE AND( @AMPHUR_CODE IS NULL OR AMPHUR_CODE = @AMPHUR_CODE) 
+                      AND (@TUMBON_CODE IS NULL OR TUMBON_CODE = @TUMBON_CODE)
+                      AND (@BRANCH_CODE IS NULL OR BRANCH = @BRANCH_CODE)";
+                #endregion
+
+                var condos = conn.Query<dynamic>(sql, new
+                {
+                    CHANGWAT_CODE = changwatCode,
+                    AMPHUR_CODE = amphurCode,
+                    TUMBON_CODE = tumbonCode,
+                    BRANCH_CODE = branchCode,
+                });
+
+                if (condos.Count() > 0) { result.AddRange(condos); }
+
+                return result;
+            }
+        }
+        
+    }
+}

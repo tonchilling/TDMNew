@@ -1,0 +1,1160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TDManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PROJECT_IMPACT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUBJECT_ID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SUBJECT_NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CREATE_DATE" Type="datetime" Nullable="false" />
+          <Property Name="CREATE_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="UPDATE_DATE" Type="datetime" Nullable="false" />
+          <Property Name="UPDATE_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="PUBLISH_DATE" Type="datetime" />
+          <Property Name="IS_PUBLISHED" Type="bit" Nullable="false" />
+          <Property Name="IS_DELETED" Type="bit" Nullable="false" />
+          <Property Name="PROVINCE_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="Shape" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <EntityType Name="PROV_IMPACT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PROJECT_ID" Type="int" Nullable="false" />
+          <Property Name="PROV_CODE" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.REGION' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="REGION">
+          <Property Name="RegionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="STATUS_IMPACT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="STATUS_NAME" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_10' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_10">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_11' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_11">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_12' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_12">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_13' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_13">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_14' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_14">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_15' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_15">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_16' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_16">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_17' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_17">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_18' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_18">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_19' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_19">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_20' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_20">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_21' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_21">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_22' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_22">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_23' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_23">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_24' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_24">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_25' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_25">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_26' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_26">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_27' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_27">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_30' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_30">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_31' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_31">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_32' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_32">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_33' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_33">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_34' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_34">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_35' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_35">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_36' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_36">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_37' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_37">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_39' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_39">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_40' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_40">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_41' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_41">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_42' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_42">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_43' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_43">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_44' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_44">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_45' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_45">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_46' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_46">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_47' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_47">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_48' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_48">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_49' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_49">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_50' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_50">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_51' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_51">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_52' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_52">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_53' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_53">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_54' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_54">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_55' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_55">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_56' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_56">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_57' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_57">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_58' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_58">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_60' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_60">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_61' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_61">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_62' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_62">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_63' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_63">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_64' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_64">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_65' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_65">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_66' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_66">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_67' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_67">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_70' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_70">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_71' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_71">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_72' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_72">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_73' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_73">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_74' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_74">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_75' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_75">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_76' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_76">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_77' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_77">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_80' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_80">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_81' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_81">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_82' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_82">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_83' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_83">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_84' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_84">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_85' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_85">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_86' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_86">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_90' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_90">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_91' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_91">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_92' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_92">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_93' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_93">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_94' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_94">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_95' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_95">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_96' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_96">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="sum_land_assessment_A0">
+          <Property Name="BRANCH" Type="varchar" MaxLength="8" />
+          <Property Name="AMPHUR_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="TUMBON_CODE" Type="varchar" MaxLength="2" />
+          <Property Name="PERIOD_ID" Type="int" />
+          <Property Name="LAND_COUNT" Type="int" />
+          <Property Name="MIN_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="MAX_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="SUM_VALUE" Type="decimal" Precision="20" Scale="5" />
+          <Property Name="CHANGE_VALUE" Type="decimal" Precision="20" Scale="5" />
+        </EntityType>-->
+        <EntityContainer Name="TDManagementModelStoreContainer">
+          <EntitySet Name="PROJECT_IMPACT" EntityType="Self.PROJECT_IMPACT" Schema="tdadmin" store:Type="Tables" />
+          <EntitySet Name="PROV_IMPACT" EntityType="Self.PROV_IMPACT" Schema="tdadmin" store:Type="Tables" />
+          <EntitySet Name="STATUS_IMPACT" EntityType="Self.STATUS_IMPACT" Schema="tdadmin" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TDManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TDManagementEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="PROJECT_IMPACT" EntityType="TDManagementModel.PROJECT_IMPACT" />
+          <EntitySet Name="PROV_IMPACT" EntityType="TDManagementModel.PROV_IMPACT" />
+          <EntitySet Name="STATUS_IMPACT" EntityType="TDManagementModel.STATUS_IMPACT" />
+        </EntityContainer>
+        <EntityType Name="PROJECT_IMPACT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUBJECT_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SUBJECT_NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CREATE_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CREATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UPDATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PUBLISH_DATE" Type="DateTime" Precision="3" />
+          <Property Name="IS_PUBLISHED" Type="Boolean" Nullable="false" />
+          <Property Name="IS_DELETED" Type="Boolean" Nullable="false" />
+          <Property Name="PROVINCE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Shape" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PROV_IMPACT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PROJECT_ID" Type="Int32" Nullable="false" />
+          <Property Name="PROV_CODE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="STATUS_IMPACT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="STATUS_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TDManagementModelStoreContainer" CdmEntityContainer="TDManagementEntities" >
+          <EntitySetMapping Name="PROJECT_IMPACT">
+            <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT">
+              <MappingFragment StoreEntitySet="PROJECT_IMPACT">
+                <ScalarProperty Name="Shape" ColumnName="Shape" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="IS_PUBLISHED" ColumnName="IS_PUBLISHED" />
+                <ScalarProperty Name="PUBLISH_DATE" ColumnName="PUBLISH_DATE" />
+                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+                <ScalarProperty Name="SUBJECT_NAME" ColumnName="SUBJECT_NAME" />
+                <ScalarProperty Name="SUBJECT_ID" ColumnName="SUBJECT_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROV_IMPACT">
+            <EntityTypeMapping TypeName="TDManagementModel.PROV_IMPACT">
+              <MappingFragment StoreEntitySet="PROV_IMPACT">
+                <ScalarProperty Name="PROV_CODE" ColumnName="PROV_CODE" />
+                <ScalarProperty Name="PROJECT_ID" ColumnName="PROJECT_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATUS_IMPACT">
+            <EntityTypeMapping TypeName="TDManagementModel.STATUS_IMPACT">
+              <MappingFragment StoreEntitySet="STATUS_IMPACT">
+                <ScalarProperty Name="STATUS_NAME" ColumnName="STATUS_NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

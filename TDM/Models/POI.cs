@@ -25,12 +25,90 @@ namespace TDM.Models
         TumbolByID = 7,
     }
 
+    public enum LocationType
+    {
+        Region = 1,
+        Cluster = 2,
+        Cluster1 = 47,
+        Cluster2 = 48
+    }
+
+
+    public enum EstimateType
+    {
+        All = 0,
+        Land = 1,
+        Condo = 2,
+        Building = 3
+
+    }
+
     public partial class SearchMap
     {
+        public EstimateType EstimateType { get; set; }
         public SetionType SectionType { get; set; }
+        public LocationType LocationType { get; set; }
         public string Code { get; set; }
+        public string RegionCode { get; set; }
+        public string ProvinceCode { get; set; }
+        public string AmphoeCode { get; set; }
+        public string TambolCode { get; set; }
     }
-        public partial class POI
+
+    public partial class EstimateData
+    {
+        public List<EstimateDataType> EstimateDataTypeList { get; set; }
+    public List<EstimateDataDetail> EstimateDataDetailList { get; set; }
+}
+
+    public partial class EstimateDataType
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+
+    public partial class DropdownObj
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
+    }
+
+
+    public partial class EstimateDataDetail
+    {
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Value { get; set; }
+    }
+
+ 
+
+    public partial class PROJECT_IMPACTDto
+    {
+        public string ID { get; set; }
+        public string SUBJECT_ID { get; set; }
+        public string SUBJECT_NAME { get; set; }
+        public string CREATE_DATE { get; set; }
+        public string CREATE_BY { get; set; }
+        public string UPDATE_DATE { get; set; }
+        public string UPDATE_BY { get; set; }
+        public string PUBLISH_DATE { get; set; }
+        public string IS_PUBLISHED { get; set; }
+        public string IS_DELETED { get; set; }
+        public string PROVINCE_ID { get; set; }
+        public string ProvinceName { get; set; }
+        public string Description { get; set; }
+        public string ShapeText { get; set; }
+        public string AMPHOE_ID { get; set; }
+
+        public string AmphoeName { get; set; }
+        public string TAMBOL_ID { get; set; }
+
+        public string TambolName { get; set; }
+        public string Shape { get; set; }
+    }
+
+    public partial class POI
     {
         public int OBJECTID { get; set; }
         public Nullable<int> FID_1 { get; set; }
@@ -88,6 +166,11 @@ namespace TDM.Models
         public string MarketColor { get; set; }
         public string ParcelColor { get; set; }
         public string Shape { get; set; }
+        public string RegisterNo { get; set; }
+        public string LATITUDE { get; set; }
+        public string LONGITUDE { get; set; }
+
+       
 
     }
 
