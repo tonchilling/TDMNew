@@ -228,6 +228,106 @@ namespace TDM.Repositories
 
             return result;
         }
+
+
+
+
+        public List<DropdownObj> GetConstructionType()
+        {
+            IDataReader reader = null;
+            List<DropdownObj> result = null;
+            DropdownObj data = null;
+            var p = new DynamicParameters();
+            // p.Add("@SectionType", (int)search.SectionType);
+            // p.Add("@Code", search.Code, dbType: DbType.String);
+
+            try
+            {
+                result = new List<DropdownObj>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetConstructionType", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.DropdownObj();
+                        data.Name = reader["Name"].ToString();
+                        data.Value = reader["Value"].ToString();
+                        result.Add(data);
+
+         
+
+        public List<EstimateData> GetCondoPrice(SearchMap search)
+        {
+            IDataReader reader = null;
+            List<EstimateData> result = null;
+            EstimateData data = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+
+            try
+            {
+                result = new List<EstimateData>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetPrice_Condo", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.EstimateData();
+                        data.DisplayCode = reader["DisplayCode"].ToString();
+                        data.DisplayName = reader["DisplayName"].ToString();
+                        data.RegionCode = reader["RegionCode"].ToString();
+                        data.RegionName = reader["RegionName"].ToString();
+                        data.ProviceCode = reader["ProviceCode"].ToString();
+                        data.ProviceName = reader["ProviceName"].ToString();
+                        data.AmphureCode = reader["AmphureCode"].ToString();
+                        data.AmphureName = reader["AmphureName"].ToString();
+                        data.TAMBOLCode = reader["TAMBOLCode"].ToString();
+                        data.TAMBOLName = reader["TAMBOLName"].ToString();
+                        data.MarketPrice = reader["MarketPrice"].ToString();
+                        data.MarketPriceMin = reader["MarketPriceMin"].ToString();
+                        data.MarketPriceMax = reader["MarketPriceMax"].ToString();
+                        data.MarketPriceAvg = reader["MarketPriceAvg"].ToString();
+                        data.ParcelPrice = reader["ParcelPrice"].ToString();
+                        data.ParcelPriceMin = reader["ParcelPriceMin"].ToString();
+                        data.ParcelPriceMax = reader["ParcelPriceMax"].ToString();
+                        data.ParcelPriceAvg = reader["ParcelPriceAvg"].ToString();
+                        data.LAND_AREA = reader["LAND_AREA"].ToString();
+                        data.LAND_Total = reader["LAND_Total"].ToString();
+                        data.MarketColor = reader["MarketColor"].ToString();
+                        data.ParcelColor = reader["ParcelColor"].ToString();
+                        data.Shape = reader["Shape"].ToString();
+
+                        data.LATITUDE = reader["LATITUDE"].ToString();
+                        data.LONGITUDE = reader["LONGITUDE"].ToString();
+                  
+
+                        result.Add(data);
+
+
+                    }
+                }
+            }
+            catch (Exception ex)
+
+            { }
+
+            return result;
+        }
+
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
+
         /// <summary>
         /// Section 2,3
         /// </summary>
@@ -355,6 +455,56 @@ namespace TDM.Repositories
             return result;
         }
 
+        public List<EstimateData> GetPriceOfConstrucion(SearchMap search)
+        {
+
+            IDataReader reader = null;
+            List<EstimateData> result = null;
+            EstimateData data = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@ConStructionType", search.ConStructionType, dbType: DbType.String);
+            p.Add("@ProvinceCodeCompare1", search.ProvinceCodeCompare1, dbType: DbType.String);
+            p.Add("@ProvinceCodeCompare2", search.ProvinceCodeCompare2, dbType: DbType.String);
+            p.Add("@PercentCompare", search.PercentCompare, dbType: DbType.String);
+            try
+            {
+                result = new List<EstimateData>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetConsturctionPrice", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.EstimateData();
+                        data.DisplayCode = reader["DisplayCode"].ToString();
+                        data.DisplayName = reader["DisplayName"].ToString();
+                        data.RegionCode = reader["RegionCode"].ToString();
+                        data.RegionName = reader["RegionName"].ToString();
+                        data.ProviceCode = reader["ProviceCode"].ToString();
+                        data.ProviceName = reader["ProviceName"].ToString();
+                        data.ConstructionType = reader["ConstructionType"].ToString();
+                        data.ConstructionName = reader["ConstructionName"].ToString();
+                        data.ParcelPrice = reader["ParcelPrice"].ToString();
+                        data.ParcelPricePR5 = reader["ParcelPricePR5"].ToString();
+                        data.REMARK = reader["REMARK"].ToString();
+                        data.CreateDate= reader["CreateDate"].ToString();
+                        data.PriceCompare = reader["PriceCompare"].ToString();
+                        data.Color = reader["Color"].ToString();
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
         /// <summary>
         /// Section 4
         /// </summary>
@@ -420,10 +570,10 @@ namespace TDM.Repositories
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        public EstimateData GetSection1EstimateList(SearchMap search)
+        public EstimateDataAll GetSection1EstimateList(SearchMap search)
         {
             IDataReader reader = null;
-            EstimateData result = null;
+            EstimateDataAll result = null;
 
             List<EstimateDataType> EstimateDataTypeList =new List<EstimateDataType>();
             EstimateDataType EstimateDataType = null;
@@ -437,7 +587,7 @@ namespace TDM.Repositories
 
             try
             {
-                result = new EstimateData();
+                result = new EstimateDataAll();
                 using (IDbConnection conn = CreateConnectionManage())
                 {
 
@@ -771,5 +921,16 @@ namespace TDM.Repositories
             }
         }
         
+    }
+
+    public class MapSearchCriteria
+    {
+        public string ID { get; set; }
+        public string PriceType { get; set; }
+        public string AreaType { get; set; }
+        public string CostEstUnitType { get; set; }
+        public string CostEstMin { get; set; }
+        public string CostEstMax { get; set; }
+        public SetionType Type { get; set; }
     }
 }

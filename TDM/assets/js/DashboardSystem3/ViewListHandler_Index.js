@@ -68,20 +68,37 @@ $(document).on("change", "#ddlType", function () {
 
     switch ($('#ddlType').val()) {
         case '1': $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
+            $('.divLand').removeClass("invisible").css({ position: "relative" });
             setTimeout(function () {
             $('.lbType1').text("ราคาประเมิน/ตรว.");
             $('.lbType2').text("ราคาประเมิน/แปลง");
+          
+          
             }
         , 400);
             break;
         case '2': $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
+            $('.divLand').removeClass("invisible").css({ position: "relative" });
             setTimeout(function () {
             $('.lbType1').text("แบบพักอาศัย");
             $('.lbType2').text("อื่นๆ");
             }
         , 400);
             break;
-        case '3': $('.divSection2Building').removeClass("invisible").css({ position: "relative" }); break;
+        case '3':
+            $('.divLand').addClass("invisible").css({ position: "absolute" });
+            var proviceOption1 = $("#ddlProvince option").clone();
+            var proviceOption2 = $("#ddlProvince option").clone();
+            $("#ddlProvince1").empty();
+            $("#ddlProvince2").empty();
+
+            $("#ddlProvince1").append(proviceOption1);
+            $("#ddlProvince2").append(proviceOption2);
+
+            $('.divSection2Building').removeClass("invisible").css({ position: "relative" });
+            LoadSection2Construction(resultAll);
+
+            break;
     }
 });
 
@@ -139,17 +156,29 @@ function SearchAll(sectionTypeTemp, codeTemp) {
 
     var urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPrice';
 
-
-    switch ($('#ddlType').val())
+    var selectType = $('#ddlType').val();
+    var provinceCode1 = $('#ddlProvince1').val();
+    var provinceCode2 = $('#ddlProvince2').val();
+    var percentCompare = $('#txtPercent').val();
+    switch (selectType)
     {
         case '1': urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPrice'; break;
         case '2': urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceOfCondo'; break;
-        case '3': urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceOfBuilding'; break;
+        case '3': urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceOfConstruction'; break;
     }
 
+    var constructionType = $('#ddlConstructionType').val();
     var objSearch = {};
 
-    objSearch = { SectionType: sectionTypeTemp, code: codeTemp };
+    objSearch = {
+        SectionType: sectionTypeTemp,
+        code: codeTemp,
+        ConStructionType: constructionType,
+        ProvinceCodeCompare1: provinceCode1,
+        ProvinceCodeCompare2: provinceCode2,
+        PercentCompare: percentCompare
+
+    };
 
     $.ajax({
         type: "POST",
@@ -160,7 +189,15 @@ function SearchAll(sectionTypeTemp, codeTemp) {
         success: function (data) {
 
             resultAll = data;
-            LoadSection23(data);
+            if (selectType == '3')
+            {
+                LoadSection2Construction(data);
+            }
+            else
+            {
+                LoadSection23(data);
+            }
+           
         },
         error: function (response) {
             alert('failure');
@@ -359,7 +396,7 @@ function LoadSection2EvalBox1_LeftBox(data) {
     if (data != null) {
         if (data != null && data.length > 0) {
             $.each(data, function (index, data) {
-                body += '<div class="alert leftbox alert-' + data.DisplayCode + ' msg pmvByAreaBox">';
+                body += '<div class="alert leftbox alert-1 msg pmvByAreaBox">';
                 body += '<h4>' + data.DisplayName + '</h4>';
                 if (tabSelect == '1') {
                     body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท </h5>';
@@ -379,7 +416,50 @@ function LoadSection2EvalBox1_LeftBox(data) {
 
 }
 
+function LoadSection2Construction(data)
+{
+    var body = '';
+    $("#divConstruction").empty();
 
+    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<thead>';
+    body += '<tr>';
+    body += '<th scope="col">ลำดับ</th>';
+    body += '<th scope="col">รหัส</th>';
+    body += '<th scope="col">ชื่อ</th>';
+    body += '<th scope="col">จังหวัด</th>';
+   
+    body += '<th scope="col">ราคา<br>(บาท/ตารางเมตร)</th>';
+    body += '</tr>';
+    body += '</thead>';
+    body += '<tbody>';
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, data) {
+
+                body += '<tr>';
+                body += '<td>1</td>';
+                body += '<td>' + data.ConstructionType + '</td>';
+                body += '<td>' + data.ConstructionName + '</td>';
+                body += '<td>' + data.DisplayName + '</td>';
+                if (data.Color == '')
+                {
+                    body += '<td>' + numberWithCommas(parseFloat(data.ParcelPrice).toFixed(2)) + '</td>';
+                } else {
+                    body += '<td><span style="color:' + data.Color + '">' + numberWithCommas(parseFloat(data.ParcelPrice).toFixed(2)) + '</span></td>';
+                }
+               
+                body += '</tr>';
+            });
+            }
+    }
+    body += '</tbody>';
+    body += '</table>';
+    $("#divConstruction").append(body);
+
+    $("#divConstruction table").DataTable({ searching: false, info: false });
+
+}
 function LoadSection2EvalBox1_Graph(data) {
     var chartBar = echarts.init(document.getElementById('EvalBox1chartBar'));
     var caption = [];
@@ -738,6 +818,18 @@ $(document).on("change", "#ddlLand", function () {
     }
 });
 
+$(document).on("change", "#ddlProvince1", function () {
+    var proviceOption1 = $("#ddlProvince1 option:not([value='" + $(this).val() + "'])").clone();
+    $("#ddlProvince2").empty();
+    $("#ddlProvince2").append(proviceOption1);
+ 
+
+});
+
+$(document).on("change", "#ddlProvince2", function () {
+    var proviceOption1 = $("#ddlProvince2 option:not([value='" + provinceId + "'])").clone();
+   // $("#ddlProvince1").append(proviceOption1);
+});
 
 
 $(document).on("change", "#ddlTown", function () {
@@ -983,6 +1075,8 @@ $(document).ready(function () {
    
     SearchAll('0', '');
     LoadSection4();
+
+    LoadConstructionType();
    
 
 
@@ -1023,9 +1117,38 @@ function DisplaySection2SearchRegionCluster(tabid) {
 }
 
 
+function LoadConstructionType() {
+
+    $("#ddlConstructionType").empty();
+    $("#ddlConstructionType").append("<option value=''>กรุณาเลือก</option>");
+    $.ajax({
+        url: rootUrl + "/api/Address/GetConstructionType",
+        type: "POST",
+        //  data: JSON.stringify(data),
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (data) {
+            if (data != null) {
+                if (data != null && data.length > 0) {
+
+                    $.each(data, function (index, obj) {
+                        $("#ddlConstructionType").append("<option value='" + obj.Value + "'>" + obj.Name + "</option>");
+                    });
+                }
+            }
+        }
+    });
+
+}
+
+
+
+
 function LoadCluster()
 {
+    $("#ddlRegion").empty();
 
+    $("#ddlRegion").append("<option value=''>กรุณาเลือก</option>");
     $.ajax({
         url: rootUrl + "/api/Address/GetCluster",
         type: "POST",

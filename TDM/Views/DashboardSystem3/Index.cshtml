@@ -359,7 +359,7 @@
                                                                                     <div class="row divSection2Building invisible" style="padding-bottom:10px">
 
                                                                                         <div class="col-sm-6 ">
-                                                                                            <select class="form-control form-control-lg" name="ddlMaptype" id="ddlMaptype"  placeholder="สิ่งปลูกสร้าง" >
+                                                                                            <select class="form-control form-control-lg" name="ddlConstructionType" id="ddlConstructionType"  placeholder="สิ่งปลูกสร้าง" >
                                                                                                 <option value="">ประเภทสิ่งปลูกสร้าง</option>
                                                                                                 <option value="1">โรงเรียน</option>
                                                                                                 <option value="2">บ้้าน</option>
@@ -369,7 +369,7 @@
                                                                                             <div class="row">
                                                                                                 <div class="col-md-2">
                                                                                                     <div class="form-group">
-                                                                                                        <input class="form-control MinCostEstimate" id="MinCostEstimate0" placeholder="ราคาประเมินต่ำสุด" />
+                                                                                                        <input class="form-control MinCostEstimate" id="MinCostEstimate0" value="0"  placeholder="ราคาประเมินต่ำสุด" />
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="col-md-8">
@@ -385,22 +385,64 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-2">
                                                                                                     <div class="form-group">
-                                                                                                        <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" placeholder="ราคาประเมินสูงสุด" />
+                                                                                                        <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="10000000" placeholder="ราคาประเมินสูงสุด" />
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-
+                                                                                    <div class="row divSection2Building invisible" style="padding-bottom:10px">
+                                                                                        <div class="col-sm-6">
                                                                                             <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <div class="panel panel-primary">
+                                                                                                        <div class="panel-heading">
+                                                                                                            <h4 class="headerwhite">เลือกเปรียบเทียบรายจังหวัด</h4>
+                                                                                                        </div>
 
-                                                                                                <div class="col-sm-2 col-sm-offset-4">
-                                                                                                    <button class="form-control  btn btn-primary  btn-large btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
+                                                                                                        <div class="panel-body">
+                                                                                                            <div class="row">
+                                                                                                                <div class="col-sm-6">
+                                                                                                                    <select class="form-control form-control-lg" id="ddlProvince1" placeholder="จังหวัด"></select>
+
+                                                                                                                </div>
+                                                                                                                <div class="col-sm-6">
+                                                                                                                    <select class="form-control form-control-lg" id="ddlProvince2" placeholder="จังหวัด"></select>
+
+                                                                                                                </div>
+                                                                                                            </div>
+
+                                                                                                            <div class="row" style="padding-top:10px">
+                                                                                                                <div class="col-sm-6">
+
+                                                                                                                    <div class="form-group">
+                                                                                                                        <div class='input-group'>
+                                                                                                                            <input class="form-control txtPercent" id="txtPercent" placeholder="% ความต่าง" />
+                                                                                                                            <span class="input-group-addon">
+                                                                                                                                <span>%</span>
+                                                                                                                            </span>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
                                                                                                 </div>
-                                                                                                <div class="col-sm-2">
-                                                                                                    <button class="form-control  btn btn-default  btn-large btnCancel" id="btnCancel" name="btnCancel"><i class="fa fa-refresh"></i> ยกเลิก </button>
-                                                                                                </div>
+                                                                                               
                                                                                             </div>
-                                                                                            <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
+
                                                                                         </div>
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-sm-2 col-sm-offset-4">
+                                                                                                <button class="form-control  btn btn-primary  btn-large btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
+                                                                                            </div>
+                                                                                            <div class="col-sm-2">
+                                                                                                <button class="form-control  btn btn-default  btn-large btnCancel" id="btnCancel" name="btnCancel"><i class="fa fa-refresh"></i> ยกเลิก </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
+                                                                                    </div>
                                                                                     </div>
                                                                                 </div>
                                                                     </div>
@@ -410,10 +452,16 @@
                                                         <div class="row">
                                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                                 <!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
-                                                                <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
+                                                                <div class="divLand">
+                                                                    <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
+                                                                    </div>
+                                                                    <!-- display for construction-->
+                                                                    <div class="divSection2Building" id="divConstruction">
 
-                                                                <!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
-                                                            </div>
+                                                                    </div>
+                                                                    <!-- display for construction-->
+                                                                    <!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
+                                                                </div>
                                                         </div>
                                                         <!-- Search section1 part 1(Search) -->
                                                     </div>
@@ -861,8 +909,8 @@
         </footer>
     </div>
 
-    <script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.ex367577e3"></script>
-    <script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?v4.e4467676e"></script>
+    <script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.33334444"></script>
+    <script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?443324r4"></script>
   
     <script type="text/javascript">
 

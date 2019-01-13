@@ -101,9 +101,25 @@ var searchForm = {
                         $("#ddlProvince").append("<option value='" + province.ID + "'>" + province.Name + "</option>");
                     });
 
+                    
+                    var proviceOption1 = $("#ddlProvince option").clone();
+                    var proviceOption2 = $("#ddlProvince option").clone();
+                    $("#ddlProvince1").empty();
+                    $("#ddlProvince2").empty();
+                    $("#ddlProvince1").append(proviceOption1);
+                    $("#ddlProvince2").append(proviceOption2);
+
+
                     $("#ddlProvince").change(function (event) {
 
+                        $("#ddlProvince1").empty();
+                        $("#ddlProvince2").empty();
                         var provinceId = $("#ddlProvince").val();
+                        var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
+                        var proviceOption2 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
+
+                        $("#ddlProvince1").append(proviceOption1);
+                        $("#ddlProvince2").append(proviceOption2);
                        
 
                         if (provinceId == '' || provinceId == '999999') {
@@ -228,10 +244,21 @@ var searchForm = {
             //ton
             SearchAll(sectionType, code)
 
-            map.clear();
+            var criteria = {
+                id: 0,
+                priceType: tabSelect,
+                areaType: $('#ddlType').val(),
+                costEstUnitType: $('#rdType1').is(":checked")?1:2,
+                costEstMin: $('#MinCostEstimate0').val(),
+                costEstMax: $('#MinCostEstimate0').val()
+            }
+
+
+            //map.clear();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
-                    mapApi.getProvinceShapeByRegion($('#ddlRegion').val(), function (data) {
+                    criteria.id = $('#ddlRegion').val();
+                    mapApi.getProvinceShapeByRegion(criteria, function (data) {
                         
                         if (data != null && data.length > 0) {
 
@@ -245,7 +272,8 @@ var searchForm = {
                         }
                     });
                 } else {
-                    mapApi.getProvinceShapeByID(targetId, function (data) {
+                    criteria.id = targetId;
+                    mapApi.getProvinceShapeByID(criteria, function (data) {
 
                         if (data != null) {
                             
@@ -258,7 +286,8 @@ var searchForm = {
 
             } else if (searchType == 'DISTRICT') {/*render DISTRICT map*/
                 if (targetId == idOfAll) {
-                    mapApi.getDistrictShapeByProvince($("#ddlProvince").val(), function (data) {
+                    criteria.id =$("#ddlProvince").val();
+                    mapApi.getDistrictShapeByProvince(criteria, function (data) {
 
                         if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
@@ -269,7 +298,8 @@ var searchForm = {
                         }
                     });
                 } else {
-                    mapApi.getDistrictShapeByID(targetId, function (data) {
+                    criteria.id = targetId;
+                    mapApi.getDistrictShapeByID(criteria, function (data) {
 
                         if (data != null) {
                             ParcelMapController.draw(data,ParcelMapController.DistrictType);
@@ -280,7 +310,8 @@ var searchForm = {
                 }
             } else { /*render subdistrict map*/
                 if (targetId == idOfAll) {
-                    mapApi.getSubDistrictShapeByDistrict($("#ddlDistrict").val(), function (data) {
+                    criteria.id = $("#ddlDistrict").val();
+                    mapApi.getSubDistrictShapeByDistrict(criteria, function (data) {
 
                         if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
@@ -291,7 +322,8 @@ var searchForm = {
                         }
                     });
                 } else {
-                    mapApi.getSubDistrictShapeByID(targetId, function (data) {
+                    criteria.id = targetId;
+                    mapApi.getSubDistrictShapeByID(criteria, function (data) {
 
                         if (data != null) {
                             ParcelMapController.draw(data,ParcelMapController.SubDistrictType);
@@ -549,38 +581,43 @@ var mapApi = {
         });
     },
 
-    getProvinceShapByCode: function (provinceCode, fnSuccess) {
-        $.get(mapApi.getServerPath()+ "/api/Address/GetProvinceShapeBy", { code: provinceCode }, function (data) {
+    getProvinceShapByCode: function (shapeCriteria, fnSuccess) {
+        $.get(mapApi.getServerPath() + "/api/Address/GetProvinceShapeBy", shapeCriteria, function (data) {
             fnSuccess(data);
         });
     },
-    getProvinceShapeByID: function (provinceID, fnSuccess) {
-        $.get(mapApi.getServerPath()+ "/api/Map/GetProvinceShapeByID", { id: provinceID }, function (data) {
+    getProvinceShapeByID: function (shapeCriteria, fnSuccess) {
+        try {alert()
+            $.get(mapApi.getServerPath() + "/api/Map/GetProvinceShapeByID", shapeCriteria, function (data) {
+                fnSuccess(data);
+            });
+        } catch (e) {
+            alert(e.message);
+        }
+        
+    },
+    getProvinceShapeByRegion: function (shapeCriteria, fnSuccess) {
+        $.get(mapApi.getServerPath() + "/api/Map/GetProvinceShapeByRegion", shapeCriteria, function (data) {
             fnSuccess(data);
         });
     },
-    getProvinceShapeByRegion: function (regionId, fnSuccess) {
-        $.get(mapApi.getServerPath()+ "/api/Map/GetProvinceShapeByRegion", { id: regionId }, function (data) {
+    getDistrictShapeByID: function (shapeCriteria, fnSuccess) {
+        $.get(mapApi.getServerPath() + "/api/Map/GetDistrictShapeByID", shapeCriteria, function (data) {
             fnSuccess(data);
         });
     },
-    getDistrictShapeByID: function (districtId, fnSuccess) {
-        $.get(mapApi.getServerPath()+ "/api/Map/GetDistrictShapeByID", { id: districtId }, function (data) {
+    getDistrictShapeByProvince: function (shapeCriteria, fnSuccess) {
+        $.get(mapApi.getServerPath() + "/api/Map/GetDistrictShapeByProvince", shapeCriteria, function (data) {
             fnSuccess(data);
         });
     },
-    getDistrictShapeByProvince: function (provinceId, fnSuccess) {
-        $.get(mapApi.getServerPath()+ "/api/Map/GetDistrictShapeByProvince", { id: provinceId }, function (data) {
+    getSubDistrictShapeByID: function (shapeCriteria, fnSuccess) {
+        $.get(mapApi.getServerPath() + "/api/Map/GetSubDistrictShapeByID", shapeCriteria, function (data) {
             fnSuccess(data);
         });
     },
-    getSubDistrictShapeByID: function (subDistrictId, fnSuccess) {
-        $.get(mapApi.getServerPath()+ "/api/Map/GetSubDistrictShapeByID", { id: subDistrictId }, function (data) {
-            fnSuccess(data);
-        });
-    },
-    getSubDistrictShapeByDistrict: function (districtId, fnSuccess) {
-        $.get(mapApi.getServerPath()+ "/api/Map/getSubDistrictShapeByDistrict", { id: districtId }, function (data) {
+    getSubDistrictShapeByDistrict: function (shapeCriteria, fnSuccess) {
+        $.get(mapApi.getServerPath() + "/api/Map/getSubDistrictShapeByDistrict", shapeCriteria, function (data) {
             fnSuccess(data);
         });
     },
@@ -608,3 +645,20 @@ var jAjax = {
 }
 
 
+function numericOnly(event) {
+    var key = window.event ? event.keyCode : event.which;
+    if (event.keyCode === 8 || event.keyCode === 46) {
+        return true;
+    } else if (key < 48 || key > 57) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+
+$(document).ready(function () {
+    $('#MinCostEstimate0').keypress(numericOnly);
+    $('#MaxCostEstimate0').keypress(numericOnly);
+});

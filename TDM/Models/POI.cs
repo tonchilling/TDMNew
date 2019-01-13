@@ -12,7 +12,7 @@ namespace TDM.Models
     using System;
     using System.Collections.Generic;
 
-   public enum SetionType
+    public enum SetionType
     {
         All = 0,
         Region = 1,
@@ -53,13 +53,18 @@ namespace TDM.Models
         public string ProvinceCode { get; set; }
         public string AmphoeCode { get; set; }
         public string TambolCode { get; set; }
+        public string ConStructionType { get; set; }
+        public string ProvinceCodeCompare1 { get; set; }
+        public string ProvinceCodeCompare2 { get; set; }
+        public string PercentCompare { get; set; }
+      
     }
 
-    public partial class EstimateData
+    public partial class EstimateDataAll
     {
         public List<EstimateDataType> EstimateDataTypeList { get; set; }
-    public List<EstimateDataDetail> EstimateDataDetailList { get; set; }
-}
+        public List<EstimateDataDetail> EstimateDataDetailList { get; set; }
+    }
 
     public partial class EstimateDataType
     {
@@ -81,7 +86,7 @@ namespace TDM.Models
         public string Value { get; set; }
     }
 
- 
+
 
     public partial class PROJECT_IMPACTDto
     {
@@ -163,6 +168,7 @@ namespace TDM.Models
         public string ParcelPriceMax { get; set; }
         public string ParcelPriceAvg { get; set; }
 
+        public string ParcelPricePR5 { get; set; } // for construction
         public string MarketColor { get; set; }
         public string ParcelColor { get; set; }
         public string Shape { get; set; }
@@ -170,8 +176,31 @@ namespace TDM.Models
         public string LATITUDE { get; set; }
         public string LONGITUDE { get; set; }
 
-       
+        public string Period { get; set; }
+        public string ConstructionType { get; set; }
+        public string ConstructionName { get; set; }
+        public string Price { get; set; }
+        public string PricePR5 { get; set; }
+        public string CreateDate { get; set; }
+        public string REMARK { get; set; }
+        public string PriceCompare { get; set; }
+        public string Color { get; set; }
 
     }
+
+    public partial class ConstructionData
+    {
+        public string ProviceCode { get; set; }
+        public string ProviceName { get; set; }
+        public string Period { get; set; }
+        public string ConstructionType { get; set; }
+        public string ConstructionName { get; set; }
+        public string Price { get; set; }
+        public string PricePR5 { get; set; }
+        public string CreateDate { get; set; }
+        public string REMARK { get; set; }
+    }
+        
+
 
 }
