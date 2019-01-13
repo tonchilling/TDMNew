@@ -256,7 +256,18 @@ namespace TDM.Repositories
                         data.Value = reader["Value"].ToString();
                         result.Add(data);
 
-         
+                    }
+                }
+            }
+            catch(Exception ex)
+                {
+                    string error = ex.ToString();
+                }
+
+                return result;
+            }
+
+
 
         public List<EstimateData> GetCondoPrice(SearchMap search)
         {
@@ -319,13 +330,7 @@ namespace TDM.Repositories
             return result;
         }
 
-            {
-                string error = ex.ToString();
-            }
-
-            return result;
-        }
-
+           
 
 
         /// <summary>

@@ -29,9 +29,9 @@ var searchForm = {
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
             
-            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+          //  $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
-            $("#overlay")
+          /*  $("#overlay")
                .height(target.height())
                .width(target.width()+20)
                .css({
@@ -44,7 +44,7 @@ var searchForm = {
                    'margin-left': 'auto',
                    'margin-right': 'auto'
                })
-                .hide();
+                .hide();*/
 
         }, 5000);
         
@@ -199,7 +199,7 @@ var searchForm = {
     search: function () {
         /**/
 
-        $("#overlay").show();
+       // $("#overlay").show();
 
         var idOfAll = '999999';
         var searchType = 'PROVINCE';
@@ -587,7 +587,7 @@ var mapApi = {
         });
     },
     getProvinceShapeByID: function (shapeCriteria, fnSuccess) {
-        try {alert()
+        try {
             $.get(mapApi.getServerPath() + "/api/Map/GetProvinceShapeByID", shapeCriteria, function (data) {
                 fnSuccess(data);
             });

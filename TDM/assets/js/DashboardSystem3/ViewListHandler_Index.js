@@ -1037,7 +1037,9 @@ var slider1 = null;
 
 $(document).ready(function () {
 
-   
+    
+  //  $('#overlay').invisible();
+
     $('.txtSFromDate').datetimepicker({
         format: 'mm-dd-yyyy',
         minView: 2,
