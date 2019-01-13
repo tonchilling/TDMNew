@@ -56,6 +56,29 @@ namespace TDM.Controllers.api
         }
 
 
+
+        [HttpPost]
+        public IHttpActionResult GetConstructionType()
+        {
+            var repos = new TDAssetRespository();
+
+
+            /* switch (SectionType)
+             {
+                 case "1":sectionT = SetionType.Region;break;
+                 case "2": sectionT = SetionType.Provice; break;
+                 case "3": sectionT = SetionType.Amphur; break;
+             }*/
+
+
+
+            var results = repos.GetConstructionType();
+
+            return Json(results);
+        }
+
+
+
         [HttpGet]
         [Route("GetProvinceShapeBy")]
         public IHttpActionResult GetProvinceShapeBy(string code)

@@ -101,9 +101,25 @@ var searchForm = {
                         $("#ddlProvince").append("<option value='" + province.ID + "'>" + province.Name + "</option>");
                     });
 
+                    
+                    var proviceOption1 = $("#ddlProvince option").clone();
+                    var proviceOption2 = $("#ddlProvince option").clone();
+                    $("#ddlProvince1").empty();
+                    $("#ddlProvince2").empty();
+                    $("#ddlProvince1").append(proviceOption1);
+                    $("#ddlProvince2").append(proviceOption2);
+
+
                     $("#ddlProvince").change(function (event) {
 
+                        $("#ddlProvince1").empty();
+                        $("#ddlProvince2").empty();
                         var provinceId = $("#ddlProvince").val();
+                        var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
+                        var proviceOption2 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
+
+                        $("#ddlProvince1").append(proviceOption1);
+                        $("#ddlProvince2").append(proviceOption2);
                        
 
                         if (provinceId == '' || provinceId == '999999') {
