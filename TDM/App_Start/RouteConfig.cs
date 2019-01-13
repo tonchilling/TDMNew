@@ -27,6 +27,8 @@ namespace TDM
                 defaults: new { controller = "DashboardSystem3", action = "Index", id = UrlParameter.Optional }
 
             );
+
+            //routes.MapMvcAttributeRoutes();
         }
     }
 }
