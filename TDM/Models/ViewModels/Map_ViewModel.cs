@@ -23,6 +23,9 @@ namespace TDM.Models.ViewModels
         public string LONGITUDE { get; set; }
         public MapStructureInfo MapStructure { get; set; }
 
+        public bool MaxPrice { get; set; }
+        public bool MinPrice { get; set; }
+
     }
     public class MapStructureInfo
     {

@@ -211,13 +211,24 @@ namespace TDM.Controllers.api
 
 
         [HttpGet]
-        public IHttpActionResult GetProvinceShapeByID(string id)
+        //[Route("api/Map/GetProvinceShapeByID/{id}/{areaType}/{costEstUnitType}/{costEstMin}/{costEstMax}")]
+        public IHttpActionResult GetProvinceShapeByID(string id,string priceType, string areaType,string costEstUnitType,string costEstMin,string costEstMax)
         {
             try
             {
+                
                 //var result = tdaEntities.PROVINCEs.Where(p => p.PRO_C == id).ToList().Select(x => new SHAPE_ViewModel(x.Shape)).FirstOrDefault();
 
-                var result = GetMapInfo(SetionType.ProviceByID, id).FirstOrDefault();
+                var result = GetMapInfo(new MapSearchCriteria()
+                {
+                    ID = id,
+                    PriceType = priceType,
+                    Type = SetionType.ProviceByID,
+                    AreaType = areaType,
+                    CostEstUnitType = costEstUnitType,
+                    CostEstMax = costEstMax,
+                    CostEstMin = costEstMin
+                }).FirstOrDefault();
 
                 return Json(result);
                 //return Json(result, jsonSetting);
@@ -231,13 +242,22 @@ namespace TDM.Controllers.api
         }
 
         [HttpGet]
-        public IHttpActionResult GetProvinceShapeByRegion(string id)
+        public IHttpActionResult GetProvinceShapeByRegion(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
         {
             try
             {
 
 
-                var result = GetMapInfo(SetionType.Region, id);
+                var result = GetMapInfo(new MapSearchCriteria()
+                {
+                    ID = id,
+                    PriceType = priceType,
+                    Type = SetionType.Region,
+                    AreaType = areaType,
+                    CostEstUnitType = costEstUnitType,
+                    CostEstMax = costEstMax,
+                    CostEstMin = costEstMin
+                });
                 
 
                 return Json(result);
@@ -267,23 +287,21 @@ namespace TDM.Controllers.api
             return target;
         }
        
-        public IHttpActionResult GetDistrictShapeByID(string id)
+        public IHttpActionResult GetDistrictShapeByID(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
         {
             try
             {
-                /*
-                var result = tdaEntities.AMPHOEs.Where(x => x.DIS_C == id).ToList().Select(x => new SHAPE_ViewModel(x.Shape)).FirstOrDefault();
-                //return Json(, jsonSetting);
-
-                return Json(GetMapInfo(new
+                
+                var result = GetMapInfo(new MapSearchCriteria()
                 {
-                    Name = id,
-                    Shape = result.SHAPE
-
-                }), jsonSetting);
-                */
-
-                var result = GetMapInfo(SetionType.AmphurByID, id).FirstOrDefault();
+                    ID = id,
+                    PriceType = priceType,
+                    Type = SetionType.AmphurByID,
+                    AreaType = areaType,
+                    CostEstUnitType = costEstUnitType,
+                    CostEstMax = costEstMax,
+                    CostEstMin = costEstMin
+                }).FirstOrDefault();
 
 
                 return Json(result);
@@ -296,13 +314,22 @@ namespace TDM.Controllers.api
         }
 
         [HttpGet]
-        public IHttpActionResult GetDistrictShapeByProvince(string id)
+        public IHttpActionResult GetDistrictShapeByProvince(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
         {
             try
             {
                 //return Json(tdaEntities.AMPHOEs.Where(x => x.PRO_C == id).ToList().Select(x => new SHAPE_ViewModel(x.Shape)), jsonSetting);
 
-                var result = GetMapInfo(SetionType.Provice, id);
+                var result = GetMapInfo(new MapSearchCriteria()
+                {
+                    ID = id,
+                    PriceType = priceType,
+                    Type = SetionType.Provice,
+                    AreaType = areaType,
+                    CostEstUnitType = costEstUnitType,
+                    CostEstMax = costEstMax,
+                    CostEstMin = costEstMin
+                });
 
 
                 return Json(result);
@@ -314,7 +341,7 @@ namespace TDM.Controllers.api
         }
 
         [HttpGet]
-        public IHttpActionResult GetSubDistrictShapeByID(string id)
+        public IHttpActionResult GetSubDistrictShapeByID(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
         {
             try
             {
@@ -331,7 +358,16 @@ namespace TDM.Controllers.api
                 }), jsonSetting);
                 */
 
-                var result = GetMapInfo(SetionType.TumbolByID, id);
+                var result = GetMapInfo(new MapSearchCriteria()
+                {
+                    ID = id,
+                    PriceType = priceType,
+                    Type = SetionType.TumbolByID,
+                    AreaType = areaType,
+                    CostEstUnitType = costEstUnitType,
+                    CostEstMax = costEstMax,
+                    CostEstMin = costEstMin
+                });
 
 
                 return Json(result);
@@ -344,7 +380,7 @@ namespace TDM.Controllers.api
         }
 
         [HttpGet]
-        public IHttpActionResult GetSubDistrictShapeByDistrict(string id)
+        public IHttpActionResult GetSubDistrictShapeByDistrict(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
         {
             try
             {
@@ -354,7 +390,16 @@ namespace TDM.Controllers.api
                 return Json(result.Select(x => new SHAPE_ViewModel(x.Shape)), jsonSetting);
                 */
 
-                var result = GetMapInfo(SetionType.Amphur, id);
+                var result = GetMapInfo(new MapSearchCriteria()
+                {
+                    ID = id,
+                    PriceType = priceType,
+                    Type = SetionType.Amphur,
+                    AreaType = areaType,
+                    CostEstUnitType = costEstUnitType,
+                    CostEstMax = costEstMax,
+                    CostEstMin = costEstMin
+                });
 
 
                 return Json(result);
@@ -399,15 +444,16 @@ namespace TDM.Controllers.api
 
         }
 
-        private List<Models.ViewModels.MAP_ViewModel> GetMapInfo(SetionType type, string code)
+        //private List<Models.ViewModels.MAP_ViewModel> GetMapInfo(SetionType type, string code)
+        private List<Models.ViewModels.MAP_ViewModel> GetMapInfo(MapSearchCriteria criteria)
         {
             List<Models.ViewModels.MAP_ViewModel> result = new List<Models.ViewModels.MAP_ViewModel>(0);
             var repos = new TDAssetRespository();
-
+            
             var searchResult = repos.GetPrice(new SearchMap()
             {
-                SectionType = type,
-                Code = code
+                SectionType = criteria.Type,
+                Code = criteria.ID
             });
 
             if (searchResult != null && searchResult.Count() > 0)
@@ -427,17 +473,57 @@ namespace TDM.Controllers.api
                     MarketPriceMax = DecimalHelper.ToDecimal(r.MarketPriceMax, -1),
                     MarketPriceAvg = DecimalHelper.ToDecimal(r.MarketPriceAvg, -1),
                     LATITUDE = r.LATITUDE,
-                    LONGITUDE=r.LONGITUDE,
+                    LONGITUDE = r.LONGITUDE,
                     MapStructure = new Models.ViewModels.MapStructureInfo()
                     {
                         ParcelDrawingCode = r.ParcelColor,
                         MarketDrawingCode = r.MarketColor,
-                        
+
                         Shape = r.Shape.ToString()
 
-                    }
+                    },
+                    MaxPrice = false,
+                    MinPrice = false
+
                 }).ToList();
 
+                if (result.Count() > 1)
+                {
+                    if (criteria.PriceType == "1")
+                    {
+                        result = result.OrderBy(r => r.ParcelPrice).ToList();
+                        var target = result.Where(rs => rs.ParcelPrice > 0);
+                        if (target.Any())
+                        {
+                            var max = target.Max(t => t.ParcelPrice);
+                            var min = target.Min(t => t.ParcelPrice);
+                            if (max != min)
+                            {
+                                result.Where(rs => rs.ParcelPrice == min).ToList().ForEach(r => r.MinPrice = true);
+                                result.Where(rs => rs.ParcelPrice == max).ToList().ForEach(r => r.MaxPrice = true);
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        result = result.OrderBy(r => r.MarketPrice).ToList();
+                        var target = result.Where(rs => rs.MarketPrice > 0);
+
+                        if (target.Any())
+                        {
+                            var max = target.Max(t => t.MarketPrice);
+                            var min = target.Min(t => t.MarketPrice);
+                            if (max != min)
+                            {
+                                result.Where(rs => rs.MarketPrice == min).ToList().ForEach(r => r.MinPrice = true);
+                                result.Where(rs => rs.MarketPrice == max).ToList().ForEach(r => r.MaxPrice = true);
+                            }
+                        }
+                    }
+
+                    
+                }
             }
 
             return GetRandomColor(result);
