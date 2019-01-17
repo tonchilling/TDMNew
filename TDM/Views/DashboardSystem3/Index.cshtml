@@ -16,16 +16,17 @@
             height: 0px;
         }
     </style>
-  
+  @section Scripts {
+    @Scripts.Render("~/assets/css/customize.css?v1113")
+    @Scripts.Render("~/assets/css/Kim_Style.css?v233")
+}
     <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
     <link href="~/assets/css/customize.css?v1113" rel="stylesheet" />
     <link href="~/assets/css/Kim_Style.css?v233" rel="stylesheet" />
     <!-- Bootstrap -->
     <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/assets/js/jquery-ui.js"></script>
-   
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
 </head>
 <body class="nav-md">
     <div class="container body">
@@ -183,9 +184,10 @@
                     <div class="panel with-nav-tabs panel-primary">
                         <div class="panel-heading">
                             <ul class="nav nav-tabs">
-                                <li id="tab1" class="liTab active"><a href="#tabDetail1" data-toggle="tab">ราคาประเมิน</a></li>
-                                <li id="tab2" class="liTab "><a href="#tabDetail1" data-toggle="tab">ราคาซื้อขาย</a></li>
-                                <li id="tab3" class="liTab"><a href="#tabDetail2" data-toggle="tab">พื้นที่ที่มีการพัฒนาโครงการรัฐ</a></li>
+                                <li id="tab1" class="liTab active"><a href="#tabDetail1" data-toggle="tab">ที่ดิน</a></li>
+                                <li id="tab2" class="liTab "><a href="#tabDetail1" data-toggle="tab">อาคารชุด</a></li>
+                                <li id="tab3" class="liTab "><a href="#tabDetail1" data-toggle="tab">สิ่งปลูกสร้าง</a></li>
+                                <li id="tab4" class="liTab"><a href="#tabDetail2" data-toggle="tab">พื้นที่ที่มีการพัฒนาโครงการรัฐ</a></li>
 
                             </ul>
                         </div>
@@ -202,9 +204,9 @@
                                                     <div class="col-md-2 col-sm-2 col-xs-2">
                                                         <div class="form-group">
                                                             <select class="form-control form-control-lg" name="ddlType" id="ddlType" required>
-                                                                <option value="1">ที่ดิน</option>
-                                                                <option value="2">อาคารชุด</option>
-                                                                <option value="3">สิ่งปลูกสร้าง</option>
+                                                                <option value="0">ทั้งหมด</option>
+                                                                <option value="1">ราคาประเมิน</option>
+                                                                <option value="2">ราคาซื้อขาย</option>
 
                                                             </select>
                                                         </div>
@@ -213,9 +215,9 @@
                                                 <div class="row">
                                                     <div class="col-md-2 col-sm-2 col-xs-12">
                                                         <p>
-                                                            <h3 id="lbHeader">
-                                                                ราคาประเมิน รายภาค
-                                                            </h3>
+                                                            <h4 id="lbHeader">
+                                                                ราคาประเมิน/ซื้อขาย
+                                                            </h4>
                                                         </p>
                                                         <div id="container1">
                                                             <div id="EvalBox1" style="overflow-y: scroll; height:1100px;">
@@ -967,7 +969,7 @@
     </div>
 
     <script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.34443"></script>
-    <script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?r343"></script>
+    <script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?r34433"></script>
   
     <script type="text/javascript">
 

@@ -1,5 +1,6 @@
 ﻿
 
+
 var paging = {
     start: 0,
     count: 1000
@@ -218,7 +219,11 @@ function searchProjectImpactList(start, count, keyword) {
 }
 
 function onSearchProjectClick(value) {
-
+    var file = $('input[type=file]')[0].files[0];
+    console.log("fileName", file.name)
+    ImportShape.ShapeFileX(file);
+   
+    return false;
     if (value === 'Reset') {
         $("#allProvince").val('');
         $("#allProvince").change();
@@ -230,6 +235,7 @@ function onSearchProjectClick(value) {
 
 function AddProject(projectId, statusId) {
 
+   
     var url = http.url("/AreaAnalysis/AddEditProject?projectId=" + projectId + "&statusId=" + statusId);
 
     $("#myModalBodyDiv1").load(url, function (response, status, xhr) {
@@ -286,4 +292,150 @@ function DelSuccess(projectName) {
         }
     });
 }
+
+
+
+var ImportShape = {
+
+    ShapeFileX: function (shpZip) {
+        this.unZip(shpZip, function (decompressed) {
+            var shpDefObj = { shp: null, dbf: null };
+            var hasShp = false;
+            var hasDbf = false;
+            var keys = Object.keys(decompressed.files);
+            for (var i = 0; i < keys.length; i++) {
+                var name = keys[i];
+
+                if (name.endsWith('.shp')) {
+                    hasShp = true;
+                    decompressed.file(name).async("blob").then(
+
+                               function success(content) {
+                                   ImportShape.setShapeFile(shpDefObj, "shp", content)
+                               }, function error(e) {
+                                   // handle the error
+                               })
+
+                   /* decompressed.file(name).async("blob").then(
+                        setShapeFile(shpDefObj, "shp")
+                        );*/
+                      //  lang.hitch(this, "setShapeFile", shpDefObj, "shp"));
+                }
+                else if (name.endsWith('.dbf')) {
+                    hasDbf = true;
+                    decompressed.file(name).async("blob").then(
+                        function success(content) {
+                            ImportShape.setShapeFile(shpDefObj, "dbf", content)
+                        }, function error(e) {
+                            // handle the error
+                        }
+                      
+                      );
+                }
+
+                if (hasShp && hasDbf) break;
+
+            }
+        });
+    },
+    TextFile: function (file) {
+
+    },
+    KML_KMZFile: function (file) {
+
+    },
+    unZip: function (zipFile, callback) {
+        (new JSZip()).loadAsync(zipFile).then(callback);
+    },
+       // (new JSZip()).loadAsync(zipFile).then(callback)
+
+    setShapeFile: function (shpDefObj, strType, blob) {
+        if (strType == "shp") {
+            shpDefObj.shp = blob;
+        }
+        else if (strType == "dbf") {
+            shpDefObj.dbf = blob;
+        }
+
+        if (shpDefObj.shp && shpDefObj.dbf) {
+            ImportShape.readShapeFile(shpDefObj);
+        }
+    },
+     readShapeFile: function (obj) {
+            new Shapefile(obj, function (data) {
+                if (data.dbf) {
+                    this.dataInJSON = geojsonToArcGIS(data.geojson);
+                    var params = ImportShape.prepareSP_Params(this.dataInJSON)
+                    console.log("esriJSON", this.dataInJSON)
+                   // this.hideLoading();
+                    // data returned
+                }
+            });
+     },
+     prepareSP_Params: function (dataArray) {
+         if (!dataArray.length) return;
+         if (!dataArray[0].geometry.x && dataArray[0].geometry.Y) {
+             this.alert('Accept point geometry only');
+             return;
+         }
+
+         var datas = dataArray.map(
+             function (feature) {
+                 var a = feature.attributes;
+
+                 var geometry = jsonUtils.fromJson(feature.geometry);
+                 var point = this.changeSpatialReference(geometry);
+/*
+                 var row = [
+                     a['CODE'],
+                     a['NAME_E'],
+                     a['NAME_T'],
+                     point.x,
+                     point.y,
+                   
+                 ].join('^');*/
+                 return row;
+             });
+
+         //console.log("datas", datas)
+
+         return {
+             USER_ID: '',
+             DATA: datas.join('|')
+         }
+     },
+
+}
+
+
+
+function bs_input_file() {
+    $(".input-file").before(
+        function () {
+            if (!$(this).prev().hasClass('input-ghost')) {
+                var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+                element.attr("name", $(this).attr("name"));
+                element.change(function () {
+                    element.next(element).find('input').val((element.val()).split('\\').pop());
+                });
+                $(this).find("button.btn-choose").click(function () {
+                    element.click();
+                });
+                $(this).find("button.btn-reset").click(function () {
+                    element.val(null);
+                    $(this).parents(".input-file").find('input').val('');
+                });
+                $(this).find('input').css("cursor", "pointer");
+                $(this).find('input').mousedown(function () {
+                    $(this).parents('.input-file').prev().click();
+                    return false;
+                });
+                return element;
+            }
+        }
+    );
+}
+$(function () {
+    bs_input_file();
+});
 

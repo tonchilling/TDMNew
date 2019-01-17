@@ -1,6 +1,7 @@
 ﻿
 
 
+
 var paging = {
     start: 0,
     count: 1000
@@ -345,7 +346,10 @@ var ImportShape = {
 
     },
     unZip: function (zipFile, callback) {
-        (new JSZip()).loadAsync(zipFile).then(callback);
+        require(["/assets/js/JSZip/jszip.min.js"], function (JSZip) {
+       
+            (new JSZip()).loadAsync(zipFile).then(callback);
+        });
     },
        // (new JSZip()).loadAsync(zipFile).then(callback)
 
@@ -382,9 +386,13 @@ var ImportShape = {
          var datas = dataArray.map(
              function (feature) {
                  var a = feature.attributes;
-
-                 var geometry = jsonUtils.fromJson(feature.geometry);
-                 var point = this.changeSpatialReference(geometry);
+                 var geometry = null; var point = null;
+                 require(["esri/geometry/support/jsonUtils"], function (jsonUtils) {
+                     geometry = jsonUtils.fromJson(feature.geometry);
+                 });
+                 require(["esri/geometry/SpatialReference"], function (SpatialReference) {
+                     point = ImportShape.changeSpatialReference(geometry);
+                 });
 /*
                  var row = [
                      a['CODE'],
@@ -403,6 +411,18 @@ var ImportShape = {
              USER_ID: '',
              DATA: datas.join('|')
          }
+     },
+     changeSpatialReference: function (geometry) {
+         var SRID = 32647;
+         geometry.spatialReference.wkid = SRID;
+         try {
+             return this.project.transform(geometry, 32647);
+         } catch (E) {
+             console.log(E)
+             this.alert("Incorrect spatial reference")
+         }
+
+         return
      },
 
 }
@@ -438,4 +458,6 @@ function bs_input_file() {
 $(function () {
     bs_input_file();
 });
+
+
 

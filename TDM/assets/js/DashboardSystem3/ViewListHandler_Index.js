@@ -67,36 +67,61 @@ $(document).on("click", "#rdCluster", function () {
 $(document).on("change", "#ddlType", function () {
 
     switch ($('#ddlType').val()) {
-        case '1': $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
-            $('.divLand').removeClass("invisible").css({ position: "relative" });
+        case '0':
             setTimeout(function () {
-            $('.lbType1').text("ราคาประเมิน/ตรว.");
-            $('.lbType2').text("ราคาประเมิน/แปลง");
+            $('#lblHeaderMain').text('ราคาประเมิน/ซื้อขาย');
+            $('#lbHeader').text('ราคาประเมิน/ซื้อขาย');
+            $('.divSection21').addClass("invisible").css({ position: "absolute" });
+            $('.divSection22').addClass("invisible").css({ position: "absolute" });
+            }
+        , 400);
+            break;
+        case '1':
+            $('.divSection21').removeClass("invisible").css({ position: "relative" });
+            $('.divSection22').addClass("invisible").css({ position: "absolute" });
+            $('.divSection2Building').removeClass("invisible");
+
+            $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
+            $('.divLand').removeClass("invisible").css({ position: "relative" });
+            searchForm.search();
+
+            setTimeout(function () {
+
+                $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+                $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+
+                if (tabSelect = '2')
+                {
+                 
+                        $('.lbType1').text("แบบพักอาศัย");
+                        $('.lbType2').text("อื่นๆ");
+
+                }
+                else {
+                    $('.lbType1').text("ราคาประเมิน/ตรว.");
+                    $('.lbType2').text("ราคาประเมิน/แปลง");
+                }
+           
           
           
             }
         , 400);
             break;
-        case '2': $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
-            $('.divLand').removeClass("invisible").css({ position: "relative" });
+        case '2':
+
+            $('.divSection21').addClass("invisible").css({ position: "absolute" });
             setTimeout(function () {
-            $('.lbType1').text("แบบพักอาศัย");
-            $('.lbType2').text("อื่นๆ");
+               
+                $('.divSection22').removeClass("invisible").css({ position: "relative" });
+                searchForm.search();
+                $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาประเมิน', 'ราคาซื้อขาย').replace('ราคาประเมิน/ซื้อขาย', 'ราคาซื้อขาย'));
+                $('#lbHeader').text($('#lbHeader').text().replace('ราคาประเมิน', 'ราคาซื้อขาย').replace('ราคาประเมิน/ซื้อขาย', 'ราคาซื้อขาย'));
+
             }
-        , 400);
+     , 300);
             break;
         case '3':
-            $('.divLand').addClass("invisible").css({ position: "absolute" });
-            var proviceOption1 = $("#ddlProvince option").clone();
-            var proviceOption2 = $("#ddlProvince option").clone();
-            $("#ddlProvince1").empty();
-            $("#ddlProvince2").empty();
-
-            $("#ddlProvince1").append(proviceOption1);
-            $("#ddlProvince2").append(proviceOption2);
-
-            $('.divSection2Building').removeClass("invisible").css({ position: "relative" });
-            LoadSection2Construction(resultAll);
+           
 
             break;
     }
@@ -122,32 +147,72 @@ $(document).on("click", ".liTab", function () {
 
     if ($(this).attr("id") == "tab1") {
 
+        $("#ddlType").empty();
+        $("#ddlType").append("<option value='0'>เลือกทั้งหมด</option>");
+            $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
+            $("#ddlType").append("<option value='2'>ราคาซื้อขาย</option>");
+            tabSelect = '1';
 
         setTimeout(function () {
             $('.divSection21').removeClass("invisible").css({ position: "relative" });
-            tabSelect = '1';
+           
             searchForm.search();
-            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน'));
-            $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน'));
-
+          
+            $('.lbType1').text("ราคาประเมิน/ตรว.");
+            $('.lbType2').text("ราคาประเมิน/แปลง");
         }
         , 400);
     } else if ($(this).attr("id") == "tab2")
     {
+        
+        tabSelect = '2';
+
+        $("#ddlType").empty();
+        $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
 
 
+        $('.divSection21').removeClass("invisible").css({ position: "relative" });
+        $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
+        $('.divLand').removeClass("invisible").css({ position: "relative" });
         setTimeout(function () {
-            tabSelect = '2';
-            $('.divSection22').removeClass("invisible").css({ position: "relative" });
-            searchForm.search();
-            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาประเมิน', 'ราคาซื้อขาย'));
-            $('#lbHeader').text($('#lbHeader').text().replace('ราคาประเมิน', 'ราคาซื้อขาย'));
 
+            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+            $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+
+            $('.lbType1').text("แบบพักอาศัย");
+            $('.lbType2').text("อื่นๆ");
         }
-       , 300);
+    , 400);
 
+
+      
+
+    } else if ($(this).attr("id") == "tab3")
+    {
+
+        $("#ddlType").empty();
+        $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
+     $('.divLand').addClass("invisible").css({ position: "absolute" });
+    var proviceOption1 = $("#ddlProvince option").clone();
+    var proviceOption2 = $("#ddlProvince option").clone();
+    $("#ddlProvince1").empty();
+    $("#ddlProvince2").empty();
+    tabSelect = '3';
+    $("#ddlProvince1").append(proviceOption1);
+    $("#ddlProvince2").append(proviceOption2);
+
+    $('.divSection2Building').removeClass("invisible").css({ position: "relative" });
+    LoadSection2Construction(resultAll);
     }
    
+    setTimeout(function () {
+
+        $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+        $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+    }
+   , 400);
+
+
 
 
 });
@@ -156,7 +221,7 @@ function SearchAll(sectionTypeTemp, codeTemp) {
 
     var urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPrice';
 
-    var selectType = $('#ddlType').val();
+    var selectType = tabSelect;
     var provinceCode1 = $('#ddlProvince1').val();
     var provinceCode2 = $('#ddlProvince2').val();
     var percentCompare = $('#txtPercent').val();
@@ -491,7 +556,10 @@ function LoadSection2EvalBox1_Graph(data) {
             subtext: ''
         },
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            axisPointer: {
+                type: 'none',
+            }
         },
         legend: {
             data: ['ราคาประเมินรวม']
@@ -579,18 +647,18 @@ function LoadSection2EvalBox1_Table(data) {
     body += '<tr>';
     body += '<th scope="col">' + GetSectionDisplayText(sectionType) + '</th>';
 
-    if ($('#ddlType').val()=='1') {
+    if (tabSelect=='1') {
 
         body += '<th scope="col">จำนวนแปลงที่ดิน</th>';
         body += '<th scope="col">พื้นที่รวม</th>';
-        if (tabSelect == "1") {
+        if ($('#ddlType').val() == "1") {
             body += '<th scope="col">ราคาประเมินที่ดิน</th>';
         } else {
             body += '<th scope="col">ราคาซื้อขายที่ดิน</th>';
         }
 
 
-    } else if ($('#ddlType').val() == '2')
+    } else if (tabSelect == '2')
     {
         body += '<th scope="col">จำนวนชั้น</th>';
         body += '<th scope="col">ราคาสูงสุด</th>';
@@ -607,16 +675,16 @@ function LoadSection2EvalBox1_Table(data) {
                 body += '<tr>';
                 body += '<td>' + data.DisplayName + '</td>';
 
-                if ($('#ddlType').val() == '1') {
+                if (tabSelect == '1') {
 
                     body += '<td>' + numberWithCommas(data.LAND_Total) + ' แปลง</td>';
                     body += '<td>' + numberWithCommas(data.LAND_AREA) + ' ตารางวา</td>';
-                    if (tabSelect == "1") {
+                    if ($('#ddlType').val() == "1") {
                         body += '<td>' + numberWithCommas(data.ParcelPrice) + ' บาท</td>';
                     } else {
                         body += '<td>' + numberWithCommas(data.MarketPrice) + ' บาท</td>';
                     }
-                } else if ($('#ddlType').val() == '2') {
+                } else if (tabSelect == '2') {
                     body += '<td>0 ชั้น</td>';
                     body += '<td>' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท </td>';
                     body += '<td>' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท </td>';
@@ -1059,6 +1127,9 @@ $(document).ready(function () {
  //   $("#ddlMaptype").selectpicker('refresh');
     $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
     $('.divSection22').addClass("invisible").css({ position: "absolute" });
+
+    $('.divSection21').addClass("invisible").css({ position: "absolute" });
+  
     LoadSection1(1, '');
     LoadSlide();
 
