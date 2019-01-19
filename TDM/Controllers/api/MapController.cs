@@ -246,11 +246,7 @@ namespace TDM.Controllers.api
         {
             try
             {
-                /*
-                var provinceIds = GetProvincesByRegionId(int.Parse(id)).Select(p => p.PRO_C).ToArray();
 
-                return Json(tdaEntities.PROVINCEs.Where(p => provinceIds.Contains(p.PRO_C)).ToList().Select(x => new SHAPE_ViewModel(x.Shape)), jsonSetting);
-                */
 
                 var result = GetMapInfo(new MapSearchCriteria()
                 {

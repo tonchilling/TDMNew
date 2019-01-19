@@ -16,7 +16,9 @@
     </script>
 
 
+    @section Scripts {
 
+    }
 
     <link href="~/assets/fonts/font-awesome.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -66,10 +68,10 @@
     <script src="~/assets/js/datatables/dataTables.responsive.min.js"></script>
     <script src="~/assets/js/datatables/responsive.bootstrap.js"></script>
     <script src="~/assets/js/datatables/dataTables.scroller.min.js"></script>
-    <script src="~/assets/js/datatables/jszip.min.js"></script>
+ 
     <script src="~/assets/js/datatables/pdfmake.min.js"></script>
     <script src="~/assets/js/datatables/vfs_fonts.js"></script>
-
+    <script src="https://js.arcgis.com/4.10/"></script>
 
     <!-- Datatables -->
     <link href="~/assets/css/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -233,6 +235,21 @@
                         </form>
 
                     </div>
+
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-md-12 col-sm-12 co-xs-12" style="padding-left: 0px;">
+                            <div>ไฟล์ข้อมูล</div>
+                            <div class="form-group">
+                                <div class="input-group input-file" name="Fichier1">
+                                    <input type="text" class="form-control" placeholder='Browse a file...' />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-choose" type="button">Browse..</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="modal fade modal-manage" id="myModal1">
                         <div class="modal-dialog">
                             <div class="modal-content" style="background-color: #f4f4f2;">
@@ -295,18 +312,28 @@
     <script src="~/Scripts/respond.js"></script>
 
 
-
+  
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
-
-    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4444"></script>
-
-
+    <script src="~/assets/js/JSZip/jszip.js"></script>
+  
    
 
-
-
-
+    <script src="~/assets/js/ArcgisToGeojsonUtils/ArcgisToGeojsonUtils.js"></script>
+   
+   
+    <script src="~/assets/js/ReadShapeFile/dbf.js?33e343"></script>
+    <script src="~/assets/js/ReadShapeFile/shapefile.js?33e343"></script>
+    <script src="~/assets/js/ReadShapeFile/stream.js"></script>
+    <script src="~/assets/js/togeojson/togeojson.js"></script>
+    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4ee9744433e64"></script>
+    <script>
+      
+       // var root= "<%= ResolveUrl("~/ASHX/PageControlHandler.ashx")%>";
+        /**/
+        //var root = ~/;
+        /**/
+    </script>
     <style type="text/css">
     </style>
 

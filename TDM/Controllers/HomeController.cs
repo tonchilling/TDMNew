@@ -31,5 +31,17 @@ namespace TDM.Controllers
 
             return View();
         }
+        public ActionResult Menu1()
+        {
+            return View();
+        }
+        public ActionResult Menu2()
+        {
+            return View();
+        }
+        public ActionResult Menu3()
+        {
+            return View();
+        }
     }
 }

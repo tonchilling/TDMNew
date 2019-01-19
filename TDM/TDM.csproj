@@ -370,9 +370,17 @@
     <Content Include="assets\icons\TDM\measurement_tool_05_hover.png" />
     <Content Include="assets\img\button-search-BU-6.png" />
     <Content Include="assets\img\map.png" />
+    <Content Include="assets\img\tmp\2019-01-13-01.jpg" />
+    <Content Include="assets\img\tmp\2019-01-13-02.jpg" />
+    <Content Include="assets\img\tmp\2019-01-13-03.jpg" />
+    <Content Include="assets\img\tmp\2019-01-13-04.jpg" />
+    <Content Include="assets\img\tmp\2019-01-13-05.jpg" />
+    <Content Include="assets\img\tmp\pic-temp1.jpg" />
+    <Content Include="assets\img\tmp\pic-temp2.jpg" />
     <Content Include="assets\img\TrafficLights\Green.png" />
     <Content Include="assets\img\TrafficLights\Red.png" />
     <Content Include="assets\img\TrafficLights\Yellow.png" />
+    <Content Include="assets\js\ArcgisToGeojsonUtils\ArcgisToGeojsonUtils.js" />
     <Content Include="assets\js\bootstrap-progressbar.min.js" />
     <Content Include="assets\js\bootstrap-select.min-1.6.5.js" />
     <Content Include="assets\js\bootstrap.min.js" />
@@ -417,10 +425,15 @@
     <Content Include="assets\js\jquery-ui.theme.min.css" />
     <Content Include="assets\js\jquery.multi-select.js" />
     <Content Include="assets\js\jquery.quicksearch.js" />
+    <Content Include="assets\js\JSZip\jszip.min.js" />
     <Content Include="assets\js\nprogress\nprogress.js" />
+    <Content Include="assets\js\ReadShapeFile\dbf.js" />
+    <Content Include="assets\js\ReadShapeFile\shapefile.js" />
+    <Content Include="assets\js\ReadShapeFile\stream.js" />
     <Content Include="assets\js\tab.js" />
     <Content Include="assets\js\datatable\datatables.js" />
     <Content Include="assets\js\datatable\datatables.min.js" />
+    <Content Include="assets\js\togeojson\togeojson.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\map_loader.js" />
     <Content Include="Models\common.Context.tt">
@@ -1617,6 +1630,9 @@
     <Content Include="Views\DashboardSystem3\Index_Temp.cshtml" />
     <Content Include="Views\DashboardSystem3\IndexT.cshtml" />
     <Content Include="Views\DashboardSystem3\IndexTu.cshtml" />
+    <Content Include="Views\Home\Menu1.cshtml" />
+    <Content Include="Views\Home\Menu2.cshtml" />
+    <Content Include="Views\Home\Menu3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

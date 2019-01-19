@@ -275,6 +275,7 @@
 
     function btnSubmit(id) {
         var myFormData = JSON.stringify($('#myForm').serializeObject());
+        ImportShape.ShapeFile( $('input[type=file]')[0].files);
         var url = rootUrl + "/api/AreaAnalysis/AddProject";
 
         if (id > 0) {

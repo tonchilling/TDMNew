@@ -67,21 +67,63 @@ $(document).on("click", "#rdCluster", function () {
 $(document).on("change", "#ddlType", function () {
 
     switch ($('#ddlType').val()) {
-        case '1': $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
+        case '0':
             setTimeout(function () {
-            $('.lbType1').text("ราคาประเมิน/ตรว.");
-            $('.lbType2').text("ราคาประเมิน/แปลง");
+            $('#lblHeaderMain').text('ราคาประเมิน/ซื้อขาย');
+            $('#lbHeader').text('ราคาประเมิน/ซื้อขาย');
+            $('.divSection21').addClass("invisible").css({ position: "absolute" });
+            $('.divSection22').addClass("invisible").css({ position: "absolute" });
             }
         , 400);
             break;
-        case '2': $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
+        case '1':
+            $('.divSection21').removeClass("invisible").css({ position: "relative" });
+            $('.divSection22').addClass("invisible").css({ position: "absolute" });
+            $('.divSection2Building').removeClass("invisible");
+
+            $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
+            $('.divLand').removeClass("invisible").css({ position: "relative" });
+            searchForm.search();
+
             setTimeout(function () {
-            $('.lbType1').text("แบบพักอาศัย");
-            $('.lbType2').text("อื่นๆ");
+
+                $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+                $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+
+                if (tabSelect = '2')
+                {
+                 
+                        $('.lbType1').text("แบบพักอาศัย");
+                        $('.lbType2').text("อื่นๆ");
+
+                }
+                else {
+                    $('.lbType1').text("ราคาประเมิน/ตรว.");
+                    $('.lbType2').text("ราคาประเมิน/แปลง");
+                }
+           
+          
+          
             }
         , 400);
             break;
-        case '3': $('.divSection2Building').removeClass("invisible").css({ position: "relative" }); break;
+        case '2':
+
+            $('.divSection21').addClass("invisible").css({ position: "absolute" });
+            setTimeout(function () {
+               
+                $('.divSection22').removeClass("invisible").css({ position: "relative" });
+                searchForm.search();
+                $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาประเมิน', 'ราคาซื้อขาย').replace('ราคาประเมิน/ซื้อขาย', 'ราคาซื้อขาย'));
+                $('#lbHeader').text($('#lbHeader').text().replace('ราคาประเมิน', 'ราคาซื้อขาย').replace('ราคาประเมิน/ซื้อขาย', 'ราคาซื้อขาย'));
+
+            }
+     , 300);
+            break;
+        case '3':
+           
+
+            break;
     }
 });
 
@@ -105,32 +147,72 @@ $(document).on("click", ".liTab", function () {
 
     if ($(this).attr("id") == "tab1") {
 
+        $("#ddlType").empty();
+        $("#ddlType").append("<option value='0'>เลือกทั้งหมด</option>");
+            $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
+            $("#ddlType").append("<option value='2'>ราคาซื้อขาย</option>");
+            tabSelect = '1';
 
         setTimeout(function () {
             $('.divSection21').removeClass("invisible").css({ position: "relative" });
-            tabSelect = '1';
+           
             searchForm.search();
-            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน'));
-            $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน'));
-
+          
+            $('.lbType1').text("ราคาประเมิน/ตรว.");
+            $('.lbType2').text("ราคาประเมิน/แปลง");
         }
         , 400);
     } else if ($(this).attr("id") == "tab2")
     {
+        
+        tabSelect = '2';
+
+        $("#ddlType").empty();
+        $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
 
 
+        $('.divSection21').removeClass("invisible").css({ position: "relative" });
+        $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
+        $('.divLand').removeClass("invisible").css({ position: "relative" });
         setTimeout(function () {
-            tabSelect = '2';
-            $('.divSection22').removeClass("invisible").css({ position: "relative" });
-            searchForm.search();
-            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาประเมิน', 'ราคาซื้อขาย'));
-            $('#lbHeader').text($('#lbHeader').text().replace('ราคาประเมิน', 'ราคาซื้อขาย'));
 
+            $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+            $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+
+            $('.lbType1').text("แบบพักอาศัย");
+            $('.lbType2').text("อื่นๆ");
         }
-       , 300);
+    , 400);
 
+
+      
+
+    } else if ($(this).attr("id") == "tab3")
+    {
+
+        $("#ddlType").empty();
+        $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
+     $('.divLand').addClass("invisible").css({ position: "absolute" });
+    var proviceOption1 = $("#ddlProvince option").clone();
+    var proviceOption2 = $("#ddlProvince option").clone();
+    $("#ddlProvince1").empty();
+    $("#ddlProvince2").empty();
+    tabSelect = '3';
+    $("#ddlProvince1").append(proviceOption1);
+    $("#ddlProvince2").append(proviceOption2);
+
+    $('.divSection2Building').removeClass("invisible").css({ position: "relative" });
+    LoadSection2Construction(resultAll);
     }
    
+    setTimeout(function () {
+
+        $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+        $('#lbHeader').text($('#lbHeader').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
+    }
+   , 400);
+
+
 
 
 });
@@ -139,17 +221,29 @@ function SearchAll(sectionTypeTemp, codeTemp) {
 
     var urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPrice';
 
-
-    switch ($('#ddlType').val())
+    var selectType = tabSelect;
+    var provinceCode1 = $('#ddlProvince1').val();
+    var provinceCode2 = $('#ddlProvince2').val();
+    var percentCompare = $('#txtPercent').val();
+    switch (selectType)
     {
         case '1': urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPrice'; break;
         case '2': urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceOfCondo'; break;
-        case '3': urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceOfBuilding'; break;
+        case '3': urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceOfConstruction'; break;
     }
 
+    var constructionType = $('#ddlConstructionType').val();
     var objSearch = {};
 
-    objSearch = { SectionType: sectionTypeTemp, code: codeTemp };
+    objSearch = {
+        SectionType: sectionTypeTemp,
+        code: codeTemp,
+        ConStructionType: constructionType,
+        ProvinceCodeCompare1: provinceCode1,
+        ProvinceCodeCompare2: provinceCode2,
+        PercentCompare: percentCompare
+
+    };
 
     $.ajax({
         type: "POST",
@@ -160,7 +254,15 @@ function SearchAll(sectionTypeTemp, codeTemp) {
         success: function (data) {
 
             resultAll = data;
-            LoadSection23(data);
+            if (selectType == '3')
+            {
+                LoadSection2Construction(data);
+            }
+            else
+            {
+                LoadSection23(data);
+            }
+           
         },
         error: function (response) {
             alert('failure');
@@ -359,7 +461,7 @@ function LoadSection2EvalBox1_LeftBox(data) {
     if (data != null) {
         if (data != null && data.length > 0) {
             $.each(data, function (index, data) {
-                body += '<div class="alert leftbox alert-' + data.DisplayCode + ' msg pmvByAreaBox">';
+                body += '<div class="alert leftbox alert-1 msg pmvByAreaBox">';
                 body += '<h4>' + data.DisplayName + '</h4>';
                 if (tabSelect == '1') {
                     body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท </h5>';
@@ -379,7 +481,50 @@ function LoadSection2EvalBox1_LeftBox(data) {
 
 }
 
+function LoadSection2Construction(data)
+{
+    var body = '';
+    $("#divConstruction").empty();
 
+    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<thead>';
+    body += '<tr>';
+    body += '<th scope="col">ลำดับ</th>';
+    body += '<th scope="col">รหัส</th>';
+    body += '<th scope="col">ชื่อ</th>';
+    body += '<th scope="col">จังหวัด</th>';
+   
+    body += '<th scope="col">ราคา<br>(บาท/ตารางเมตร)</th>';
+    body += '</tr>';
+    body += '</thead>';
+    body += '<tbody>';
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, data) {
+
+                body += '<tr>';
+                body += '<td>1</td>';
+                body += '<td>' + data.ConstructionType + '</td>';
+                body += '<td>' + data.ConstructionName + '</td>';
+                body += '<td>' + data.DisplayName + '</td>';
+                if (data.Color == '')
+                {
+                    body += '<td>' + numberWithCommas(parseFloat(data.ParcelPrice).toFixed(2)) + '</td>';
+                } else {
+                    body += '<td><span style="color:' + data.Color + '">' + numberWithCommas(parseFloat(data.ParcelPrice).toFixed(2)) + '</span></td>';
+                }
+               
+                body += '</tr>';
+            });
+            }
+    }
+    body += '</tbody>';
+    body += '</table>';
+    $("#divConstruction").append(body);
+
+    $("#divConstruction table").DataTable({ searching: false, info: false });
+
+}
 function LoadSection2EvalBox1_Graph(data) {
     var chartBar = echarts.init(document.getElementById('EvalBox1chartBar'));
     var caption = [];
@@ -411,7 +556,10 @@ function LoadSection2EvalBox1_Graph(data) {
             subtext: ''
         },
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            axisPointer: {
+                type: 'none',
+            }
         },
         legend: {
             data: ['ราคาประเมินรวม']
@@ -499,18 +647,18 @@ function LoadSection2EvalBox1_Table(data) {
     body += '<tr>';
     body += '<th scope="col">' + GetSectionDisplayText(sectionType) + '</th>';
 
-    if ($('#ddlType').val()=='1') {
+    if (tabSelect=='1') {
 
         body += '<th scope="col">จำนวนแปลงที่ดิน</th>';
         body += '<th scope="col">พื้นที่รวม</th>';
-        if (tabSelect == "1") {
+        if ($('#ddlType').val() == "1") {
             body += '<th scope="col">ราคาประเมินที่ดิน</th>';
         } else {
             body += '<th scope="col">ราคาซื้อขายที่ดิน</th>';
         }
 
 
-    } else if ($('#ddlType').val() == '2')
+    } else if (tabSelect == '2')
     {
         body += '<th scope="col">จำนวนชั้น</th>';
         body += '<th scope="col">ราคาสูงสุด</th>';
@@ -527,16 +675,16 @@ function LoadSection2EvalBox1_Table(data) {
                 body += '<tr>';
                 body += '<td>' + data.DisplayName + '</td>';
 
-                if ($('#ddlType').val() == '1') {
+                if (tabSelect == '1') {
 
                     body += '<td>' + numberWithCommas(data.LAND_Total) + ' แปลง</td>';
                     body += '<td>' + numberWithCommas(data.LAND_AREA) + ' ตารางวา</td>';
-                    if (tabSelect == "1") {
+                    if ($('#ddlType').val() == "1") {
                         body += '<td>' + numberWithCommas(data.ParcelPrice) + ' บาท</td>';
                     } else {
                         body += '<td>' + numberWithCommas(data.MarketPrice) + ' บาท</td>';
                     }
-                } else if ($('#ddlType').val() == '2') {
+                } else if (tabSelect == '2') {
                     body += '<td>0 ชั้น</td>';
                     body += '<td>' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท </td>';
                     body += '<td>' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท </td>';
@@ -738,6 +886,18 @@ $(document).on("change", "#ddlLand", function () {
     }
 });
 
+$(document).on("change", "#ddlProvince1", function () {
+    var proviceOption1 = $("#ddlProvince1 option:not([value='" + $(this).val() + "'])").clone();
+    $("#ddlProvince2").empty();
+    $("#ddlProvince2").append(proviceOption1);
+ 
+
+});
+
+$(document).on("change", "#ddlProvince2", function () {
+    var proviceOption1 = $("#ddlProvince2 option:not([value='" + provinceId + "'])").clone();
+   // $("#ddlProvince1").append(proviceOption1);
+});
 
 
 $(document).on("change", "#ddlTown", function () {
@@ -945,7 +1105,9 @@ var slider1 = null;
 
 $(document).ready(function () {
 
-   
+    
+  //  $('#overlay').invisible();
+
     $('.txtSFromDate').datetimepicker({
         format: 'mm-dd-yyyy',
         minView: 2,
@@ -965,6 +1127,9 @@ $(document).ready(function () {
  //   $("#ddlMaptype").selectpicker('refresh');
     $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
     $('.divSection22').addClass("invisible").css({ position: "absolute" });
+
+    $('.divSection21').addClass("invisible").css({ position: "absolute" });
+  
     LoadSection1(1, '');
     LoadSlide();
 
@@ -983,6 +1148,8 @@ $(document).ready(function () {
    
     SearchAll('0', '');
     LoadSection4();
+
+    LoadConstructionType();
    
 
 
@@ -1023,9 +1190,38 @@ function DisplaySection2SearchRegionCluster(tabid) {
 }
 
 
+function LoadConstructionType() {
+
+    $("#ddlConstructionType").empty();
+    $("#ddlConstructionType").append("<option value=''>กรุณาเลือก</option>");
+    $.ajax({
+        url: rootUrl + "/api/Address/GetConstructionType",
+        type: "POST",
+        //  data: JSON.stringify(data),
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (data) {
+            if (data != null) {
+                if (data != null && data.length > 0) {
+
+                    $.each(data, function (index, obj) {
+                        $("#ddlConstructionType").append("<option value='" + obj.Value + "'>" + obj.Name + "</option>");
+                    });
+                }
+            }
+        }
+    });
+
+}
+
+
+
+
 function LoadCluster()
 {
+    $("#ddlRegion").empty();
 
+    $("#ddlRegion").append("<option value=''>กรุณาเลือก</option>");
     $.ajax({
         url: rootUrl + "/api/Address/GetCluster",
         type: "POST",

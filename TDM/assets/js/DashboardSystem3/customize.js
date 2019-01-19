@@ -804,6 +804,8 @@ var maxCostLimit = 10000000;
 var minCost = minCostLimit;
 var maxCost = maxCostLimit;
 var slider = null;
+var minRank = minCostLimit;
+var maxRank = maxCostLimit;
 var datetimepickerFormat = {
     format: 'mm-dd-yyyy',
     minView: 2,
@@ -887,39 +889,41 @@ $(document).ready(function() {
             $('#ddlCluster').removeAttr("disabled");
         }
     });
-    slider = $("#CostEstimateSlider").slider({
-        range: true,
-        min: minCostLimit,
-        max: maxCostLimit,
-        step: 10,
-        values: [minCost, maxCost],
-        slide: function(event, ui) {
-            $("#MinCostEstimate").val(ui.values[0]);
-            $("#MaxCostEstimate").val(ui.values[1]);
-        }
-    });
-    $('.MinCostEstimate').val(minCost);
-    $('.MaxCostEstimate').val(maxCost);
-    $("#MinCostEstimate").on("change", function() {
-        value = $(this).val();
-        if (!isNaN(value)) {
-            minCost = parseFloat($(this).val());
-        } else {
-            value = minCostLimit;
-        }
-        slider.slider("values", [minCost, maxCost]);
-        slider.slider('refresh');
-    });
-    $("#MaxCostEstimate").on("change", function() {
-        value = $(this).val();
-        if (!isNaN(value)) {
-            maxCost = parseFloat($(this).val());
-        } else {
-            value = maxCostLimit;
-        }
-        slider.slider("values", [minCost, maxCost]);
-        slider.slider('refresh');
-    });
+    if ($("#CostEstimateSlider").length > 0) {
+        slider = $("#CostEstimateSlider").slider({
+            range: true,
+            min: minCostLimit,
+            max: maxCostLimit,
+            step: 10,
+            values: [minCost, maxCost],
+            slide: function (event, ui) {
+                $("#MinCostEstimate").val(ui.values[0]);
+                $("#MaxCostEstimate").val(ui.values[1]);
+            }
+        });
+        $('.MinCostEstimate').val(minCost);
+        $('.MaxCostEstimate').val(maxCost);
+        $("#MinCostEstimate").on("change", function () {
+            value = $(this).val();
+            if (!isNaN(value)) {
+                minCost = parseFloat($(this).val());
+            } else {
+                value = minCostLimit;
+            }
+            slider.slider("values", [minCost, maxCost]);
+            slider.slider('refresh');
+        });
+        $("#MaxCostEstimate").on("change", function () {
+            value = $(this).val();
+            if (!isNaN(value)) {
+                maxCost = parseFloat($(this).val());
+            } else {
+                value = maxCostLimit;
+            }
+            slider.slider("values", [minCost, maxCost]);
+            slider.slider('refresh');
+        });
+    }
     $('#CostEstimateType').change(function() {
         indexSelect = $(this)[0].selectedIndex;
         typeSelect = $(this).val();
@@ -1166,66 +1170,67 @@ $(document).ready(function() {
         CostChartBar.setOption(optionChart);
     });
     $('#CostEstimateType').change();
-    $('.tabSection').click(function() {
-        $('#tabLabelTitle').html($(this).attr('data-tab'));
-        $('.sectionTab0, .sectionTab1, .sectionTab2').fadeOut(0);
-        $('#CostListTitle').fadeOut(0);
-        indexSelect = $(this).attr('data-index');
-        $('.CostChartTable, .pmvByArea').fadeOut();
-        switch (indexSelect) {
-            case "0":
-                $('#CostEstimateType').change();
-                $('#CostListTitle').fadeIn();
-                $('#CostChartTable0').fadeIn();
-                $('.sectionTab0').fadeIn();
-                break;
-            case "1":
-                $('#CostListTitle').html('ภาพรวมราคาซื้อขายจดทะเบียน').fadeIn();
-                $('#CostChartBar').html('');
-                $('#CostChartTable' + indexSelect).fadeIn();
-                $('#pmvByArea' + indexSelect).fadeIn();
-                var CostChartBar = echarts.init(document.getElementById('CostChartBar'));
-                var option = {
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: ['蒸发量', '降水量']
-                    },
-                    toolbox: {
-                        show: false,
-                        feature: {
-                            mark: {
-                                show: true
-                            },
-                            dataView: {
-                                show: true,
-                                readOnly: false
-                            },
-                            magicType: {
-                                show: true,
-                                type: ['line', 'bar']
-                            },
-                            restore: {
-                                show: true
-                            },
-                            saveAsImage: {
+    if ($('.tabSection').length > 0) {
+        $('.tabSection').click(function () {
+            $('#tabLabelTitle').html($(this).attr('data-tab'));
+            $('.sectionTab0, .sectionTab1, .sectionTab2').fadeOut(0);
+            $('#CostListTitle').fadeOut(0);
+            indexSelect = $(this).attr('data-index');
+            $('.CostChartTable, .pmvByArea').fadeOut();
+            switch (indexSelect) {
+                case "0":
+                    $('#CostEstimateType').change();
+                    $('#CostListTitle').fadeIn();
+                    $('#CostChartTable0').fadeIn();
+                    $('.sectionTab0').fadeIn();
+                    break;
+                case "1":
+                    $('#CostListTitle').html('ภาพรวมราคาซื้อขายจดทะเบียน').fadeIn();
+                    $('#CostChartBar').html('');
+                    $('#CostChartTable' + indexSelect).fadeIn();
+                    $('#pmvByArea' + indexSelect).fadeIn();
+                    var CostChartBar = echarts.init(document.getElementById('CostChartBar'));
+                    var option = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['蒸发量', '降水量']
+                        },
+                        toolbox: {
+                            show: false,
+                            feature: {
+                                mark: {
+                                    show: true
+                                },
+                                dataView: {
+                                    show: true,
+                                    readOnly: false
+                                },
+                                magicType: {
+                                    show: true,
+                                    type: ['line', 'bar']
+                                },
+                                restore: {
+                                    show: true
+                                },
+                                saveAsImage: {
+                                    show: true
+                                }
+                            }
+                        },
+                        calculable: true,
+                        xAxis: [{
+                            type: 'category',
+                            data: ['เชียงราย', 'เชียงใหม่', 'แพร่', 'น่าน', 'พะเยา', 'ลำพูน', 'ลำปาง', 'แม่ฮ่องสอน']
+                        }],
+                        yAxis: [{
+                            type: 'value',
+                            splitArea: {
                                 show: true
                             }
-                        }
-                    },
-                    calculable: true,
-                    xAxis: [{
-                        type: 'category',
-                        data: ['เชียงราย', 'เชียงใหม่', 'แพร่', 'น่าน', 'พะเยา', 'ลำพูน', 'ลำปาง', 'แม่ฮ่องสอน']
-                    }],
-                    yAxis: [{
-                        type: 'value',
-                        splitArea: {
-                            show: true
-                        }
-                    }],
-                    series: [{
+                        }],
+                        series: [{
                             name: 'ราคาซื้อขายที่ดินเฉลี่ยต่อตารางวา',
                             type: 'bar',
                             data: [150000, 300000, 200000, 90000, 70000, 150000, 190000, 30000],
@@ -1267,51 +1272,51 @@ $(document).ready(function() {
                                 }
                             }
                         }
-                    ]
-                };
-                CostChartBar.setOption(option);
-                SalePriceProvinceChartBar = echarts.init(document.getElementById('SalePriceProvinceChartBar'));
-                var SalePriceProvinceChartBarOption = {
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: ['蒸发量', '降水量']
-                    },
-                    toolbox: {
-                        show: false,
-                        feature: {
-                            mark: {
-                                show: true
-                            },
-                            dataView: {
-                                show: true,
-                                readOnly: false
-                            },
-                            magicType: {
-                                show: true,
-                                type: ['line', 'bar']
-                            },
-                            restore: {
-                                show: true
-                            },
-                            saveAsImage: {
+                        ]
+                    };
+                    CostChartBar.setOption(option);
+                    SalePriceProvinceChartBar = echarts.init(document.getElementById('SalePriceProvinceChartBar'));
+                    var SalePriceProvinceChartBarOption = {
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['蒸发量', '降水量']
+                        },
+                        toolbox: {
+                            show: false,
+                            feature: {
+                                mark: {
+                                    show: true
+                                },
+                                dataView: {
+                                    show: true,
+                                    readOnly: false
+                                },
+                                magicType: {
+                                    show: true,
+                                    type: ['line', 'bar']
+                                },
+                                restore: {
+                                    show: true
+                                },
+                                saveAsImage: {
+                                    show: true
+                                }
+                            }
+                        },
+                        calculable: true,
+                        xAxis: [{
+                            type: 'category',
+                            data: ['เชียงราย', 'เชียงใหม่', 'แพร่', 'น่าน', 'พะเยา', 'ลำพูน', 'ลำปาง', 'แม่ฮ่องสอน']
+                        }],
+                        yAxis: [{
+                            type: 'value',
+                            splitArea: {
                                 show: true
                             }
-                        }
-                    },
-                    calculable: true,
-                    xAxis: [{
-                        type: 'category',
-                        data: ['เชียงราย', 'เชียงใหม่', 'แพร่', 'น่าน', 'พะเยา', 'ลำพูน', 'ลำปาง', 'แม่ฮ่องสอน']
-                    }],
-                    yAxis: [{
-                        type: 'value',
-                        splitArea: {
-                            show: true
-                        }
-                    }],
-                    series: [{
+                        }],
+                        series: [{
                             name: 'ราคาซื้อขายที่ดินเฉลี่ยต่อตารางวา',
                             type: 'bar',
                             data: [150000, 300000, 200000, 90000, 70000, 150000, 190000, 30000],
@@ -1353,17 +1358,18 @@ $(document).ready(function() {
                                 }
                             }
                         }
-                    ]
-                }
-                SalePriceProvinceChartBar.setOption(SalePriceProvinceChartBarOption);
-                $('.sectionTab1').fadeIn();
-                break;
-            default:
-                $('.sectionTab2').fadeIn();
-        }
-        $('#tabSection').fadeIn();
-    });
-    $('.tabSection')[0].click();
+                        ]
+                    }
+                    SalePriceProvinceChartBar.setOption(SalePriceProvinceChartBarOption);
+                    $('.sectionTab1').fadeIn();
+                    break;
+                default:
+                    $('.sectionTab2').fadeIn();
+            }
+            $('#tabSection').fadeIn();
+        });
+        $('.tabSection')[0].click();
+    }
     $('#theme-icon').click(function() {
         $('#theme-area').toggle();
     });
@@ -1376,4 +1382,20 @@ $(document).ready(function() {
     });
     $('#example').DataTable();
     //$("#projectListTable").DataTable();
+    if ($("#CostRankSlider").length > 0) {
+        $("#CostRankSlider").slider({
+            range: true,
+            min: minCostLimit,
+            max: maxCostLimit,
+            step: 10,
+            values: [minCost, maxCost],
+            slide: function (event, ui) {
+                minRank = ui.values[0];
+                maxRank = ui.values[1];
+            }
+        });
+    }
+    if ($("#tbSort").length > 0) {
+        $('#tbSort').DataTable();
+    }
 });
