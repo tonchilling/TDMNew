@@ -6,7 +6,7 @@ var resultAll;
 
 var section1Tab = '1';
 var LocationTyp='1'
-
+var regionSelectedId, provinceSelectedId;
 var regionObj = { "data":[
         {"name":"เลือกภาค","value": ""},
       {"name":"ภาคกลาง","value": "1"} ,
@@ -147,6 +147,11 @@ $(document).on("click", ".liTab", function () {
 
     if ($(this).attr("id") == "tab1") {
 
+
+        $('.divTab2').removeClass("col-md-12 col-sm-12")
+        $('.divTab2').addClass("col-md-10 col-sm-10")
+        $('.divTab1').removeClass("invisible").css({ position: "relative" });
+
         $("#ddlType").empty();
         $("#ddlType").append("<option value='0'>เลือกทั้งหมด</option>");
             $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
@@ -166,6 +171,9 @@ $(document).on("click", ".liTab", function () {
     {
         
         tabSelect = '2';
+        $('.divTab2').removeClass("col-md-12 col-sm-12")
+        $('.divTab2').addClass("col-md-10 col-sm-10")
+        $('.divTab1').removeClass("invisible").css({ position: "relative" });
 
         $("#ddlType").empty();
         $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
@@ -189,17 +197,38 @@ $(document).on("click", ".liTab", function () {
 
     } else if ($(this).attr("id") == "tab3")
     {
+      
+        $('.divTab1').addClass("invisible").css({ position: "absolute" });
+       
+        $('.divTab2').removeClass("col-md-10 col-sm-10")
+        $('.divTab2').addClass("col-md-12 col-sm-12")
 
         $("#ddlType").empty();
         $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
-     $('.divLand').addClass("invisible").css({ position: "absolute" });
-    var proviceOption1 = $("#ddlProvince option").clone();
-    var proviceOption2 = $("#ddlProvince option").clone();
-    $("#ddlProvince1").empty();
-    $("#ddlProvince2").empty();
+        $('.divLand').addClass("invisible").css({ position: "absolute" });
+      
+        regionSelectedId = $('#ddlRegion').val();
+        provinceSelectedId = $('#ddlProvince').val();
+        var proviceOption1 = $("#ddlProvince option:not([value='" + provinceSelectedId + "'])").clone();
+        var proviceOption2 = $("#ddlProvince option:not([value='" + provinceSelectedId + "'])").clone();
+         $("#rdCluster").trigger("click");
+
+
+         $("#ddlProvince1 option[value='" + provinceSelectedId + "']").remove();
+         $("#ddlProvince2 option[value='" + provinceSelectedId + "']").remove();
+        
+
+
+      //  $('#rdCluster').find('span').addClass('checked');
+       // $('#rdCluster').prop('checked', true);
+
+   // var proviceOption1 = $("#ddlProvince option").clone();
+  //  var proviceOption2 = $("#ddlProvince option").clone();
+ //   $("#ddlProvince1").empty();
+  //  $("#ddlProvince2").empty();
     tabSelect = '3';
-    $("#ddlProvince1").append(proviceOption1);
-    $("#ddlProvince2").append(proviceOption2);
+  //  $("#ddlProvince1").append(proviceOption1);
+  //  $("#ddlProvince2").append(proviceOption2);
 
     $('.divSection2Building').removeClass("invisible").css({ position: "relative" });
     LoadSection2Construction(resultAll);
@@ -339,7 +368,7 @@ function LoadSection1View(data) {
             strHtml += '<tr>';
 
             $.each(data.EstimateDataDetailList, function (index, row) {
-                strHtml += '<td width="120px"><div class="chartTab1 tab1" style="height:120px"><a href="#" data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                strHtml += '<td width="120px"><div class="chartTab1 tab1" style="height:120px"><a href="' + rootUrl + "/Home/System_3_with_Layout?Menu=4&Id=" + row.Id + '" data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
                 chartSpeed.Items.push({
                     id: 'chartSpeedometer' + section1Tab + '_' + no,
                     value: row.Value
@@ -376,7 +405,7 @@ function LoadSection1View(data) {
             strHtml += '<tr>';
 
             $.each(data.EstimateDataDetailList, function (index, row) {
-                strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="#"  data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="' + rootUrl + "/Home/System_3_with_Layout?Menu=4&Id=" + row.Id + '"  data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
                 chartSpeed.Items.push({
                     id: 'chartSpeedometer' + section1Tab + '_' + no,
                     value: row.Value
@@ -413,7 +442,7 @@ function LoadSection1View(data) {
             strHtml += '<tr>';
 
             $.each(data.EstimateDataDetailList, function (index, row) {
-                strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="#"  data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="' + rootUrl + "/Home/System_3_with_Layout?Menu=4&Id=" + row.Id + '" data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
                 chartSpeed.Items.push({
                     id: 'chartSpeedometer' + section1Tab + '_' + no,
                     value: row.Value
@@ -503,7 +532,7 @@ function LoadSection2Construction(data)
             $.each(data, function (index, data) {
 
                 body += '<tr>';
-                body += '<td>1</td>';
+                body += '<td>' + (index+1) + '</td>';
                 body += '<td>' + data.ConstructionType + '</td>';
                 body += '<td>' + data.ConstructionName + '</td>';
                 body += '<td>' + data.DisplayName + '</td>';
@@ -1236,6 +1265,11 @@ function LoadCluster()
                         $("#ddlRegion").append("<option value='" + obj.Value + "'>" + obj.Name + "</option>");
                     });
                 }
+            }
+
+            if (regionSelectedId != '')
+            {
+                $("#ddlRegion").val(regionSelectedId)
             }
         }
     });

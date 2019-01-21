@@ -1,6 +1,7 @@
 ﻿
 
-
+var ifrm = document.createElement("iframe");
+var gisIframeWindow;
 
 var paging = {
     start: 0,
@@ -74,6 +75,16 @@ $(function () {
         $.each($.map(this.serializeArray(), elementMapper), appendToResult);
         return o;
     };
+
+
+  
+    ifrm.setAttribute("src", "https://p-staging.treasury.go.th/TD2");
+    ifrm.style.width = "0px";
+    ifrm.style.height = "0px";
+    document.body.appendChild(ifrm);
+    ifrm.onload = function () {
+        gisIframeWindow = ifrm.contentWindow;
+    }
 });
 
 function searchProjectImpactList(start, count, keyword) {
@@ -393,7 +404,7 @@ var ImportShape = {
                  require(["esri/geometry/SpatialReference"], function (SpatialReference) {
                      point = ImportShape.changeSpatialReference(geometry);
                  });
-/*
+
                  var row = [
                      a['CODE'],
                      a['NAME_E'],
@@ -401,7 +412,7 @@ var ImportShape = {
                      point.x,
                      point.y,
                    
-                 ].join('^');*/
+                 ].join('^');
                  return row;
              });
 
@@ -416,7 +427,10 @@ var ImportShape = {
          var SRID = 32647;
          geometry.spatialReference.wkid = SRID;
          try {
-             return this.project.transform(geometry, 32647);
+
+           
+
+             return gisIframeWindow.GIS.transform(geometry, 32647);
          } catch (E) {
              console.log(E)
              this.alert("Incorrect spatial reference")
