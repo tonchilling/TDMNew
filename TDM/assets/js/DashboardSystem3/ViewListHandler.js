@@ -246,8 +246,8 @@ var searchForm = {
 
             var criteria = {
                 id: 0,
-                priceType: tabSelect,
-                areaType: $('#ddlType').val(),
+                priceType: $('#ddlType').val() ,
+                areaType: tabSelect,
                 costEstUnitType: $('#rdType1').is(":checked")?1:2,
                 costEstMin: $('#MinCostEstimate0').val(),
                 costEstMax: $('#MinCostEstimate0').val()
