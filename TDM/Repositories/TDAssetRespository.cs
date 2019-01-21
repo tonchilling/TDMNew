@@ -617,7 +617,7 @@ namespace TDM.Repositories
                       //  EstimateDataDetail.Name= reader["Name"].ToString();
                         EstimateDataDetail.Title = reader["Title"].ToString();
                         EstimateDataDetail.Value= reader["Value"].ToString();
-
+                        EstimateDataDetail.Id = reader["Id"].ToString();
 
                         EstimateDataDetailList.Add(EstimateDataDetail);
 
