@@ -26,6 +26,8 @@ namespace TDM.Models.ViewModels
         public bool MaxPrice { get; set; }
         public bool MinPrice { get; set; }
 
+        public string PriceType { get; set; }
+
     }
     public class MapStructureInfo
     {

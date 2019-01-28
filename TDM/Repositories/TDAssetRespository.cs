@@ -937,5 +937,8 @@ namespace TDM.Repositories
         public string CostEstMin { get; set; }
         public string CostEstMax { get; set; }
         public SetionType Type { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
     }
 }

@@ -20,6 +20,8 @@ namespace TDM.Controllers.api
 {
     public class MapController : ApiController
     {
+        private System.Globalization.CultureInfo _locale = new System.Globalization.CultureInfo("en-US");
+
         private JsonSerializerSettings jsonSetting = JsonHelper.createJsonSetting();
         private TDManagementEntities tdmEntities = null;
         private TDASSETEntities tdaEntities = null;
@@ -209,10 +211,11 @@ namespace TDM.Controllers.api
             return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.ON_PRO_THA }));
         }
 
+        
 
         [HttpGet]
         //[Route("api/Map/GetProvinceShapeByID/{id}/{areaType}/{costEstUnitType}/{costEstMin}/{costEstMax}")]
-        public IHttpActionResult GetProvinceShapeByID(string id,string priceType, string areaType,string costEstUnitType,string costEstMin,string costEstMax)
+        public IHttpActionResult GetProvinceShapeByID(string id,string priceType, string areaType,string costEstUnitType,string costEstMin,string costEstMax, string startDate, string endDate)
         {
             try
             {
@@ -227,7 +230,10 @@ namespace TDM.Controllers.api
                     AreaType = areaType,
                     CostEstUnitType = costEstUnitType,
                     CostEstMax = costEstMax,
-                    CostEstMin = costEstMin
+                    CostEstMin = costEstMin,
+
+                    StartDate = (!String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
+                    EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 }).FirstOrDefault();
 
                 return Json(result);
@@ -242,7 +248,7 @@ namespace TDM.Controllers.api
         }
 
         [HttpGet]
-        public IHttpActionResult GetProvinceShapeByRegion(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
+        public IHttpActionResult GetProvinceShapeByRegion(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax, string startDate, string endDate)
         {
             try
             {
@@ -256,7 +262,10 @@ namespace TDM.Controllers.api
                     AreaType = areaType,
                     CostEstUnitType = costEstUnitType,
                     CostEstMax = costEstMax,
-                    CostEstMin = costEstMin
+                    CostEstMin = costEstMin,
+
+                    StartDate = (String.IsNullOrEmpty(startDate))?DateTime.Parse(startDate, _locale): (DateTime?)null,
+                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 });
                 
 
@@ -287,7 +296,7 @@ namespace TDM.Controllers.api
             return target;
         }
        
-        public IHttpActionResult GetDistrictShapeByID(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
+        public IHttpActionResult GetDistrictShapeByID(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax, string startDate, string endDate)
         {
             try
             {
@@ -300,7 +309,10 @@ namespace TDM.Controllers.api
                     AreaType = areaType,
                     CostEstUnitType = costEstUnitType,
                     CostEstMax = costEstMax,
-                    CostEstMin = costEstMin
+                    CostEstMin = costEstMin,
+
+                    StartDate = (String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
+                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 }).FirstOrDefault();
 
 
@@ -314,7 +326,7 @@ namespace TDM.Controllers.api
         }
 
         [HttpGet]
-        public IHttpActionResult GetDistrictShapeByProvince(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
+        public IHttpActionResult GetDistrictShapeByProvince(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax, string startDate, string endDate)
         {
             try
             {
@@ -328,7 +340,10 @@ namespace TDM.Controllers.api
                     AreaType = areaType,
                     CostEstUnitType = costEstUnitType,
                     CostEstMax = costEstMax,
-                    CostEstMin = costEstMin
+                    CostEstMin = costEstMin,
+
+                    StartDate = (String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
+                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 });
 
 
@@ -341,7 +356,7 @@ namespace TDM.Controllers.api
         }
 
         [HttpGet]
-        public IHttpActionResult GetSubDistrictShapeByID(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
+        public IHttpActionResult GetSubDistrictShapeByID(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax, string startDate, string endDate)
         {
             try
             {
@@ -366,7 +381,10 @@ namespace TDM.Controllers.api
                     AreaType = areaType,
                     CostEstUnitType = costEstUnitType,
                     CostEstMax = costEstMax,
-                    CostEstMin = costEstMin
+                    CostEstMin = costEstMin,
+
+                    StartDate = (String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
+                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 });
 
 
@@ -380,7 +398,7 @@ namespace TDM.Controllers.api
         }
 
         [HttpGet]
-        public IHttpActionResult GetSubDistrictShapeByDistrict(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax)
+        public IHttpActionResult GetSubDistrictShapeByDistrict(string id, string priceType, string areaType, string costEstUnitType, string costEstMin, string costEstMax, string startDate, string endDate)
         {
             try
             {
@@ -398,7 +416,10 @@ namespace TDM.Controllers.api
                     AreaType = areaType,
                     CostEstUnitType = costEstUnitType,
                     CostEstMax = costEstMax,
-                    CostEstMin = costEstMin
+                    CostEstMin = costEstMin,
+
+                    StartDate = (String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
+                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 });
 
 
@@ -444,6 +465,51 @@ namespace TDM.Controllers.api
 
         }
 
+        /// <summary>
+        /// execute 
+        /// </summary>
+        /// <param name="criteria"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        private List<Models.ViewModels.MAP_ViewModel> ExecuteClientCriteria(MapSearchCriteria criteria,List<Models.ViewModels.MAP_ViewModel> result)
+        {
+            if(result!=null && result.Any())
+            {
+                if((!string.IsNullOrEmpty(criteria.CostEstMin)) && (!string.IsNullOrEmpty(criteria.CostEstMax)))
+                {
+                    var priceStart = decimal.Parse(criteria.CostEstMin);
+                    var priceEnd = decimal.Parse(criteria.CostEstMax);
+
+                    if (criteria.PriceType == "0")
+                    {
+                        result = result.Where(r => r.ParcelPrice >= priceStart &&
+                                                   r.ParcelPrice <= priceEnd &&
+                                                   r.MarketPrice >= priceStart &&
+                                                   r.MarketPrice <= priceEnd 
+                        ).ToList();
+                    } 
+                    else if (criteria.PriceType == "1")
+                    {
+                        result = result.Where(r => r.ParcelPrice >= priceStart &&
+                                                   r.ParcelPrice <= priceEnd
+                        ).ToList();
+                    }
+                    else if (criteria.PriceType == "2")
+                    {
+                        result = result.Where(r => r.MarketPrice >= priceStart &&
+                                                   r.MarketPrice <= priceEnd
+                        ).ToList();
+                    }
+
+                }
+
+
+
+            }
+
+            return result;
+        }
+
         //private List<Models.ViewModels.MAP_ViewModel> GetMapInfo(SetionType type, string code)
         private List<Models.ViewModels.MAP_ViewModel> GetMapInfo(MapSearchCriteria criteria)
         {
@@ -483,7 +549,9 @@ namespace TDM.Controllers.api
 
                     },
                     MaxPrice = false,
-                    MinPrice = false
+                    MinPrice = false,
+
+                    PriceType = criteria.PriceType
 
                 }).ToList();
 
@@ -524,6 +592,8 @@ namespace TDM.Controllers.api
 
                     
                 }
+
+                result = ExecuteClientCriteria(criteria,result);
             }
 
             return GetRandomColor(result);

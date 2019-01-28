@@ -326,13 +326,15 @@
                                                                                                 <div class="col-sm-6">
 
                                                                                                     <div class="funkyradio-success">
-                                                                                                        <input type="radio" name="Type2" id="rdType1" checked />
+                                                                                                        <label for="rdType1"></label>
+                                                                                                        <input type="radio" name="rdType1" id="rdType1" checked />
                                                                                                         <label class="lbType1" for="rdType1">ราคาประเมิน/ตรว.</label>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="col-sm-6 divTab1">
                                                                                                     <div class="funkyradio-primary">
-                                                                                                        <input type="radio" name="Type2" id="rdType2" />
+                                                                                                        <label for="rdType2"></label>
+                                                                                                        <input type="radio" name="rdType2" id="rdType2" />
                                                                                                         <label class="lbType2" for="rdType2">ราคาประเมิน/แปลง</label>
                                                                                                     </div>
                                                                                                 </div>
@@ -344,7 +346,8 @@
                                                                                         <div class="col-sm-3 divTab1  divSection22 invisible">
                                                                                             <div class="form-group">
                                                                                                 <div class='input-group date' id='txtSFromDate'>
-                                                                                                    <input class="form-control txtSFromDate" placeholder="จากวันที่" />
+                                                                                                    
+                                                                                                    <input class="form-control txtSFromDate" id="txtSearchStartDate" placeholder="จากวันที่" />
                                                                                                     <span class="input-group-addon">
                                                                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                                                                     </span>
@@ -354,7 +357,7 @@
                                                                                         <div class="col-sm-3 divTab1 divSection22 invisible">
                                                                                             <div class="form-group">
                                                                                                 <div class='input-group date' id='txtSToDate'>
-                                                                                                    <input class="form-control txtSToDate" placeholder="จากวันที่" />
+                                                                                                    <input class="form-control txtSToDate" id="txtSearchEndDate" placeholder="ถึงวันที่" />
                                                                                                     <span class="input-group-addon">
                                                                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                                                                     </span>
@@ -395,7 +398,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-2">
                                                                                                     <div class="form-group">
-                                                                                                        <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="10000000" placeholder="ราคาประเมินสูงสุด" />
+                                                                                                        <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="100000000000000" placeholder="ราคาประเมินสูงสุด" />
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
