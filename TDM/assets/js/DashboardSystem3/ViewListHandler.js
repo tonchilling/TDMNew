@@ -341,10 +341,10 @@ var searchForm = {
                     criteria.id = targetId;
                     mapApi.getSubDistrictShapeByID(criteria, function (data) {
 
+
                         if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
                                 ParcelMapController.draw(shape, ParcelMapController.SubDistrictType);
-                                
                             });
                         }
                         $("#overlay").hide();
