@@ -247,6 +247,11 @@
                                                                                     <div class="row ">
                                                                                         <div class="col-sm-6" style="padding:0px">
                                                                                             <div class="row  funkyradio">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <b>เลือกภาค/คลัสเตอร์</b>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row  funkyradio">
                                                                                                 <div class="col-sm-6 divTab1">
 
                                                                                                     <div class="funkyradio-success">
@@ -287,6 +292,7 @@
 
                                                                                         <div class="col-sm-6">
                                                                                             <div class="form-group">
+                                                                                                <label for="ddlProvince">เลือกจังหวัด</label>
                                                                                                 <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
                                                                                                     <option value="">เลือกจังหวัด</option>
                                                                                                 </select>
@@ -294,6 +300,7 @@
                                                                                         </div>
                                                                                         <div class="col-sm-6 divTab1">
                                                                                             <div class="form-group">
+                                                                                                <label for="ddlDistrict">เลือกอำเภอ</label>
                                                                                                 <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
                                                                                                     <option value="">เลือกอำภอ</option>
                                                                                                 </select>
@@ -306,6 +313,7 @@
 
                                                                                         <div class="col-sm-6 divTab1">
                                                                                             <div class="form-group">
+                                                                                                <label for="ddlSubdistrict">เลือกตำบล</label>
                                                                                                 <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
                                                                                                     <option value="">เลือกตำบล</option>
                                                                                                 </select>
@@ -318,13 +326,15 @@
                                                                                                 <div class="col-sm-6">
 
                                                                                                     <div class="funkyradio-success">
-                                                                                                        <input type="radio" name="Type2" id="rdType1" checked />
+                                                                                                        <label for="rdType1"></label>
+                                                                                                        <input type="radio" name="rdType1" id="rdType1" checked />
                                                                                                         <label class="lbType1" for="rdType1">ราคาประเมิน/ตรว.</label>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="col-sm-6 divTab1">
                                                                                                     <div class="funkyradio-primary">
-                                                                                                        <input type="radio" name="Type2" id="rdType2" />
+                                                                                                        <label for="rdType2"></label>
+                                                                                                        <input type="radio" name="rdType2" id="rdType2" />
                                                                                                         <label class="lbType2" for="rdType2">ราคาประเมิน/แปลง</label>
                                                                                                     </div>
                                                                                                 </div>
@@ -336,7 +346,8 @@
                                                                                         <div class="col-sm-3 divTab1  divSection22 invisible">
                                                                                             <div class="form-group">
                                                                                                 <div class='input-group date' id='txtSFromDate'>
-                                                                                                    <input class="form-control txtSFromDate" placeholder="จากวันที่" />
+                                                                                                    
+                                                                                                    <input class="form-control txtSFromDate" id="txtSearchStartDate" placeholder="จากวันที่" />
                                                                                                     <span class="input-group-addon">
                                                                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                                                                     </span>
@@ -346,7 +357,7 @@
                                                                                         <div class="col-sm-3 divTab1 divSection22 invisible">
                                                                                             <div class="form-group">
                                                                                                 <div class='input-group date' id='txtSToDate'>
-                                                                                                    <input class="form-control txtSToDate" placeholder="จากวันที่" />
+                                                                                                    <input class="form-control txtSToDate" id="txtSearchEndDate" placeholder="ถึงวันที่" />
                                                                                                     <span class="input-group-addon">
                                                                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                                                                     </span>
@@ -387,7 +398,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-2">
                                                                                                     <div class="form-group">
-                                                                                                        <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="10000000" placeholder="ราคาประเมินสูงสุด" />
+                                                                                                        <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="100000000000000" placeholder="ราคาประเมินสูงสุด" />
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -970,6 +981,9 @@
 
     <script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.34443"></script>
     <script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?r3r3443ss33"></script>
+
+ 
+
   
     <script type="text/javascript">
 

@@ -242,17 +242,47 @@ var searchForm = {
         try {
 
             //ton
-            SearchAll(sectionType, code)
-
+            SearchAll(sectionType, code);
+            
+            
+            var priceType = $('#ddlType').val();
             var criteria = {
                 id: 0,
-                priceType: tabSelect,
-                areaType: $('#ddlType').val(),
-                costEstUnitType: $('#rdType1').is(":checked")?1:2,
+                priceType: priceType,
+                areaType: tabSelect,
+
+                costEstUnitType: (priceType == 1) ? ($('#rdType1').is(":checked") ? 1 : 2) : null,
                 costEstMin: $('#MinCostEstimate0').val(),
-                costEstMax: $('#MinCostEstimate0').val()
+                costEstMax: $('#MaxCostEstimate0').val(),
+
+                startDate: (priceType == 2) ? $('#txtSearchStartDate').val(): null,
+                endDate: (priceType == 2) ? $('#txtSearchEndDate').val() : null
             }
 
+            if (criteria.costEstMin == '') {
+                criteria.costEstMin = '0';
+            }
+            if (criteria.costEstMax == '') {
+                criteria.costEstMax = '100000000000000';
+            }
+            /*
+            if (priceType == '2') {
+                if(criteria.startDate == '' || criteria.startDate == null ||
+                   criteria.endDate == '' || criteria.endDate == null  
+                    ) {
+
+
+
+                } else if (((new Date(criteria.startDate)) < (new Date(criteria.endDate)))) {
+                    criteria.startDate = criteria.endDate
+                    return;
+                }
+            }
+
+            if ((priceType == 2) && ((new Date(criteria.startDate)) < (new Date(criteria.endDate)))) {
+                criteria.startDate = criteria.endDate
+                return;
+            }*/
 
             map.clear();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
@@ -482,23 +512,26 @@ var ParcelMapController = {
        targetInfo.MarketPriceMin = (targetInfo.MarketPriceMin > 0) ? targetInfo.MarketPriceMin : 0;
        targetInfo.MarketPriceMax = (targetInfo.MarketPriceMax > 0) ? targetInfo.MarketPriceMax : 0;
        targetInfo.MarketPriceAvg = (targetInfo.MarketPriceAvg > 0) ? targetInfo.MarketPriceAvg : 0;
-        
+       
+       
        var price = '';
-       if (tabSelect == '1') {
+       if ((targetInfo.PriceType == '0') || (targetInfo.PriceType == '1') ) {
            price = '<br/>ราคาประเมิน ' + toDisplayDecimal(targetInfo.ParcelPrice) +
               '<ul>' +
               '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMax) +
               '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMin) +
               '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(targetInfo.ParcelPriceAvg) +
               '</ul>'
-       } else if (tabSelect == '2') {
-           price = '<br/>ราคาขาย ' + toDisplayDecimal(targetInfo.MarketPrice) +
+       }
+
+       if ((targetInfo.PriceType == '0') || targetInfo.PriceType != '2') {
+           price += '<br/>ราคาขาย ' + toDisplayDecimal(targetInfo.MarketPrice) +
            '<ul>' +
            '<li>ราคาขายสูงสุด ' + toDisplayDecimal(targetInfo.MarketPriceMax) +
            '<li>ราคาขายต่ำสุด ' + toDisplayDecimal(targetInfo.MarketPriceMin) +
            '<li>ราคาขายเฉลี่ย ' + toDisplayDecimal(targetInfo.MarketPriceAvg) +
-           '</ul><br/><br/>'
-       }
+           '</ul><br/>'
+       } 
 
         var attributes = {
             "Target": targetInfo.Name + "<br/>",
