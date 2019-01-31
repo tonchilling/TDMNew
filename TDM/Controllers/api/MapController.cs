@@ -234,7 +234,7 @@ namespace TDM.Controllers.api
 
                     StartDate = (!String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
                     EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
-                }).FirstOrDefault();
+                });
 
                 return Json(result);
                 //return Json(result, jsonSetting);
@@ -264,8 +264,8 @@ namespace TDM.Controllers.api
                     CostEstMax = costEstMax,
                     CostEstMin = costEstMin,
 
-                    StartDate = (String.IsNullOrEmpty(startDate))?DateTime.Parse(startDate, _locale): (DateTime?)null,
-                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
+                    StartDate = (!String.IsNullOrEmpty(startDate))?DateTime.Parse(startDate, _locale): (DateTime?)null,
+                    EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 });
                 
 
@@ -311,9 +311,9 @@ namespace TDM.Controllers.api
                     CostEstMax = costEstMax,
                     CostEstMin = costEstMin,
 
-                    StartDate = (String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
-                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
-                }).FirstOrDefault();
+                    StartDate = (!String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
+                    EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
+                });
 
 
                 return Json(result);
@@ -342,8 +342,8 @@ namespace TDM.Controllers.api
                     CostEstMax = costEstMax,
                     CostEstMin = costEstMin,
 
-                    StartDate = (String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
-                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
+                    StartDate = (!String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
+                    EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 });
 
 
@@ -360,18 +360,7 @@ namespace TDM.Controllers.api
         {
             try
             {
-                /*
-                var result = tdaEntities.TAMBOLs.Where(x => x.SUB_C == id).ToList().Select(x => new SHAPE_ViewModel(x.Shape)).FirstOrDefault();
-
-                //return Json(result, jsonSetting);
-
-                return Json(GetMapInfo(new
-                {
-                    Name = id,
-                    Shape = result.SHAPE
-
-                }), jsonSetting);
-                */
+                
 
                 var result = GetMapInfo(new MapSearchCriteria()
                 {
@@ -383,8 +372,8 @@ namespace TDM.Controllers.api
                     CostEstMax = costEstMax,
                     CostEstMin = costEstMin,
 
-                    StartDate = (String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
-                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
+                    StartDate = (!String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
+                    EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 });
 
 
