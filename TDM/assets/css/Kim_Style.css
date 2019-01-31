@@ -836,4 +836,24 @@ margin-right:0px;
   background-color: #5bc0de;
 }
 
+hr.style1{
+	border: 2px dashed rgba(0, 0, 0, 0.15);
+}
+.leftbox> h3 {
+    color: #1d811f;
+
+}
+.leftbox h4 {
+    color: #2cac2f;
+
+}
+.leftbox h5 {
+    color: #14b918;
+
+}
+.leftbox i {
+    color: #1891ce;
+    cursor:pointer;
+    font-size:15px;
+}
 /* Custom Radio Button End*/

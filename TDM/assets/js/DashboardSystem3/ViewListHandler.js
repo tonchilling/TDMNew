@@ -254,7 +254,7 @@ var searchForm = {
             }
 
 
-            //map.clear();
+            map.clear();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
                     criteria.id = $('#ddlRegion').val();
@@ -326,9 +326,11 @@ var searchForm = {
                     mapApi.getSubDistrictShapeByID(criteria, function (data) {
 
                         if (data != null) {
-                            ParcelMapController.draw(data,ParcelMapController.SubDistrictType);
-                            $("#overlay").hide();
-                            //drawCity(data.SHAPE);
+                            $.each(data, function (index, shape) {
+                                ParcelMapController.draw(shape, ParcelMapController.SubDistrictType);
+                                $("#overlay").hide();
+                                //drawCity(shape.SHAPE);
+                            });
                         }
                     });
                 }
