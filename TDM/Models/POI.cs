@@ -23,6 +23,7 @@ namespace TDM.Models
         ProviceByID = 5,
         AmphurByID = 6,
         TumbolByID = 7,
+        ChanodeID = 7
     }
 
     public enum LocationType
@@ -57,7 +58,8 @@ namespace TDM.Models
         public string ProvinceCodeCompare1 { get; set; }
         public string ProvinceCodeCompare2 { get; set; }
         public string PercentCompare { get; set; }
-      
+        public string ChanodeNo { get; set; }
+
     }
 
     public partial class EstimateDataAll
@@ -158,16 +160,47 @@ namespace TDM.Models
         public string AmphureName { get; set; }
         public string TAMBOLCode { get; set; }
         public string TAMBOLName { get; set; }
+
         public string MarketPrice { get; set; }
         public string MarketPriceMin { get; set; }
         public string MarketPriceMax { get; set; }
         public string MarketPriceAvg { get; set; }
-        public string LAND_AREA { get; set; }
-        public string LAND_Total { get; set; }
+        public string MaxMarketProvinceCode { get; set; }
+        public string MaxMarketCHANODE_NO { get; set; }
+        public string MinMarketProvinceCode { get; set; }
+        public string MinMarketCHANODE_NO { get; set; }
+
+        public string MarketWAHPrice { get; set; }
+        public string MarketWAHPriceMin { get; set; }
+        public string MarketWAHPriceMax { get; set; }
+        public string MarketWAHPriceAvg { get; set; }
+        public string MaxMarketWAHProvinceCode { get; set; }
+        public string MaxMarketWAHCHANODE_NO { get; set; }
+        public string MinMarketWAHProvinceCode { get; set; }
+        public string MinMarketWAHCHANODE_NO { get; set; }
+
+       
         public string ParcelPrice { get; set; }
         public string ParcelPriceMin { get; set; }
         public string ParcelPriceMax { get; set; }
         public string ParcelPriceAvg { get; set; }
+       public  string  MaxParcelProvinceCode { get; set; }
+        public string MaxParcelCHANODE_NO { get; set; }
+        public string MinParcelProvinceCode { get; set; }
+        public string MinParcelCHANODE_NO { get; set; }
+
+        public string ParcelWAHPrice { get; set; }
+        public string ParcelWAHPriceMin { get; set; }
+        public string ParcelWAHPriceMax { get; set; }
+        public string ParcelWAHPriceAvg { get; set; }
+        public string MaxParcelWAHProvinceCode { get; set; }
+        public string MaxParcelWAHCHANODE_NO { get; set; }
+        public string MinParcelWAHProvinceCode { get; set; }
+        public string MinParcelWAHCHANODE_NO { get; set; }
+
+
+        public string LAND_AREA { get; set; }
+        public string LAND_Total { get; set; }
 
         public string ParcelPricePR5 { get; set; } // for construction
         public string MarketColor { get; set; }
