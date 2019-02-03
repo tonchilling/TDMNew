@@ -499,22 +499,22 @@ function LoadSection2EvalBox1_LeftBox(data) {
                 body += '<div class="alert leftbox alert-1 msg pmvByAreaBox">';
                 body += '<h3 class="Header">' + data.DisplayName + '</h4>';
                 if ($('#ddlType').val() == "1")  {
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right"></i> </h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right"></i></h5>';
+                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelProvinceCode + '" data-chanode="' + data.MaxParcelCHANODE_NO + '"></i> </h5>';
+                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelProvinceCode + '" data-chanode="' + data.MinParcelCHANODE_NO + '"></i></h5>';
                     body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.ParcelPriceAvg).toFixed(2)) + ' บาท </h5>';
                 } else if ($('#ddlType').val() == "2") {
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right"></i></h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right"></i></h5>';
+                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketProvinceCode + '" data-chanode="' + data.MaxMarketCHANODE_NO + '"></i></h5>';
+                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketProvinceCode + '" data-chanode="' + data.MinMarketCHANODE_NO + '"></i></h5>';
                     body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.MarketPriceAvg).toFixed(2)) + ' บาท </h5>';
                 } else {
                     body += '<h4>ราคาประเมิน</h4>';
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right"></i></h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right"></i></h5>';
+                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelProvinceCode + '"  data-chanode="' + data.MaxParcelCHANODE_NO + '"></i></h5>';
+                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelProvinceCode + '" data-chanode="' + data.MinParcelCHANODE_NO + '"></i></h5>';
                     body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.ParcelPriceAvg).toFixed(2)) + ' บาท </h5>';
                     body += '<hr class="style1">';
                     body += '<h4>ราคาซื้อขาย</h4>';
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right"></i></h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right"></i></h5>';
+                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketProvinceCode + '" data-chanode="' + data.MaxMarketCHANODE_NO + '"></i></h5>';
+                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketProvinceCode + '" data-chanode="' + data.MinMarketCHANODE_NO + '"></i></h5>';
                     body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.MarketPriceAvg).toFixed(2)) + ' บาท </h5>';
                 }
                 body += ' </div>';
@@ -910,6 +910,28 @@ function LoadSection4() {
 }
 
 
+$(document).on("click", ".btnViewChanode", function ()
+{
+    var objSearch = {};
+
+    var priceType = $('#ddlType').val();
+    objSearch = { id: $(this).attr("data-province"),  priceType: priceType, ChanodeNo: $(this).attr("data-chanode") };
+
+    $.get(mapApi.getServerPath() + "/api/Map/GetParcelShapeByChanode/", objSearch, function (data) {
+        if (data != null) {
+            map.clear();
+            $.each(data, function (index, shape) {
+                ParcelMapController.draw(shape, ParcelMapController.SubDistrictType);
+                $("#overlay").hide();
+                //drawCity(shape.SHAPE);
+            });
+        }
+    });
+
+   
+
+
+});
 $(document).on("change", "#ddlLand", function () {
 
     switch ($(this).val()) {

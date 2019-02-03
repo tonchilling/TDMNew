@@ -346,7 +346,7 @@ namespace TDM.Repositories
             var p = new DynamicParameters();
             p.Add("@SectionType", (int)search.SectionType);
             p.Add("@Code", search.Code, dbType: DbType.String);
-
+            p.Add("@ChanodeNo", search.ChanodeNo, dbType: DbType.String);
             try
             {
                 result = new List<EstimateData>();
@@ -368,14 +368,46 @@ namespace TDM.Repositories
                         data.AmphureName = reader["AmphureName"].ToString();
                         data.TAMBOLCode = reader["TAMBOLCode"].ToString();
                         data.TAMBOLName = reader["TAMBOLName"].ToString();
+
                         data.MarketPrice = reader["MarketPrice"].ToString();
                         data.MarketPriceMin = reader["MarketPriceMin"].ToString();
                         data.MarketPriceMax = reader["MarketPriceMax"].ToString();
                         data.MarketPriceAvg = reader["MarketPriceAvg"].ToString();
+                        data.MaxMarketProvinceCode = reader["MaxMarketProvinceCode"].ToString();
+                        data.MaxMarketCHANODE_NO = reader["MaxMarketCHANODE_NO"].ToString();
+                        data.MinMarketProvinceCode = reader["MinMarketProvinceCode"].ToString();
+                        data.MinMarketCHANODE_NO = reader["MinMarketCHANODE_NO"].ToString();
+
+                        data.MarketWAHPrice = reader["MarketWAHPrice"].ToString();
+                        data.MarketWAHPriceMin = reader["MarketWAHPriceMin"].ToString();
+                        data.MarketWAHPriceMax = reader["MarketWAHPriceMax"].ToString();
+                        data.MarketWAHPriceAvg = reader["MarketWAHPriceAvg"].ToString();
+                        data.MaxMarketWAHProvinceCode = reader["MaxMarketWAHProvinceCode"].ToString();
+                        data.MaxMarketWAHCHANODE_NO = reader["MaxMarketWAHCHANODE_NO"].ToString();
+                        data.MinMarketWAHProvinceCode = reader["MinMarketWAHProvinceCode"].ToString();
+                        data.MinMarketWAHCHANODE_NO = reader["MinMarketWAHCHANODE_NO"].ToString();
+
+
                         data.ParcelPrice = reader["ParcelPrice"].ToString();
                         data.ParcelPriceMin = reader["ParcelPriceMin"].ToString();
                         data.ParcelPriceMax = reader["ParcelPriceMax"].ToString();
                         data.ParcelPriceAvg = reader["ParcelPriceAvg"].ToString();
+                        data.MaxParcelProvinceCode = reader["MaxParcelProvinceCode"].ToString();
+                        data.MaxParcelCHANODE_NO = reader["MaxParcelCHANODE_NO"].ToString();
+                        data.MinParcelProvinceCode = reader["MinParcelProvinceCode"].ToString();
+                        data.MinParcelCHANODE_NO = reader["MinParcelCHANODE_NO"].ToString();
+
+
+                        data.ParcelWAHPrice    = reader["ParcelWAHPrice"].ToString();
+                        data.ParcelWAHPriceMin = reader["ParcelWAHPriceMin"].ToString();
+                        data.ParcelWAHPriceMax = reader["ParcelWAHPriceMax"].ToString();
+                        data.ParcelWAHPriceAvg = reader["ParcelWAHPriceAvg"].ToString();
+                        data.MaxParcelWAHProvinceCode = reader["MaxParcelWAHProvinceCode"].ToString();
+                        data.MaxParcelWAHCHANODE_NO = reader["MaxParcelWAHCHANODE_NO"].ToString();
+                        data.MinParcelWAHProvinceCode = reader["MinParcelWAHProvinceCode"].ToString();
+                        data.MinParcelWAHCHANODE_NO = reader["MinParcelWAHCHANODE_NO"].ToString();
+
+
                         data.LAND_AREA = reader["LAND_AREA"].ToString();
                         data.LAND_Total = reader["LAND_Total"].ToString();
                         data.MarketColor = reader["MarketColor"].ToString();
@@ -936,6 +968,7 @@ namespace TDM.Repositories
         public string CostEstUnitType { get; set; }
         public string CostEstMin { get; set; }
         public string CostEstMax { get; set; }
+        public string ChanodeNo { get; set; }
         public SetionType Type { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }

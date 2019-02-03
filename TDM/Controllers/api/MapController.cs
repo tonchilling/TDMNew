@@ -232,6 +232,7 @@ namespace TDM.Controllers.api
                     CostEstMax = costEstMax,
                     CostEstMin = costEstMin,
 
+
                     StartDate = (!String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
                     EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 });
@@ -263,6 +264,7 @@ namespace TDM.Controllers.api
                     CostEstUnitType = costEstUnitType,
                     CostEstMax = costEstMax,
                     CostEstMin = costEstMin,
+
 
                     StartDate = (!String.IsNullOrEmpty(startDate))?DateTime.Parse(startDate, _locale): (DateTime?)null,
                     EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
@@ -311,10 +313,10 @@ namespace TDM.Controllers.api
                     CostEstMax = costEstMax,
                     CostEstMin = costEstMin,
 
+
                     StartDate = (!String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
                     EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
                 });
-
 
                 return Json(result);
 
@@ -407,8 +409,8 @@ namespace TDM.Controllers.api
                     CostEstMax = costEstMax,
                     CostEstMin = costEstMin,
 
-                    StartDate = (String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
-                    EndDate = (String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
+                    StartDate = (String.IsNullOrEmpty(startDate)) ? (DateTime?)null : DateTime.Parse(startDate, _locale),
+                    EndDate = (String.IsNullOrEmpty(endDate)) ? (DateTime?)null : DateTime.Parse(startDate, _locale),
                 });
 
 
@@ -419,6 +421,38 @@ namespace TDM.Controllers.api
                 return Json(ex);
             }
         }
+
+
+        [HttpGet]
+        public IHttpActionResult GetParcelShapeByChanode(string id, string priceType, string ChanodeNo)
+        {
+            try
+            {
+                /*
+                var result = tdaEntities.TAMBOLs.Where(x => x.DIS_C == id).ToList();
+
+                return Json(result.Select(x => new SHAPE_ViewModel(x.Shape)), jsonSetting);
+                */
+
+                var result = GetMapInfo(new MapSearchCriteria()
+                {
+                    ID = id,
+                    PriceType = priceType,
+                    Type = SetionType.ChanodeID,
+                    ChanodeNo= ChanodeNo
+
+                });
+
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex);
+            }
+        }
+
+
 
         private Models.ViewModels.MAP_ViewModel GetMapInfo(dynamic target)
         {
@@ -508,7 +542,8 @@ namespace TDM.Controllers.api
             var searchResult = repos.GetPrice(new SearchMap()
             {
                 SectionType = criteria.Type,
-                Code = criteria.ID
+                Code = criteria.ID,
+                ChanodeNo= criteria.ChanodeNo
             });
 
             if (searchResult != null && searchResult.Count() > 0)
