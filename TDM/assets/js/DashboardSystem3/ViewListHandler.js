@@ -29,9 +29,9 @@ var searchForm = {
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
             
-          //  $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
-          /*  $("#overlay")
+            $("#overlay")
                .height(target.height())
                .width(target.width()+20)
                .css({
@@ -44,7 +44,7 @@ var searchForm = {
                    'margin-left': 'auto',
                    'margin-right': 'auto'
                })
-                .hide();*/
+                .hide();
 
         }, 5000);
         
@@ -242,7 +242,7 @@ var searchForm = {
         try {
 
             //ton
-            //SearchAll(sectionType, code);
+            SearchAll(sectionType, code);
             
             
             var priceType = $('#ddlType').val();
@@ -268,10 +268,10 @@ var searchForm = {
            
 
             map.clear();
-
+            $("#overlay").show();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
-                    criteria.id = $('#ddlRegion').val(); alert('send');
+                    criteria.id = $('#ddlRegion').val(); 
                     mapApi.getProvinceShapeByRegion(criteria, function (data) {
                         
                         
