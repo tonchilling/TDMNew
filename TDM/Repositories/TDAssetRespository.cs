@@ -373,18 +373,18 @@ namespace TDM.Repositories
                         data.MarketPriceMin = reader["MarketPriceMin"].ToString();
                         data.MarketPriceMax = reader["MarketPriceMax"].ToString();
                         data.MarketPriceAvg = reader["MarketPriceAvg"].ToString();
-                        data.MaxMarketProvinceCode = reader["MaxMarketProvinceCode"].ToString();
+                        data.MaxMarketAddrCode = reader["MaxMarketAddrCode"].ToString();
                         data.MaxMarketCHANODE_NO = reader["MaxMarketCHANODE_NO"].ToString();
-                        data.MinMarketProvinceCode = reader["MinMarketProvinceCode"].ToString();
+                        data.MinMarketAddrCode = reader["MinMarketAddrCode"].ToString();
                         data.MinMarketCHANODE_NO = reader["MinMarketCHANODE_NO"].ToString();
 
                         data.MarketWAHPrice = reader["MarketWAHPrice"].ToString();
                         data.MarketWAHPriceMin = reader["MarketWAHPriceMin"].ToString();
                         data.MarketWAHPriceMax = reader["MarketWAHPriceMax"].ToString();
                         data.MarketWAHPriceAvg = reader["MarketWAHPriceAvg"].ToString();
-                        data.MaxMarketWAHProvinceCode = reader["MaxMarketWAHProvinceCode"].ToString();
+                        data.MaxMarketWAHAddrCode = reader["MaxMarketWAHAddrCode"].ToString();
                         data.MaxMarketWAHCHANODE_NO = reader["MaxMarketWAHCHANODE_NO"].ToString();
-                        data.MinMarketWAHProvinceCode = reader["MinMarketWAHProvinceCode"].ToString();
+                        data.MinMarketWAHAddrCode = reader["MinMarketWAHAddrCode"].ToString();
                         data.MinMarketWAHCHANODE_NO = reader["MinMarketWAHCHANODE_NO"].ToString();
 
 
@@ -392,9 +392,9 @@ namespace TDM.Repositories
                         data.ParcelPriceMin = reader["ParcelPriceMin"].ToString();
                         data.ParcelPriceMax = reader["ParcelPriceMax"].ToString();
                         data.ParcelPriceAvg = reader["ParcelPriceAvg"].ToString();
-                        data.MaxParcelProvinceCode = reader["MaxParcelProvinceCode"].ToString();
+                        data.MaxParcelAddrCode = reader["MaxParcelAddrCode"].ToString();
                         data.MaxParcelCHANODE_NO = reader["MaxParcelCHANODE_NO"].ToString();
-                        data.MinParcelProvinceCode = reader["MinParcelProvinceCode"].ToString();
+                        data.MinParcelAddrCode = reader["MinParcelAddrCode"].ToString();
                         data.MinParcelCHANODE_NO = reader["MinParcelCHANODE_NO"].ToString();
 
 
@@ -402,9 +402,9 @@ namespace TDM.Repositories
                         data.ParcelWAHPriceMin = reader["ParcelWAHPriceMin"].ToString();
                         data.ParcelWAHPriceMax = reader["ParcelWAHPriceMax"].ToString();
                         data.ParcelWAHPriceAvg = reader["ParcelWAHPriceAvg"].ToString();
-                        data.MaxParcelWAHProvinceCode = reader["MaxParcelWAHProvinceCode"].ToString();
+                        data.MaxParcelWAHAddrCode = reader["MaxParcelWAHAddrCode"].ToString();
                         data.MaxParcelWAHCHANODE_NO = reader["MaxParcelWAHCHANODE_NO"].ToString();
-                        data.MinParcelWAHProvinceCode = reader["MinParcelWAHProvinceCode"].ToString();
+                        data.MinParcelWAHAddrCode = reader["MinParcelWAHAddrCode"].ToString();
                         data.MinParcelWAHCHANODE_NO = reader["MinParcelWAHCHANODE_NO"].ToString();
 
 

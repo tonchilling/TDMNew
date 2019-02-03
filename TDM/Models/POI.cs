@@ -165,18 +165,18 @@ namespace TDM.Models
         public string MarketPriceMin { get; set; }
         public string MarketPriceMax { get; set; }
         public string MarketPriceAvg { get; set; }
-        public string MaxMarketProvinceCode { get; set; }
+        public string MaxMarketAddrCode { get; set; }
         public string MaxMarketCHANODE_NO { get; set; }
-        public string MinMarketProvinceCode { get; set; }
+        public string MinMarketAddrCode { get; set; }
         public string MinMarketCHANODE_NO { get; set; }
 
         public string MarketWAHPrice { get; set; }
         public string MarketWAHPriceMin { get; set; }
         public string MarketWAHPriceMax { get; set; }
         public string MarketWAHPriceAvg { get; set; }
-        public string MaxMarketWAHProvinceCode { get; set; }
+        public string MaxMarketWAHAddrCode { get; set; }
         public string MaxMarketWAHCHANODE_NO { get; set; }
-        public string MinMarketWAHProvinceCode { get; set; }
+        public string MinMarketWAHAddrCode { get; set; }
         public string MinMarketWAHCHANODE_NO { get; set; }
 
        
@@ -184,18 +184,18 @@ namespace TDM.Models
         public string ParcelPriceMin { get; set; }
         public string ParcelPriceMax { get; set; }
         public string ParcelPriceAvg { get; set; }
-       public  string  MaxParcelProvinceCode { get; set; }
+       public  string  MaxParcelAddrCode { get; set; }
         public string MaxParcelCHANODE_NO { get; set; }
-        public string MinParcelProvinceCode { get; set; }
+        public string MinParcelAddrCode { get; set; }
         public string MinParcelCHANODE_NO { get; set; }
 
         public string ParcelWAHPrice { get; set; }
         public string ParcelWAHPriceMin { get; set; }
         public string ParcelWAHPriceMax { get; set; }
         public string ParcelWAHPriceAvg { get; set; }
-        public string MaxParcelWAHProvinceCode { get; set; }
+        public string MaxParcelWAHAddrCode { get; set; }
         public string MaxParcelWAHCHANODE_NO { get; set; }
-        public string MinParcelWAHProvinceCode { get; set; }
+        public string MinParcelWAHAddrCode { get; set; }
         public string MinParcelWAHCHANODE_NO { get; set; }
 
 

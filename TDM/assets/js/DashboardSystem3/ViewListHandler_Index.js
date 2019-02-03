@@ -499,23 +499,23 @@ function LoadSection2EvalBox1_LeftBox(data) {
                 body += '<div class="alert leftbox alert-1 msg pmvByAreaBox">';
                 body += '<h3 class="Header">' + data.DisplayName + '</h4>';
                 if ($('#ddlType').val() == "1")  {
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelProvinceCode + '" data-chanode="' + data.MaxParcelCHANODE_NO + '"></i> </h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelProvinceCode + '" data-chanode="' + data.MinParcelCHANODE_NO + '"></i></h5>';
-                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.ParcelPriceAvg).toFixed(2)) + ' บาท </h5>';
+                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelWAHPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelWAHAddrCode + '" data-chanode="' + data.MaxParcelCHANODE_NO + '"></i> </h5>';
+                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelWAHPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelWAHProvinceCode + '" data-chanode="' + data.MinParcelCHANODE_NO + '"></i></h5>';
+                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.ParcelWAHPriceAvg).toFixed(2)) + ' บาท </h5>';
                 } else if ($('#ddlType').val() == "2") {
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketProvinceCode + '" data-chanode="' + data.MaxMarketCHANODE_NO + '"></i></h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketProvinceCode + '" data-chanode="' + data.MinMarketCHANODE_NO + '"></i></h5>';
-                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.MarketPriceAvg).toFixed(2)) + ' บาท </h5>';
+                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketWAHPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketWAHAddrCode + '" data-chanode="' + data.MaxMarketCHANODE_NO + '"></i></h5>';
+                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketWAHPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketWAHAddrCode + '" data-chanode="' + data.MinMarketCHANODE_NO + '"></i></h5>';
+                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.MarketWAHPriceAvg).toFixed(2)) + ' บาท </h5>';
                 } else {
                     body += '<h4>ราคาประเมิน</h4>';
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelProvinceCode + '"  data-chanode="' + data.MaxParcelCHANODE_NO + '"></i></h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelProvinceCode + '" data-chanode="' + data.MinParcelCHANODE_NO + '"></i></h5>';
-                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.ParcelPriceAvg).toFixed(2)) + ' บาท </h5>';
+                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.ParcelWAHPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelWAHAddrCode + '"  data-chanode="' + data.MaxParcelCHANODE_NO + '"></i></h5>';
+                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.ParcelWAHPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelWAHAddrCode + '" data-chanode="' + data.MinParcelCHANODE_NO + '"></i></h5>';
+                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.ParcelWAHPriceAvg).toFixed(2)) + ' บาท </h5>';
                     body += '<hr class="style1">';
                     body += '<h4>ราคาซื้อขาย</h4>';
-                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketProvinceCode + '" data-chanode="' + data.MaxMarketCHANODE_NO + '"></i></h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketProvinceCode + '" data-chanode="' + data.MinMarketCHANODE_NO + '"></i></h5>';
-                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.MarketPriceAvg).toFixed(2)) + ' บาท </h5>';
+                    body += '<h5>ราคาสูงสุด : ' + numberWithCommas(parseFloat(data.MarketWAHPriceMax).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketWAHAddrCode + '" data-chanode="' + data.MaxMarketCHANODE_NO + '"></i></h5>';
+                    body += ' <h5>ราคาต่ำสุด:  ' + numberWithCommas(parseFloat(data.MarketWAHPriceMin).toFixed(2)) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketWAHAddrCode + '" data-chanode="' + data.MinMarketCHANODE_NO + '"></i></h5>';
+                    body += '<h5>ราคาเฉลี่ย :  ' + numberWithCommas(parseFloat(data.MarketWAHPriceAvg).toFixed(2)) + ' บาท </h5>';
                 }
                 body += ' </div>';
             });
