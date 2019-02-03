@@ -233,8 +233,8 @@ namespace TDM.Controllers.api
                     CostEstMin = costEstMin,
 
 
-                    StartDate = (!String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
-                    EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
+                    StartDate = (String.IsNullOrEmpty(startDate)) ? (DateTime?)null : DateTime.Parse(startDate, _locale),
+                    EndDate = (String.IsNullOrEmpty(endDate)) ? (DateTime?)null : DateTime.Parse(startDate, _locale),
                 });
 
                 return Json(result);
@@ -374,8 +374,8 @@ namespace TDM.Controllers.api
                     CostEstMax = costEstMax,
                     CostEstMin = costEstMin,
 
-                    StartDate = (!String.IsNullOrEmpty(startDate)) ? DateTime.Parse(startDate, _locale) : (DateTime?)null,
-                    EndDate = (!String.IsNullOrEmpty(endDate)) ? DateTime.Parse(endDate, _locale) : (DateTime?)null,
+                    StartDate = (String.IsNullOrEmpty(startDate)) ? (DateTime?)null : DateTime.Parse(startDate, _locale),
+                    EndDate = (String.IsNullOrEmpty(endDate)) ? (DateTime?)null : DateTime.Parse(startDate, _locale),
                 });
 
 
@@ -553,12 +553,12 @@ namespace TDM.Controllers.api
 
                     Name = r.DisplayName,
 
-                    ParcelPrice = DecimalHelper.ToDecimal(r.ParcelPrice, -1),
+                    ParcelPrice = criteria.ChanodeNo==null ? DecimalHelper.ToDecimal(r.ParcelPrice, -1) :  DecimalHelper.ToDecimal(r.ParcelWAHPrice, -1),
                     ParcelPriceMin = DecimalHelper.ToDecimal(r.ParcelPriceMin, -1),
                     ParcelPriceMax = DecimalHelper.ToDecimal(r.ParcelPriceMax, -1),
                     ParcelPriceAvg = DecimalHelper.ToDecimal(r.ParcelPriceAvg, -1),
 
-                    MarketPrice = DecimalHelper.ToDecimal(r.MarketPrice, -1),
+                    MarketPrice = criteria.ChanodeNo == null ? DecimalHelper.ToDecimal(r.MarketPrice, -1) : DecimalHelper.ToDecimal(r.ParcelWAHPrice, -1),
                     MarketPriceMin = DecimalHelper.ToDecimal(r.MarketPriceMin, -1),
                     MarketPriceMax = DecimalHelper.ToDecimal(r.MarketPriceMax, -1),
                     MarketPriceAvg = DecimalHelper.ToDecimal(r.MarketPriceAvg, -1),

@@ -267,7 +267,7 @@ var searchForm = {
             }
            
 
-            map.clear();
+          //  map.clear();
             $("#overlay").show();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
@@ -501,23 +501,30 @@ var ParcelMapController = {
        
        
        var price = '';
-       if ((targetInfo.PriceType == '0') || (targetInfo.PriceType == '1') ) {
-           price = '<br/>ราคาประเมิน ' + toDisplayDecimal(targetInfo.ParcelPrice) +
-              '<ul>' +
-              '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMax) +
-              '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMin) +
-              '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(targetInfo.ParcelPriceAvg) +
-              '</ul>'
-       }
 
-       if ((targetInfo.PriceType == '0') || targetInfo.PriceType != '2') {
-           price += '<br/>ราคาขาย ' + toDisplayDecimal(targetInfo.MarketPrice) +
-           '<ul>' +
-           '<li>ราคาขายสูงสุด ' + toDisplayDecimal(targetInfo.MarketPriceMax) +
-           '<li>ราคาขายต่ำสุด ' + toDisplayDecimal(targetInfo.MarketPriceMin) +
-           '<li>ราคาขายเฉลี่ย ' + toDisplayDecimal(targetInfo.MarketPriceAvg) +
-           '</ul><br/>'
-       } 
+       if (sectionType == '4')
+       {
+           price = 'ราคา ' + toDisplayDecimal(targetInfo.ParcelPrice);
+       }
+       else {
+           if ((targetInfo.PriceType == '0') || (targetInfo.PriceType == '1')) {
+               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(targetInfo.ParcelPrice) +
+                  '<ul>' +
+                  '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMax) +
+                  '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMin) +
+                  '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(targetInfo.ParcelPriceAvg) +
+                  '</ul>'
+           }
+
+           if ((targetInfo.PriceType == '0') || targetInfo.PriceType != '2') {
+               price += '<br/>ราคาขาย ' + toDisplayDecimal(targetInfo.MarketPrice) +
+               '<ul>' +
+               '<li>ราคาขายสูงสุด ' + toDisplayDecimal(targetInfo.MarketPriceMax) +
+               '<li>ราคาขายต่ำสุด ' + toDisplayDecimal(targetInfo.MarketPriceMin) +
+               '<li>ราคาขายเฉลี่ย ' + toDisplayDecimal(targetInfo.MarketPriceAvg) +
+               '</ul><br/>'
+           }
+       }
 
         var attributes = {
             "Target": targetInfo.Name + "<br/>",

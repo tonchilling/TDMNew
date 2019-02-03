@@ -346,7 +346,7 @@ namespace TDM.Repositories
             var p = new DynamicParameters();
             p.Add("@SectionType", (int)search.SectionType);
             p.Add("@Code", search.Code, dbType: DbType.String);
-            p.Add("@ChanodeNo", search.ChanodeNo, dbType: DbType.String);
+            p.Add("@ChanodeNo", search.ChanodeNo == null?"": search.ChanodeNo, dbType: DbType.String);
             try
             {
                 result = new List<EstimateData>();
