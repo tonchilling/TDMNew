@@ -1173,7 +1173,7 @@ function MakeSpeedDometer(name, tital, data) {
 
 
 var minCostLimit = 0;
-var maxCostLimit = 10000000;
+var maxCostLimit = 100000000000000;
 var minCost = minCostLimit;
 var maxCost = maxCostLimit;
 var slider0 = null;

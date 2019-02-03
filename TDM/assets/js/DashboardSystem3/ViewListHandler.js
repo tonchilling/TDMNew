@@ -29,9 +29,9 @@ var searchForm = {
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
             
-          //  $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
-          /*  $("#overlay")
+            $("#overlay")
                .height(target.height())
                .width(target.width()+20)
                .css({
@@ -44,7 +44,7 @@ var searchForm = {
                    'margin-left': 'auto',
                    'margin-right': 'auto'
                })
-                .hide();*/
+                .hide();
 
         }, 5000);
         
@@ -59,6 +59,8 @@ var searchForm = {
         $(name).append("<option value='999999'>ทั้งหมด</option>");
     },
     setupSearchForm: function () {
+
+
         searchForm.clearDropDown('ddlDistrict');
         $('#ddlDistrict').prop('disabled', 'disabled');
 
@@ -198,9 +200,7 @@ var searchForm = {
     },
     search: function () {
         /**/
-
-       // $("#overlay").show();
-
+       
         var idOfAll = '999999';
         var searchType = 'PROVINCE';
         var targetId = '';
@@ -265,52 +265,37 @@ var searchForm = {
             if (criteria.costEstMax == '') {
                 criteria.costEstMax = '100000000000000';
             }
-            /*
-            if (priceType == '2') {
-                if(criteria.startDate == '' || criteria.startDate == null ||
-                   criteria.endDate == '' || criteria.endDate == null  
-                    ) {
-
-
-
-                } else if (((new Date(criteria.startDate)) < (new Date(criteria.endDate)))) {
-                    criteria.startDate = criteria.endDate
-                    return;
-                }
-            }
-
-            if ((priceType == 2) && ((new Date(criteria.startDate)) < (new Date(criteria.endDate)))) {
-                criteria.startDate = criteria.endDate
-                return;
-            }*/
+           
 
             map.clear();
+            $("#overlay").show();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
-                    criteria.id = $('#ddlRegion').val();
+                    criteria.id = $('#ddlRegion').val(); 
                     mapApi.getProvinceShapeByRegion(criteria, function (data) {
+                        
                         
                         if (data != null && data.length > 0) {
 
                             $.each(data, function (index, shape) {
-
-                                
                                 ParcelMapController.draw(shape,ParcelMapController.ProvinceType);
-                                $("#overlay").hide();
-                                //drawCity(shape.SHAPE);
+                                
                             });
                         }
+                        $("#overlay").hide();
                     });
                 } else {
                     criteria.id = targetId;
                     mapApi.getProvinceShapeByID(criteria, function (data) {
 
-                        if (data != null) {
+                        if (data != null && data.length > 0) {
+
+                            $.each(data, function (index, shape) {
+                                ParcelMapController.draw(shape, ParcelMapController.ProvinceType);
+                            });
                             
-                            ParcelMapController.draw(data,ParcelMapController.ProvinceType);
-                            $("#overlay").hide();
-                            //drawCity(data.SHAPE);
                         }
+                        $("#overlay").hide();
                     });
                 }
 
@@ -322,20 +307,21 @@ var searchForm = {
                         if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
                                 ParcelMapController.draw(shape,ParcelMapController.DistrictType);
-                                $("#overlay").hide();
-                                //drawCity(shape.SHAPE);
+                                
                             });
                         }
+                        $("#overlay").hide();
                     });
                 } else {
                     criteria.id = targetId;
                     mapApi.getDistrictShapeByID(criteria, function (data) {
 
-                        if (data != null) {
-                            ParcelMapController.draw(data,ParcelMapController.DistrictType);
-                            $("#overlay").hide();
-                            //drawCity(data.SHAPE);
+                        if (data != null && data.length > 0) {
+                            $.each(data, function (index, shape) {
+                                ParcelMapController.draw(shape, ParcelMapController.DistrictType);
+                            });
                         }
+                        $("#overlay").hide();
                     });
                 }
             } else { /*render subdistrict map*/
@@ -346,22 +332,22 @@ var searchForm = {
                         if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
                                 ParcelMapController.draw(shape,ParcelMapController.SubDistrictType);
-                                $("#overlay").hide();
-                                //drawCity(shape.SHAPE);
+                                
                             });
                         }
+                        $("#overlay").hide();
                     });
                 } else {
                     criteria.id = targetId;
                     mapApi.getSubDistrictShapeByID(criteria, function (data) {
 
-                        if (data != null) {
+
+                        if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
                                 ParcelMapController.draw(shape, ParcelMapController.SubDistrictType);
-                                $("#overlay").hide();
-                                //drawCity(shape.SHAPE);
                             });
                         }
+                        $("#overlay").hide();
                     });
                 }
             }
