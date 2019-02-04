@@ -508,11 +508,13 @@ var ParcelMapController = {
        }
        else {
            if ((targetInfo.PriceType == '0') || (targetInfo.PriceType == '1')) {
-               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(targetInfo.ParcelPrice) +
+
+
+               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPrice : targetInfo.xxx) +
                   '<ul>' +
-                  '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMax) +
-                  '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMin) +
-                  '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(targetInfo.ParcelPriceAvg) +
+                  '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMax : targetInfo.ParcelWAHPriceMax) +
+                  '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMin : targetInfo.ParcelWAHPriceMin) +
+                  '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceAvg : targetInfo.ParcelWAHPriceAvg) +
                   '</ul>'
            }
 

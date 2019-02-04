@@ -29,6 +29,8 @@ namespace TDM.Models.ViewModels
         public bool MinPrice { get; set; }
 
         public string PriceType { get; set; }
+        public string CostEstUnitType { get; set; }
+        
 
     }
     public class MapStructureInfo
