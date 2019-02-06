@@ -267,14 +267,18 @@ var searchForm = {
             }
            
 
-          //  map.clear();
+            map.clear();
+            //alert(searchType + '  ' + targetId);
             $("#overlay").show();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
+                    try {
+                        //alert('Search by ' + idOfAll);
+                    
                     criteria.id = $('#ddlRegion').val(); 
                     mapApi.getProvinceShapeByRegion(criteria, function (data) {
                         
-                        
+                        //alert('back from sever');
                         if (data != null && data.length > 0) {
 
                             $.each(data, function (index, shape) {
@@ -284,6 +288,9 @@ var searchForm = {
                         }
                         $("#overlay").hide();
                     });
+                    } catch (e) {
+                        alert(e.message);
+                    }
                 } else {
                     criteria.id = targetId;
                     mapApi.getProvinceShapeByID(criteria, function (data) {
@@ -434,7 +441,7 @@ var ParcelMapController = {
     DistrictType:2,
     SubDistrictType:3,
     draw: function (targetInfo,type) {
-	
+        
         var price = (_mapCurrModule == 1) ? targetInfo.ParcelPrice : targetInfo.MarketPrice;
         targetInfo.MapStructure.ParcelDrawingCode = ParcelMapController.getParcelMapColor(price, type);
         
@@ -450,12 +457,12 @@ var ParcelMapController = {
             map.addGraphic(targetShape, symbol);
             ParcelMapController.drawWithInfo(targetInfo);
         } else {
-            alert('Shap Not OK');
+            alert('Shape Not OK');
         }
         return null;
     },
     drawWithInfo: function (targetInfo) {
-	
+        //alert(targetInfo);
         /*
         var symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
 
@@ -501,7 +508,9 @@ var ParcelMapController = {
        
        
        var price = '';
+        try {
 
+        
        if (sectionType == '4')
        {
            price = 'ราคา ' + toDisplayDecimal(targetInfo.ParcelPrice);
@@ -510,7 +519,7 @@ var ParcelMapController = {
            if ((targetInfo.PriceType == '0') || (targetInfo.PriceType == '1')) {
 
 
-               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPrice : targetInfo.xxx) +
+               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPrice : targetInfo.ParcelWAHPrice) +
                   '<ul>' +
                   '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMax : targetInfo.ParcelWAHPriceMax) +
                   '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMin : targetInfo.ParcelWAHPriceMin) +
@@ -527,7 +536,9 @@ var ParcelMapController = {
                '</ul><br/>'
            }
        }
-
+        } catch (e) {
+            alert(e.message);
+        }
         var attributes = {
             "Target": targetInfo.Name + "<br/>",
             "Price": price
