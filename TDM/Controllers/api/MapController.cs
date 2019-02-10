@@ -551,15 +551,28 @@ namespace TDM.Controllers.api
         {
             List<Models.ViewModels.MAP_ViewModel> result = new List<Models.ViewModels.MAP_ViewModel>(0);
             var repos = new TDAssetRespository();
-            
-            var searchResult = repos.GetPrice(new SearchMap()
-            {
-                SectionType = criteria.Type,
-                Code = criteria.ID,
-                ChanodeNo= criteria.ChanodeNo
-            });
+            List<EstimateData> searchResult = null ;
 
-            if (searchResult != null && searchResult.Count() > 0)
+            if (criteria.AreaType == "1")
+            {
+                searchResult = repos.GetPrice(new SearchMap()
+                {
+                    SectionType = criteria.Type,
+                    Code = criteria.ID,
+                    ChanodeNo = criteria.ChanodeNo
+                });
+            }
+            else if (criteria.AreaType == "2")
+            {
+                searchResult = repos.GetCondoPrice(new SearchMap()
+                {
+                    SectionType = criteria.Type,
+                    Code = criteria.ID,
+                    ChanodeNo = criteria.ChanodeNo
+                });
+            }
+
+                if (searchResult != null && searchResult.Count() > 0)
             {
                 result = searchResult.Select(r => new TDM.Models.ViewModels.MAP_ViewModel()
                 {
@@ -567,14 +580,14 @@ namespace TDM.Controllers.api
                     Name = r.DisplayName,
 
                     ParcelPrice = criteria.ChanodeNo==null ? DecimalHelper.ToDecimal(r.ParcelPrice, -1) :  DecimalHelper.ToDecimal(r.ParcelWAHPrice, -1),
-                    ParcelPriceMin = DecimalHelper.ToDecimal(r.ParcelPriceMin, -1),
-                    ParcelPriceMax = DecimalHelper.ToDecimal(r.ParcelPriceMax, -1),
-                    ParcelPriceAvg = DecimalHelper.ToDecimal(r.ParcelPriceAvg, -1),
+                    ParcelPriceMin = DecimalHelper.ToDecimal(r.ParcelWAHPriceMin, -1),
+                    ParcelPriceMax = DecimalHelper.ToDecimal(r.ParcelWAHPriceMax, -1),
+                    ParcelPriceAvg = DecimalHelper.ToDecimal(r.ParcelWAHPriceAvg, -1),
 
                     MarketPrice = criteria.ChanodeNo == null ? DecimalHelper.ToDecimal(r.MarketPrice, -1) : DecimalHelper.ToDecimal(r.ParcelWAHPrice, -1),
-                    MarketPriceMin = DecimalHelper.ToDecimal(r.MarketPriceMin, -1),
-                    MarketPriceMax = DecimalHelper.ToDecimal(r.MarketPriceMax, -1),
-                    MarketPriceAvg = DecimalHelper.ToDecimal(r.MarketPriceAvg, -1),
+                    MarketPriceMin = DecimalHelper.ToDecimal(r.MarketWAHPriceMin, -1),
+                    MarketPriceMax = DecimalHelper.ToDecimal(r.MarketWAHPriceMax, -1),
+                    MarketPriceAvg = DecimalHelper.ToDecimal(r.MarketWAHPriceAvg, -1),
                     LATITUDE = r.LATITUDE,
                     LONGITUDE = r.LONGITUDE,
                     MapStructure = new Models.ViewModels.MapStructureInfo()
