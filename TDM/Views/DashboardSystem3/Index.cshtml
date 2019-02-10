@@ -18,14 +18,37 @@
     </style>
   @section Scripts {
     @Scripts.Render("~/assets/css/customize.css?v1113")
-    @Scripts.Render("~/assets/css/Kim_Style.css?v233333")
+    @Scripts.Render("~/assets/css/Kim_Style.css?vwwww33333")
 }
     <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
     <link href="~/assets/css/customize.css?v1113" rel="stylesheet" />
     <link href="~/assets/css/Kim_Style.css?v233333" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+     
+    <style type="text/css">
+      .selectpicker  {
+    -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+    -moz-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    background-color: #fff;
+}
+
+      .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
+    color: #333;
+    background-color: #fff;
+   /*border-color: gold;*/ 
+}
+
+
+    </style>
     <!-- Bootstrap -->
     <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/assets/js/jquery-ui.js"></script>
+    <script src="~/assets/js/bootstrap-select.min.js"></script>
  
 </head>
 <body class="nav-md">
@@ -252,7 +275,7 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="row  funkyradio">
-                                                                                                <div class="col-sm-6 divTab1">
+                                                                                                <div class="col-sm-6 ">
 
                                                                                                     <div class="funkyradio-success">
                                                                                                         <input type="radio" name="Type1" id="rdRegion" checked />
@@ -413,14 +436,14 @@
 
                                                                                                         <div class="panel-body">
                                                                                                             <div class="row">
-                                                                                                                <div class="col-sm-6">
-                                                                                                                    <select class="form-control form-control-lg" id="ddlProvince1" placeholder="จังหวัด"></select>
+                                                                                                                <div class="col-sm-12">
+                                                                                                                    <select class="form-control form-control-lg" 
+                                                                                                                            id="ddlProvince1"
+                                                                                                                            title="จังหวัด" 
+                                                                                                                             placeholder="จังหวัด" multiple></select>
 
                                                                                                                 </div>
-                                                                                                                <div class="col-sm-6">
-                                                                                                                    <select class="form-control form-control-lg" id="ddlProvince2" placeholder="จังหวัด"></select>
-
-                                                                                                                </div>
+                                                                                                                
                                                                                                             </div>
 
                                                                                                             <div class="row" style="padding-top:10px">
@@ -979,8 +1002,8 @@
         </footer>
     </div>
 
-    <script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.3404843"></script>
-    <script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?ddaas33"></script>
+    <script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.34sdd8e"></script>
+    <script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?d3fdd3"></script>
 
  
 
@@ -1353,7 +1376,7 @@
             MakeSpeedDometer('chartSpeedometer1_5', '', 22);*/
             viewListManager.init();
             var iframeElement = document.getElementById('tdmap');
-          // iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
+           iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
             gisIframeWindow = null;
             iframeElement.onload = function () {
               // gisIframeWindow = iframeElement.contentWindow;
@@ -1361,7 +1384,7 @@
 
 
             var iframeElement2 = document.getElementById('tdmap2');
-           // iframeElement2.src = 'https://p-staging.treasury.go.th/TD2';
+            iframeElement2.src = 'https://p-staging.treasury.go.th/TD2';
 
 
             var iframeElement4 = document.getElementById('tdmapSec4');

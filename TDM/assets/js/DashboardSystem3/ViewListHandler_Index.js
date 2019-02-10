@@ -179,7 +179,7 @@ $(document).on("click", ".liTab", function () {
 
         $('.divSection21').removeClass("invisible").css({ position: "relative" });
         $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
-        $('.divLand').removeClass("invisible").css({ position: "relative" });
+   //     $('.divLand').removeClass("invisible").css({ position: "relative" });
         setTimeout(function () {
 
             $('#lblHeaderMain').text($('#lblHeaderMain').text().replace('ราคาซื้อขาย', 'ราคาประเมิน').replace('ราคาประเมิน/ซื้อขาย', 'ราคาประเมิน'));
@@ -207,14 +207,15 @@ $(document).on("click", ".liTab", function () {
       
         regionSelectedId = $('#ddlRegion').val();
         provinceSelectedId = $('#ddlProvince').val();
-        var proviceOption1 = $("#ddlProvince option:not([value='" + provinceSelectedId + "'])").clone();
-        var proviceOption2 = $("#ddlProvince option:not([value='" + provinceSelectedId + "'])").clone();
+        var proviceOption1 = $("#ddlProvince option:not([value='" + provinceSelectedId + "']):not([value='999999'])").clone();
+        var proviceOption2 = $("#ddlProvince option:not([value='" + provinceSelectedId + "']):not([value='999999'])").clone();
          $("#rdCluster").trigger("click");
 
 
          $("#ddlProvince1 option[value='" + provinceSelectedId + "']").remove();
-         $("#ddlProvince2 option[value='" + provinceSelectedId + "']").remove();
+       //  $("#ddlProvince2 option[value='" + provinceSelectedId + "']").remove();
         
+         $("#ddlProvince1").selectpicker('refresh')
          searchForm.search();
 
       //  $('#rdCluster').find('span').addClass('checked');
@@ -253,7 +254,7 @@ function SearchAll(sectionTypeTemp, codeTemp) {
 
     var selectType = tabSelect;
     var provinceCode1 = $('#ddlProvince1').val();
-    var provinceCode2 = $('#ddlProvince2').val();
+ //   var provinceCode2 = $('#ddlProvince2').val();
     var percentCompare = $('#txtPercent').val();
     switch (selectType)
     {
@@ -265,12 +266,12 @@ function SearchAll(sectionTypeTemp, codeTemp) {
     var constructionType = $('#ddlConstructionType').val();
     var objSearch = {};
 
+
     objSearch = {
         SectionType: sectionTypeTemp,
         code: codeTemp,
         ConStructionType: constructionType,
-        ProvinceCodeCompare1: provinceCode1,
-        ProvinceCodeCompare2: provinceCode2,
+        ProvinceCodeCompare1: (provinceCode1!=null && provinceCode1.length > 0) ? provinceCode1.join() : "",
         PercentCompare: percentCompare
 
     };

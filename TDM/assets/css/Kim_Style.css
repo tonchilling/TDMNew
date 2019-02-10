@@ -856,4 +856,109 @@ hr.style1{
     cursor:pointer;
     font-size:15px;
 }
+
+form.main-search input[type="text"], form.main-search input[type="date"], form.main-search input[type="email"], form.main-search input[type="search"], form.main-search input[type="password"], form.main-search input[type="number"], form.main-search input[type="tel"], form.main-search textarea.form-control, form.main-search .selectpicker {
+    background-color: #fff;
+}
+
+.bootstrap-select .bootstrap-select-searchbox:after {
+  text-shadow: none;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'fontawesome';
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+  content: "\f002";
+  display: block;
+  color: #8d8d8d;
+  position: absolute;
+  right: 16px;
+  top: 18px;
+}
+.bootstrap-select .bootstrap-select-searchbox input {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  margin-top: 5px;
+  padding: 5px;
+}
+.bootstrap-select .bootstrap-select-searchbox input:focus, .bootstrap-select .bootstrap-select-searchbox input:active, .bootstrap-select .bootstrap-select-searchbox input:hover {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.bootstrap-select .selectpicker {
+  -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  background-color: #fff;
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: #8d8d8d;
+  font-weight: normal;
+}
+.bootstrap-select .selectpicker:focus, .bootstrap-select .selectpicker:active {
+  outline: none !important;
+}
+.bootstrap-select .selectpicker:hover {
+  background-color: #fff;;
+}
+.bootstrap-select .selectpicker .caret {
+  border: none;
+}
+
+
+
+.bootstrap-select .selectpicker .caret:after {
+  text-shadow: none;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'fontawesome';
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+  color: #474747;
+  content: "\f107";
+  font-size: 19px;
+  position: absolute;
+  top: -7px;
+  right: -2px;
+}
+.bootstrap-select .selectpicker .filter-option {
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  padding-left: 0px;
+  position: relative;
+}
+.bootstrap-select .selectpicker .filter-option:before {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  text-shadow: none;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'fontawesome';
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: #4367b0;
+  content: "\f00c";
+  font-size: 14px;
+  position: absolute;
+  left: 0px;
+  top: 2px;
+}
+
 /* Custom Radio Button End*/

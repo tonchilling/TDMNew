@@ -104,26 +104,26 @@ var searchForm = {
                     });
 
                     
-                    var proviceOption1 = $("#ddlProvince option").clone();
-                    var proviceOption2 = $("#ddlProvince option").clone();
+                    var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
+                  
                     $("#ddlProvince1").empty();
-                    $("#ddlProvince2").empty();
+                 
                     $("#ddlProvince1").append(proviceOption1);
-                    $("#ddlProvince2").append(proviceOption2);
-
+                   
+                    $("#ddlProvince1").selectpicker('refresh')
 
                     $("#ddlProvince").change(function (event) {
 
                         $("#ddlProvince1").empty();
                         $("#ddlProvince2").empty();
                         var provinceId = $("#ddlProvince").val();
-                        var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
-                        var proviceOption2 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
+                        var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "']):not([value='999999'])").clone();
+                     //   var proviceOption2 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
 
                         $("#ddlProvince1").append(proviceOption1);
-                        $("#ddlProvince2").append(proviceOption2);
+                      // $("#ddlProvince2").append(proviceOption2);
                        
-
+                        $("#ddlProvince1").selectpicker('refresh')
                         if (provinceId == '' || provinceId == '999999') {
                             $('#ddlDistrict').prop('disabled', 'disabled');
                             $('#ddlSubdistrict').prop('disabled', 'disabled');
@@ -267,7 +267,7 @@ var searchForm = {
             }
            
 
-          //  map.clear();
+            map.clear();
             $("#overlay").show();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
