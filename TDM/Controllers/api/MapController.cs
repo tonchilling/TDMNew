@@ -513,9 +513,22 @@ namespace TDM.Controllers.api
                     } 
                     else if (criteria.PriceType == "1")
                     {
-                        result = result.Where(r => r.ParcelPrice >= priceStart &&
+                        if(criteria.CostEstUnitType == "1")
+                        {
+                            
+                            /*if coust estimate type is 1 then filter by Square Wah*/
+                            result = result.Where(r => r.ParcelPrice >= priceStart &&
                                                    r.ParcelPrice <= priceEnd
-                        ).ToList();
+                                                  ).ToList();
+                        }
+                        else
+                        {
+                            /*if coust estimate type is 1 then filter by Square Plang*/
+                            result = result.Where(r => r.ParcelWAHPrice >= priceStart &&
+                                                   r.ParcelWAHPrice <= priceEnd
+                                                  ).ToList();
+                        }
+                        
                     }
                     else if (criteria.PriceType == "2")
                     {
@@ -588,7 +601,8 @@ namespace TDM.Controllers.api
                     MaxPrice = false,
                     MinPrice = false,
 
-                    PriceType = criteria.PriceType
+                    PriceType = criteria.PriceType,
+                    CostEstUnitType = criteria.CostEstUnitType
 
                 }).ToList();
 
