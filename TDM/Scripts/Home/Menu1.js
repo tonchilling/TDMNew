@@ -133,7 +133,7 @@ var searchForm = {
             $('#ddlDistrict').prop('disabled', 'disabled');
             $('#ddlSubdistrict').prop('disabled', 'disabled');
 
-            map.clear();
+
         });
 
 
@@ -242,7 +242,7 @@ var searchForm = {
             }
             _mapCurrModule = mode;
 
-            map.clear();
+           
         }
 
 
