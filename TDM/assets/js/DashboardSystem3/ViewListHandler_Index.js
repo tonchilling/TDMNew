@@ -924,7 +924,7 @@ $(document).on("click", ".btnViewChanode", function ()
     var objSearch = {};
 
     var priceType = $('#ddlType').val();
-    objSearch = { id: $(this).attr("data-province"),  priceType: priceType, ChanodeNo: $(this).attr("data-chanode") };
+    objSearch = { id: $(this).attr("data-province"), priceType: priceType, AreaType: LocationType, ChanodeNo: $(this).attr("data-chanode") };
 
     $.get(mapApi.getServerPath() + "/api/Map/GetParcelShapeByChanode/", objSearch, function (data) {
         if (data != null) {

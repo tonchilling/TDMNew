@@ -22,7 +22,9 @@
 
         ///js/widgets/ImportPOI/ReadShapeFile/dbf.js
         //"http://localhost:50029/assets/js/ReadShapeFile/"
-        var dbfPath = "http://localhost:50029/assets/js/ReadShapeFile/dbf.js";
+        
+
+        var dbfPath = currentUrl + "/assets/js/ReadShapeFile/dbf.js";  //"http://localhost:50029/assets/js/ReadShapeFile/dbf.js";
         var worker = new Worker(dbfPath)
 
         var DBF = function (url, callback) {

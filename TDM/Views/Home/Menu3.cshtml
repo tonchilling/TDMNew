@@ -37,61 +37,130 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
-                                    <div class="col-md-7 col-sm-7 col-xs-7">
-                                        <div class="x_panel">
-                                            <div class="row">
-                                                <div class="col-md-5 col-sm-5 col-xs-5">
-                                                    <div class="row">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                                            <label style="line-height: 2.5em;">ภาค</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                                            <div class="form-group">
-                                                                <input class="form-control" placeholder="Search">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5 col-sm-5 col-xs-5">
-                                                    <div class="row">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                                            <label style="line-height: 2.5em;">ช่วงเวลา</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                                            <div class="form-group">
-                                                                <input class="form-control" placeholder="Search">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-2">
-                                                    <div class="row">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                                            <label style="line-height: 2.5em;">&nbsp;</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                                            <div class="form-group">
-                                                                <button class="form-control btn btn-primary">Save</button>
-                                                            </div>
-                                                        </div>
+                                    <div class="col-xs-12">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <h4 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h4>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="panel-body">
+
+                                                <div class="row ">
+                                                    <div class="col-sm-6" style="padding:0px">
+                                                        <div class="row  funkyradio">
+                                                            <div class="col-sm-12">
+                                                                <b>เลือกภาค/คลัสเตอร์</b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row  funkyradio">
+                                                            <div class="col-sm-6 ">
+
+                                                                <div class="funkyradio-success">
+                                                                    <input type="radio" name="Type1" id="rdRegion" checked />
+                                                                    <label for="rdRegion">Region</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="funkyradio-primary">
+                                                                    <input type="radio" name="Type1" id="rdCluster" />
+                                                                    <label for="rdCluster">Cluster</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <span>&nbsp;</span>
+                                                            <select class="form-control form-control-lg" name="ddlYear" id="ddlYear" required>
+                                                                <option value="">เลือกปี</option>
+                                                                <option value="2017">2017</option>
+                                                                <option value="2018">2018</option>
+                                                                <option value="2019">2019</option>
+
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 pnlRegion">
+
+                                                        <div class="form-group">
+                                                            <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                                                <option value="">เลือกภาค</option>
+                                                                <option value="1">ภาคกลาง</option>
+                                                                <option value="2">ตะวันตก</option>
+                                                                <option value="3">เหนือ</option>
+                                                                <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                                                <option value="5">ใต้</option>
+                                                                <option value="6">ตะวันออก</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+
+                                                            <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                                                <option value="">เลือกจังหวัด</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+
+
+                                                    <div class="col-sm-6 divTab1">
+                                                        <div class="form-group">
+
+                                                            <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                                                <option value="">เลือกอำภอ</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6 divTab1">
+                                                        <div class="form-group">
+
+                                                            <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                                                <option value="">เลือกตำบล</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-1 col-sm-offset-5">
+                                                        <button class="form-control btn btn-primary">Search</button>
+
+                                                    </div>
+                                                    <div class="col-sm-1 ">
+
+                                                        <button class="form-control btn btn-default">Cancel</button>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-7 col-xs-7">
+                                       
                                         <div class="panel panel-primary">
                                             <div class="panel-heading">
                                                 <h4 class="headerwhite">การเปลี่ยนแปลงราคาซื้อขาย</h4>
                                             </div>
                                             <div class="panel-body center">
                                                 <div class="panel-body center">
-                                                    <img src="~/assets/img/tmp/2019-01-13-04.jpg" />
+                                                    <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:600px" allowfullscreen></iframe>
                                                 </div>
                                             </div>
                                         </div>
@@ -250,7 +319,20 @@
     </div>
     <div class="col-md-1 col-sm-1 col-xs-12"></div>
 </div>
+<script>
+    
+    $(function () {
 
 
+        var iframeElement = document.getElementById('tdmap');
+        iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
+        gisIframeWindow = null;
+        iframeElement.onload = function () {
+            gisIframeWindow = iframeElement.contentWindow;
+        }
+    });
+
+</script>
+<script src="~/Scripts/Home/Menu3.js?ver=1.0r22"></script>
 <script src="~/assets/js/DashboardSystem3/customize.js"></script>
 

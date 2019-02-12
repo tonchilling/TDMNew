@@ -29,7 +29,7 @@
 
             if (!worker) {
 
-                var jsRoot = "http://localhost:50029/assets/js/ReadShapeFile/";
+                var jsRoot =  currentUrl + "/assets/js/ReadShapeFile/";
                 var path = (jsRoot || "") + "shapefile.js"
                 var w = worker = this.worker = new Worker(path)
             } else {

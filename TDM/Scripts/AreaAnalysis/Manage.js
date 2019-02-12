@@ -325,7 +325,7 @@ var ImportShape = {
                                function success(content) {
                                    ImportShape.setShapeFile(shpDefObj, "shp", content)
                                }, function error(e) {
-                                   // handle the error
+                                   console.log("decompressed.file", e)
                                })
 
                    /* decompressed.file(name).async("blob").then(
@@ -339,7 +339,7 @@ var ImportShape = {
                         function success(content) {
                             ImportShape.setShapeFile(shpDefObj, "dbf", content)
                         }, function error(e) {
-                            // handle the error
+                            console.log("decompressed.file", e)
                         }
                       
                       );
@@ -357,7 +357,7 @@ var ImportShape = {
 
     },
     unZip: function (zipFile, callback) {
-        require(["/assets/js/JSZip/jszip.min.js"], function (JSZip) {
+        require(["https://p-staging.treasury.go.th/TDManagement/assets/js/JSZip/jszip.js"], function (JSZip) {
        
             (new JSZip()).loadAsync(zipFile).then(callback);
         });

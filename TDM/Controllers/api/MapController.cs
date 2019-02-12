@@ -424,7 +424,7 @@ namespace TDM.Controllers.api
 
 
         [HttpGet]
-        public IHttpActionResult GetParcelShapeByChanode(string id, string priceType, string ChanodeNo)
+        public IHttpActionResult GetParcelShapeByChanode(string id, string priceType, string AreaType, string ChanodeNo)
         {
             try
             {
@@ -439,7 +439,8 @@ namespace TDM.Controllers.api
                     ID = id,
                     PriceType = priceType,
                     Type = SetionType.ChanodeID,
-                    ChanodeNo= ChanodeNo
+                    AreaType= AreaType,
+                    ChanodeNo = ChanodeNo
 
                 });
 

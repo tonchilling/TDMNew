@@ -434,6 +434,8 @@
     <Content Include="assets\js\datatable\datatables.js" />
     <Content Include="assets\js\datatable\datatables.min.js" />
     <Content Include="assets\js\togeojson\togeojson.js" />
+    <Content Include="Scripts\Home\Menu2.js" />
+    <Content Include="Scripts\Home\Menu3.js" />
     <Content Include="Scripts\Home\Menu1.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\map_loader.js" />

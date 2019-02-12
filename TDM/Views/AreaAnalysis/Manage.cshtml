@@ -13,6 +13,13 @@
         /**/
         //var root = ~/;
         /**/
+        var currentUrl="";
+
+        switch (document.location.hostname)
+        {
+            case 'localhost': currentUrl = "http://"+document.location.hostname + ":" + document.location.port; break;
+            default: currentUrl = "https://" + document.location.hostname + "/TDManagement"; break;
+        }
     </script>
 
 
@@ -232,6 +239,7 @@
 
                                 </div>
                             </div>
+                            <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:0px" allowfullscreen></iframe>
                         </form>
 
                     </div>
@@ -326,9 +334,16 @@
     <script src="~/assets/js/ReadShapeFile/shapefile.js?33e343"></script>
     <script src="~/assets/js/ReadShapeFile/stream.js"></script>
     <script src="~/assets/js/togeojson/togeojson.js"></script>
-    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4ee974e664"></script>
+    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4ee97s4e664"></script>
     <script>
       
+      /*  var iframeElement = document.getElementById('tdmap');
+        iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
+       var  gisIframeWindow = null;
+        iframeElement.onload = function () {
+            gisIframeWindow = iframeElement.contentWindow;
+        }*/
+
        // var root= "<%= ResolveUrl("~/ASHX/PageControlHandler.ashx")%>";
         /**/
         //var root = ~/;
