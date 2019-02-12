@@ -267,7 +267,7 @@ var searchForm = {
             }
            
 
-            map.clear();
+          //  map.clear();
 
             $("#overlay").show();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
