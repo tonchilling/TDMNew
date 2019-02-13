@@ -242,8 +242,8 @@ var searchForm = {
         try {
 
             //ton
-            //SearchAll(sectionType, code);
-            alert(tabSelect);
+            SearchAll(sectionType, code);
+            
             
             var priceType = $('#ddlType').val();
             var criteria = {
@@ -267,7 +267,7 @@ var searchForm = {
             }
            
 
-            //map.clear();
+            map.clear();
             $("#overlay").show();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
@@ -422,6 +422,21 @@ var TDMap = {
                 "width": 1
             }
         };
+    },
+    getPoinSymbol: function () {
+        return {
+            "type": "esriSMS",
+            "style": "esriSMSSquare",
+            "color": [76, 115, 0, 255],
+            "size": 8,
+            "angle": 0,
+            "xoffset": 0,
+            "yoffset": 0,
+            "outline": {
+                "color": [152, 230, 0, 255],
+                "width": 1
+            }
+        };
     }
 }
 
@@ -436,8 +451,10 @@ var ParcelMapController = {
     draw: function (targetInfo,type) {
 	
         var price = (_mapCurrModule == 1) ? targetInfo.ParcelPrice : targetInfo.MarketPrice;
-        targetInfo.MapStructure.ParcelDrawingCode = ParcelMapController.getParcelMapColor(price, type);
-        
+        /*if area type is not Condo then calculate shape color by price*/
+        if (targetInfo.AreaType != 2) {
+            targetInfo.MapStructure.ParcelDrawingCode = ParcelMapController.getParcelMapColor(price, type);
+        }
         var symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
         
         
@@ -450,7 +467,7 @@ var ParcelMapController = {
             map.addGraphic(targetShape, symbol);
             ParcelMapController.drawWithInfo(targetInfo);
         } else {
-            alert('Shap Not OK');
+            alert('Shape Not OK');
         }
         return null;
     },
@@ -537,13 +554,13 @@ var ParcelMapController = {
         gIdGlobal = gisIframeWindow.GIS.addGraphicWithInfoWindow(shape, srid, symbol, attributes);
 
     },
-    getParcelMapColor:function(price,type){
+    getParcelMapColor: function (price, type) {
         return (price > 0) ? 'green' : 'black';
 
     },
     getMapPhysicalInfo: function (mapStructure) {
         var symbol = TDMap.getYellowSymbol();
-
+        //alert(mapStructure.ParcelDrawingCode);
         switch (mapStructure.ParcelDrawingCode) {
             case "yellow":
                 symbol = TDMap.getYellowSymbol();
@@ -557,6 +574,8 @@ var ParcelMapController = {
             case "black":
                 symbol = TDMap.getBlackSymbol();
                 break;
+            case "poin":
+                symbol = TDMap.getPoinSymbol();
             default:
                 /*default to YELLOW*/
                 symbol = TDMap.getYellowSymbol();

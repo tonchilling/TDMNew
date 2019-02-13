@@ -282,7 +282,7 @@ namespace TDM.Controllers.api
 
         private List<Models.ViewModels.MAP_ViewModel> GetRandomColor(List<Models.ViewModels.MAP_ViewModel> target)
         {
-
+            /*
             string[] color = { "red" , "green", "yellow" };
             int index = 0;
             target.ForEach(t =>
@@ -294,7 +294,7 @@ namespace TDM.Controllers.api
                     index = 0;
                 }
 
-            });
+            });*/
             return target;
         }
        
@@ -497,6 +497,7 @@ namespace TDM.Controllers.api
         /// <returns></returns>
         private List<Models.ViewModels.MAP_ViewModel> ExecuteClientCriteria(MapSearchCriteria criteria,List<Models.ViewModels.MAP_ViewModel> result)
         {
+            return result;
             if(result!=null && result.Any())
             {
                 if((!string.IsNullOrEmpty(criteria.CostEstMin)) && (!string.IsNullOrEmpty(criteria.CostEstMax)))
@@ -593,8 +594,8 @@ namespace TDM.Controllers.api
                     LONGITUDE = r.LONGITUDE,
                     MapStructure = new Models.ViewModels.MapStructureInfo()
                     {
-                        ParcelDrawingCode = r.ParcelColor,
-                        MarketDrawingCode = r.MarketColor,
+                        ParcelDrawingCode = (criteria.AreaType == "2")? "poin" : r.ParcelColor,
+                        MarketDrawingCode = (criteria.AreaType == "2")? "poin" : r.MarketColor,
 
                         Shape = r.Shape.ToString()
 
@@ -603,7 +604,8 @@ namespace TDM.Controllers.api
                     MinPrice = false,
 
                     PriceType = criteria.PriceType,
-                    CostEstUnitType = criteria.CostEstUnitType
+                    CostEstUnitType = criteria.CostEstUnitType,
+                    AreaType = criteria.AreaType
 
                 }).ToList();
 
