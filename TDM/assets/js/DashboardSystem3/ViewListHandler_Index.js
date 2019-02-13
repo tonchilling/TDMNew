@@ -764,7 +764,7 @@ function GetSectionDisplayText(sectionType) {
         case '2': text = 'อำเภอ'; break;
         case '3': text = 'ตำบล'; break;
         case '4':
-            switch ($('#ddlType').val()) {
+            switch (tabSelect) {
                 case '1': text = 'ฉโนด'; break;
                 case '2': text = 'ชื่ออาคาร'; break;
             }

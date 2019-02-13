@@ -1,5 +1,6 @@
 ﻿
 var LocationType = '1'
+
 var regionObj = {
     "data": [
             { "name": "เลือกภาค", "value": "" },
@@ -11,10 +12,10 @@ var regionObj = {
           { "name": "ภาคตะวันออก", "value": "6" }]
 }
 
-
 $(function () {
 
-
+    LoadGraph1();
+  
     searchForm.initComp();
 
 });
@@ -27,6 +28,13 @@ $(document).on("click", "#rdCluster", function () {
     DisplaySection2SearchRegionCluster(2)
 
 });
+
+$(document).on("click", ".btnSearch", function () {
+    searchForm.search();
+
+});
+
+
 
 
 
@@ -87,6 +95,8 @@ function LoadCluster() {
 
 
 
+
+
 var searchForm = {
 
     initComp: function (eleName) {
@@ -94,7 +104,7 @@ var searchForm = {
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
 
-            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+            //$("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
             $("#overlay")
                .height(target.height())
@@ -144,7 +154,7 @@ var searchForm = {
             $('#ddlDistrict').prop('disabled', 'disabled');
             $('#ddlSubdistrict').prop('disabled', 'disabled');
 
-          
+
         });
 
 
@@ -171,19 +181,19 @@ var searchForm = {
 
                     var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
 
-                   
+
 
                     $("#ddlProvince").change(function (event) {
 
-                      
+
                         $("#ddlProvince2").empty();
                         var provinceId = $("#ddlProvince").val();
                         var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "']):not([value='999999'])").clone();
                         //   var proviceOption2 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
 
-                       
 
-                        
+
+
                         if (provinceId == '' || provinceId == '999999') {
                             $('#ddlDistrict').prop('disabled', 'disabled');
                             $('#ddlSubdistrict').prop('disabled', 'disabled');
@@ -253,10 +263,81 @@ var searchForm = {
             }
             _mapCurrModule = mode;
 
-          
+
         }
 
 
+    },
+    search: function () {
+
+        var sectionType = '';
+        var code = '';
+        //ton
+        if ($('#ddlSubdistrict').val() != "" && $("#ddlSubdistrict").val() != '999999') {
+            sectionType = '4';
+            code = $('#ddlSubdistrict').val();
+        }
+        else if ($("#ddlDistrict").val() != '' && $("#ddlDistrict").val() != '999999') {
+            sectionType = '3';
+            code = $('#ddlDistrict').val();
+        }
+        else if ($("#ddlProvince").val() != '' && $("#ddlProvince").val() != '999999') {
+            sectionType = '2';
+            code = $('#ddlProvince').val();
+        }
+        else if ($("#ddlRegion ").val() != '') {
+            sectionType = '1';
+            code = $('#ddlRegion').val();
+        } else {
+            sectionType = '0';
+
+        }
+
+
+        var objSearch = {};
+
+
+        objSearch = {
+            SectionType: sectionType,
+            code: code,
+            Month: '',
+            Year: $('#ddlYear').val()
+
+        };
+
+
+        $.ajax({
+            url: rootUrl + "/api/PriceSys/GetRegisterLand",
+            type: "POST",
+            data: JSON.stringify(objSearch),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data) {
+
+                var month = [];
+                var newLandRegister = [];
+                var LandRegister = [];
+                if (data != null) {
+
+                    setTimeout(function () {
+                        $('.lbNewRegLand').text(data.summaryData.ParcelNewRegister);
+                        $('.lbRegLand').text(data.summaryData.ParcelRegister);
+                        $('.lbNewMonthRegLand').text(data.summaryData.ParcelMonthNewRegister);
+                        $('.lbMonthRegLand').text(data.summaryData.ParcelMonthRegister);
+                    }
+        , 400);
+
+                    var month = data.summaryByMonthData.map(x => x.MonthName);
+                    var newLandRegister = data.summaryByMonthData.map(x => x.ParcelRegister);
+                    var LandRegister = data.summaryByMonthData.map(x => x.ParcelNewRegister);
+
+                    LoadGraph1Display(month, newLandRegister, LandRegister);
+                    LoadGraph2Display(month, newLandRegister, LandRegister);
+                }
+
+
+            }
+        });
     }
 }
 
@@ -343,5 +424,215 @@ var mapApi = {
         alert(response.responseText);
     }
 }
+function LoadGraph1Display(months, newLandRegisters, LandRegisters) {
 
+    var graph1 = echarts.init(document.getElementById('graph1'));
+
+    var option = {
+        title: {
+            text: '',
+            subtext: ''
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'none',
+            }
+        },
+        legend: {
+            data: ['จำนวนแปลงแบ่งแยกใหม่', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน']
+        },
+        toolbox: {
+            show: false,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: months
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+
+            {
+                name: 'จำนวนแปลงแบ่งแยกใหม่',
+                type: 'line',
+                smooth: true,
+                itemStyle: { normal: { areaStyle: { type: 'default' } } },
+                data: newLandRegisters
+            },
+            {
+                name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน',
+                type: 'line',
+                smooth: true,
+                itemStyle: { normal: { areaStyle: { type: 'default' } } },
+                data: LandRegisters
+            }
+        ]
+    };
+
+    setTimeout(function () {
+        graph1.setOption(option, true);
+
+
+    }, 1000);
+
+}
+
+
+function LoadGraph1() {
+
+    var graph1 = echarts.init(document.getElementById('graph1'));
+
+    option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['condo 1', 'condo 2', 'condo 3', 'condo 4', 'condo 5']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: false, type: ['line', 'bar', 'stack', 'tiled'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: ['มค-61', 'กพ-61', 'มีค-61', 'เมษ-61', 'พฤ-61', 'มิย-61', 'กค-61']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: 'condo 1',
+                type: 'line',
+               
+                data: [12000, 13200, 10100, 13400, 9000, 23000, 21000]
+            },
+            {
+                name: 'condo 2',
+                type: 'line',
+              
+                data: [22000, 18200, 19100, 23400, 29000, 33000, 31000]
+            },
+            {
+                name: 'condo 3',
+                type: 'line',
+                
+                data: [15000, 23200, 20100, 15400, 19000, 33000, 41000]
+            },
+            {
+                name: 'condo 4',
+                type: 'line',
+               
+                data: [32000, 33200, 30100, 33400, 39000, 33000, 32000]
+            },
+            {
+                name: 'condo 5',
+                type: 'line',
+               
+                data: [82000, 93200, 90100, 93400, 129000, 133000, 132000]
+            }
+        ]
+    };
+
+
+
+   /* option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['condo 1', 'condo 2', 'condo 3', 'condo 4', 'condo 5']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: ['ธค-60', 'มก-61', 'กพ-61', 'มีค-61', 'เมษา-61', 'พฤ-61', 'มิย-61']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: 'condo 1',
+                type: 'line',
+                stack: 'test',
+                data: [120000, 130002, 100001, 134000, 90000, 230000, 210000]
+            },
+            {
+                name: 'condo 2',
+                type: 'line',
+                stack: 'test',
+                data: [220000, 182000, 191000, 234000, 290000, 330000, 310000]
+            },
+            {
+                name: 'condo 3',
+                type: 'line',
+                stack: 'test',
+                data: [150000, 232000, 201000, 154000, 190000, 330000, 410000]
+            },
+            {
+                name: 'condo 4',
+                type: 'line',
+                stack: 'test',
+                data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
+            },
+            {
+                name: 'condo 5',
+                type: 'line',
+                stack: 'test',
+                data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
+            }
+        ]
+    };
+    */
+
+    setTimeout(function () {
+        graph1.setOption(option, true);
+
+
+    }, 1000);
+
+}
 

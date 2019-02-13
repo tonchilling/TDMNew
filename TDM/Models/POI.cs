@@ -61,7 +61,12 @@ namespace TDM.Models
         public string ChanodeNo { get; set; }
         public string Month { get; set; }
         public string Year { get; set; }
-
+        public string FromMonth { get; set; }
+        public string FromYear { get; set; }
+        public string ToMonth { get; set; }
+        public string ToYear { get; set; }
+        public string FromYearMonth { get; set; }
+        public string ToYearMonth { get; set; }
     }
 
     public partial class EstimateDataAll
@@ -261,6 +266,17 @@ namespace TDM.Models
         public decimal ParcelRegister { get; set; }
         public decimal ParcelNewRegister { get; set; }
         
+    }
+
+
+    public partial class CondoInfo
+    {
+        public string CondoName { get; set; }
+        public string PriceMet { get; set; }
+        public string PriceSale { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+
     }
 
 

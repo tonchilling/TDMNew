@@ -1029,6 +1029,65 @@ namespace TDM.Repositories
         }
 
 
+        /// <summary>
+        /// Home>Menu2
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<CondoInfo> GetCondoCompare(SearchMap search)
+        {
+
+            IDataReader reader = null;
+            RegisterLand result = null;
+            RegisterLandSummary regSummaryData = null;
+            RegisterLandByMonth regSummarybByMonthData = null;
+            List<CondoInfo> resultList = null;
+            CondoInfo data = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@FromYM", search.FromYearMonth, dbType: DbType.String);
+            p.Add("@ToYM", search.ToYearMonth, dbType: DbType.String);
+
+
+
+            try
+            {
+                resultList = new List<CondoInfo>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("[GetCondoRegisterMenu2]", p, commandType: CommandType.StoredProcedure);
+
+
+                    reader.NextResult();
+                  
+                    while (reader.Read())
+                    {
+                        data = new CondoInfo();
+                        data.CondoName = reader["Name"].ToString();
+                        data.PriceMet = Converting.ToMonthShortName(reader["RVAL_P_WAH"].ToString());
+                        data.PriceSale= reader["RVAL_AMT"].ToString();
+                        data.Month = Converting.ToInt(reader["Month"].ToString());
+                        data.Year = Converting.ToInt(reader["Year"].ToString());
+                        resultList.Add(data);
+                        
+    }
+
+                 
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return resultList;
+        }
+
+
+
     }
 
 

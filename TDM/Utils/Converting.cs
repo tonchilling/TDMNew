@@ -21,6 +21,19 @@ namespace TDM.Utils
             return result;
         }
 
+        public static int ToInt(object val)
+        {
+            int result = 0;
+            try
+            {
+                result = Convert.ToInt32(val);
+            }
+            catch { }
+            finally { }
+
+            return result;
+        }
+
         public static string ToMonthShortName(object val)
         {
             string result = "";
