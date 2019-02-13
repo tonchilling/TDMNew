@@ -250,7 +250,7 @@ var searchForm = {
                 id: 0,
                 priceType: priceType,
                 areaType: tabSelect,
-
+                Type: sectionType,
                 costEstUnitType: (priceType == 1) ? ($('#rdType1').is(":checked") ? 1 : 2) : null,
                 costEstMin: $('#MinCostEstimate0').val(),
                 costEstMax: $('#MaxCostEstimate0').val(),
@@ -429,6 +429,23 @@ var TDMap = {
                 "width": 1
             }
         };
+    },
+
+    getPoint: function () {
+        return {
+            "type": "esriSMS",
+            "style": "esriSMSSquare",
+            "color": [76, 115, 0, 255],
+            "size": 8,
+            "angle": 0,
+            "xoffset": 0,
+            "yoffset": 0,
+            "outline":
+           {
+               "color": [152, 230, 0, 255],
+               "width": 1
+           }
+        };
     }
 }
 
@@ -446,7 +463,7 @@ var ParcelMapController = {
         targetInfo.MapStructure.ParcelDrawingCode = ParcelMapController.getParcelMapColor(price, type);
         
         var symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
-        
+        var symbolPoint = TDMap.getPoint();
         
         if (targetInfo.MapStructure.Shape) {
             
@@ -454,8 +471,8 @@ var ParcelMapController = {
             if (targetInfo.MapStructure.Shape.indexOf(';') !== -1) {
                 targetShape=targetInfo.MapStructure.Shape.split(';')[1];
             }
-            map.addGraphic(targetShape, symbol);
-            ParcelMapController.drawWithInfo(targetInfo);
+            map.addGraphic(targetShape, symbolPoint);
+           ParcelMapController.drawWithInfo(targetInfo);
         } else {
             alert('Shape Not OK');
         }

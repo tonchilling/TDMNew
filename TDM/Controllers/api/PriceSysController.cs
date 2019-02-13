@@ -82,6 +82,27 @@ namespace TDM.Controllers.api
 
 
         [HttpPost]
+        public IHttpActionResult GetRegisterLand(SearchMap searchDto)
+        {
+            var repos = new TDAssetRespository();
+            SetionType sectionT = new SetionType();
+
+            /* switch (SectionType)
+             {
+                 case "1":sectionT = SetionType.Region;break;
+                 case "2": sectionT = SetionType.Provice; break;
+                 case "3": sectionT = SetionType.Amphur; break;
+             }*/
+
+
+
+            var estimateData = repos.GetRegisterLand(searchDto);
+
+            return Json(estimateData);
+        }
+
+
+        [HttpPost]
         public IHttpActionResult GetPriceOfConstruction(SearchMap searchDto)
         {
             var repos = new TDAssetRespository();
@@ -320,6 +341,9 @@ namespace TDM.Controllers.api
             return Json(result);
         }
         //*/
+
+
+
     }
 
 }

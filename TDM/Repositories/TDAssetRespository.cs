@@ -8,7 +8,7 @@ using Dapper;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
-
+using TDM.Utils;
 namespace TDM.Repositories
 {
     public class TDAssetRespository : BaseRepository
@@ -957,8 +957,81 @@ namespace TDM.Repositories
                 return result;
             }
         }
-        
+
+
+
+        /// <summary>
+        /// Home>Menu1
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public RegisterLand GetRegisterLand(SearchMap search)
+        {
+
+            IDataReader reader = null;
+            RegisterLand result = null;
+            RegisterLandSummary regSummaryData = null;
+            RegisterLandByMonth regSummarybByMonthData = null;
+            List<RegisterLandByMonth> regSummaryByMonthList = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@Month", search.Month, dbType: DbType.String);
+            p.Add("@Year", search.Year, dbType: DbType.String);
+           
+
+          
+            try
+            {
+                result = new RegisterLand();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("[GetLandRegisterMenu1]", p, commandType: CommandType.StoredProcedure);
+
+                    if (reader.Read())
+                    {
+                        regSummaryData = new RegisterLandSummary();
+                        regSummaryData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
+                        regSummaryData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
+                        regSummaryData.ParcelMonthRegister = Converting.ToDecimal(reader["ParcelMonthRegister"].ToString());
+                        regSummaryData.ParcelMonthNewRegister = Converting.ToDecimal(reader["ParcelMonthNewRegister"].ToString());
+
+                       
+                    }
+
+                    result.summaryData = regSummaryData;
+
+                    reader.NextResult();
+                    regSummaryByMonthList = new List<RegisterLandByMonth>();
+                    while (reader.Read())
+                    {
+                        regSummarybByMonthData = new RegisterLandByMonth();
+                        regSummarybByMonthData.RegMonth = Converting.ToDecimal(reader["RegMonth"].ToString());
+                        regSummarybByMonthData.MonthName = Converting.ToMonthShortName(reader["RegMonth"].ToString());
+                        regSummarybByMonthData.RegYear = reader["RegYear"].ToString();
+                        regSummarybByMonthData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
+                        regSummarybByMonthData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
+                        regSummaryByMonthList.Add(regSummarybByMonthData);
+
+                    }
+
+                    result.summaryByMonthData = regSummaryByMonthList;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
     }
+
+
 
     public class MapSearchCriteria
     {

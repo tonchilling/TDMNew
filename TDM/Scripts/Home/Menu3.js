@@ -1,5 +1,16 @@
 ﻿
-var LocationType='1'
+var LocationType = '1'
+
+var regionObj = {
+    "data": [
+            { "name": "เลือกภาค", "value": "" },
+          { "name": "ภาคกลาง", "value": "1" },
+         { "name": "ภาคตะวันตก", "value": "2" },
+         { "name": "ภาคเหนือ", "value": "3" },
+         { "name": "ภาคตะวันออกเฉียงเหนือ", "value": "4" },
+         { "name": "ภาคใต้", "value": "5" },
+          { "name": "ภาคตะวันออก", "value": "6" }]
+}
 $(function () {
 
   

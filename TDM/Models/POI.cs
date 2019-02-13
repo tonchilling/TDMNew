@@ -59,6 +59,8 @@ namespace TDM.Models
         public string ProvinceCodeCompare2 { get; set; }
         public string PercentCompare { get; set; }
         public string ChanodeNo { get; set; }
+        public string Month { get; set; }
+        public string Year { get; set; }
 
     }
 
@@ -234,7 +236,33 @@ namespace TDM.Models
         public string CreateDate { get; set; }
         public string REMARK { get; set; }
     }
+
+
+    public partial class RegisterLand
+    {
+       public RegisterLandSummary summaryData { get; set; }
+
+        public List<RegisterLandByMonth> summaryByMonthData { get; set; }
+    }
+
+    public partial class RegisterLandSummary
+    {
+        public decimal ParcelRegister { get; set; }
+        public decimal ParcelNewRegister { get; set; }
+        public decimal ParcelMonthRegister { get; set; }
+        public decimal ParcelMonthNewRegister { get; set; }
+    }
+
+    public partial class RegisterLandByMonth
+    {
+        public decimal RegMonth { get; set; }
+        public string RegYear { get; set; }
+        public string MonthName { get; set; }
+        public decimal ParcelRegister { get; set; }
+        public decimal ParcelNewRegister { get; set; }
         
+    }
+
 
 
 }

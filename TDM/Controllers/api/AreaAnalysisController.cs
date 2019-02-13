@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using TDM.Models;
-using TDM.Models;
+
 using TDM.Repositories;
 namespace TDM.Controllers.api
 {

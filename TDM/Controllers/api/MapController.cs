@@ -645,7 +645,7 @@ namespace TDM.Controllers.api
                     
                 }
 
-                result = ExecuteClientCriteria(criteria,result);
+               // result = ExecuteClientCriteria(criteria,result);
             }
 
             return GetRandomColor(result);

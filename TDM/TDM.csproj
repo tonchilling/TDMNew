@@ -329,6 +329,7 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\TDAssetRespository.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Utils\Converting.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\bootstrap\css\bootstrap-progressbar-3.3.4.min.css" />
