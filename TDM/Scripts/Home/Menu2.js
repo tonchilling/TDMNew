@@ -1,4 +1,5 @@
 ﻿
+
 var LocationType = '1'
 
 var regionObj = {
@@ -11,6 +12,7 @@ var regionObj = {
          { "name": "ภาคใต้", "value": "5" },
           { "name": "ภาคตะวันออก", "value": "6" }]
 }
+
 
 $(function () {
 
