@@ -1,24 +1,22 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "IndexTu";
 
 }
 @section Scripts {
-    }
+}
 
 
 <link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
 <link href="~/assets/css/customize.css" rel="stylesheet" />
-<style  type="text/css">
+<style type="text/css">
     label {
-    display: inline-block;
-   margin-bottom:0px;
-    font-weight: 700;
-}
-
+        display: inline-block;
+        margin-bottom: 0px;
+        font-weight: 700;
+    }
 </style>
 <!-- Bootstrap -->
-    <!-- Bootstrap -->
+<!-- Bootstrap -->
 <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="~/assets/js/jquery-ui.js"></script>
 <div role="main" class="container-fluid">
@@ -86,13 +84,13 @@
                                                     <div class="col-sm-3">
                                                         <div class="form-group">
                                                             <span>&nbsp;</span>
-                                                            <select class="form-control form-control-lg" name="ddlYear" id="ddlYear" required>
+                                                            <select class="form-control form-control-lg ddlYear  " name="ddlYear" id="ddlYear" required>
                                                                 <option value="">เลือกปี</option>
                                                                 <option value="2017">2017</option>
                                                                 <option value="2018">2018</option>
                                                                 <option value="2019">2019</option>
-                                                               
-                                                                
+
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -145,22 +143,22 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-1 col-sm-offset-5">
-                                                        <button class="form-control btn btn-primary">Search</button>
-                                                      
+                                                        <button class="form-control btn btn-primary btnSearch">Search</button>
+
                                                     </div>
                                                     <div class="col-sm-1 ">
 
                                                         <button class="form-control btn btn-default">Cancel</button>
                                                     </div>
 
-                                                    </div>
-                                               
-
                                                 </div>
+
+
                                             </div>
                                         </div>
                                     </div>
-                           
+                                </div>
+
                                 <div class="row">
 
                                     <div class="col-md-4 col-sm-4 col-xs-4 col-md-offset-1">
@@ -172,11 +170,11 @@
                                                 <div class="panel-body center">
                                                     <div class="alert alert-2" style="background-color:#c41019;color:#fff;display:inline-block;">
                                                         <h6>จำนวนแปลงแบ่งแยกใหม่ (แปลง)</h6>
-                                                        <h2 class="right">1,154,596</h2>
+                                                        <h2 class="right lbNewRegLand ">0</h2>
                                                     </div>
                                                     <div class="alert alert-3" style="background-color:#19527d;color:#fff;display:inline-block;">
                                                         <h6>จำนวนแปลงที่มีการซื้อขายจดทะเบียน (แปลง)</h6>
-                                                        <h2 class="right">9,684,392</h2>
+                                                        <h2 class="right lbRegLand">0</h2>
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,11 +189,11 @@
                                                 <div class="panel-body center">
                                                     <div class="alert alert-2" style="background-color:#c41019;color:#fff;display:inline-block;">
                                                         <h6>จำนวนแปลงแบ่งแยกใหม่สะสมรายเดือน (แปลง)</h6>
-                                                        <h2 class="right">7,034,141</h2>
+                                                        <h2 class="right lbNewMonthRegLand">0</h2>
                                                     </div>
                                                     <div class="alert alert-3" style="background-color:#19527d;color:#fff;display:inline-block;">
                                                         <h6>จำนวนแปลงที่มีการซื้อขายจดทะเบียนสะสมรายเดือน (แปลง)</h6>
-                                                        <h2 class="right">5,034,076</h2>
+                                                        <h2 class="right lbMonthRegLand">0</h2>
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,33 +201,33 @@
                                     </div>
                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-7 col-sm-7 col-xs-7">
-                                                        <div class="panel panel-primary">
-                                                            <div class="panel-heading">
-                                                                <h4 class="headerwhite">จำนวนแปลงในแต่ละเดือน</h4>
-                                                            </div>
-                                                            <div class="panel-body chartBarNormal center" style="padding:10px">
-                                                                <div id="graph1" style="height:100%;width:80%"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-5 col-sm-5 col-xs-5">
-                                                        <div class="panel panel-primary">
-                                                            <div class="panel-heading">
-                                                                <h4 class="headerwhite">จำนวนแปลงสะสมในแต่ละเดือน</h4>
-                                                            </div>
-                                                            <div class="panel-body chartBarNormal  ">
-                                                                <div id="graph2" style="height:100%;width:60%"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-7 col-xs-7">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h4 class="headerwhite">จำนวนแปลงในแต่ละเดือน</h4>
+                                            </div>
+                                            <div class="panel-body chartBarNormal center" style="padding:10px">
+                                                <div id="graph1" style="height:100%;width:80%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-sm-5 col-xs-5">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h4 class="headerwhite">จำนวนแปลงสะสมในแต่ละเดือน</h4>
+                                            </div>
+                                            <div class="panel-body chartBarNormal  ">
+                                                <div id="graph2" style="height:100%;width:60%"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -280,12 +278,13 @@
     <div class="col-md-1 col-sm-1 col-xs-12"></div>
 </div>
 
-<script src="~/Scripts/Home/Menu1.js?ver=1.0r22"></script>
+<script src="~/Scripts/Home/Menu1.js?ver=1.0dddffeedd2de2"></script>
 
 <script type="text/javascript">
 
 
 
 </script>
+
 
 
