@@ -30,7 +30,10 @@ namespace TDM.Models.ViewModels
 
         public string PriceType { get; set; }
         public string CostEstUnitType { get; set; }
-        
+
+        public string AreaType { get; set; }
+
+
 
     }
     public class MapStructureInfo

@@ -311,6 +311,7 @@ var ImportShape = {
 
     ShapeFileX: function (shpZip) {
         this.unZip(shpZip, function (decompressed) {
+            alert('yyyy');
             var shpDefObj = { shp: null, dbf: null };
             var hasShp = false;
             var hasDbf = false;
@@ -447,6 +448,7 @@ function bs_input_file() {
     $(".input-file").before(
         function () {
             if (!$(this).prev().hasClass('input-ghost')) {
+                alert('xxxxx');
                 var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
                 element.attr("name", $(this).attr("name"));
                 element.change(function () {

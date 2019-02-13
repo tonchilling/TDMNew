@@ -460,10 +460,12 @@ var ParcelMapController = {
     draw: function (targetInfo,type) {
         
         var price = (_mapCurrModule == 1) ? targetInfo.ParcelPrice : targetInfo.MarketPrice;
-        targetInfo.MapStructure.ParcelDrawingCode = ParcelMapController.getParcelMapColor(price, type);
-        
+        /*if area type is not Condo then get shape color code*/
+        if (targetInfo.AreaType != "2") {
+            targetInfo.MapStructure.ParcelDrawingCode = ParcelMapController.getParcelMapColor(price, type);
+        }
         var symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
-        var symbolPoint = TDMap.getPoint();
+        //var symbolPoint = TDMap.getPoint();
         
         if (targetInfo.MapStructure.Shape) {
             
@@ -471,7 +473,7 @@ var ParcelMapController = {
             if (targetInfo.MapStructure.Shape.indexOf(';') !== -1) {
                 targetShape=targetInfo.MapStructure.Shape.split(';')[1];
             }
-            map.addGraphic(targetShape, symbolPoint);
+            map.addGraphic(targetShape, symbol);
            ParcelMapController.drawWithInfo(targetInfo);
         } else {
             alert('Shape Not OK');
@@ -586,6 +588,9 @@ var ParcelMapController = {
                 break;
             case "black":
                 symbol = TDMap.getBlackSymbol();
+                break;
+            case "poin":
+                symbol = TDMap.getPoint();
                 break;
             default:
                 /*default to YELLOW*/
