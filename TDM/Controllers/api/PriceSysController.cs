@@ -82,6 +82,7 @@ namespace TDM.Controllers.api
 
 
         [HttpPost]
+
         public IHttpActionResult GetRegisterLand(SearchMap searchDto)
         {
             var repos = new TDAssetRespository();
@@ -123,6 +124,7 @@ namespace TDM.Controllers.api
 
 
         [HttpPost]
+
         public IHttpActionResult GetPriceOfConstruction(SearchMap searchDto)
         {
             var repos = new TDAssetRespository();
@@ -361,9 +363,6 @@ namespace TDM.Controllers.api
             return Json(result);
         }
         //*/
-
-
-
     }
 
 }
