@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TDASSETModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="POI">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="FID_1" Type="Int32" />
+    <Property Name="ID" Type="Int32" />
+    <Property Name="CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="SUB_CODE1" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="SUB_CODE2" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="NAME_E" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NAME_T" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="X" Type="Decimal" Precision="38" Scale="8" />
+    <Property Name="Y" Type="Decimal" Precision="38" Scale="8" />
+    <Property Name="PROV_NAME_T" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PROV_NAME_E" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PROV_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="AMPH_CODE" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="AMPH_NAME_T" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AMPH_NAME_E" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TUMB_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="TUMB_NAME_T" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TUMB_NAME_E" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_CREATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_CREATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_UPDATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_UPDATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="POI_TYPE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="USER_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Shape" Type="Geometry" />
+    <Property Name="GDB_GEOMATTR_DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityContainer Name="TDASSETEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="POIs" EntityType="Self.POI" />
+    <EntitySet Name="PROVINCEs" EntityType="TDASSETModel.PROVINCE" />
+    <EntitySet Name="PROJECT_AREA_47" EntityType="TDASSETModel.PROJECT_AREA_47" />
+    <EntitySet Name="PROJECT_AREA_48" EntityType="TDASSETModel.PROJECT_AREA_48" />
+    <EntitySet Name="AMPHOEs" EntityType="TDASSETModel.AMPHOE" />
+    <EntitySet Name="TAMBOLs" EntityType="TDASSETModel.TAMBOL" />
+    <EntitySet Name="PROJECT_PARCEL_47" EntityType="TDASSETModel.PROJECT_PARCEL_47" />
+    <EntitySet Name="PROJECT_PARCEL_48" EntityType="TDASSETModel.PROJECT_PARCEL_48" />
+    <EntitySet Name="PARCEL_47_10" EntityType="TDASSETModel.PARCEL_47_10" />
+  </EntityContainer>
+  <EntityType Name="PROVINCE">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="ON_PRO_THA" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="ON_PRO_ENG" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="PRO_C" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="NAME_T" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NAME_E" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Shape" Type="Geometry" />
+    <Property Name="GDB_GEOMATTR_DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PROJECT_AREA_47">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="SUBJECT_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PUBLIC_DATE" Type="DateTime" Precision="7" />
+    <Property Name="EFFECTIVE_DATE" Type="DateTime" Precision="7" />
+    <Property Name="PROV_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS_PROCESS" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_CREATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_CREATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_UPDATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_UPDATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SHAPE" Type="Geometry" />
+    <Property Name="GDB_GEOMATTR_DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PROJECT_AREA_48">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="SUBJECT_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PUBLIC_DATE" Type="DateTime" Precision="7" />
+    <Property Name="EFFECTIVE_DATE" Type="DateTime" Precision="7" />
+    <Property Name="PROV_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="STATUS_PROCESS" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_CREATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_CREATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_UPDATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_UPDATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SHAPE" Type="Geometry" />
+    <Property Name="GDB_GEOMATTR_DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="AMPHOE">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="ON_PRO_THA" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="ON_PRO_ENG" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="PRO_C" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="ON_DIS_THA" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="ON_DIS_ENG" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="DIS_C" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="NAME_T" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NAME_E" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Shape" Type="Geometry" />
+    <Property Name="GDB_GEOMATTR_DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TAMBOL">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="TDASSETNON_TDADMIN_TAMBOL_AREA" Type="Decimal" Precision="38" Scale="8" />
+    <Property Name="PERIMETER" Type="Decimal" Precision="38" Scale="8" />
+    <Property Name="ON_PRO_THA" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="ON_PRO_ENG" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="PRO_C" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="ON_DIS_THA" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="ON_DIS_ENG" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="DIS_C" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="ON_SUB_THA" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="ON_SUB_ENG" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="SUB_C" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="NAME_E" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NAME_T" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Shape" Type="Geometry" />
+    <Property Name="GDB_GEOMATTR_DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PROJECT_PARCEL_47">
+    <Key>
+      <PropertyRef Name="SUBJECT_ID" />
+      <PropertyRef Name="PARCEL_RN" />
+    </Key>
+    <Property Name="SUBJECT_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PARCEL_RN" Type="Int32" Nullable="false" />
+    <Property Name="PARCEL_TYPE" Type="Int32" />
+    <Property Name="UTMMAP1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UTMMAP2" Type="Int32" />
+    <Property Name="UTMMAP3" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UTMMAP4" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UTMSCALE" Type="Int32" />
+    <Property Name="LAND_NO" Type="Int32" />
+    <Property Name="LAND_TH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="LAND_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ACTION_STATUS" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="LAND_AREA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BRANCH_CODE" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="BRANCH_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="CHANGWAT_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="CHANGWAT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AMPHUR_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="AMPHUR_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TUMBON_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="TUMBON_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CHANOD_NO" Type="Int32" />
+    <Property Name="SURVEY_NO" Type="Int32" />
+    <Property Name="TABLE_3_SEQ" Type="Int32" />
+    <Property Name="ACCOUNTING_PERIOD" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="PARCEL_SHAPE" Type="Int32" />
+    <Property Name="STREET_RN" Type="Int32" />
+    <Property Name="BLOCK_ZONE_RN" Type="Int32" />
+    <Property Name="BLOCK_PRICE_RN" Type="Int32" />
+    <Property Name="BLOCK_FIX_RN" Type="Int32" />
+    <Property Name="BLOCK_BLUE_RN" Type="Int32" />
+    <Property Name="PREV_EVAPRICE" Type="Decimal" Precision="16" Scale="2" />
+    <Property Name="CURR_EVAPRICE" Type="Decimal" Precision="16" Scale="2" />
+    <Property Name="DATE_CREATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_CREATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_UPDATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_UPDATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EDIT_FLAG" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PROJECT_PARCEL_48">
+    <Key>
+      <PropertyRef Name="SUBJECT_ID" />
+      <PropertyRef Name="PARCEL_RN" />
+    </Key>
+    <Property Name="SUBJECT_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PARCEL_RN" Type="Int32" Nullable="false" />
+    <Property Name="PARCEL_TYPE" Type="Int32" />
+    <Property Name="UTMMAP1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UTMMAP2" Type="Int32" />
+    <Property Name="UTMMAP3" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UTMMAP4" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UTMSCALE" Type="Int32" />
+    <Property Name="LAND_NO" Type="Int32" />
+    <Property Name="LAND_TH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="LAND_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ACTION_STATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LAND_AREA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BRANCH_CODE" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="BRANCH_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CHANGWAT_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="CHANGWAT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AMPHUR_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="AMPHUR_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TUMBON_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="TUMBON_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CHANOD_NO" Type="Int32" />
+    <Property Name="SURVEY_NO" Type="Int32" />
+    <Property Name="TABLE_3_SEQ" Type="Int32" />
+    <Property Name="ACCOUNTING_PERIOD" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="PARCEL_SHAPE" Type="Int32" />
+    <Property Name="STREET_RN" Type="Int32" />
+    <Property Name="BLOCK_ZONE_RN" Type="Int32" />
+    <Property Name="BLOCK_PRICE_RN" Type="Int32" />
+    <Property Name="BLOCK_FIX_RN" Type="Int32" />
+    <Property Name="BLOCK_BLUE_RN" Type="Int32" />
+    <Property Name="PREV_EVAPRICE" Type="Decimal" Precision="38" Scale="8" />
+    <Property Name="CURR_EVAPRICE" Type="Decimal" Precision="38" Scale="8" />
+    <Property Name="DATE_CREATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_CREATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_UPDATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_UPDATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EDIT_FLAG" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PARCEL_47_10">
+    <Key>
+      <PropertyRef Name="OBJECTID" />
+    </Key>
+    <Property Name="OBJECTID" Type="Int32" Nullable="false" />
+    <Property Name="OGR_FID" Type="Int32" Nullable="false" />
+    <Property Name="PARCEL_TYPE" Type="Int32" />
+    <Property Name="UTMMAP1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UTMMAP2" Type="Int32" />
+    <Property Name="UTMMAP3" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UTMMAP4" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="UTMSCALE" Type="Int32" />
+    <Property Name="LAND_NO" Type="Int32" />
+    <Property Name="LAND_TH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="LAND_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ACTION_STATUS" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="LAND_AREA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BRANCH_CODE" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="BRANCH_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="CHANGWAT_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="CHANGWAT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AMPHUR_CODE" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="AMPHUR_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TUMBON_CODE" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="TUMBON_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CHANOD_NO" Type="Int32" />
+    <Property Name="SURVEY_NO" Type="Int32" />
+    <Property Name="TABLE_3_SEQ" Type="Int32" />
+    <Property Name="ACCOUNTING_PERIOD" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="PARCEL_SHAPE" Type="Int32" />
+    <Property Name="PARCEL_RN" Type="Int32" Nullable="false" />
+    <Property Name="STREET_RN" Type="Int32" />
+    <Property Name="BLOCK_ZONE_RN" Type="Int32" />
+    <Property Name="BLOCK_PRICE_RN" Type="Int32" />
+    <Property Name="BLOCK_FIX_RN" Type="Int32" />
+    <Property Name="BLOCK_BLUE_RN" Type="Int32" />
+    <Property Name="PREV_EVAPRICE" Type="Decimal" Precision="38" Scale="8" />
+    <Property Name="CURR_EVAPRICE" Type="Decimal" Precision="38" Scale="8" />
+    <Property Name="DATE_CREATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_CREATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_UPDATED" Type="DateTime" Precision="7" />
+    <Property Name="USER_UPDATED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SHAPE" Type="Geometry" />
+    <Property Name="GDB_GEOMATTR_DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="EDIT_FLAG" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TDManagementModelStoreContainer" CdmEntityContainer="TDManagementEntities">
+    <EntitySetMapping Name="PROJECT_IMPACT">
+      <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT">
+        <MappingFragment StoreEntitySet="PROJECT_IMPACT">
+          <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
+          <ScalarProperty Name="AMPHOE_ID" ColumnName="AMPHOE_ID" />
+          <ScalarProperty Name="Shape" ColumnName="Shape" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+          <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+          <ScalarProperty Name="IS_PUBLISHED" ColumnName="IS_PUBLISHED" />
+          <ScalarProperty Name="PUBLISH_DATE" ColumnName="PUBLISH_DATE" />
+          <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+          <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+          <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+          <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+          <ScalarProperty Name="SUBJECT_NAME" ColumnName="SUBJECT_NAME" />
+          <ScalarProperty Name="SUBJECT_ID" ColumnName="SUBJECT_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROV_IMPACT">
+      <EntityTypeMapping TypeName="TDManagementModel.PROV_IMPACT">
+        <MappingFragment StoreEntitySet="PROV_IMPACT">
+          <ScalarProperty Name="PROV_CODE" ColumnName="PROV_CODE" />
+          <ScalarProperty Name="PROJECT_ID" ColumnName="PROJECT_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STATUS_IMPACT">
+      <EntityTypeMapping TypeName="TDManagementModel.STATUS_IMPACT">
+        <MappingFragment StoreEntitySet="STATUS_IMPACT">
+          <ScalarProperty Name="STATUS_NAME" ColumnName="STATUS_NAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
