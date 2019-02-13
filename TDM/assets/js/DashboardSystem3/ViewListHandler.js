@@ -29,7 +29,7 @@ var searchForm = {
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
             
-         //   $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
             $("#overlay")
                .height(target.height())
@@ -250,7 +250,7 @@ var searchForm = {
                 id: 0,
                 priceType: priceType,
                 areaType: tabSelect,
-
+                Type: sectionType,
                 costEstUnitType: (priceType == 1) ? ($('#rdType1').is(":checked") ? 1 : 2) : null,
                 costEstMin: $('#MinCostEstimate0').val(),
                 costEstMax: $('#MaxCostEstimate0').val(),
@@ -267,14 +267,18 @@ var searchForm = {
             }
            
 
-            map.clear();
+          //  map.clear();
+
             $("#overlay").show();
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
+                    try {
+                        //alert('Search by ' + idOfAll);
+                    
                     criteria.id = $('#ddlRegion').val(); 
                     mapApi.getProvinceShapeByRegion(criteria, function (data) {
                         
-                        
+                        //alert('back from sever');
                         if (data != null && data.length > 0) {
 
                             $.each(data, function (index, shape) {
@@ -284,6 +288,9 @@ var searchForm = {
                         }
                         $("#overlay").hide();
                     });
+                    } catch (e) {
+                        alert(e.message);
+                    }
                 } else {
                     criteria.id = targetId;
                     mapApi.getProvinceShapeByID(criteria, function (data) {
@@ -423,7 +430,8 @@ var TDMap = {
             }
         };
     },
-    getPoinSymbol: function () {
+
+    getPoint: function () {
         return {
             "type": "esriSMS",
             "style": "esriSMSSquare",
@@ -432,10 +440,11 @@ var TDMap = {
             "angle": 0,
             "xoffset": 0,
             "yoffset": 0,
-            "outline": {
-                "color": [152, 230, 0, 255],
-                "width": 1
-            }
+            "outline":
+           {
+               "color": [152, 230, 0, 255],
+               "width": 1
+           }
         };
     }
 }
@@ -449,14 +458,14 @@ var ParcelMapController = {
     DistrictType:2,
     SubDistrictType:3,
     draw: function (targetInfo,type) {
-	
+        
         var price = (_mapCurrModule == 1) ? targetInfo.ParcelPrice : targetInfo.MarketPrice;
-        /*if area type is not Condo then calculate shape color by price*/
-        if (targetInfo.AreaType != 2) {
+        /*if area type is not Condo then get shape color code*/
+        if (targetInfo.AreaType != "2") {
             targetInfo.MapStructure.ParcelDrawingCode = ParcelMapController.getParcelMapColor(price, type);
         }
         var symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
-        
+        //var symbolPoint = TDMap.getPoint();
         
         if (targetInfo.MapStructure.Shape) {
             
@@ -465,14 +474,14 @@ var ParcelMapController = {
                 targetShape=targetInfo.MapStructure.Shape.split(';')[1];
             }
             map.addGraphic(targetShape, symbol);
-            ParcelMapController.drawWithInfo(targetInfo);
+           ParcelMapController.drawWithInfo(targetInfo);
         } else {
             alert('Shape Not OK');
         }
         return null;
     },
     drawWithInfo: function (targetInfo) {
-	
+        //alert(targetInfo);
         /*
         var symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
 
@@ -518,18 +527,22 @@ var ParcelMapController = {
        
        
        var price = '';
+        try {
 
+        
        if (sectionType == '4')
        {
            price = 'ราคา ' + toDisplayDecimal(targetInfo.ParcelPrice);
        }
        else {
            if ((targetInfo.PriceType == '0') || (targetInfo.PriceType == '1')) {
-               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(targetInfo.ParcelPrice) +
+
+
+               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPrice : targetInfo.ParcelWAHPrice) +
                   '<ul>' +
-                  '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMax) +
-                  '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(targetInfo.ParcelPriceMin) +
-                  '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(targetInfo.ParcelPriceAvg) +
+                  '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMax : targetInfo.ParcelWAHPriceMax) +
+                  '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMin : targetInfo.ParcelWAHPriceMin) +
+                  '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceAvg : targetInfo.ParcelWAHPriceAvg) +
                   '</ul>'
            }
 
@@ -542,7 +555,9 @@ var ParcelMapController = {
                '</ul><br/>'
            }
        }
-
+        } catch (e) {
+            alert(e.message);
+        }
         var attributes = {
             "Target": targetInfo.Name + "<br/>",
             "Price": price
@@ -554,13 +569,13 @@ var ParcelMapController = {
         gIdGlobal = gisIframeWindow.GIS.addGraphicWithInfoWindow(shape, srid, symbol, attributes);
 
     },
-    getParcelMapColor: function (price, type) {
+    getParcelMapColor:function(price,type){
         return (price > 0) ? 'green' : 'black';
 
     },
     getMapPhysicalInfo: function (mapStructure) {
         var symbol = TDMap.getYellowSymbol();
-        //alert(mapStructure.ParcelDrawingCode);
+
         switch (mapStructure.ParcelDrawingCode) {
             case "yellow":
                 symbol = TDMap.getYellowSymbol();
@@ -575,7 +590,8 @@ var ParcelMapController = {
                 symbol = TDMap.getBlackSymbol();
                 break;
             case "poin":
-                symbol = TDMap.getPoinSymbol();
+                symbol = TDMap.getPoint();
+                break;
             default:
                 /*default to YELLOW*/
                 symbol = TDMap.getYellowSymbol();
