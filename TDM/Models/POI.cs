@@ -189,12 +189,12 @@ namespace TDM.Models
         public string MinMarketWAHAddrCode { get; set; }
         public string MinMarketWAHCHANODE_NO { get; set; }
 
-       
+
         public string ParcelPrice { get; set; }
         public string ParcelPriceMin { get; set; }
         public string ParcelPriceMax { get; set; }
         public string ParcelPriceAvg { get; set; }
-       public  string  MaxParcelAddrCode { get; set; }
+        public string MaxParcelAddrCode { get; set; }
         public string MaxParcelCHANODE_NO { get; set; }
         public string MinParcelAddrCode { get; set; }
         public string MinParcelCHANODE_NO { get; set; }
@@ -244,9 +244,9 @@ namespace TDM.Models
         public string CreateDate { get; set; }
         public string REMARK { get; set; }
     }
-        
 
-    }
+
+
 
 
     public partial class RegisterLand
@@ -292,13 +292,13 @@ namespace TDM.Models
 
     public partial class CondoLineGraph
     {
-      //  public string CondoName { get; set; }
+        //  public string CondoName { get; set; }
         public string name { get; set; }
         public string type { get; set; }
         public List<decimal> data { get; set; }
     }
 
-        public partial class CondoRegister
+    public partial class CondoRegister
     {
         public List<YearMonth> YearMonthList { get; set; }
         public List<CondoLineGraph> CondoLineGraphList { get; set; }
@@ -312,7 +312,7 @@ namespace TDM.Models
         public List<DataMenu3> DataList { get; set; }
     }
 
-        public partial class MapMenu3
+    public partial class MapMenu3
     {
 
         public string ProvinceCode { get; set; }
@@ -346,9 +346,10 @@ namespace TDM.Models
         public string ProvinceName { get; set; }
         public string Quater { get; set; }
         public string Year { get; set; }
-    public decimal MinPrice { get; set; }
-    public decimal MaxPrice { get; set; }
-    public decimal AvgPrice { get; set; }
+        public decimal MinPrice { get; set; }
+        public decimal MaxPrice { get; set; }
+        public decimal AvgPrice { get; set; }
+    }
 }
 
 
