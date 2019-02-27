@@ -182,6 +182,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AreaAnalysisSystem3Controller.cs" />
     <Compile Include="Controllers\AreaInfoController.cs" />
+    <Compile Include="Controllers\BIController.cs" />
     <Compile Include="Controllers\ChangesPriceController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DashboardSystem3Controller.cs" />
@@ -332,7 +333,22 @@
     <Compile Include="Utils\Converting.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\BI\dashboard.js" />
+    <Content Include="assets\BI\echarts-custom-for-dashboard.js" />
+    <Content Include="assets\BI\jquery-jvectormap-2.0.1.min.js" />
+    <Content Include="assets\BI\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="assets\BI\pace.min.js" />
+    <Content Include="assets\BI\perfect-scrollbar.min.js" />
+    <Content Include="assets\BI\Script.js" />
+    <Content Include="assets\BI\viewportchecker.js" />
     <Content Include="assets\bootstrap\css\bootstrap-progressbar-3.3.4.min.css" />
+    <Content Include="assets\css\BI\animate.min.css" />
+    <Content Include="assets\css\BI\bootstrap-theme.min.css" />
+    <Content Include="assets\css\BI\bootstrap.min.css" />
+    <Content Include="assets\css\BI\jquery-jvectormap-2.0.1.css" />
+    <Content Include="assets\css\BI\pace-theme-flash.css" />
+    <Content Include="assets\css\BI\perfect-scrollbar.css" />
+    <Content Include="assets\css\BI\Style.css" />
     <Content Include="assets\css\bootstrap-datepicker\css\bootstrap-datepicker3.min.css" />
     <Content Include="assets\css\bootstrap-datepicker\js\bootstrap-datepicker.min.js" />
     <Content Include="assets\css\bootstrap-daterangepicker\daterangepicker.min.css" />
@@ -439,6 +455,7 @@
     <Content Include="Scripts\Home\Menu3.js" />
     <Content Include="Scripts\Home\Menu1.js" />
     <Content Include="Scripts\Main.js" />
+    <Content Include="Scripts\Map\Identity.js" />
     <Content Include="Scripts\map_loader.js" />
     <Content Include="Models\common.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -1637,6 +1654,7 @@
     <Content Include="Views\Home\Menu1.cshtml" />
     <Content Include="Views\Home\Menu2.cshtml" />
     <Content Include="Views\Home\Menu3.cshtml" />
+    <Content Include="Views\BI\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

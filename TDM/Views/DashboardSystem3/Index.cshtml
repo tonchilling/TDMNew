@@ -43,13 +43,24 @@
    /*border-color: gold;*/ 
 }
 
+      
+        .dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+   font-size:14px;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+
 
     </style>
     <!-- Bootstrap -->
     <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/assets/js/jquery-ui.js"></script>
     <script src="~/assets/js/bootstrap-select.min.js"></script>
- 
+    <script src="~/Scripts/map_loader.js"></script>
 </head>
 <body class="nav-md">
     <div class="container body">
@@ -104,7 +115,7 @@
 
                                             <div class="x_content">
                                                 <div class="row" style="text-align:center;">
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    <div class="col-md-3 col-sm-3 col-xs-12">
                                                         <div class="form-group text-left">
                                                             <h4 for="ddlLand" class="text-left">แผนงาน/โครงการ</h4>
                                                             <select class="form-control form-control-lg"
@@ -138,7 +149,7 @@
                                             <div class="x_content">
 
                                                 <div class="row" style="text-align:center;">
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    <div class="col-md-3 col-sm-3 col-xs-12">
                                                         <div class="form-group text-left">
                                                             <h4 for="ddlTown" class="text-left">ประเภท</h4>
                                                             <select class="form-control form-control-lg"
@@ -168,7 +179,7 @@
 
                                             <div class="x_content">
                                                 <div class="row" style="text-align:center;">
-                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    <div class="col-md-3 col-sm-3 col-xs-12">
                                                         <div class="form-group text-left">
                                                             <h4 for="ddlBuild" class="text-left">ประเภท</h4>
                                                             <select class="form-control form-control-lg"
@@ -224,7 +235,7 @@
 
                                             <div class="x_content">
                                                 <div class="row divTab1">
-                                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                                    <div class="col-md-2 col-sm-2 col-xs-12">
                                                         <div class="form-group">
                                                             <select class="form-control form-control-lg" name="ddlType" id="ddlType" required>
                                                                 <option value="0">ทั้งหมด</option>
@@ -268,21 +279,21 @@
 
                                                                                     <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
                                                                                     <div class="row ">
-                                                                                        <div class="col-sm-6" style="padding:0px">
+                                                                                        <div class="col-sm-6 col-xs-12" style="padding:0px">
                                                                                             <div class="row  funkyradio">
-                                                                                                <div class="col-sm-12">
+                                                                                                <div class="col-sm-12 col-xs-12">
                                                                                                     <b>เลือกภาค/คลัสเตอร์</b>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="row  funkyradio">
-                                                                                                <div class="col-sm-6 ">
+                                                                                                <div class="col-sm-6 col-xs-12 ">
 
                                                                                                     <div class="funkyradio-success">
                                                                                                         <input type="radio" name="Type1" id="rdRegion" checked />
                                                                                                         <label for="rdRegion">Region</label>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                                <div class="col-sm-6">
+                                                                                                <div class="col-sm-6 col-xs-12">
                                                                                                     <div class="funkyradio-primary">
                                                                                                         <input type="radio" name="Type1" id="rdCluster" />
                                                                                                         <label for="rdCluster">Cluster</label>
@@ -295,7 +306,7 @@
 
 
                                                                                     <div class="row">
-                                                                                        <div class="col-sm-6 pnlRegion">
+                                                                                        <div class="col-sm-6 col-xs-12 pnlRegion">
                                                                                             <div class="form-group">
                                                                                                 <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
                                                                                                     <option value="">เลือกภาค</option>
@@ -313,7 +324,7 @@
                                                                                     </div>
                                                                                     <div class="row">
 
-                                                                                        <div class="col-sm-6">
+                                                                                        <div class="col-sm-6 col-xs-12">
                                                                                             <div class="form-group">
                                                                                                 <label for="ddlProvince">เลือกจังหวัด</label>
                                                                                                 <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
@@ -321,7 +332,7 @@
                                                                                                 </select>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="col-sm-6 divTab1">
+                                                                                        <div class="col-sm-6 col-xs-12 divTab1">
                                                                                             <div class="form-group">
                                                                                                 <label for="ddlDistrict">เลือกอำเภอ</label>
                                                                                                 <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
@@ -334,7 +345,7 @@
                                                                                     </div>
                                                                                     <div class="row">
 
-                                                                                        <div class="col-sm-6 divTab1">
+                                                                                        <div class="col-sm-6 col-xs-12 divTab1">
                                                                                             <div class="form-group">
                                                                                                 <label for="ddlSubdistrict">เลือกตำบล</label>
                                                                                                 <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
@@ -344,9 +355,9 @@
                                                                                         </div>
 
                                                                                       
-                                                                                        <div class="col-sm-6  divTab1 divSection21" style="padding:0px">
+                                                                                        <div class="col-sm-6  col-xs-12 divTab1 divSection21" style="padding:0px">
                                                                                             <div class="row  funkyradio">
-                                                                                                <div class="col-sm-6">
+                                                                                                <div class="col-sm-6 col-xs-12">
 
                                                                                                     <div class="funkyradio-success">
                                                                                                         <label for="rdType1"></label>
@@ -354,7 +365,7 @@
                                                                                                         <label class="lbType1" for="rdType1">ราคาประเมิน/ตรว.</label>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                                <div class="col-sm-6 divTab1">
+                                                                                                <div class="col-sm-6 col-xs-12 divTab1">
                                                                                                     <div class="funkyradio-primary">
                                                                                                         <label for="rdType2"></label>
                                                                                                         <input type="radio" name="rdType2" id="rdType2" />
@@ -366,7 +377,7 @@
 
 
 
-                                                                                        <div class="col-sm-3 divTab1  divSection22 invisible">
+                                                                                        <div class="col-sm-3  col-xs-12divTab1  divSection22 invisible">
                                                                                             <div class="form-group">
                                                                                                 <div class='input-group date' id='txtSFromDate'>
                                                                                                     
@@ -377,7 +388,7 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="col-sm-3 divTab1 divSection22 invisible">
+                                                                                        <div class="col-sm-3 col-xs-12 divTab1 divSection22 invisible">
                                                                                             <div class="form-group">
                                                                                                 <div class='input-group date' id='txtSToDate'>
                                                                                                     <input class="form-control txtSToDate" id="txtSearchEndDate" placeholder="ถึงวันที่" />
@@ -394,7 +405,7 @@
 
                                                                                     <div class="row divSection2Building  invisible" style="padding-bottom:10px">
 
-                                                                                        <div class="col-sm-6 ">
+                                                                                        <div class="col-sm-6 col-xs-12">
                                                                                             <select class="form-control form-control-lg" name="ddlConstructionType" id="ddlConstructionType"  placeholder="สิ่งปลูกสร้าง" >
                                                                                                 <option value="">ประเภทสิ่งปลูกสร้าง</option>
                                                                                                 <option value="1">โรงเรียน</option>
@@ -403,12 +414,12 @@
                                                                                         </div>
                                                                                     </div>
                                                                                             <div class="row divTab1 ">
-                                                                                                <div class="col-md-2">
+                                                                                                <div class="col-md-2 col-xs-12">
                                                                                                     <div class="form-group">
                                                                                                         <input class="form-control MinCostEstimate" id="MinCostEstimate0" value="0"  placeholder="ราคาประเมินต่ำสุด" />
                                                                                                     </div>
                                                                                                 </div>
-                                                                                                <div class="col-md-8">
+                                                                                                <div class="col-md-8 col-xs-12">
                                                                                                     <div class="row">
                                                                                                         <div class="col-md-12">
                                                                                                             <div id="CostEstimateSlider0"></div>
@@ -419,16 +430,16 @@
                                                                                                         <div class="col-md-1 offset-md-10 maxDiv" id="maxDiv0"></div>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                                <div class="col-md-2">
+                                                                                                <div class="col-md-2 col-xs-12">
                                                                                                     <div class="form-group">
                                                                                                         <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="100000000000000" placeholder="ราคาประเมินสูงสุด" />
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
                                                                                     <div class="row divSection2Building invisible" style="padding-bottom:10px">
-                                                                                        <div class="col-sm-6">
+                                                                                        <div class="col-sm-6 col-xs-12">
                                                                                             <div class="row">
-                                                                                                <div class="col-sm-12">
+                                                                                                <div class="col-sm-12 col-xs-12">
                                                                                                     <div class="panel panel-primary">
                                                                                                         <div class="panel-heading">
                                                                                                             <h4 class="headerwhite">เลือกเปรียบเทียบรายจังหวัด</h4>
@@ -436,7 +447,7 @@
 
                                                                                                         <div class="panel-body">
                                                                                                             <div class="row">
-                                                                                                                <div class="col-sm-12">
+                                                                                                                <div class="col-sm-12 col-xs-12">
                                                                                                                     <select class="form-control form-control-lg" 
                                                                                                                             id="ddlProvince1"
                                                                                                                             title="จังหวัด" 
@@ -447,7 +458,7 @@
                                                                                                             </div>
 
                                                                                                             <div class="row" style="padding-top:10px">
-                                                                                                                <div class="col-sm-6">
+                                                                                                                <div class="col-sm-6 col-xs-12">
 
                                                                                                                     <div class="form-group">
                                                                                                                         <div class='input-group'>
@@ -470,10 +481,10 @@
                                                                                         </div>
                                                                                         <div class="row">
 
-                                                                                            <div class="col-sm-2 col-sm-offset-4">
+                                                                                            <div class="col-sm-2 col-xs-6 col-sm-offset-4">
                                                                                                 <button class="form-control  btn btn-primary  btn-large btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
                                                                                             </div>
-                                                                                            <div class="col-sm-2">
+                                                                                            <div class="col-sm-2 col-xs-6">
                                                                                                 <button class="form-control  btn btn-default  btn-large btnCancel" id="btnCancel" name="btnCancel"><i class="fa fa-refresh"></i> ยกเลิก </button>
                                                                                             </div>
                                                                                         </div>
@@ -1254,6 +1265,8 @@
         map.clear = function () {
             gisIframeWindow.GIS.removeGraphic();
         }
+
+      
 
         map.addGraphic = function (shape, symbol) {
             var sridIn = 32647;

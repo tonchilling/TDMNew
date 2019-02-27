@@ -328,6 +328,5 @@ C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\Microsoft.AI.DependencyCollector.xml
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\Microsoft.AI.WindowsServer.xml
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\Microsoft.AI.Web.xml
-C:\inetpub\wwwroot\GitHub\TDMNew\TDM\obj\Release\TDM.csprojResolveAssemblyReference.cache
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\obj\Release\TDM.dll
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\obj\Release\TDM.pdb

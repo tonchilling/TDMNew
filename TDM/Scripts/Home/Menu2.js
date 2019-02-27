@@ -16,7 +16,7 @@ var regionObj = {
 
 $(function () {
 
-    LoadGraph1();
+    LoadGraphView(null,null);
   
     searchForm.initComp();
 
@@ -301,46 +301,118 @@ var searchForm = {
 
         objSearch = {
             SectionType: sectionType,
-            code: code,
-            Month: '',
-            Year: $('#ddlYear').val()
+            Code: code,
+            FromMonth: $('.ddlFromMonth').val(),
+            FromYear: $('.ddlFromYear').val(),
+            ToMonth: $('.ddlToMonth').val(),
+            ToYear: $('.ddlToYear').val(),
+            CondoName: $('.txtName').val()
 
         };
 
 
         $.ajax({
-            url: rootUrl + "/api/PriceSys/GetRegisterLand",
+            url: rootUrl + "/api/PriceSys/GetCondoRegisterMenu2",
             type: "POST",
             data: JSON.stringify(objSearch),
             dataType: "json",
             contentType: 'application/json',
             success: function (data) {
 
-                var month = [];
-                var newLandRegister = [];
-                var LandRegister = [];
-                if (data != null) {
+             
+                if (data != null && data.Table!=null) {
+                    LoadTable(data.Table)
+      
+                }
 
-                    setTimeout(function () {
-                        $('.lbNewRegLand').text(data.summaryData.ParcelNewRegister);
-                        $('.lbRegLand').text(data.summaryData.ParcelRegister);
-                        $('.lbNewMonthRegLand').text(data.summaryData.ParcelMonthNewRegister);
-                        $('.lbMonthRegLand').text(data.summaryData.ParcelMonthRegister);
-                    }
-        , 400);
-
-                    var month = data.summaryByMonthData.map(x => x.MonthName);
-                    var newLandRegister = data.summaryByMonthData.map(x => x.ParcelRegister);
-                    var LandRegister = data.summaryByMonthData.map(x => x.ParcelNewRegister);
-
-                    LoadGraph1Display(month, newLandRegister, LandRegister);
-                    LoadGraph2Display(month, newLandRegister, LandRegister);
+                if (data != null && data.CondoLineGraphList != null) {
+                    var yearMonthToArray = data.YearMonthList.map(x => x.MonthYearName);
+                    LoadGraphView(yearMonthToArray, data.CondoLineGraphList);
                 }
 
 
             }
         });
     }
+}
+
+
+function LoadTable(data)
+{
+
+   
+    var body = '';
+    $(".divTable").empty();
+
+
+    body += '<table class="table table-bordered table-striped tblInfo">';
+
+    if (data != null && data.length > 0) {
+        body += '<thead>';
+        body += '<tr>';
+
+
+        body += '<th scope="col" rowspan="2"  class="text-center" >ชื่ออาคารชุด</th>';
+        body += '<th scope="col"  class="text-center"  colspan="' + (Object.keys(data[0]).length - 3) + '">ราคาซื้อขาย</th>';
+
+        body += '</tr>';
+        body += '<tr>';
+        var col = 0;
+
+        $.each(data, function (index, item) {
+            $.each(item, function (key, val) {
+
+                if (col > 2) {
+                    body += '<th scope="col" class="text-center">' + key + '</th>';
+                }
+                col++;
+
+            });
+
+            return false;
+
+        });
+
+
+        body += '</tr>';
+        body += '</thead>';
+        body += '<tbody>';
+
+        $.each(data, function (index, item) {
+
+            body += '<tr>';
+            col = 0;
+            $.each(item, function (key, val) {
+
+                if (col != 1 && col != 2) {
+                    body += '<td>' + (val != null ? val : "") + '</td>';
+                }
+                col++;
+
+
+            });
+            body += '</tr>';
+        });
+
+        body += '</tbody>';
+
+    }
+    else {
+        body += '<thead>';
+        body += '<tr>';
+        body += '<th scope="col"   class="text-center" >ชื่ออาคารชุด</th>';
+        body += '</tr>';
+        body += '</thead>';
+        body += '<tbody>';
+        body += '<tr><td>Not found</td></tr>';
+        body += '</tbody>';
+    }
+        body += '</table>';
+        $(".divTable").append(body);
+
+        $(".divTable table").DataTable({ searching: false, info: false });
+   
+
 }
 
 var mapApi = {
@@ -485,6 +557,121 @@ function LoadGraph1Display(months, newLandRegisters, LandRegisters) {
             }
         ]
     };
+
+    setTimeout(function () {
+        graph1.setOption(option, true);
+
+
+    }, 1000);
+
+}
+
+
+function LoadGraphView(YearMonthArray, CondoLineGraphList) {
+
+    var graph1 = echarts.init(document.getElementById('graph1'));
+
+    var condoNameList =CondoLineGraphList !=null? CondoLineGraphList.map(x => x.name):null;
+    
+    option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: condoNameList
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: false, type: ['line', 'bar', 'stack', 'tiled'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: YearMonthArray
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: CondoLineGraphList
+    };
+
+
+
+    /* option = {
+         tooltip: {
+             trigger: 'axis'
+         },
+         legend: {
+             data: ['condo 1', 'condo 2', 'condo 3', 'condo 4', 'condo 5']
+         },
+         toolbox: {
+             show: true,
+             feature: {
+                 mark: { show: true },
+                 dataView: { show: true, readOnly: false },
+                 magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                 restore: { show: true },
+                 saveAsImage: { show: true }
+             }
+         },
+         calculable: true,
+         xAxis: [
+             {
+                 type: 'category',
+                 boundaryGap: true,
+                 data: ['ธค-60', 'มก-61', 'กพ-61', 'มีค-61', 'เมษา-61', 'พฤ-61', 'มิย-61']
+             }
+         ],
+         yAxis: [
+             {
+                 type: 'value'
+             }
+         ],
+         series: [
+             {
+                 name: 'condo 1',
+                 type: 'line',
+                 stack: 'test',
+                 data: [120000, 130002, 100001, 134000, 90000, 230000, 210000]
+             },
+             {
+                 name: 'condo 2',
+                 type: 'line',
+                 stack: 'test',
+                 data: [220000, 182000, 191000, 234000, 290000, 330000, 310000]
+             },
+             {
+                 name: 'condo 3',
+                 type: 'line',
+                 stack: 'test',
+                 data: [150000, 232000, 201000, 154000, 190000, 330000, 410000]
+             },
+             {
+                 name: 'condo 4',
+                 type: 'line',
+                 stack: 'test',
+                 data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
+             },
+             {
+                 name: 'condo 5',
+                 type: 'line',
+                 stack: 'test',
+                 data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
+             }
+         ]
+     };
+     */
 
     setTimeout(function () {
         graph1.setOption(option, true);

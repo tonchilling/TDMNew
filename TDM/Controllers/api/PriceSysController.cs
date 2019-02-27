@@ -145,6 +145,51 @@ namespace TDM.Controllers.api
         }
 
 
+        [HttpPost]
+
+        public IHttpActionResult GetCondoRegisterMenu2(SearchMap searchDto)
+        {
+            var repos = new TDAssetRespository();
+            SetionType sectionT = new SetionType();
+
+            /* switch (SectionType)
+             {
+                 case "1":sectionT = SetionType.Region;break;
+                 case "2": sectionT = SetionType.Provice; break;
+                 case "3": sectionT = SetionType.Amphur; break;
+             }*/
+
+            if(searchDto.FromYear!=null && searchDto.FromMonth!=null)
+            searchDto.FromYearMonth = searchDto.FromYear + Utils.Converting.ToInt(searchDto.FromMonth).ToString("##00");
+
+            if (searchDto.ToYear != null && searchDto.ToMonth != null)
+                searchDto.ToYearMonth= searchDto.ToYear + Utils.Converting.ToInt(searchDto.ToMonth).ToString("##00");
+
+            var estimateData = repos.GetCondoRegisterMenu2(searchDto);
+
+            return Json(estimateData);
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetLandPriceCompareMenu3(SearchMap searchDto)
+        {
+            var repos = new TDAssetRespository();
+            SetionType sectionT = new SetionType();
+
+            /* switch (SectionType)
+             {
+                 case "1":sectionT = SetionType.Region;break;
+                 case "2": sectionT = SetionType.Provice; break;
+                 case "3": sectionT = SetionType.Amphur; break;
+             }*/
+
+        
+            var estimateData = repos.GetLandPriceCompareMenu3(searchDto);
+
+            return Json(estimateData);
+        }
+
+
 
         public IHttpActionResult GetResultDetail(string searchCriteria, string radius, string parcel_type, string shapes, string object_id,
             string changwatCode, string amphurCode, string tumbonCode, string x, string y, string branchCode)
