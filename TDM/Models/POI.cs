@@ -59,6 +59,7 @@ namespace TDM.Models
         public string ProvinceCodeCompare2 { get; set; }
         public string PercentCompare { get; set; }
         public string ChanodeNo { get; set; }
+<<<<<<< HEAD
         public string Month { get; set; }
         public string Year { get; set; }
         public string FromMonth { get; set; }
@@ -68,6 +69,9 @@ namespace TDM.Models
         public string FromYearMonth { get; set; }
         public string ToYearMonth { get; set; }
         public string CondoName { get; set; }
+=======
+
+>>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
     }
 
     public partial class EstimateDataAll
@@ -242,10 +246,8 @@ namespace TDM.Models
         public string CreateDate { get; set; }
         public string REMARK { get; set; }
     }
-    public partial class RegisterLand
-    {
-
         
+<<<<<<< HEAD
     }
 
 
@@ -339,6 +341,8 @@ namespace TDM.Models
 
     public partial class DataMenu3
     {
+=======
+>>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
 
         public string ProvinceCode { get; set; }
 

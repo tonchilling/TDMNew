@@ -8,7 +8,7 @@ using Dapper;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
-using TDM.Utils;
+
 namespace TDM.Repositories
 {
     public class TDAssetRespository : BaseRepository
@@ -1042,6 +1042,7 @@ namespace TDM.Repositories
                 return result;
             }
         }
+<<<<<<< HEAD
 
 
         /// <summary>
@@ -1278,6 +1279,9 @@ namespace TDM.Repositories
             return result;
         }
 
+=======
+        
+>>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
     }
 
     public class MapSearchCriteria
