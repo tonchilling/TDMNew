@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using TDM.Models;
+using TDM.Models.Utils;
 using Dapper;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -583,9 +584,9 @@ namespace TDM.Repositories
                         dataInfo.ProvinceName = reader["ProvinceName"].ToString();
                         dataInfo.Year = reader["Year"].ToString();
                         dataInfo.Quater = reader["Quater"].ToString();
-                        dataInfo.MaxPrice = Utils.Converting.ToDecimal(reader["MaxPrice"].ToString());
-                        dataInfo.MinPrice = Utils.Converting.ToDecimal(reader["MinPrice"].ToString());
-                        dataInfo.AvgPrice = Utils.Converting.ToDecimal(reader["AvgPrice"].ToString()); ;
+                        dataInfo.MaxPrice = Converting.ToDecimal(reader["MaxPrice"].ToString());
+                        dataInfo.MinPrice = Converting.ToDecimal(reader["MinPrice"].ToString());
+                        dataInfo.AvgPrice = Converting.ToDecimal(reader["AvgPrice"].ToString()); ;
 
                         DataList.Add(dataInfo);
                     }
@@ -598,21 +599,21 @@ namespace TDM.Repositories
                         mapInfo = new MapMenu3();
                         mapInfo.ProvinceCode = reader["ProvinceCode"].ToString();
                         mapInfo.ProvinceName = reader["ProvinceName"].ToString();
-                        mapInfo.Q1MaxPrice = Utils.Converting.ToDecimal(reader["Q1MaxPrice"].ToString());
-                        mapInfo.Q1MinPrice = Utils.Converting.ToDecimal(reader["Q1MinPrice"].ToString());
-                        mapInfo.Q1AvgPrice = Utils.Converting.ToDecimal(reader["Q1AvgPrice"].ToString()); ;
+                        mapInfo.Q1MaxPrice = Converting.ToDecimal(reader["Q1MaxPrice"].ToString());
+                        mapInfo.Q1MinPrice = Converting.ToDecimal(reader["Q1MinPrice"].ToString());
+                        mapInfo.Q1AvgPrice = Converting.ToDecimal(reader["Q1AvgPrice"].ToString()); ;
 
-                        mapInfo.Q2MaxPrice = Utils.Converting.ToDecimal(reader["Q2MaxPrice"].ToString());
-                        mapInfo.Q2MinPrice = Utils.Converting.ToDecimal(reader["Q2MinPrice"].ToString());
-                        mapInfo.Q2AvgPrice = Utils.Converting.ToDecimal(reader["Q2AvgPrice"].ToString());
+                        mapInfo.Q2MaxPrice = Converting.ToDecimal(reader["Q2MaxPrice"].ToString());
+                        mapInfo.Q2MinPrice = Converting.ToDecimal(reader["Q2MinPrice"].ToString());
+                        mapInfo.Q2AvgPrice = Converting.ToDecimal(reader["Q2AvgPrice"].ToString());
 
-                        mapInfo.Q3MaxPrice = Utils.Converting.ToDecimal(reader["Q3MaxPrice"].ToString());
-                        mapInfo.Q3MinPrice = Utils.Converting.ToDecimal(reader["Q3MinPrice"].ToString());
-                        mapInfo.Q3AvgPrice = Utils.Converting.ToDecimal(reader["Q3AvgPrice"].ToString());
+                        mapInfo.Q3MaxPrice = Converting.ToDecimal(reader["Q3MaxPrice"].ToString());
+                        mapInfo.Q3MinPrice = Converting.ToDecimal(reader["Q3MinPrice"].ToString());
+                        mapInfo.Q3AvgPrice = Converting.ToDecimal(reader["Q3AvgPrice"].ToString());
 
-                        mapInfo.Q4MaxPrice = Utils.Converting.ToDecimal(reader["Q4MaxPrice"].ToString());
-                        mapInfo.Q4MinPrice = Utils.Converting.ToDecimal(reader["Q4MinPrice"].ToString());
-                        mapInfo.Q4AvgPrice = Utils.Converting.ToDecimal(reader["Q4AvgPrice"].ToString());
+                        mapInfo.Q4MaxPrice = Converting.ToDecimal(reader["Q4MaxPrice"].ToString());
+                        mapInfo.Q4MinPrice = Converting.ToDecimal(reader["Q4MinPrice"].ToString());
+                        mapInfo.Q4AvgPrice = Converting.ToDecimal(reader["Q4AvgPrice"].ToString());
                         mapInfo.Shape = reader["Shape"].ToString();
                         MapInfoList.Add(mapInfo);
 
@@ -1255,7 +1256,7 @@ namespace TDM.Repositories
 
                             data = resultList.Find(c => c.CondoName == conG.name && c.MonthYearName == ym.MonthYearName);
 
-                            conG.data.Add(data != null ? Utils.Converting.ToDecimal(data.PriceMet) : 0);
+                            conG.data.Add(data != null ? Converting.ToDecimal(data.PriceMet) : 0);
                         }
                     }
 
@@ -1281,19 +1282,20 @@ namespace TDM.Repositories
 
 
 
-        public class MapSearchCriteria
-        {
-            public string ID { get; set; }
-            public string PriceType { get; set; }
-            public string AreaType { get; set; }
-            public string CostEstUnitType { get; set; }
-            public string CostEstMin { get; set; }
-            public string CostEstMax { get; set; }
-            public string ChanodeNo { get; set; }
-            public SetionType Type { get; set; }
-            public DateTime? StartDate { get; set; }
-            public DateTime? EndDate { get; set; }
+      
+    }
+    public class MapSearchCriteria
+    {
+        public string ID { get; set; }
+        public string PriceType { get; set; }
+        public string AreaType { get; set; }
+        public string CostEstUnitType { get; set; }
+        public string CostEstMin { get; set; }
+        public string CostEstMax { get; set; }
+        public string ChanodeNo { get; set; }
+        public SetionType Type { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        }
     }
 }
