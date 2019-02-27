@@ -4,7 +4,17 @@ $(function () {
 
   
     searchForm.initComp();
-
+    $("#ddlProvince1").selectpicker('refresh')
+    $(".divTable table").DataTable({
+        searching: false
+        , info: false
+       , drawCallback: function (setting) {
+           MergeCommonRows($(".divTable table"),1)
+    }
+    }).on('draw.dt', function () {
+        MergeCommonRows($(".divTable table"), 1)
+    });;
+   
 });
 
 $(document).on("click", "#rdRegion", function () {
@@ -16,6 +26,25 @@ $(document).on("click", "#rdCluster", function () {
 
 });
 
+$(document).on("click", ".btnSearch", function () {
+    searchForm.search();
+
+});
+
+
+$(document).on("change", "#ddlProvince1", function () {
+    var proviceOption1;
+
+    if ($(this).val() == "999999") {
+        proviceOption1 = $("#ddlProvince1 option").clone();
+    }
+    else {
+        proviceOption1 = $("#ddlProvince1 option:not([value='" + $(this).val() + "'])").clone();
+    }
+
+
+
+});
 
 
 /// tabid=1 region
@@ -159,16 +188,23 @@ var searchForm = {
 
                     var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
 
-                   
+                    var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
+
+                    $("#ddlProvince1").empty();
+
+                    $("#ddlProvince1").append(proviceOption1);
+
+                    $("#ddlProvince1").selectpicker('refresh')
 
                     $("#ddlProvince").change(function (event) {
 
-                      
-                        $("#ddlProvince2").empty();
+                        $("#ddlProvince1").empty();
+                   
                         var provinceId = $("#ddlProvince").val();
                         var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "']):not([value='999999'])").clone();
-                        //   var proviceOption2 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
 
+                        $("#ddlProvince1").append(proviceOption1);
+                        $("#ddlProvince1").selectpicker('refresh')
                        
 
                         
@@ -245,8 +281,193 @@ var searchForm = {
         }
 
 
+    },
+    search: function () {
+
+        var sectionType = '';
+        var code = '';
+        //ton
+       /* if ($('#ddlSubdistrict').val() != "" && $("#ddlSubdistrict").val() != '999999') {
+            sectionType = '4';
+            code = $('#ddlSubdistrict').val();
+        }
+        else if ($("#ddlDistrict").val() != '' && $("#ddlDistrict").val() != '999999') {
+            sectionType = '3';
+            code = $('#ddlDistrict').val();
+        }
+        else*/ if ($("#ddlProvince").val() != '' && $("#ddlProvince").val() != '999999') {
+            sectionType = '2';
+            code = $('#ddlProvince').val();
+        }
+        else if ($("#ddlRegion ").val() != '') {
+            sectionType = '1';
+            code = $('#ddlRegion').val();
+        } else {
+            sectionType = '0';
+
+        }
+
+
+        var objSearch = {};
+        var provinceCode1 = $('#ddlProvince1').val();
+
+        objSearch = {
+            SectionType: sectionType,
+            LocationType:LocationType,
+            Code: code,
+            Year: $('.ddlYear').val(),
+            ProvinceCodeCompare1: (provinceCode1 != null && provinceCode1.length > 0) ? provinceCode1.join() : ""
+
+        };
+
+
+        $.ajax({
+            url: rootUrl + "/api/PriceSys/GetLandPriceCompareMenu3",
+            type: "POST",
+            data: JSON.stringify(objSearch),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data) {
+
+                if (data != null && data.MapInfoList != null) {
+                    TransformMap(data.MapInfoList);
+                }
+                if (data != null && data.DataList != null) {
+                    LoadTable(data.DataList)
+
+                }
+
+               
+
+               
+
+
+            }
+        });
     }
 }
+
+
+var TDMap = {
+    getPolygonSymbol: function () {
+        return {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [173, 255, 47],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0, 255],
+                "width": 1
+            }
+        };
+    }
+}
+function TransformMap(data)
+{
+
+    var sridIn = 32647;
+    var sridOut = [102100];
+    var trans;
+    map.clear();
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, item) {
+                if (item.Shape) {
+
+                    var targetShape = item.Shape;
+                    if (item.Shape.indexOf(';') !== -1) {
+                        targetShape = item.Shape.split(';')[1];
+                    }
+                    map.addGraphic(targetShape, TDMap.getPolygonSymbol());
+                   // ParcelMapController.drawWithInfo(targetInfo);
+                } else {
+                    alert('Shape Not OK');
+                }
+
+
+               // trans = gisIframeWindow.GIS.transform(item.Shape, sridIn, sridOut);
+            });
+            }
+    }
+}
+
+function LoadTable(data)
+{
+    var body = '';
+    $(".divTable").empty();
+
+    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<thead>';
+    body += '<tr>';
+    body += '<th scope="col" class="center">จังหวัด</th>';
+    body += '<th scope="col" class="center">ช่วงเวลา</th>';
+    body += '<th scope="col" class="center">ราคาต่ำสุด</th>';
+    body += '<th scope="col" class="center">ราคาสูงสุด</th>';
+    body += '<th scope="col" class="center">ราคาเฉลี่ย</th>';
+    body += '</tr>';
+    body += '</thead>';
+;
+    body += '<tbody>';
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, item) {
+
+                body += '<tr>';
+                body += '<td>' + item.ProvinceName + '</td>';
+                body += '<td>ไตรมาส ' + item.Quater + ' </td>';
+                body += '<td>' + item.MinPrice + '</td>';
+                body += '<td>' + item.MaxPrice + '</td>';
+                body += '<td>' + item.AvgPrice + '</td>';
+
+                body += '</tr>';
+            });
+        }
+    }
+    body += '</tbody>';
+    body += '</table>';
+    $(".divTable").append(body);
+
+   // $(".divTable table").DataTable({ searching: false, info: false });
+
+    $(".divTable table").DataTable({
+        searching: false
+       , info: false
+      , drawCallback: function (setting) {
+          MergeCommonRows($(".divTable table"), 1)
+      }
+    }).on('draw.dt', function () {
+        MergeCommonRows($(".divTable table"), 1)
+    });;
+
+}
+
+
+
+
+function MergeCommonRows(table, columnIndexToMerge) {
+    previous = null;
+    cellToExtend = null;
+    table.find("td:nth-child(" + columnIndexToMerge + ")").each(function () {
+        jthis = $(this);
+        content = jthis.text()
+        if (previous == content && content !== "") {
+            jthis.remove();
+            if (cellToExtend.attr("rowspan") == undefined) {
+                cellToExtend.attr("rowspan", 2);
+            }
+            else {
+                currentrowspan = parseInt(cellToExtend.attr("rowspan"));
+                cellToExtend.attr("rowspan", currentrowspan + 1);
+            }
+        }
+        else {
+            previous = content;
+            cellToExtend = jthis;
+        }
+    });
+}
+
 
 var mapApi = {
     getServerPath: function () {

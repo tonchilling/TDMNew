@@ -542,6 +542,91 @@ namespace TDM.Repositories
 
             return result;
         }
+
+
+        public LandSalePriceChanging GetLandPriceCompareMenu3(SearchMap search)
+        {
+
+            IDataReader reader = null;
+            LandSalePriceChanging result = null;
+
+
+            List<MapMenu3> MapInfoList = null;
+            MapMenu3 mapInfo = null;
+            List<DataMenu3> DataList = null;
+            DataMenu3 dataInfo = null;
+        var p = new DynamicParameters();
+
+
+
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@LocationType", search.LocationType, dbType: DbType.String);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@Year", search.Year, dbType: DbType.String);
+            p.Add("@ProvinceCodeCompare1", search.ProvinceCodeCompare1, dbType: DbType.String);
+          
+            try
+            {
+                result = new LandSalePriceChanging();
+                DataList = new List<DataMenu3>();
+                MapInfoList = new List<MapMenu3>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetLandPriceCompareMenu3", p, commandType: CommandType.StoredProcedure);
+                    while (reader.Read())
+                    {
+
+                        dataInfo = new DataMenu3();
+                        dataInfo.ProvinceCode = reader["ProvinceCode"].ToString();
+                        dataInfo.ProvinceName = reader["ProvinceName"].ToString();
+                        dataInfo.Year = reader["Year"].ToString();
+                        dataInfo.Quater = reader["Quater"].ToString();
+                        dataInfo.MaxPrice = Utils.Converting.ToDecimal(reader["MaxPrice"].ToString());
+                        dataInfo.MinPrice = Utils.Converting.ToDecimal(reader["MinPrice"].ToString());
+                        dataInfo.AvgPrice = Utils.Converting.ToDecimal(reader["AvgPrice"].ToString()); ;
+
+                        DataList.Add(dataInfo);
+                    }
+
+                    result.DataList = DataList;
+
+                        reader.NextResult();
+                    while (reader.Read())
+                    {
+                        mapInfo = new MapMenu3();
+                        mapInfo.ProvinceCode = reader["ProvinceCode"].ToString();
+                        mapInfo.ProvinceName = reader["ProvinceName"].ToString();
+                        mapInfo.Q1MaxPrice = Utils.Converting.ToDecimal( reader["Q1MaxPrice"].ToString());
+                        mapInfo.Q1MinPrice = Utils.Converting.ToDecimal(reader["Q1MinPrice"].ToString());
+                        mapInfo.Q1AvgPrice = Utils.Converting.ToDecimal(reader["Q1AvgPrice"].ToString()); ;
+
+                        mapInfo.Q2MaxPrice = Utils.Converting.ToDecimal(reader["Q2MaxPrice"].ToString());
+                        mapInfo.Q2MinPrice = Utils.Converting.ToDecimal(reader["Q2MinPrice"].ToString());
+                        mapInfo.Q2AvgPrice = Utils.Converting.ToDecimal(reader["Q2AvgPrice"].ToString());
+
+                        mapInfo.Q3MaxPrice = Utils.Converting.ToDecimal(reader["Q3MaxPrice"].ToString());
+                        mapInfo.Q3MinPrice = Utils.Converting.ToDecimal(reader["Q3MinPrice"].ToString());
+                        mapInfo.Q3AvgPrice = Utils.Converting.ToDecimal(reader["Q3AvgPrice"].ToString());
+
+                        mapInfo.Q4MaxPrice = Utils.Converting.ToDecimal(reader["Q4MaxPrice"].ToString());
+                        mapInfo.Q4MinPrice = Utils.Converting.ToDecimal(reader["Q4MinPrice"].ToString());
+                        mapInfo.Q4AvgPrice = Utils.Converting.ToDecimal(reader["Q4AvgPrice"].ToString());
+                        mapInfo.Shape = reader["Shape"].ToString();
+                        MapInfoList.Add(mapInfo);
+
+                    }
+
+                    result.MapInfoList = MapInfoList;
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
         /// <summary>
         /// Section 4
         /// </summary>
@@ -957,7 +1042,246 @@ namespace TDM.Repositories
                 return result;
             }
         }
+<<<<<<< HEAD
+
+
+        /// <summary>
+        /// Home>Menu1
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public RegisterLand GetRegisterLand(SearchMap search)
+        {
+
+            IDataReader reader = null;
+            RegisterLand result = null;
+            RegisterLandSummary regSummaryData = null;
+            RegisterLandByMonth regSummarybByMonthData = null;
+            List<RegisterLandByMonth> regSummaryByMonthList = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@Month", search.Month, dbType: DbType.String);
+            p.Add("@Year", search.Year, dbType: DbType.String);
+           
+
+          
+            try
+            {
+               
+                result = new RegisterLand();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+                    
+                    //conn.
+                    reader = conn.ExecuteReader("[GetLandRegisterMenu1]", p, commandType: CommandType.StoredProcedure);
+
+                    if (reader.Read())
+                    {
+                        regSummaryData = new RegisterLandSummary();
+                        regSummaryData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
+                        regSummaryData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
+                        regSummaryData.ParcelMonthRegister = Converting.ToDecimal(reader["ParcelMonthRegister"].ToString());
+                        regSummaryData.ParcelMonthNewRegister = Converting.ToDecimal(reader["ParcelMonthNewRegister"].ToString());
+
+                       
+                    }
+
+                    result.summaryData = regSummaryData;
+
+                    reader.NextResult();
+                    regSummaryByMonthList = new List<RegisterLandByMonth>();
+                    while (reader.Read())
+                    {
+                        regSummarybByMonthData = new RegisterLandByMonth();
+                        regSummarybByMonthData.RegMonth = Converting.ToDecimal(reader["RegMonth"].ToString());
+                        regSummarybByMonthData.MonthName = Converting.ToMonthShortName(reader["RegMonth"].ToString());
+                        regSummarybByMonthData.RegYear = reader["RegYear"].ToString();
+                        regSummarybByMonthData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
+                        regSummarybByMonthData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
+                        regSummaryByMonthList.Add(regSummarybByMonthData);
+
+                    }
+
+                    result.summaryByMonthData = regSummaryByMonthList;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Home>Menu2
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<CondoInfo> GetCondoCompare(SearchMap search)
+        {
+
+            IDataReader reader = null;
+            RegisterLand result = null;
+            RegisterLandSummary regSummaryData = null;
+            RegisterLandByMonth regSummarybByMonthData = null;
+            List<CondoInfo> resultList = null;
+            CondoInfo data = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@FromYM", search.FromYearMonth, dbType: DbType.String);
+            p.Add("@ToYM", search.ToYearMonth, dbType: DbType.String);
+
+
+
+            try
+            {
+                resultList = new List<CondoInfo>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("[GetCondoRegisterMenu2]", p, commandType: CommandType.StoredProcedure);
+
+
+                    reader.NextResult();
+                  
+                    while (reader.Read())
+                    {
+                        data = new CondoInfo();
+                        data.CondoName = reader["Name"].ToString();
+                        data.PriceMet = Converting.ToMonthShortName(reader["RVAL_P_WAH"].ToString());
+                        data.PriceSale= reader["RVAL_AMT"].ToString();
+                        data.Month = Converting.ToInt(reader["Month"].ToString());
+                        data.Year = Converting.ToInt(reader["Year"].ToString());
+                        resultList.Add(data);
+                        
+    }
+
+                 
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return resultList;
+        }
+
+        public CondoRegister GetCondoRegisterMenu2 (SearchMap search)
+        {
+            /*  @SectionType nvarchar(1), --1 = Region, 2 = Amphur, 3 = Tambol
+
+     @Code nvarchar(50),
+     @FromYYMM   nvarchar(10), --yyyyMM
+
+     @ToYYMM   nvarchar(10)--yyyyMM
+     */
+
+            CondoRegister result = null;
+            DataTable dt = null;
+           IDataReader reader = null;
         
+            List<CondoInfo> resultList = null;
+            CondoInfo data = null;
+            List<YearMonth> yearMonthList = null;
+
+            List<CondoLineGraph> condoGraphList = null;
+            CondoLineGraph condoGraph = null;
+
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@FromYYMM", search.FromYearMonth, dbType: DbType.String);
+            p.Add("@ToYYMM", search.ToYearMonth, dbType: DbType.String);
+            p.Add("@CondoName", search.CondoName, dbType: DbType.String);
+
+
+            try
+            {
+                condoGraphList = new List<CondoLineGraph>();
+                result = new CondoRegister();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+                    resultList = new List<CondoInfo>();
+                    yearMonthList = new List<YearMonth>();
+                    dt = new DataTable();
+                    //conn.
+                    reader = conn.ExecuteReader("[GetCondoRegisterMenu2]", p, commandType: CommandType.StoredProcedure);
+
+
+                    while (reader.Read())
+                    {
+                        data = new CondoInfo();
+                        data.CondoName = reader["CondoName"].ToString();
+                        data.PriceMet = reader["RVAL_P_WAH"].ToString();
+                        data.PriceSale = reader["RVAL_AMT"].ToString();
+                        data.Month = Converting.ToInt(reader["Month"].ToString());
+                        data.Year = Converting.ToInt(reader["Year"].ToString());
+                        data.MonthYearName= reader["MonthYearName"].ToString();
+
+                        if (yearMonthList.Find(o => o.MonthYearName== data.MonthYearName) == null)
+                        {
+                            yearMonthList.Add(new YearMonth() {  MonthYearName= data.MonthYearName });
+                        }
+
+
+                        if (condoGraphList.Find(o => o.name == data.CondoName) == null)
+                        {
+                            condoGraph = new CondoLineGraph();
+
+                            condoGraph.name = data.CondoName;
+                            condoGraph.type = "line";
+                            condoGraphList.Add(condoGraph);
+                        }
+
+
+
+                        resultList.Add(data);
+
+                    }
+
+                    
+                    foreach (CondoLineGraph conG in condoGraphList)
+                    {
+                        conG.data = new List<decimal>();
+                        foreach (YearMonth ym in yearMonthList)
+                        {
+
+                            data = resultList.Find(c=> c.CondoName==conG.name && c.MonthYearName== ym.MonthYearName);
+                          
+                            conG.data.Add(data != null?Utils.Converting.ToDecimal( data.PriceMet):0);
+                        }
+                    }
+
+                    result.YearMonthList = yearMonthList;
+                    result.CondoLineGraphList = condoGraphList;
+
+
+                    reader.NextResult();
+                    dt.Load(reader);
+                    result.Table = dt;
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+=======
+        
+>>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
     }
 
     public class MapSearchCriteria

@@ -59,7 +59,19 @@ namespace TDM.Models
         public string ProvinceCodeCompare2 { get; set; }
         public string PercentCompare { get; set; }
         public string ChanodeNo { get; set; }
+<<<<<<< HEAD
+        public string Month { get; set; }
+        public string Year { get; set; }
+        public string FromMonth { get; set; }
+        public string FromYear { get; set; }
+        public string ToMonth { get; set; }
+        public string ToYear { get; set; }
+        public string FromYearMonth { get; set; }
+        public string ToYearMonth { get; set; }
+        public string CondoName { get; set; }
+=======
 
+>>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
     }
 
     public partial class EstimateDataAll
@@ -235,6 +247,114 @@ namespace TDM.Models
         public string REMARK { get; set; }
     }
         
+<<<<<<< HEAD
+    }
 
 
+    public partial class RegisterLand
+    {
+        public RegisterLandSummary summaryData { get; set; }
+
+        public List<RegisterLandByMonth> summaryByMonthData { get; set; }
+    }
+
+    public partial class RegisterLandSummary
+    {
+        public decimal ParcelRegister { get; set; }
+        public decimal ParcelNewRegister { get; set; }
+        public decimal ParcelMonthRegister { get; set; }
+        public decimal ParcelMonthNewRegister { get; set; }
+    }
+
+    public partial class RegisterLandByMonth
+    {
+        public decimal RegMonth { get; set; }
+        public string RegYear { get; set; }
+        public string MonthName { get; set; }
+        public decimal ParcelRegister { get; set; }
+        public decimal ParcelNewRegister { get; set; }
+
+    }
+
+    public partial class YearMonth
+    {
+        public string MonthYearName { get; set; }
+    }
+
+    public partial class CondoInfo
+    {
+        public string CondoName { get; set; }
+        public string PriceMet { get; set; }
+        public string PriceSale { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+        public string MonthYearName { get; set; }
+
+    }
+
+    public partial class CondoLineGraph
+    {
+      //  public string CondoName { get; set; }
+        public string name { get; set; }
+        public string type { get; set; }
+        public List<decimal> data { get; set; }
+    }
+
+        public partial class CondoRegister
+    {
+        public List<YearMonth> YearMonthList { get; set; }
+        public List<CondoLineGraph> CondoLineGraphList { get; set; }
+        public System.Data.DataTable Table { get; set; }
+    }
+
+
+    public partial class LandSalePriceChanging
+    {
+        public List<MapMenu3> MapInfoList { get; set; }
+        public List<DataMenu3> DataList { get; set; }
+    }
+
+        public partial class MapMenu3
+    {
+
+        public string ProvinceCode { get; set; }
+
+        public string ProvinceName { get; set; }
+        public decimal Q1MaxPrice { get; set; }
+        public decimal Q1MinPrice { get; set; }
+        public decimal Q1AvgPrice { get; set; }
+
+        public decimal Q2MaxPrice { get; set; }
+        public decimal Q2MinPrice { get; set; }
+        public decimal Q2AvgPrice { get; set; }
+
+        public decimal Q3MaxPrice { get; set; }
+        public decimal Q3MinPrice { get; set; }
+        public decimal Q3AvgPrice { get; set; }
+
+        public decimal Q4MaxPrice { get; set; }
+        public decimal Q4MinPrice { get; set; }
+        public decimal Q4AvgPrice { get; set; }
+        public string Shape { get; set; }
+
+    }
+
+    public partial class DataMenu3
+    {
+=======
+>>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
+
+        public string ProvinceCode { get; set; }
+
+        public string ProvinceName { get; set; }
+        public string Quater { get; set; }
+        public string Year { get; set; }
+    public decimal MinPrice { get; set; }
+    public decimal MaxPrice { get; set; }
+    public decimal AvgPrice { get; set; }
 }
+
+
+
+
+    }

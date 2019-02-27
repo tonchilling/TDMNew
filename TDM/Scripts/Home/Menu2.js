@@ -2,7 +2,12 @@
 var LocationType='1'
 $(function () {
 
+<<<<<<< HEAD
+    LoadGraphView(null,null);
+  
+=======
 
+>>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
     searchForm.initComp();
 
 });
@@ -245,7 +250,126 @@ var searchForm = {
         }
 
 
+<<<<<<< HEAD
+        var objSearch = {};
+
+
+        objSearch = {
+            SectionType: sectionType,
+            Code: code,
+            FromMonth: $('.ddlFromMonth').val(),
+            FromYear: $('.ddlFromYear').val(),
+            ToMonth: $('.ddlToMonth').val(),
+            ToYear: $('.ddlToYear').val(),
+            CondoName: $('.txtName').val()
+
+        };
+
+
+        $.ajax({
+            url: rootUrl + "/api/PriceSys/GetCondoRegisterMenu2",
+            type: "POST",
+            data: JSON.stringify(objSearch),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data) {
+
+             
+                if (data != null && data.Table!=null) {
+                    LoadTable(data.Table)
+      
+                }
+
+                if (data != null && data.CondoLineGraphList != null) {
+                    var yearMonthToArray = data.YearMonthList.map(x => x.MonthYearName);
+                    LoadGraphView(yearMonthToArray, data.CondoLineGraphList);
+                }
+
+
+            }
+        });
+=======
+>>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
     }
+}
+
+
+function LoadTable(data)
+{
+
+   
+    var body = '';
+    $(".divTable").empty();
+
+
+    body += '<table class="table table-bordered table-striped tblInfo">';
+
+    if (data != null && data.length > 0) {
+        body += '<thead>';
+        body += '<tr>';
+
+
+        body += '<th scope="col" rowspan="2"  class="text-center" >ชื่ออาคารชุด</th>';
+        body += '<th scope="col"  class="text-center"  colspan="' + (Object.keys(data[0]).length - 3) + '">ราคาซื้อขาย</th>';
+
+        body += '</tr>';
+        body += '<tr>';
+        var col = 0;
+
+        $.each(data, function (index, item) {
+            $.each(item, function (key, val) {
+
+                if (col > 2) {
+                    body += '<th scope="col" class="text-center">' + key + '</th>';
+                }
+                col++;
+
+            });
+
+            return false;
+
+        });
+
+
+        body += '</tr>';
+        body += '</thead>';
+        body += '<tbody>';
+
+        $.each(data, function (index, item) {
+
+            body += '<tr>';
+            col = 0;
+            $.each(item, function (key, val) {
+
+                if (col != 1 && col != 2) {
+                    body += '<td>' + (val != null ? val : "") + '</td>';
+                }
+                col++;
+
+
+            });
+            body += '</tr>';
+        });
+
+        body += '</tbody>';
+
+    }
+    else {
+        body += '<thead>';
+        body += '<tr>';
+        body += '<th scope="col"   class="text-center" >ชื่ออาคารชุด</th>';
+        body += '</tr>';
+        body += '</thead>';
+        body += '<tbody>';
+        body += '<tr><td>Not found</td></tr>';
+        body += '</tbody>';
+    }
+        body += '</table>';
+        $(".divTable").append(body);
+
+        $(".divTable table").DataTable({ searching: false, info: false });
+   
+
 }
 
 var mapApi = {
@@ -331,5 +455,326 @@ var mapApi = {
         alert(response.responseText);
     }
 }
+<<<<<<< HEAD
+function LoadGraph1Display(months, newLandRegisters, LandRegisters) {
+
+    var graph1 = echarts.init(document.getElementById('graph1'));
+
+    var option = {
+        title: {
+            text: '',
+            subtext: ''
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'none',
+            }
+        },
+        legend: {
+            data: ['จำนวนแปลงแบ่งแยกใหม่', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน']
+        },
+        toolbox: {
+            show: false,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: months
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+
+            {
+                name: 'จำนวนแปลงแบ่งแยกใหม่',
+                type: 'line',
+                smooth: true,
+                itemStyle: { normal: { areaStyle: { type: 'default' } } },
+                data: newLandRegisters
+            },
+            {
+                name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน',
+                type: 'line',
+                smooth: true,
+                itemStyle: { normal: { areaStyle: { type: 'default' } } },
+                data: LandRegisters
+            }
+        ]
+    };
+
+    setTimeout(function () {
+        graph1.setOption(option, true);
+
+
+    }, 1000);
+
+}
+
+
+function LoadGraphView(YearMonthArray, CondoLineGraphList) {
+
+    var graph1 = echarts.init(document.getElementById('graph1'));
+
+    var condoNameList =CondoLineGraphList !=null? CondoLineGraphList.map(x => x.name):null;
+    
+    option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: condoNameList
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: false, type: ['line', 'bar', 'stack', 'tiled'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: YearMonthArray
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: CondoLineGraphList
+    };
+
+
+
+    /* option = {
+         tooltip: {
+             trigger: 'axis'
+         },
+         legend: {
+             data: ['condo 1', 'condo 2', 'condo 3', 'condo 4', 'condo 5']
+         },
+         toolbox: {
+             show: true,
+             feature: {
+                 mark: { show: true },
+                 dataView: { show: true, readOnly: false },
+                 magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                 restore: { show: true },
+                 saveAsImage: { show: true }
+             }
+         },
+         calculable: true,
+         xAxis: [
+             {
+                 type: 'category',
+                 boundaryGap: true,
+                 data: ['ธค-60', 'มก-61', 'กพ-61', 'มีค-61', 'เมษา-61', 'พฤ-61', 'มิย-61']
+             }
+         ],
+         yAxis: [
+             {
+                 type: 'value'
+             }
+         ],
+         series: [
+             {
+                 name: 'condo 1',
+                 type: 'line',
+                 stack: 'test',
+                 data: [120000, 130002, 100001, 134000, 90000, 230000, 210000]
+             },
+             {
+                 name: 'condo 2',
+                 type: 'line',
+                 stack: 'test',
+                 data: [220000, 182000, 191000, 234000, 290000, 330000, 310000]
+             },
+             {
+                 name: 'condo 3',
+                 type: 'line',
+                 stack: 'test',
+                 data: [150000, 232000, 201000, 154000, 190000, 330000, 410000]
+             },
+             {
+                 name: 'condo 4',
+                 type: 'line',
+                 stack: 'test',
+                 data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
+             },
+             {
+                 name: 'condo 5',
+                 type: 'line',
+                 stack: 'test',
+                 data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
+             }
+         ]
+     };
+     */
+
+    setTimeout(function () {
+        graph1.setOption(option, true);
+
+
+    }, 1000);
+
+}
+
+
+function LoadGraph1() {
+
+    var graph1 = echarts.init(document.getElementById('graph1'));
+
+    option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['condo 1', 'condo 2', 'condo 3', 'condo 4', 'condo 5']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: false, type: ['line', 'bar', 'stack', 'tiled'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: ['มค-61', 'กพ-61', 'มีค-61', 'เมษ-61', 'พฤ-61', 'มิย-61', 'กค-61']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: 'condo 1',
+                type: 'line',
+               
+                data: [12000, 13200, 10100, 13400, 9000, 23000, 21000]
+            },
+            {
+                name: 'condo 2',
+                type: 'line',
+              
+                data: [22000, 18200, 19100, 23400, 29000, 33000, 31000]
+            },
+            {
+                name: 'condo 3',
+                type: 'line',
+                
+                data: [15000, 23200, 20100, 15400, 19000, 33000, 41000]
+            },
+            {
+                name: 'condo 4',
+                type: 'line',
+               
+                data: [32000, 33200, 30100, 33400, 39000, 33000, 32000]
+            },
+            {
+                name: 'condo 5',
+                type: 'line',
+               
+                data: [82000, 93200, 90100, 93400, 129000, 133000, 132000]
+            }
+        ]
+    };
+
+
+
+   /* option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['condo 1', 'condo 2', 'condo 3', 'condo 4', 'condo 5']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: ['ธค-60', 'มก-61', 'กพ-61', 'มีค-61', 'เมษา-61', 'พฤ-61', 'มิย-61']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: 'condo 1',
+                type: 'line',
+                stack: 'test',
+                data: [120000, 130002, 100001, 134000, 90000, 230000, 210000]
+            },
+            {
+                name: 'condo 2',
+                type: 'line',
+                stack: 'test',
+                data: [220000, 182000, 191000, 234000, 290000, 330000, 310000]
+            },
+            {
+                name: 'condo 3',
+                type: 'line',
+                stack: 'test',
+                data: [150000, 232000, 201000, 154000, 190000, 330000, 410000]
+            },
+            {
+                name: 'condo 4',
+                type: 'line',
+                stack: 'test',
+                data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
+            },
+            {
+                name: 'condo 5',
+                type: 'line',
+                stack: 'test',
+                data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
+            }
+        ]
+    };
+    */
+=======
+>>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
 
 
