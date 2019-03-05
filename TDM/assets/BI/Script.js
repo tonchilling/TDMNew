@@ -3841,6 +3841,173 @@ jQuery(function($) {
     }
 
 
+    function LoadChartCondo1() {
+        var option = {
+            title: {
+                text: 'ราคาอาคารชุด',
+                subtext: 'สูงสุด',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                show: false,
+                data: ['กรุงเทพ', 'นนทบุรี', 'ปทุมธานี', 'นครปฐม', 'สมุทปราการ']
+            },
+            toolbox: {
+                show: false,
+                feature: {
+                    mark: { show: true },
+                    dataView: { show: true, readOnly: false },
+                    magicType: {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            calculable: true,
+            series: [
+                {
+                    name: 'ราคาสูงสุด',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                        { value: 335, name: 'นนทบุรี' },
+                        { value: 310, name: 'ปทุมธานี' },
+                        { value: 234, name: 'นครปฐม' },
+                        { value: 135, name: 'สมุทปราการ' },
+                        { value: 1548, name: 'กรุงเทพ' }
+                    ]
+                }
+            ]
+        };
+
+        LoadChart(option, document.getElementById('chartCondo1'))
+    }
+
+    function LoadChartCondo2()
+    {
+        var labelTop = {
+            normal: {
+                label: {
+                    show: true,
+                    position: 'center',
+                    formatter: '{b}',
+                    textStyle: {
+                        baseline: 'bottom'
+                    }
+                },
+                labelLine: {
+                    show: false
+                }
+            }
+        };
+        var labelFromatter = {
+            normal: {
+                label: {
+                    formatter: function (params) {
+                        return 100 - params.value + '%'
+                    },
+                    textStyle: {
+                        baseline: 'top'
+                    }
+                }
+            },
+        }
+        var labelBottom = {
+            normal: {
+                color: '#ccc',
+                label: {
+                    show: true,
+                    position: 'center'
+                },
+                labelLine: {
+                    show: false
+                }
+            },
+            emphasis: {
+                color: 'rgba(0,0,0,0)'
+            }
+        };
+        var radius = [70, 85];
+
+     var   option = {
+            legend: {
+                x : 'left',
+                y : 'center',
+                data:[
+                    'คอนโด 1'
+                ]
+            },
+            title : {
+                text: 'ราคาอาคารชุดสูงสุด',
+                subtext: '',
+                x: 'center'
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true, 
+                        type: ['funnel'],
+                        option: {
+                            funnel: {
+                                width: '100%',
+                                height: '100%',
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            formatter : function (params){
+                                                return 'other\n' + params.value + '%\n'
+                                            },
+                                            textStyle: {
+                                                baseline : 'middle'
+                                            }
+                                        }
+                                    },
+                                } 
+                            }
+                        }
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            series : [
+                {
+                    type : 'pie',
+                    center : ['50%', '50%'],
+                    radius : radius,
+                    x: '0%', // for funnel
+                    itemStyle : labelFromatter,
+                    data : [
+                        {name:'other', value:200000, itemStyle : labelBottom},
+                        {name:'คอนโด 1', value:500000,itemStyle : labelTop}
+                    ]
+                }
+                 ]
+        };
+        LoadChart(option, document.getElementById('chartCondo2'))
+
+    }
+    
+
     function LoadChart(Option,divChart) {
         var chartLoad = echarts.init(divChart);
         var option = Option;
@@ -3869,6 +4036,8 @@ jQuery(function($) {
         LoadChart1();
         LoadChart2();
         LoadChart3();
+        LoadChartCondo1();
+        LoadChartCondo2();
         CMPLTADMIN_SETTINGS.chatAPI();
         CMPLTADMIN_SETTINGS.chatApiScroll();
         CMPLTADMIN_SETTINGS.chatApiWindow();

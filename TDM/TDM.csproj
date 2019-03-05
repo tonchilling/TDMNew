@@ -251,6 +251,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TraceProgress.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\ViewModels\Map_ViewModel.cs" />
     <Compile Include="Models\ViewModels\POI_ViewModel.cs" />
     <Compile Include="Models\ViewModels\AMPHOE_ViewModel.cs" />
@@ -330,7 +331,6 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\TDAssetRespository.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
-    <Compile Include="Utils\Converting.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\BI\dashboard.js" />

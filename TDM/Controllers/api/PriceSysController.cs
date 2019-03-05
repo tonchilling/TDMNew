@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using TDM.Models;
+using TDM.Models.Utils;
 using TDM.Repositories;
 
 namespace TDM.Controllers.api
@@ -117,10 +118,10 @@ namespace TDM.Controllers.api
              }*/
 
             if(searchDto.FromYear!=null && searchDto.FromMonth!=null)
-            searchDto.FromYearMonth = searchDto.FromYear + Utils.Converting.ToInt(searchDto.FromMonth).ToString("##00");
+            searchDto.FromYearMonth = searchDto.FromYear + Converting.ToInt(searchDto.FromMonth).ToString("##00");
 
             if (searchDto.ToYear != null && searchDto.ToMonth != null)
-                searchDto.ToYearMonth= searchDto.ToYear + Utils.Converting.ToInt(searchDto.ToMonth).ToString("##00");
+                searchDto.ToYearMonth= searchDto.ToYear + Converting.ToInt(searchDto.ToMonth).ToString("##00");
 
             var estimateData = repos.GetCondoRegisterMenu2(searchDto);
 
