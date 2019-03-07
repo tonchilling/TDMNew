@@ -266,7 +266,10 @@ var searchForm = {
 
             map.clear();
 
+            /*
+            Comment for remove dialog
             $("#overlay").show();
+            */
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
                     try {
@@ -511,7 +514,7 @@ var ParcelMapController = {
             "xoffset": 0,
             "yoffset": 0
         };
-
+symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
        targetInfo.ParcelPrice    = (targetInfo.ParcelPrice > 0) ? targetInfo.ParcelPrice : 0;
        targetInfo.ParcelPriceMin = (targetInfo.ParcelPriceMin > 0) ? targetInfo.ParcelPriceMin : 0;
        targetInfo.ParcelPriceMax = (targetInfo.ParcelPriceMax > 0) ? targetInfo.ParcelPriceMax : 0;
