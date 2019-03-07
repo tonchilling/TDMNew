@@ -153,5 +153,18 @@ namespace TDM.Controllers.api
             return JSONString.ToString();
         }
         #endregion
+
+        #region ==== Map ====
+        public string GetSHPByPoint(string Point_47, string Point_48)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            DataSet ds = new DataSet();
+            ds = db.GetSHPByPoint(Point_47, Point_48);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
+        }
+        #endregion
     }
 }

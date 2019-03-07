@@ -407,5 +407,30 @@ namespace TDM.Models
         }
         #endregion
 
+        #region ==== Map ====
+        public DataSet GetSHPByPoint(string Point_47,string Point_48)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TDTRACKING_GetSHPByPoint", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("Point_47", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("Point_48", SqlDbType.VarChar));
+                cmd.Parameters["Point_47"].Value = String.IsNullOrEmpty(Point_47) ? (object)DBNull.Value : Point_47;
+                cmd.Parameters["Point_48"].Value = String.IsNullOrEmpty(Point_48) ? (object)DBNull.Value : Point_48;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+        #endregion
+
     }
 }

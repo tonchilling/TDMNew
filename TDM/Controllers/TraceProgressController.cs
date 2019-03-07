@@ -15,6 +15,11 @@ namespace TDM.Controllers
             return View();
         }
 
+        public ActionResult _TraceProgressOverview()
+        {
+            return View();
+        }
+
         [HttpGet]
         public PartialViewResult GetPageRegion()
         {

@@ -1,0 +1,185 @@
+﻿
+<link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
+<link href="~/assets/css/customize.css" rel="stylesheet" />
+<link href="~/assets/css/iziToast.min.css" rel="stylesheet" />
+<style type="text/css">
+    label {
+        display: inline-block;
+        margin-bottom: 0px;
+        font-weight: 700;
+    }
+
+    #fade-in {
+        min-height: 687px;
+        max-height: 1500px;
+        width: 1px;
+        opacity: 0;
+        transition: all .75s ease;
+        position: absolute;
+        z-index: 99;
+        background-color: #ecfaf7;
+    }
+
+        #fade-in.show {
+            opacity: 1;
+            height: 150px;
+            width: 98%;
+        }
+</style>
+
+<!-- Bootstrap -->
+    <!-- Bootstrap -->
+<script src="~/assets/js/iziToast.js"></script>
+<script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/assets/js/jquery-ui.js"></script> 
+<script src="~/Scripts/TraceProgress/TraceProgressCountry.js"></script>
+<div role="main" class="container-fluid">
+
+    <!-- Header -->
+    <div class="row ">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <h1>ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel with-nav-tabs panel-primary">
+                <div class="panel-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel tile" style="border:none;padding:0;">
+                            <div class="x_content">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h4 class="headerwhite">5. รายงานการซื้อขายจดทะเบียนที่ดิน</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="display:none">
+                                    <div class="col-sm-2 col-xs-2">TransactionPlanHdId: <input type="text" id="txtTransactionPlanHdId_" /></div>
+                                    <div class="col-sm-2 col-xs-2">47: <input type="text" id="txtPoint_47_" /></div>
+                                    <div class="col-sm-2 col-xs-2">48: <input type="text" id="txtPoint_48_" /></div>
+                                    <div class="col-sm-2 col-xs-2">ProvinceCode: <input type="text" id="txtProvinceCode_" /></div>
+                                    <div class="col-sm-2 col-xs-2">ProvinceName:<input type="text" id="txtProvinceName_" /></div>
+                                    <div class="col-sm-2 col-xs-2"><button onclick="activateDraw_Point_Begin()">test Map Active</button></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <h4 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row ">
+                                                    <div class="col-sm-12 col-xs-12" style="padding:0px">
+                                                        <div class="row  funkyradio">
+                                                            <div class="col-sm-12 col-xs-12">
+                                                                <b>เลือกภาค/คลัสเตอร์/จังหวัด</b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row  funkyradio">
+                                                            <div class="col-sm-4 col-xs-12">
+                                                                <div class="funkyradio-success">
+                                                                    <input type="radio" name="Type1" id="rdRegion" value="Region" disabled="disabled"/>
+                                                                    <label for="rdRegion">Region</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 col-xs-12">
+                                                                <div class="funkyradio-primary">
+                                                                    <input type="radio" name="Type1" id="rdCluster" value="Cluster" />
+                                                                    <label for="rdCluster">Cluster</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 col-xs-12">
+                                                                <div class="funkyradio-primary">
+                                                                    <input type="radio" name="Type1" id="rdProvince" value="Province" checked />
+                                                                    <label for="rdProvince">Province</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" style="margin-top:11px">
+                                                    <div class="col-sm-12 col-xs-12" style="padding:0px">
+                                                        <iframe class="map-height" id="gisIframe__" width="100%" frameborder="0" style="border:0;height:800px;z-index:999" allowfullscreen></iframe>
+                                                    </div>
+
+                                                    <div id="fade-in" style="overflow: hidden;height:800px;width:50%;z-index:-1">
+                                                        <div class="panel panel-primary">
+                                                            <div class="panel-heading">
+                                                                <h4 class="headerwhite" id="headerFadeIn"></h4>
+                                                                <span class="pull-right" style="cursor: pointer; margin-right: 10px;margin-top: -26px;"><i class="fa fa-times fa-lg" aria-hidden="false" onclick="CloseFadeIn()"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Icon Menu -->
+<div class="row section4">
+    <div class="col-md-1 col-sm-1 col-xs-12"></div>
+    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count tile_stats_count_first center">
+        <a href="~/Home/Menu1">
+            <div class="count text-center" style="margin-top:10px;margin-bottom:5px">
+                <p><i class="fa fa-building txt-light-blue fa-5x"></i></p>
+                <p>รายงานซื้อขายจดทะเบียนที่ดิน</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count center">
+        <a href="~/Home/Menu2">
+            <div class="count  text-center" style="margin-top:10px;margin-bottom:5px">
+                <p><i class="fa fa-refresh txt-light-blue fa-5x"></i></p>
+                <p>รายงานแนวโน้มราคาซื้อขายอาคารชุด</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count center">
+        <a href="~/Home/System_3_with_Layout?Menu=3">
+            <div class="count text-center" style="margin-top:10px;margin-bottom:5px">
+                <p><i class="fa fa-table txt-light-blue  fa-5x"></i></p>
+                <p>รายงานแสดงการเปลี่ยนแปลงราคาซื้อขาย</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count center">
+        <a href="~/DashboardSystem3/Index">
+            <div class="count text-center" style="margin-top:10px;margin-bottom:5px">
+                <p><i class="fa fa-users txt-light-blue fa-5x"></i></p>
+                <p>รายงานปริมาณการเข้าใช้งานระบบ</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count center">
+        <a href="~/DashboardSystem3/Index">
+            <div class="count text-center" style="margin-top:10px;margin-bottom:5px">
+                <p><i class="fa fa-bar-chart txt-light-blue fa-5x"></i></p>
+                <p>สร้างรายงานด้วย BI</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-12"></div>
+</div>
+    </div>
+<script src="~/Scripts/Home/Menu1.js?ver=1.0r22"></script>
+
+
+
