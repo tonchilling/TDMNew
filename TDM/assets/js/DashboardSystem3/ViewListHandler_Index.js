@@ -374,7 +374,8 @@ function LoadSection1View(data) {
             strHtml += '<tr>';
 
             $.each(data.EstimateDataDetailList, function (index, row) {
-                strHtml += '<td width="120px"><div class="chartTab1 tab1" style="height:120px"><a href="' + rootUrl + "/Home/System_3_with_Layout?Menu=4&Id=" + row.Id + '" data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                //strHtml += '<td width="120px"><div class="chartTab1 tab1" style="height:120px"><a href="' + rootUrl + "/Home/System_3_with_Layout?Menu=4&Id=" + row.Id + '" data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                strHtml += '<td width="120px"><div class="chartTab1 tab1" style="height:120px"><a href="' + rootUrl + "/TraceProgress/_TraceProgressOverview?Menu=4&Id=" + row.Id + '" data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
                 chartSpeed.Items.push({
                     id: 'chartSpeedometer' + section1Tab + '_' + no,
                     value: row.Value
@@ -411,7 +412,9 @@ function LoadSection1View(data) {
             strHtml += '<tr>';
 
             $.each(data.EstimateDataDetailList, function (index, row) {
-                strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="' + rootUrl + "/Home/System_3_with_Layout?Menu=4&Id=" + row.Id + '"  data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                //strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="' + rootUrl + "/Home/System_3_with_Layout?Menu=4&Id=" + row.Id + '"  data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="' + rootUrl + "/TraceProgress/_TraceProgressOverview?Menu=4&Id=" + row.Id + '"  data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                
                 chartSpeed.Items.push({
                     id: 'chartSpeedometer' + section1Tab + '_' + no,
                     value: row.Value
@@ -448,7 +451,9 @@ function LoadSection1View(data) {
             strHtml += '<tr>';
 
             $.each(data.EstimateDataDetailList, function (index, row) {
-                strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="' + rootUrl + "/Home/System_3_with_Layout?Menu=4&Id=" + row.Id + '" data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                //strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="' + rootUrl + "/Home/System_3_with_Layout?Menu=4&Id=" + row.Id + '" data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                strHtml += '<td width="120px"><div class="chartTab1 tab1"><a href="' + rootUrl + "/TraceProgress/_TraceProgressOverview?Menu=4&Id=" + row.Id + '" data-toggle="tooltip" title="' + row.Title + '" data-placement="bottom">' + CutString(row.Title) + '</a><div class="chartSpeedometer" id="chartSpeedometer' + section1Tab + '_' + no + '" style="height:270px;width:270px;margin-top:0px;cursor:pointer"></div></div></td>';
+                
                 chartSpeed.Items.push({
                     id: 'chartSpeedometer' + section1Tab + '_' + no,
                     value: row.Value

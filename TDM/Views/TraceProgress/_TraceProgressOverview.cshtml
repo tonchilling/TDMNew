@@ -1,40 +1,217 @@
 ﻿
+@{
+    ViewBag.Title = "IndexTu";
+
+}
+
+
+@section Scripts {
+}
+
 <link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
 <link href="~/assets/css/customize.css" rel="stylesheet" />
-<link href="~/assets/css/iziToast.min.css" rel="stylesheet" />
-<style type="text/css">
-    label {
-        display: inline-block;
-        margin-bottom: 0px;
-        font-weight: 700;
-    }
-
-    #fade-in {
-        min-height: 687px;
-        max-height: 1500px;
-        width: 1px;
-        opacity: 0;
-        transition: all .75s ease;
-        position: absolute;
-        z-index: 99;
-        background-color: #ecfaf7;
-    }
-
-        #fade-in.show {
-            opacity: 1;
-            height: 150px;
-            width: 98%;
-        }
-</style>
-
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+<link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 <!-- Bootstrap -->
-    <!-- Bootstrap -->
-<script src="~/assets/js/iziToast.js"></script>
-<script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="~/assets/js/jquery-ui.js"></script> 
-<script src="~/Scripts/TraceProgress/TraceProgressCountry.js"></script>
-<div role="main" class="container-fluid">
 
+<style type="text/css">
+     #fade-in {
+            min-height: 687px;
+            max-height: 1500px;
+            width: 1px;
+            opacity: 0;
+            transition: all .75s ease;
+            position: absolute;
+            z-index: 99;
+            background-color: #ecfaf7;
+        }
+
+            #fade-in.show {
+                opacity: 1;
+                height: 150px;
+                width: 98%;
+            }
+
+
+    .selectpicker {
+        -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+        -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+        -moz-transition: 0.3s;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        background-color: #fff;
+    }
+
+        .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
+            color: #333;
+            background-color: #fff;
+            /*border-color: gold;*/
+        }
+
+    .dropdown-menu > li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+
+
+
+
+
+
+
+
+
+    /*รถไฟ*/
+    
+     .x_content {
+        z-index: 1 !important;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    ul{
+        margin-top:2px;
+    }
+
+    .progressbar {
+        counter-reset: step;
+    }
+
+        .progressbar li {
+            list-style: none;
+            display: inline-block;
+            width: 10.111111%;
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+        }
+
+    .progressbar_header li {
+        list-style: none;
+        display: inline-block;
+        width: 10.111111%;
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+        -webkit-transform: rotate(321deg);
+        -moz-transform: rotate(321deg);
+        -o-transform: rotate(321deg);
+        writing-mode: lr-tb;
+        font-size: 10px !important;
+    }
+
+    .progressbar li:before {
+        content: counter(step);
+        counter-increment: step;
+        width: 30px;
+        /*height: 30px;*/
+        line-height: 30px;
+        /*border: 1px solid #ddd; */
+        border: 1px solid rgb(191, 191, 191); 
+        border-radius: 100%;
+        display: block;
+        text-align: center;
+        margin: 0 auto 10px auto;
+        background-color: #fff;
+    }
+
+    .progressbar li:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        /*background-color: #ddd;*/
+        background-color: rgb(191, 191, 191);
+        top: 15px;
+        left: -50%;
+        z-index: -1;
+    }
+
+    .progressbar li.complete:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: green;
+        top: 15px;
+        left: -50%;
+        z-index: -1;
+    }
+
+    .progressbar li:first-child:after {
+        content: none;
+    }
+
+    .progressbar li.active {
+        color: green;
+    }
+
+        .progressbar li.active:before {
+            border-color: green;
+        }
+
+        .progressbar li.active + li:after {
+            background-color: green;
+        }
+
+    /*late*/
+    .progressbar li.worklate {
+        color: red;
+    }
+
+        .progressbar li.worklate:before {
+            border-color: red;
+            background-color: rgb(255, 0, 0);
+        }
+
+    .nav-md li.worklate {
+        color: white !important;
+    }
+
+    /*progress*/
+    .progressbar li.workprogress {
+        color: yellow;
+    }
+
+        .progressbar li.workprogress:before {
+            border-color: yellow;
+            background-color: rgb(255, 192, 0);
+        }
+
+    .nav-md li.workprogress {
+        color: #73879C !important;
+    }
+
+    /*perfect*/
+    .progress li.workperfect {
+        color: white !important;
+    }
+
+    .progressbar li.workperfect:before {
+        border-color: white !important;
+        background-color: rgb(112, 173, 71);
+    }
+
+    .nav-md li.workperfect {
+        color: wheat !important;
+    }
+
+</style>
+<script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/assets/js/jquery-ui.js"></script>
+<script src="~/assets/js/bootstrap-select.min.js"></script>
+
+
+
+<div role="main" class="container-fluid">
     <!-- Header -->
     <div class="row ">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -53,11 +230,12 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="panel panel-primary">
                                             <div class="panel-heading">
-                                                <h4 class="headerwhite">5. รายงานการซื้อขายจดทะเบียนที่ดิน</h4>
+                                                <h4 class="headerwhite" id="txtTransactionPlanName"></h4>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="row" style="display:none">
                                     <div class="col-sm-2 col-xs-2">TransactionPlanHdId: <input type="text" id="txtTransactionPlanHdId_" /></div>
                                     <div class="col-sm-2 col-xs-2">47: <input type="text" id="txtPoint_47_" /></div>
@@ -88,7 +266,7 @@
                                                         <div class="row  funkyradio">
                                                             <div class="col-sm-4 col-xs-12">
                                                                 <div class="funkyradio-success">
-                                                                    <input type="radio" name="Type1" id="rdRegion" value="Region" disabled="disabled"/>
+                                                                    <input type="radio" name="Type1" id="rdRegion" value="Region" disabled="disabled" />
                                                                     <label for="rdRegion">Region</label>
                                                                 </div>
                                                             </div>
@@ -110,7 +288,7 @@
 
                                                 <div class="row" style="margin-top:11px">
                                                     <div class="col-sm-12 col-xs-12" style="padding:0px">
-                                                        <iframe class="map-height" id="gisIframe__" width="100%" frameborder="0" style="border:0;height:800px;z-index:999" allowfullscreen></iframe>
+                                                        <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px;z-index:999" allowfullscreen></iframe>
                                                     </div>
 
                                                     <div id="fade-in" style="overflow: hidden;height:800px;width:50%;z-index:-1">
@@ -120,19 +298,43 @@
                                                                 <span class="pull-right" style="cursor: pointer; margin-right: 10px;margin-top: -26px;"><i class="fa fa-times fa-lg" aria-hidden="false" onclick="CloseFadeIn()"></i></span>
                                                             </div>
                                                         </div>
+
+                                                        <br />
+                                                        <div class="container-fluid">
+                                                            <div id="fadeContent"></div>
+                                                        </div>
+                                                        <div class="container-fluid">
+                                                            <div class="col-sm-2 col-lg-2 col-md-2" style="text-align: center" id="txtProvinceAssign"></div>
+                                                            <div class="col-sm-10 col-lg-10 col-md-10">
+                                                                <ul class="progressbar">
+                                                                    <li class="complete workperfect" title="เริ่มต้น ขั้นตอนที่ 1 วันที่ 22/08/2018 ถึง วันที่ 23/09/2018 "></li>
+                                                                    <li class="complete worklate" title="เริ่มต้น ขั้นตอนที่ 2 วันที่ 24/09/2018 ถึง วันที่ 14/10/2018 "></li>
+                                                                    <li class="complete worklate" title="เริ่มต้น ขั้นตอนที่ 3 วันที่ 15/10/2018 ถึง วันที่ 14/11/2018"></li>
+                                                                    <li class=""></li>
+                                                                    <li class=""></li>
+                                                                    <li></li>
+                                                                    <li></li>
+                                                                    <li></li>
+                                                                    <li class="late"></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                </div> <!-- ./row-->
+                            </div> <!-- ./x_content-->
+                        </div><!-- ./x_panel--> 
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 <!-- Icon Menu -->
 <div class="row section4">
     <div class="col-md-1 col-sm-1 col-xs-12"></div>
@@ -161,7 +363,7 @@
         </a>
     </div>
     <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count center">
-        <a href="~/DashboardSystem3/Index">
+        <a href="~/Home/System_3_with_Layout?Menu=5">
             <div class="count text-center" style="margin-top:10px;margin-bottom:5px">
                 <p><i class="fa fa-users txt-light-blue fa-5x"></i></p>
                 <p>รายงานปริมาณการเข้าใช้งานระบบ</p>
@@ -178,8 +380,11 @@
     </div>
     <div class="col-md-1 col-sm-1 col-xs-12"></div>
 </div>
-    </div>
-<script src="~/Scripts/Home/Menu1.js?ver=1.0r22"></script>
+ 
+ 
 
-
-
+<script src="~/Scripts/Shared/helper.js"></script>
+<script src="~/Scripts/Shared/config.js"></script>
+<script src="~/Scripts/Shared/http.js"></script>
+<script src="~/Scripts/TraceProgress/TraceProgressCountry.js"></script>
+<script src="~/Scripts/Map/Identity.js"></script>

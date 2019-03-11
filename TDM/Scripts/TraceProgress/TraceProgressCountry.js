@@ -6,8 +6,10 @@ function TransactionPlan(provincecode) {
 
 //======================= M A P =======================
 
-iframeElement = document.getElementById('gisIframe__');
+//iframeElement = document.getElementById('gisIframe__');
+iframeElement = document.getElementById('tdmap');
 iframeElement.src = window.document.location.origin + '/TD2';
+
 gisIframeWindow = null;
 iframeElement.onload = function () {
     gisIframeWindow = iframeElement.contentWindow;
@@ -21,7 +23,7 @@ $(function () {
 
     setInterval(function () {
         if ($('#txtPoint_47_').val() == '') {
-            activateDraw_Point_Begin();
+            //activateDraw_Point_Begin();
         }
 
         if ($('#txtTransactionPlanHdId_').val() == '') {
@@ -29,9 +31,16 @@ $(function () {
             gy = hu.split("&");
             for (i = 0; i < gy.length; i++) {
                 ft = gy[i].split("=");
-                console.log(ft);
                 if (ft[0] == "Id") {
                     $('#txtTransactionPlanHdId_').val(ft[1]);
+
+                    http.get("/api/TraceProgress/GetTransactionPlanHdByCode_TOP1", { Code: ft[1] }, function (responseHd) {
+                        var dataHd = JSON.parse(responseHd);
+                        $.each(dataHd, function (index, rowHd) {
+                            $('#txtTransactionPlanName').text(rowHd.Name);
+                        });
+                    });
+
                 }
             }
         }
@@ -41,8 +50,8 @@ $(function () {
 
 function ddlOnchange() {
     $('input[type=radio][name=Type1]').change(function () {
-        console.log(this.value);
-        $('#fade-in').toggleClass('show');
+        //$('#fade-in').toggleClass('show');
+        //$('#fade-in').css('z-index', 3000);
     });
 }
 
@@ -78,7 +87,6 @@ function GetMapOnClick() {
     var Point_48_ = $('#txtPoint_48_').val();
 
     http.get("/api/TraceProgress/GetSHPByPoint", { Point_47: Point_47_, Point_48: Point_48_ }, function (data) {
-        console.log(data);
         if (data != null) {
             var data = JSON.parse(data);
 
@@ -87,21 +95,10 @@ function GetMapOnClick() {
                     $('#txtProvinceCode_').val(data[0].PRV_CODE);
                     $('#txtProvinceName_').val(data[0].PRV_NAME);
                     TransactionPlan(data[0].PRV_CODE);
-
-                    //change text Header Fade
-                    var check = ($('input[type=radio][name=Type1]').val());
-
-                    $('#headerFadeIn').text(data[0].PRV_NAME);
-
-                    //โช ซ้อน Fade
-                    if (!fadeInIsShow) {
-                        $('#fade-in').toggleClass('show');
-                        $('#fade-in').css('z-index', 3000);
-                        fadeInIsShow = true;
-                    }
+                    ChangeContentTransactionOnClickMap();
+                    FadeShowHide();
                 }
                 else {
-                    console.log('show notification');
                     iziToast.info({
                         title: 'ไม่มีข้อมูล',
                         message: 'กรุณาตรวจสอบ'
@@ -111,4 +108,46 @@ function GetMapOnClick() {
             }
         }
     });
+}
+
+function ChangeContentTransactionOnClickMap() {
+    var ChoiceType = $("input[name='Type1']:checked").val();
+    var strHeader = '';
+
+    // Change  Header
+    if (ChoiceType == 'Region') {
+        strHeader = 'แสดงข้อมูลรายภาค'
+    } else if (ChoiceType == 'Cluster') {
+        strHeader = 'แสดงข้อมูลรายคลัสเตอร์'
+    } else if (ChoiceType == 'Province') {
+        strHeader = 'แสดงข้อมูลรายจังหวัด'
+    }
+    $('#headerFadeIn').text(strHeader);
+
+    // Change  Body
+    var TransactionPlanHdId = $('#txtTransactionPlanHdId_').val();
+    http.get("/api/TraceProgress/GetTransactionPlanDtByTransactionPlanHdId", { TransactionPlanHdId: TransactionPlanHdId }, function (responseDt) {
+         
+        var dataDt = JSON.parse(responseDt);
+        var Htmltext = '<div class="col-sm-2 col-lg-2 col-md-2" style="text-align: center">'+ +'</div>';
+        $.each(dataDt, function (index, rowDt) {
+            console.log(rowDt);
+        });
+
+        Htmltext = $('#txtProvinceName_').val();
+     
+
+        $('#fadeContent').empty();
+        $('#fadeContent').append(Htmltext);
+
+    });
+
+}
+
+function FadeShowHide() {
+    if (!fadeInIsShow) {
+        $('#fade-in').toggleClass('show');
+        $('#fade-in').css('z-index', 3000);
+        fadeInIsShow = true;
+    }
 }

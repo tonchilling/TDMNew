@@ -116,7 +116,64 @@ namespace TDM.Controllers.api
             if (ds.Tables.Count > 0)
                 result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
             return result;
-            //return Json(db.GetRegionShapeBy(code));
+        }
+
+        //HD
+        public string GetTransactionPlanHdById(string Id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            DataSet ds = new DataSet();
+            ds = db.GetTransactionPlanHdById(Id);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
+        }
+
+        public IHttpActionResult GetTransactionPlanHdByCode(string Code)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.GetTransactionPlanHdByCode(Code));
+        }
+
+        public string GetTransactionPlanHdByCode_TOP1(string Code)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            DataSet ds = new DataSet();
+            ds = db.GetTransactionPlanHdByCode_TOP1(Code);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
+        }
+
+        public string GetTransactionPlanHdByCodeAndProvince(string Code,string Province)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            DataSet ds = new DataSet();
+            ds = db.GetTransactionPlanHdByCodeAndProvince(Code, Province);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
+        }
+
+        //DT
+        public string GetTransactionPlanDtByTransactionPlanHdId(string TransactionPlanHdId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            DataSet ds = new DataSet();
+            ds = db.GetTransactionPlanDtByTransactionPlanHdId(TransactionPlanHdId);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
+        }
+
+        public IHttpActionResult GetTransactionPlanDtByCodeAndProvince(string Code, string Province)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.GetTransactionPlanDtByCodeAndProvince(Code, Province));
         }
 
         private static string DataTableToJSONWithStringBuilder(DataTable table)
@@ -164,6 +221,12 @@ namespace TDM.Controllers.api
             if (ds.Tables.Count > 0)
                 result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
             return result;
+        }
+
+        public IHttpActionResult GetSHAPETransactionPlanHdByCode(string Code)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.GetSHAPETransactionPlanHdByCode(Code));
         }
         #endregion
     }

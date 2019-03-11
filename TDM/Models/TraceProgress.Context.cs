@@ -405,6 +405,140 @@ namespace TDM.Models
             }
             return ds;
         }
+
+        // HD
+        public DataSet GetTransactionPlanHdById(string Id)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetTransactionPlanHdById", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("Id", SqlDbType.VarChar));
+                cmd.Parameters["Id"].Value = String.IsNullOrEmpty(Id) ? (object)DBNull.Value : Id;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
+
+        public DataSet GetTransactionPlanHdByCode(string Code)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetTransactionPlanHdByCode", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("Code", SqlDbType.VarChar));
+                cmd.Parameters["Code"].Value = String.IsNullOrEmpty(@Code) ? (object)DBNull.Value : Code;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
+        public DataSet GetTransactionPlanHdByCode_TOP1(string Code)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetTransactionPlanHdByCode_TOP1", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("Code", SqlDbType.VarChar));
+                cmd.Parameters["Code"].Value = String.IsNullOrEmpty(@Code) ? (object)DBNull.Value : Code;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
+        public DataSet GetTransactionPlanHdByCodeAndProvince(string Code,string Province)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetTransactionPlanHdByCodeAndProvince", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("Code", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("Province", SqlDbType.VarChar));
+                cmd.Parameters["Code"].Value = String.IsNullOrEmpty(Code) ? (object)DBNull.Value : Code;
+                cmd.Parameters["Province"].Value = String.IsNullOrEmpty(Province) ? (object)DBNull.Value : Province;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
+        // DT
+        public DataSet GetTransactionPlanDtByTransactionPlanHdId(string TransactionPlanHdId)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetTransactionPlanDtByTransactionPlanHdId", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("TransactionPlanHdId", SqlDbType.VarChar));
+                cmd.Parameters["TransactionPlanHdId"].Value = String.IsNullOrEmpty(TransactionPlanHdId) ? (object)DBNull.Value : TransactionPlanHdId;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
+        public DataSet GetTransactionPlanDtByCodeAndProvince(string Code,string Province)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetTransactionPlanDtByCodeAndProvince", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("Code", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("Province", SqlDbType.VarChar));
+                cmd.Parameters["Code"].Value = String.IsNullOrEmpty(Code) ? (object)DBNull.Value : Code;
+                cmd.Parameters["Province"].Value = String.IsNullOrEmpty(Province) ? (object)DBNull.Value : Province;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
         #endregion
 
         #region ==== Map ====
@@ -422,6 +556,27 @@ namespace TDM.Models
                 cmd.Parameters.Add(new SqlParameter("Point_48", SqlDbType.VarChar));
                 cmd.Parameters["Point_47"].Value = String.IsNullOrEmpty(Point_47) ? (object)DBNull.Value : Point_47;
                 cmd.Parameters["Point_48"].Value = String.IsNullOrEmpty(Point_48) ? (object)DBNull.Value : Point_48;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
+        public DataSet GetSHAPETransactionPlanHdByCode(string Code)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetSHAPETransactionPlanHdByCode", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("Code", SqlDbType.VarChar));
+                cmd.Parameters["Code"].Value = String.IsNullOrEmpty(Code) ? (object)DBNull.Value : Code;
 
                 con.Open();
                 var adapter = new SqlDataAdapter(cmd);
