@@ -328,9 +328,16 @@ var searchForm = {
             dataType: "json",
             contentType: 'application/json',
             success: function (data) {
-
+                map.clear();
+                
                 if (data != null && data.MapInfoList != null) {
-                    TransformMap(data.MapInfoList);
+                    try {
+                        TransformMap(data.MapInfoList, objSearch.ProvinceCodeCompare1.split(","));
+                    } catch (e) {
+                        alert(e.message);
+                    }
+                    //TransformMap(data.MapInfoList);
+                    
                 }
                 if (data != null && data.DataList != null) {
                     LoadTable(data.DataList)
@@ -361,15 +368,32 @@ var TDMap = {
                 "width": 1
             }
         };
+    },
+    getPolygonSymbolByGroup: function (isComparison) {
+        return {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": (isComparison) ? [255, 102, 255] : [0, 153, 76],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0, 255],
+                "width": 1
+            }
+        };
     }
 }
-function TransformMap(data)
+
+function TransformMap(data) {
+    TransformMap(data,null)
+}
+function TransformMap(data,compareList)
 {
 
     var sridIn = 32647;
     var sridOut = [102100];
     var trans;
-    map.clear();
+    //map.clear();
     if (data != null) {
         if (data != null && data.length > 0) {
             $.each(data, function (index, item) {
@@ -379,7 +403,16 @@ function TransformMap(data)
                     if (item.Shape.indexOf(';') !== -1) {
                         targetShape = item.Shape.split(';')[1];
                     }
-                    map.addGraphic(targetShape, TDMap.getPolygonSymbol());
+                    var symbol = null;
+                    if (compareList == null) {
+                        
+                        symbol = TDMap.getPolygonSymbol();
+                    } else {
+                        
+                        symbol = TDMap.getPolygonSymbolByGroup(compareList.includes(item.ProvinceCode));
+                    }
+
+                    map.addGraphic(targetShape, symbol);
                    // ParcelMapController.drawWithInfo(targetInfo);
                 } else {
                     alert('Shape Not OK');
