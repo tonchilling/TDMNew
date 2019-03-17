@@ -1,13 +1,38 @@
 ﻿
-var LocationType='1'
+
+var LocationType = '1'
+
+var regionObj = {
+    "data": [
+            { "name": "เลือกภาค", "value": "" },
+          { "name": "ภาคกลาง", "value": "1" },
+         { "name": "ภาคตะวันตก", "value": "2" },
+         { "name": "ภาคเหนือ", "value": "3" },
+         { "name": "ภาคตะวันออกเฉียงเหนือ", "value": "4" },
+         { "name": "ภาคใต้", "value": "5" },
+          { "name": "ภาคตะวันออก", "value": "6" }]
+}
+
+
 $(function () {
 
-<<<<<<< HEAD
-    LoadGraphView(null,null);
-  
-=======
+    LoadGraphView(null, null);
+    $('.txtSFromDate').datetimepicker({
+        format: 'mm-dd-yyyy',
+        minView: 2,
+        pickTime: false,
+        autoclose: true
+    });
 
->>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
+
+    $('.txtSToDate').datetimepicker({
+        format: 'mm-dd-yyyy',
+        minView: 2,
+        pickTime: false,
+        autoclose: true
+    });
+
+  
     searchForm.initComp();
 
 });
@@ -20,6 +45,13 @@ $(document).on("click", "#rdCluster", function () {
     DisplaySection2SearchRegionCluster(2)
 
 });
+
+$(document).on("click", ".btnSearch", function () {
+    searchForm.search();
+
+});
+
+
 
 
 
@@ -80,6 +112,8 @@ function LoadCluster() {
 
 
 
+
+
 var searchForm = {
 
     initComp: function (eleName) {
@@ -87,7 +121,7 @@ var searchForm = {
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
 
-            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+            //$("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
             $("#overlay")
                .height(target.height())
@@ -137,7 +171,7 @@ var searchForm = {
             $('#ddlDistrict').prop('disabled', 'disabled');
             $('#ddlSubdistrict').prop('disabled', 'disabled');
 
-            map.clear();
+
         });
 
 
@@ -164,19 +198,19 @@ var searchForm = {
 
                     var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
 
-                   
+
 
                     $("#ddlProvince").change(function (event) {
 
-                      
+
                         $("#ddlProvince2").empty();
                         var provinceId = $("#ddlProvince").val();
                         var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "']):not([value='999999'])").clone();
                         //   var proviceOption2 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
 
-                       
 
-                        
+
+
                         if (provinceId == '' || provinceId == '999999') {
                             $('#ddlDistrict').prop('disabled', 'disabled');
                             $('#ddlSubdistrict').prop('disabled', 'disabled');
@@ -246,21 +280,58 @@ var searchForm = {
             }
             _mapCurrModule = mode;
 
-            map.clear();
+
         }
 
 
-<<<<<<< HEAD
+    },
+    search: function () {
+
+        var sectionType = '';
+        var code = '';
+        //ton
+        if ($('#ddlSubdistrict').val() != "" && $("#ddlSubdistrict").val() != '999999') {
+            sectionType = '4';
+            code = $('#ddlSubdistrict').val();
+        }
+        else if ($("#ddlDistrict").val() != '' && $("#ddlDistrict").val() != '999999') {
+            sectionType = '3';
+            code = $('#ddlDistrict').val();
+        }
+        else if ($("#ddlProvince").val() != '' && $("#ddlProvince").val() != '999999') {
+            sectionType = '2';
+            code = $('#ddlProvince').val();
+        }
+        else if ($("#ddlRegion ").val() != '') {
+            sectionType = '1';
+            code = $('#ddlRegion').val();
+        } else {
+            sectionType = '0';
+
+        }
+
+        var fromMonth, fromYear, toMonth, toYear;
         var objSearch = {};
 
+        if ($('.txtSFromDate').val() != '') {
+            fromMonth = $('.txtSFromDate').val().split('-')[0];
+            fromYear = $('.txtSFromDate').val().split('-')[2];
+        }
+
+        if ($('.txtSToDate').val() != '') {
+            toMonth = $('.txtSToDate').val().split('-')[0];
+            toYear = $('.txtSToDate').val().split('-')[2];
+        }
+
+        
 
         objSearch = {
             SectionType: sectionType,
             Code: code,
-            FromMonth: $('.ddlFromMonth').val(),
-            FromYear: $('.ddlFromYear').val(),
-            ToMonth: $('.ddlToMonth').val(),
-            ToYear: $('.ddlToYear').val(),
+            FromMonth: fromMonth,
+            FromYear: fromYear,
+            ToMonth: toMonth,
+            ToYear: toYear,
             CondoName: $('.txtName').val()
 
         };
@@ -288,8 +359,6 @@ var searchForm = {
 
             }
         });
-=======
->>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
     }
 }
 
@@ -455,7 +524,6 @@ var mapApi = {
         alert(response.responseText);
     }
 }
-<<<<<<< HEAD
 function LoadGraph1Display(months, newLandRegisters, LandRegisters) {
 
     var graph1 = echarts.init(document.getElementById('graph1'));
@@ -774,7 +842,12 @@ function LoadGraph1() {
         ]
     };
     */
-=======
->>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
 
+    setTimeout(function () {
+        graph1.setOption(option, true);
+
+
+    }, 1000);
+
+}
 

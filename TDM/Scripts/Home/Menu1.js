@@ -1,5 +1,16 @@
-﻿
-var LocationType='1'
+﻿var LocationType = '1'
+
+var regionObj = {
+    "data": [
+            { "name": "เลือกภาค", "value": "" },
+          { "name": "ภาคกลาง", "value": "1" },
+         { "name": "ภาคตะวันตก", "value": "2" },
+         { "name": "ภาคเหนือ", "value": "3" },
+         { "name": "ภาคตะวันออกเฉียงเหนือ", "value": "4" },
+         { "name": "ภาคใต้", "value": "5" },
+          { "name": "ภาคตะวันออก", "value": "6" }]
+}
+
 $(function () {
 
     LoadGraph1();
@@ -16,6 +27,13 @@ $(document).on("click", "#rdCluster", function () {
     DisplaySection2SearchRegionCluster(2)
 
 });
+
+$(document).on("click", ".btnSearch", function () {
+    searchForm.search();
+
+});
+
+
 
 
 
@@ -76,6 +94,8 @@ function LoadCluster() {
 
 
 
+
+
 var searchForm = {
 
     initComp: function (eleName) {
@@ -83,7 +103,7 @@ var searchForm = {
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
 
-            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+            //$("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
             $("#overlay")
                .height(target.height())
@@ -133,7 +153,7 @@ var searchForm = {
             $('#ddlDistrict').prop('disabled', 'disabled');
             $('#ddlSubdistrict').prop('disabled', 'disabled');
 
-            map.clear();
+
         });
 
 
@@ -160,19 +180,19 @@ var searchForm = {
 
                     var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
 
-                   
+
 
                     $("#ddlProvince").change(function (event) {
 
-                      
+
                         $("#ddlProvince2").empty();
                         var provinceId = $("#ddlProvince").val();
                         var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "']):not([value='999999'])").clone();
                         //   var proviceOption2 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
 
-                       
 
-                        
+
+
                         if (provinceId == '' || provinceId == '999999') {
                             $('#ddlDistrict').prop('disabled', 'disabled');
                             $('#ddlSubdistrict').prop('disabled', 'disabled');
@@ -242,10 +262,81 @@ var searchForm = {
             }
             _mapCurrModule = mode;
 
-            map.clear();
+
         }
 
 
+    },
+    search: function () {
+
+        var sectionType = '';
+        var code = '';
+        //ton
+        if ($('#ddlSubdistrict').val() != "" && $("#ddlSubdistrict").val() != '999999') {
+            sectionType = '4';
+            code = $('#ddlSubdistrict').val();
+        }
+        else if ($("#ddlDistrict").val() != '' && $("#ddlDistrict").val() != '999999') {
+            sectionType = '3';
+            code = $('#ddlDistrict').val();
+        }
+        else if ($("#ddlProvince").val() != '' && $("#ddlProvince").val() != '999999') {
+            sectionType = '2';
+            code = $('#ddlProvince').val();
+        }
+        else if ($("#ddlRegion ").val() != '') {
+            sectionType = '1';
+            code = $('#ddlRegion').val();
+        } else {
+            sectionType = '0';
+
+        }
+
+
+        var objSearch = {};
+
+
+        objSearch = {
+            SectionType: sectionType,
+            code: code,
+            Month: '',
+            Year: $('#ddlYear').val()
+
+        };
+
+
+        $.ajax({
+            url: rootUrl + "/api/PriceSys/GetRegisterLand",
+            type: "POST",
+            data: JSON.stringify(objSearch),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data) {
+
+                var month = [];
+                var newLandRegister = [];
+                var LandRegister = [];
+                if (data != null) {
+
+                    setTimeout(function () {
+                        $('.lbNewRegLand').text(data.summaryData.ParcelNewRegister);
+                        $('.lbRegLand').text(data.summaryData.ParcelRegister);
+                        $('.lbNewMonthRegLand').text(data.summaryData.ParcelMonthNewRegister);
+                        $('.lbMonthRegLand').text(data.summaryData.ParcelMonthRegister);
+                    }
+        , 400);
+
+                    var month = data.summaryByMonthData.map(x => x.MonthName);
+                    var newLandRegister = data.summaryByMonthData.map(x => x.ParcelRegister);
+                    var LandRegister = data.summaryByMonthData.map(x => x.ParcelNewRegister);
+
+                    LoadGraph1Display(month, newLandRegister, LandRegister);
+                    LoadGraph2Display(month, newLandRegister, LandRegister);
+                }
+
+
+            }
+        });
     }
 }
 
@@ -332,10 +423,7 @@ var mapApi = {
         alert(response.responseText);
     }
 }
-
-
-function LoadGraph1()
-{
+function LoadGraph1Display(months, newLandRegisters, LandRegisters) {
 
     var graph1 = echarts.init(document.getElementById('graph1'));
 
@@ -351,7 +439,7 @@ function LoadGraph1()
             }
         },
         legend: {
-            data: ['จำนวนแปลงแบ่งแยกใหม่', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน', '成交']
+            data: ['จำนวนแปลงแบ่งแยกใหม่', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน']
         },
         toolbox: {
             show: false,
@@ -368,7 +456,7 @@ function LoadGraph1()
             {
                 type: 'category',
                 boundaryGap: false,
-                data: ['มค-61', 'กพ-61', 'มค-61', 'มย-61', 'พค-61', 'มิย-61', 'กค-61']
+                data: months
             }
         ],
         yAxis: [
@@ -377,30 +465,177 @@ function LoadGraph1()
             }
         ],
         series: [
-          
+
             {
                 name: 'จำนวนแปลงแบ่งแยกใหม่',
                 type: 'line',
                 smooth: true,
                 itemStyle: { normal: { areaStyle: { type: 'default' } } },
-                data: [30, 182, 434, 791, 390, 30, 10]
+                data: newLandRegisters
             },
             {
                 name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน',
                 type: 'line',
                 smooth: true,
                 itemStyle: { normal: { areaStyle: { type: 'default' } } },
-                data: [1320, 1132, 601, 234, 120, 90, 20]
+                data: LandRegisters
             }
         ]
     };
 
     setTimeout(function () {
-        graph1.setOption(option,true);
+        graph1.setOption(option, true);
 
 
     }, 1000);
-   
+
+}
+function LoadGraph2Display(months, newLandRegisters, LandRegisters) {
+
+    var graph1 = echarts.init(document.getElementById('graph2'));
+
+    var option = option = {
+        title: {
+            text: '',
+            subtext: ''
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'none',
+            }
+        },
+        legend: {
+            data: ['จำนวนแปลงแบ่งแยกใหม่สะสมรายเดือน (แปลง)', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียนสะสมรายเดือน (แปลง)']
+        },
+        toolbox: {
+            show: false,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: true, type: ['line', 'bar'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                data: months
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: 'จำนวนแปลงแบ่งแยกใหม่สะสมรายเดือน (แปลง)',
+                type: 'bar',
+                data: newLandRegisters,
+                markPoint: {
+                    data: [
+
+                    ]
+                },
+                markLine: {
+
+                }
+            },
+            {
+                name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียนสะสมรายเดือน (แปลง)',
+                type: 'bar',
+                data: LandRegisters,
+                markPoint: {
+                    data: [
+
+                    ]
+                },
+                markLine: {
+
+                }
+            }
+        ]
+    };
+
+
+    setTimeout(function () {
+        graph1.setOption(option, true);
+
+
+    }, 1000);
+
+}
+
+
+function LoadGraph1() {
+
+    var graph1 = echarts.init(document.getElementById('graph1'));
+
+    var option = {
+        title: {
+            text: '',
+            subtext: ''
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'none',
+            }
+        },
+        legend: {
+            data: ['จำนวนแปลงแบ่งแยกใหม่', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน']
+        },
+        toolbox: {
+            show: false,
+            feature: {
+                mark: { show: true },
+                dataView: { show: true, readOnly: false },
+                magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: ['มค.', 'กพ.', 'มค.', 'มย.', 'พค.', 'มิย.', 'กค.', 'สค.', 'กย.', 'ตค.', 'พฤ.', 'ธค.']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+
+            {
+                name: 'จำนวนแปลงแบ่งแยกใหม่',
+                type: 'line',
+                smooth: true,
+                itemStyle: { normal: { areaStyle: { type: 'default' } } },
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+                name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน',
+                type: 'line',
+                smooth: true,
+                itemStyle: { normal: { areaStyle: { type: 'default' } } },
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            }
+        ]
+    };
+
+    setTimeout(function () {
+        graph1.setOption(option, true);
+
+
+    }, 1000);
+
 }
 
 function LoadGraph2() {
@@ -435,7 +670,7 @@ function LoadGraph2() {
         xAxis: [
             {
                 type: 'category',
-                data: ['มค', 'กพ', 'มค', 'มย', 'พค', 'มิย', 'กค', 'สค', 'กย', 'ตค', 'พฤ', 'ธค']
+                data: ['มค.', 'กพ.', 'มค.', 'มย.', 'พค.', 'มิย.', 'กค.', 'สค.', 'กย.', 'ตค.', 'พฤ.', 'ธค.']
             }
         ],
         yAxis: [
@@ -447,27 +682,27 @@ function LoadGraph2() {
             {
                 name: 'จำนวนแปลงแบ่งแยกใหม่สะสมรายเดือน (แปลง)',
                 type: 'bar',
-                data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 markPoint: {
                     data: [
-                      
+
                     ]
                 },
                 markLine: {
-                  
+
                 }
             },
             {
                 name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียนสะสมรายเดือน (แปลง)',
                 type: 'bar',
-                data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 markPoint: {
                     data: [
-                       
+
                     ]
                 },
                 markLine: {
-                   
+
                 }
             }
         ]

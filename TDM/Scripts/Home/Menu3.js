@@ -111,7 +111,7 @@ var searchForm = {
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
 
-            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+          //  $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
             $("#overlay")
                .height(target.height())
@@ -402,9 +402,9 @@ function LoadTable(data)
     body += '<tr>';
     body += '<th scope="col" class="center">จังหวัด</th>';
     body += '<th scope="col" class="center">ช่วงเวลา</th>';
-    body += '<th scope="col" class="center">ราคาต่ำสุด</th>';
-    body += '<th scope="col" class="center">ราคาสูงสุด</th>';
-    body += '<th scope="col" class="center">ราคาเฉลี่ย</th>';
+    body += '<th scope="col" class="center">SA/Ratio<br>ต่ำสุด</th>';
+    body += '<th scope="col" class="center">SA/Ratio<br>สูงสุด</th>';
+    body += '<th scope="col" class="center">SA/Ratio<br>เฉลี่ย</th>';
     body += '</tr>';
     body += '</thead>';
 ;

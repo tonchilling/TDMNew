@@ -251,6 +251,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TraceProgress.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\ViewModels\Map_ViewModel.cs" />
     <Compile Include="Models\ViewModels\POI_ViewModel.cs" />
     <Compile Include="Models\ViewModels\AMPHOE_ViewModel.cs" />
@@ -330,7 +331,6 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\TDAssetRespository.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
-    <Compile Include="Utils\Converting.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\BI\dashboard.js" />
@@ -387,6 +387,7 @@
     <Content Include="assets\icons\TDM\measurement_tool_05_hover.png" />
     <Content Include="assets\img\button-search-BU-6.png" />
     <Content Include="assets\img\map.png" />
+    <Content Include="assets\img\profile.jpg" />
     <Content Include="assets\img\tmp\2019-01-13-01.jpg" />
     <Content Include="assets\img\tmp\2019-01-13-02.jpg" />
     <Content Include="assets\img\tmp\2019-01-13-03.jpg" />

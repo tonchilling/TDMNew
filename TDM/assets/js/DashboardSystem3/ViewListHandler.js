@@ -511,7 +511,7 @@ var ParcelMapController = {
             "xoffset": 0,
             "yoffset": 0
         };
-
+symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
        targetInfo.ParcelPrice    = (targetInfo.ParcelPrice > 0) ? targetInfo.ParcelPrice : 0;
        targetInfo.ParcelPriceMin = (targetInfo.ParcelPriceMin > 0) ? targetInfo.ParcelPriceMin : 0;
        targetInfo.ParcelPriceMax = (targetInfo.ParcelPriceMax > 0) ? targetInfo.ParcelPriceMax : 0;
@@ -535,11 +535,11 @@ var ParcelMapController = {
            if ((targetInfo.PriceType == '0') || (targetInfo.PriceType == '1')) {
 
 
-               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPrice : targetInfo.ParcelWAHPrice) +
+               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPrice : targetInfo.ParcelWAHPrice) +
                   '<ul>' +
-                  '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMax : targetInfo.ParcelWAHPriceMax) +
-                  '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMin : targetInfo.ParcelWAHPriceMin) +
-                  '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceAvg : targetInfo.ParcelWAHPriceAvg) +
+                   '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPriceMax : targetInfo.ParcelWAHPriceMax) +
+                   '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPriceMin : targetInfo.ParcelWAHPriceMin) +
+                   '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPriceAvg : targetInfo.ParcelWAHPriceAvg) +
                   '</ul>'
            }
 
