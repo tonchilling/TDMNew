@@ -246,33 +246,6 @@ namespace TDM.Models
             return ds.Tables[0];
         }
 
-
-
-        public DataTable GetShapeByAppraise(string Appraiser, string ProvinceCode)
-        {
-            DataSet ds = new DataSet();
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlCommand cmd = new SqlCommand("sp_PTS_GetShapeByAppraise", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.Clear();
-                cmd.Parameters.Add(new SqlParameter("Appraiser", SqlDbType.VarChar));
-                cmd.Parameters["Appraiser"].Value = String.IsNullOrEmpty(Appraiser) ? (object)DBNull.Value : Appraiser;
-
-                cmd.Parameters.Add(new SqlParameter("ProvinceCode", SqlDbType.VarChar));
-                cmd.Parameters["ProvinceCode"].Value = String.IsNullOrEmpty(ProvinceCode) ? (object)DBNull.Value : ProvinceCode;
-
-                con.Open();
-                var adapter = new SqlDataAdapter(cmd);
-
-                adapter.Fill(ds);
-            }
-            return ds.Tables[0];
-        }
-
-
-
         public DataTable GetAppraiseMemberDistrict(string District, string Province)
         {
             DataSet ds = new DataSet();
@@ -542,6 +515,29 @@ namespace TDM.Models
         #endregion
 
         #region ==== Map ====
+        public DataTable GetShapeByAppraise(string Appraiser, string ProvinceCode)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_PTS_GetShapeByAppraise", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add(new SqlParameter("Appraiser", SqlDbType.VarChar));
+                cmd.Parameters["Appraiser"].Value = String.IsNullOrEmpty(Appraiser) ? (object)DBNull.Value : Appraiser;
+
+                cmd.Parameters.Add(new SqlParameter("ProvinceCode", SqlDbType.VarChar));
+                cmd.Parameters["ProvinceCode"].Value = String.IsNullOrEmpty(ProvinceCode) ? (object)DBNull.Value : ProvinceCode;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds.Tables[0];
+        }
+
         public DataSet GetSHPByPoint(string Point_47,string Point_48)
         {
             DataSet ds = new DataSet();
@@ -570,7 +566,7 @@ namespace TDM.Models
             DataSet ds = new DataSet();
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlCommand cmd = new SqlCommand("sp_TPS_GetSHAPETransactionPlanHdByCode", con);
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetSHAPEByTransactionPlanHdCode", con); 
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Clear();
@@ -585,6 +581,49 @@ namespace TDM.Models
             }
             return ds;
         }
+
+        public DataSet GetSHAPEDistrictByDistrictCode(string DistrictCode)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetSHAPEDistrictByDistrictCode", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("DistrictCode", SqlDbType.VarChar));
+                cmd.Parameters["DistrictCode"].Value = String.IsNullOrEmpty(DistrictCode) ? (object)DBNull.Value : DistrictCode;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
+        public DataSet GetSHAPETambolByTambolCode(string TambolCode)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetSHAPETambolByTambolCode", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("TambolCode", SqlDbType.VarChar));
+                cmd.Parameters["TambolCode"].Value = String.IsNullOrEmpty(TambolCode) ? (object)DBNull.Value : TambolCode;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
         #endregion
 
     }

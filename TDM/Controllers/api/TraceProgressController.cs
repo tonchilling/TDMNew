@@ -69,15 +69,7 @@ namespace TDM.Controllers.api
             db.Configuration.ProxyCreationEnabled = false;
             return Json(db.GetTraceProgressByTambon(Username, YearCode, DocumentType, Province, District));
         }
-
-        #region == Map == 
-        //GetShapeByAppraise
-        public IHttpActionResult GetShapeByAppraise(string Appraiser, string ProvinceCode)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.GetShapeByAppraise(Appraiser, ProvinceCode));
-        }
-        #endregion
+ 
 
         #region == Chart ==
 
@@ -170,10 +162,15 @@ namespace TDM.Controllers.api
             return result;
         }
 
-        public IHttpActionResult GetTransactionPlanDtByCodeAndProvince(string Code, string Province)
+        public string GetTransactionPlanDtByCodeAndProvince(string Code, string Province)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.GetTransactionPlanDtByCodeAndProvince(Code, Province));
+            DataSet ds = new DataSet();
+            ds = db.GetTransactionPlanDtByCodeAndProvince(Code, Province);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
         }
 
         private static string DataTableToJSONWithStringBuilder(DataTable table)
@@ -212,6 +209,12 @@ namespace TDM.Controllers.api
         #endregion
 
         #region ==== Map ====
+        public IHttpActionResult GetShapeByAppraise(string Appraiser, string ProvinceCode)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            return Json(db.GetShapeByAppraise(Appraiser, ProvinceCode));
+        }
+
         public string GetSHPByPoint(string Point_47, string Point_48)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -223,11 +226,39 @@ namespace TDM.Controllers.api
             return result;
         }
 
-        public IHttpActionResult GetSHAPETransactionPlanHdByCode(string Code)
+        public string GetSHAPETransactionPlanHdByCode(string Code) // get Map all by TransactionPlan Code
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.GetSHAPETransactionPlanHdByCode(Code));
+            DataSet ds = new DataSet();
+            ds = db.GetSHAPETransactionPlanHdByCode(Code);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
         }
+
+        public string GetSHAPEDistrictByDistrictCode(string DistrictCode) // get Map all by TransactionPlan Code
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            DataSet ds = new DataSet();
+            ds = db.GetSHAPEDistrictByDistrictCode(DistrictCode);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
+        }
+
+        public string GetSHAPETambolByTambolCode(string TambolCode) // get Map all by TransactionPlan Code
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            DataSet ds = new DataSet();
+            ds = db.GetSHAPETambolByTambolCode(TambolCode);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
+        }
+
         #endregion
     }
 }

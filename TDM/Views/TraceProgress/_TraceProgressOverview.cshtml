@@ -60,15 +60,7 @@
     }
 
 
-
-
-
-
-
-
-
     /*รถไฟ*/
-    
      .x_content {
         z-index: 1 !important;
     }
@@ -235,8 +227,12 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row" style="display:none"> <!-- style="display:none" -->
+                                    <div class="col-sm-2 col-xs-2">ZomeType: <input type="text" id="txtZomeType_" /></div>
+                                </div>
                                 
-                                <div class="row" style="display:none">
+                                <div class="row" style="display:none"> <!-- style="display:none" -->
                                     <div class="col-sm-2 col-xs-2">TransactionPlanHdId: <input type="text" id="txtTransactionPlanHdId_" /></div>
                                     <div class="col-sm-2 col-xs-2">47: <input type="text" id="txtPoint_47_" /></div>
                                     <div class="col-sm-2 col-xs-2">48: <input type="text" id="txtPoint_48_" /></div>
@@ -244,7 +240,14 @@
                                     <div class="col-sm-2 col-xs-2">ProvinceName:<input type="text" id="txtProvinceName_" /></div>
                                     <div class="col-sm-2 col-xs-2"><button onclick="activateDraw_Point_Begin()">test Map Active</button></div>
                                 </div>
-
+                                <div class="row" style="display:none">  <!-- style="display:none" -->
+                                    <div class="col-sm-2 col-xs-2">District_Code: <input type="text" id="txtDistrictCode_" /></div>
+                                    <div class="col-sm-2 col-xs-2">District_Name: <input type="text" id="txtDistrictName_" /></div>
+                                    <div class="col-sm-2 col-xs-2">Tambon_Code: <input type="text" id="txtTambonCode_" /></div>
+                                    <div class="col-sm-2 col-xs-2">Tambon_Name: <input type="text" id="txtTambonName_" /></div>
+                                    <div class="col-sm-2 col-xs-2"></div>
+                                    <div class="col-sm-2 col-xs-2"></div>
+                                </div>
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <div class="panel panel-primary">
@@ -300,10 +303,30 @@
                                                         </div>
 
                                                         <br />
-                                                        <div class="container-fluid">
+                                                        <div class="container-fluid" style="height:560px">
                                                             <div id="fadeContent"></div>
                                                         </div>
+
                                                         <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                                                <div class="col-md-1 col-sm-1 col-xs-3" style="background-color: rgb(112, 173, 71); border-radius: 6px;">&nbsp;</div>
+                                                                <div class="col-md-2 col-sm-2 col-xs-8">ดำเนินการเรียบร้อย</div>
+
+
+                                                                <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                                                <div class="col-md-1 col-sm-2 col-xs-3" style="background-color: rgb(255, 192, 0); border-radius: 6px;">&nbsp;</div>
+                                                                <div class="col-md-2 col-sm-2 col-xs-8">อยู่ระหว่างการดำเนินการ</div>
+
+
+
+                                                                <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                                                <div class="col-md-1 col-sm-2 col-xs-3" style="background-color: rgb(255, 0, 0); border-radius: 6px;">&nbsp;</div>
+                                                                <div class="col-md-2 col-sm-2 col-xs-8">ล่าช้ากว่าแผนงาน</div>
+                                                            </div>
+                                                        </div>
+
+                                                        @*<div class="container-fluid">
                                                             <div class="col-sm-2 col-lg-2 col-md-2" style="text-align: center" id="txtProvinceAssign"></div>
                                                             <div class="col-sm-10 col-lg-10 col-md-10">
                                                                 <ul class="progressbar">
@@ -318,10 +341,35 @@
                                                                     <li class="late"></li>
                                                                 </ul>
                                                             </div>
-                                                        </div>
+                                                        </div>*@
 
                                                     </div>
                                                 </div>
+                                                <div class="row" style="margin-top:11px">
+                                                    @*<div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                                    <div class="col-md-1 col-sm-2 col-xs-3" style="background-color: rgb(255, 0, 0);">&nbsp;</div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-8">ล่าช้ากว่าแผนงาน</div>*@
+
+                                                    @*
+                                                    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                                    <div class="col-md-1 col-sm-1 col-xs-3" style="background-color: rgb(112, 173, 71);">&nbsp;</div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-8">ดำเนินการเรียบร้อย</div>
+                    
+                                                     
+                                                    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                                    <div class="col-md-1 col-sm-2 col-xs-3" style="background-color: rgb(255, 192, 0);">&nbsp;</div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-8">อยู่ระหว่างการดำเนินการ</div>
+                                                    
+
+                                                    
+                                                        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                                        <div class="col-md-1 col-sm-2 col-xs-3" style="background-color: rgb(255, 0, 0);">&nbsp;</div>
+                                                        <div class="col-md-2 col-sm-2 col-xs-8">ล่าช้ากว่าแผนงาน</div>
+                                                    *@
+                                                </div>
+
+
+
                                             </div>
                                         </div>
                                     </div>
