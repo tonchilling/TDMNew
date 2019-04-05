@@ -24,7 +24,7 @@ namespace TDM
                 //defaults: new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional }
                 //defaults: new { controller = "Home", action = "System_3_with_Layout", id = UrlParameter.Optional }
 
-                defaults: new { controller = "DashboardSystem3", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "BI", action = "Index", id = UrlParameter.Optional }
 
             );
 

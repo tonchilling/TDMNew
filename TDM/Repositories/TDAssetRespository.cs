@@ -198,6 +198,77 @@ namespace TDM.Repositories
         }
 
 
+        /// <summary>
+        /// Home>Menu1
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public RegisterLand GetRegisterLand(SearchMap search)
+        {
+
+            IDataReader reader = null;
+            RegisterLand result = null;
+            RegisterLandSummary regSummaryData = null;
+            RegisterLandByMonth regSummarybByMonthData = null;
+            List<RegisterLandByMonth> regSummaryByMonthList = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@Month", search.Month, dbType: DbType.String);
+            p.Add("@Year", search.Year, dbType: DbType.String);
+
+
+
+            try
+            {
+
+                result = new RegisterLand();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    //conn.
+                    reader = conn.ExecuteReader("[GetLandRegisterMenu1]", p, commandType: CommandType.StoredProcedure);
+
+                    if (reader.Read())
+                    {
+                        regSummaryData = new RegisterLandSummary();
+                        regSummaryData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
+                        regSummaryData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
+                        regSummaryData.ParcelMonthRegister = Converting.ToDecimal(reader["ParcelMonthRegister"].ToString());
+                        regSummaryData.ParcelMonthNewRegister = Converting.ToDecimal(reader["ParcelMonthNewRegister"].ToString());
+
+
+                    }
+
+                    result.summaryData = regSummaryData;
+
+                    reader.NextResult();
+                    regSummaryByMonthList = new List<RegisterLandByMonth>();
+                    while (reader.Read())
+                    {
+                        regSummarybByMonthData = new RegisterLandByMonth();
+                        regSummarybByMonthData.RegMonth = Converting.ToDecimal(reader["RegMonth"].ToString());
+                        regSummarybByMonthData.MonthName = Converting.ToMonthShortName(reader["RegMonth"].ToString());
+                        regSummarybByMonthData.RegYear = reader["RegYear"].ToString();
+                        regSummarybByMonthData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
+                        regSummarybByMonthData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
+                        regSummaryByMonthList.Add(regSummarybByMonthData);
+
+                    }
+
+                    result.summaryByMonthData = regSummaryByMonthList;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
 
         public List<DropdownObj> GetCluster()
         {
@@ -371,39 +442,39 @@ namespace TDM.Repositories
                         data.TAMBOLCode = reader["TAMBOLCode"].ToString();
                         data.TAMBOLName = reader["TAMBOLName"].ToString();
 
-                        data.MarketPrice = reader["MarketPrice"].ToString();
-                        data.MarketPriceMin = reader["MarketPriceMin"].ToString();
-                        data.MarketPriceMax = reader["MarketPriceMax"].ToString();
-                        data.MarketPriceAvg = reader["MarketPriceAvg"].ToString();
+                        data.MarketPrice = Converting.ToDecimal(reader["MarketPrice"].ToString()).ToString("##,##0.00");
+                        data.MarketPriceMin = Converting.ToDecimal(reader["MarketPriceMin"].ToString()).ToString("##,##0.00");
+                        data.MarketPriceMax = Converting.ToDecimal(reader["MarketPriceMax"].ToString()).ToString("##,##0.00");
+                        data.MarketPriceAvg = Converting.ToDecimal(reader["MarketPriceAvg"].ToString()).ToString("##,##0.00");
                         data.MaxMarketAddrCode = reader["MaxMarketAddrCode"].ToString();
                         data.MaxMarketCHANODE_NO = reader["MaxMarketCHANODE_NO"].ToString();
                         data.MinMarketAddrCode = reader["MinMarketAddrCode"].ToString();
                         data.MinMarketCHANODE_NO = reader["MinMarketCHANODE_NO"].ToString();
 
-                        data.MarketWAHPrice = reader["MarketWAHPrice"].ToString();
-                        data.MarketWAHPriceMin = reader["MarketWAHPriceMin"].ToString();
-                        data.MarketWAHPriceMax = reader["MarketWAHPriceMax"].ToString();
-                        data.MarketWAHPriceAvg = reader["MarketWAHPriceAvg"].ToString();
+                        data.MarketWAHPrice = Converting.ToDecimal(reader["MarketWAHPrice"].ToString()).ToString("##,##0.00");
+                        data.MarketWAHPriceMin = Converting.ToDecimal(reader["MarketWAHPriceMin"].ToString()).ToString("##,##0.00");
+                        data.MarketWAHPriceMax = Converting.ToDecimal(reader["MarketWAHPriceMax"].ToString()).ToString("##,##0.00");
+                        data.MarketWAHPriceAvg = Converting.ToDecimal(reader["MarketWAHPriceAvg"].ToString()).ToString("##,##0.00");
                         data.MaxMarketWAHAddrCode = reader["MaxMarketWAHAddrCode"].ToString();
                         data.MaxMarketWAHCHANODE_NO = reader["MaxMarketWAHCHANODE_NO"].ToString();
                         data.MinMarketWAHAddrCode = reader["MinMarketWAHAddrCode"].ToString();
                         data.MinMarketWAHCHANODE_NO = reader["MinMarketWAHCHANODE_NO"].ToString();
 
 
-                        data.ParcelPrice = reader["ParcelPrice"].ToString();
-                        data.ParcelPriceMin = reader["ParcelPriceMin"].ToString();
-                        data.ParcelPriceMax = reader["ParcelPriceMax"].ToString();
-                        data.ParcelPriceAvg = reader["ParcelPriceAvg"].ToString();
+                        data.ParcelPrice = Converting.ToDecimal(reader["ParcelPrice"].ToString()).ToString("##,##0.00");
+                        data.ParcelPriceMin = Converting.ToDecimal(reader["ParcelPriceMin"].ToString()).ToString("##,##0.00");
+                        data.ParcelPriceMax = Converting.ToDecimal(reader["ParcelPriceMax"].ToString()).ToString("##,##0.00");
+                        data.ParcelPriceAvg = Converting.ToDecimal(reader["ParcelPriceAvg"].ToString()).ToString("##,##0.00");
                         data.MaxParcelAddrCode = reader["MaxParcelAddrCode"].ToString();
                         data.MaxParcelCHANODE_NO = reader["MaxParcelCHANODE_NO"].ToString();
                         data.MinParcelAddrCode = reader["MinParcelAddrCode"].ToString();
                         data.MinParcelCHANODE_NO = reader["MinParcelCHANODE_NO"].ToString();
 
 
-                        data.ParcelWAHPrice = reader["ParcelWAHPrice"].ToString();
-                        data.ParcelWAHPriceMin = reader["ParcelWAHPriceMin"].ToString();
-                        data.ParcelWAHPriceMax = reader["ParcelWAHPriceMax"].ToString();
-                        data.ParcelWAHPriceAvg = reader["ParcelWAHPriceAvg"].ToString();
+                        data.ParcelWAHPrice = Converting.ToDecimal(reader["ParcelWAHPrice"].ToString()).ToString("##,##0.00");
+                        data.ParcelWAHPriceMin = Converting.ToDecimal(reader["ParcelWAHPriceMin"].ToString()).ToString("##,##0.00");
+                        data.ParcelWAHPriceMax = Converting.ToDecimal(reader["ParcelWAHPriceMax"].ToString()).ToString("##,##0.00");
+                        data.ParcelWAHPriceAvg = Converting.ToDecimal(reader["ParcelWAHPriceAvg"].ToString()).ToString("##,##0.00");
                         data.MaxParcelWAHAddrCode = reader["MaxParcelWAHAddrCode"].ToString();
                         data.MaxParcelWAHCHANODE_NO = reader["MaxParcelWAHCHANODE_NO"].ToString();
                         data.MinParcelWAHAddrCode = reader["MinParcelWAHAddrCode"].ToString();
@@ -480,6 +551,7 @@ namespace TDM.Repositories
                         data.RegisterNo = reader["RegisterNo"].ToString();
                         data.LATITUDE = reader["LATITUDE"].ToString();
                         data.LONGITUDE = reader["LONGITUDE"].ToString();
+                        data.CondoName = reader["CondoName"].ToString();
 
                         result.Add(data);
 
@@ -545,7 +617,56 @@ namespace TDM.Repositories
             return result;
         }
 
+        public List<EstimateData> GetPriceOfConstrucionBI(SearchMap search)
+        {
 
+            IDataReader reader = null;
+            List<EstimateData> result = null;
+            EstimateData data = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@ConStructionType", search.ConStructionType, dbType: DbType.String);
+            p.Add("@ProvinceCodeCompare1", search.ProvinceCodeCompare1, dbType: DbType.String);
+            p.Add("@ProvinceCodeCompare2", search.ProvinceCodeCompare2, dbType: DbType.String);
+            p.Add("@PercentCompare", search.PercentCompare, dbType: DbType.String);
+            try
+            {
+                result = new List<EstimateData>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetConsturctionPriceBI", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.EstimateData();
+                        data.DisplayCode = reader["DisplayCode"].ToString();
+                        data.DisplayName = reader["DisplayName"].ToString();
+                        data.RegionCode = reader["RegionCode"].ToString();
+                        data.RegionName = reader["RegionName"].ToString();
+                        data.ProviceCode = reader["ProviceCode"].ToString();
+                        data.ProviceName = reader["ProviceName"].ToString();
+                        data.ConstructionType = reader["ConstructionType"].ToString();
+                        data.ConstructionName = reader["ConstructionName"].ToString();
+                        data.ParcelPrice = reader["ParcelPrice"].ToString();
+                       // data.ParcelPricePR5 = reader["ParcelPricePR5"].ToString();
+                      //  data.REMARK = reader["REMARK"].ToString();
+                      //  data.CreateDate = reader["CreateDate"].ToString();
+                       // data.PriceCompare = reader["PriceCompare"].ToString();
+                      //  data.Color = reader["Color"].ToString();
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
         public LandSalePriceChanging GetLandPriceCompareMenu3(SearchMap search)
         {
 
@@ -1044,78 +1165,6 @@ namespace TDM.Repositories
                 return result;
             }
         }
-
-
-        /// <summary>
-        /// Home>Menu1
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        public RegisterLand GetRegisterLand(SearchMap search)
-        {
-
-            IDataReader reader = null;
-            RegisterLand result = null;
-            RegisterLandSummary regSummaryData = null;
-            RegisterLandByMonth regSummarybByMonthData = null;
-            List<RegisterLandByMonth> regSummaryByMonthList = null;
-            var p = new DynamicParameters();
-            p.Add("@SectionType", (int)search.SectionType);
-            p.Add("@Code", search.Code, dbType: DbType.String);
-            p.Add("@Month", search.Month, dbType: DbType.String);
-            p.Add("@Year", search.Year, dbType: DbType.String);
-
-
-
-            try
-            {
-
-                result = new RegisterLand();
-                using (IDbConnection conn = CreateConnectionManage())
-                {
-
-                    //conn.
-                    reader = conn.ExecuteReader("[GetLandRegisterMenu1]", p, commandType: CommandType.StoredProcedure);
-
-                    if (reader.Read())
-                    {
-                        regSummaryData = new RegisterLandSummary();
-                        regSummaryData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
-                        regSummaryData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
-                        regSummaryData.ParcelMonthRegister = Converting.ToDecimal(reader["ParcelMonthRegister"].ToString());
-                        regSummaryData.ParcelMonthNewRegister = Converting.ToDecimal(reader["ParcelMonthNewRegister"].ToString());
-
-
-                    }
-
-                    result.summaryData = regSummaryData;
-
-                    reader.NextResult();
-                    regSummaryByMonthList = new List<RegisterLandByMonth>();
-                    while (reader.Read())
-                    {
-                        regSummarybByMonthData = new RegisterLandByMonth();
-                        regSummarybByMonthData.RegMonth = Converting.ToDecimal(reader["RegMonth"].ToString());
-                        regSummarybByMonthData.MonthName = Converting.ToMonthShortName(reader["RegMonth"].ToString());
-                        regSummarybByMonthData.RegYear = reader["RegYear"].ToString();
-                        regSummarybByMonthData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
-                        regSummarybByMonthData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
-                        regSummaryByMonthList.Add(regSummarybByMonthData);
-
-                    }
-
-                    result.summaryByMonthData = regSummaryByMonthList;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                string error = ex.ToString();
-            }
-
-            return result;
-        }
-
 
         /// <summary>
         /// Home>Menu2

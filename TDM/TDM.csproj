@@ -335,6 +335,8 @@
   <ItemGroup>
     <Content Include="assets\BI\dashboard.js" />
     <Content Include="assets\BI\echarts-custom-for-dashboard.js" />
+    <Content Include="assets\BI\Index_bk.js" />
+    <Content Include="assets\BI\Index.js" />
     <Content Include="assets\BI\jquery-jvectormap-2.0.1.min.js" />
     <Content Include="assets\BI\jquery-jvectormap-world-mill-en.js" />
     <Content Include="assets\BI\pace.min.js" />
@@ -455,6 +457,7 @@
     <Content Include="Scripts\Home\Menu2.js" />
     <Content Include="Scripts\Home\Menu3.js" />
     <Content Include="Scripts\Home\Menu1.js" />
+    <Content Include="Scripts\jquery.pleaseWait.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\Map\Identity.js" />
     <Content Include="Scripts\map_loader.js" />
@@ -1552,6 +1555,7 @@
     <Content Include="assets\css\fontawesome5.3.1.css" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AreaInfo\Index.js" />
     <Content Include="Scripts\ChangesPrice\Index.js" />
@@ -1656,6 +1660,7 @@
     <Content Include="Views\Home\Menu2.cshtml" />
     <Content Include="Views\Home\Menu3.cshtml" />
     <Content Include="Views\BI\Index.cshtml" />
+    <Content Include="Views\BI\Index_bk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -158,6 +158,9 @@ namespace TDM.Models
     }
 
 
+
+
+
     public partial class EstimateData
     {
         public string DisplayCode { get; set; }
@@ -229,6 +232,7 @@ namespace TDM.Models
         public string REMARK { get; set; }
         public string PriceCompare { get; set; }
         public string Color { get; set; }
+        public string CondoName { get; set; }
 
     }
 
@@ -350,7 +354,48 @@ namespace TDM.Models
         public decimal MaxPrice { get; set; }
         public decimal AvgPrice { get; set; }
     }
-}
+
+
+    public partial class Barchart
+    {
+        public List<string> Data { get; set; }
+
+        public List<BarchartValue> Value { get; set; }
+        public List<BarchartValue> Value2 { get; set; }
+        public List<BarchartValue2> Value3 { get; set; }
+    }
+
+
+    public partial class BarchartValue
+    {
+
+        public string name { get; set; }
+        public decimal value { get; set; }
+        public string key { get; set; }
+    }
+
+
+    public partial class BarchartValue2
+    {
+
+        public decimal xAxis { get; set; }
+        public decimal y { get; set; }
+        public string name { get; set; }
+        public decimal symbolSize { get; set; }
+        public string symbol { get; set; }
+        public string key { get; set; }
+    }
+
+   
+
+    public partial class GetPriceBI
+    {
+        public List<EstimateData> EstimateData { get; set; }
+        public Barchart Barchart { get; set; }
+    }
+
+
+    }
 
 
 

@@ -61,24 +61,133 @@ namespace TDM.Controllers.api
         }
 
 
+
+        [HttpPost]
+        public IHttpActionResult GetPriceBI(SearchMap searchDto)
+        {
+            var repos = new TDAssetRespository();
+            SetionType sectionT = new SetionType();
+            GetPriceBI resultList = new GetPriceBI();
+            List<string> data = null;
+            List<BarchartValue> value = null;
+            List<BarchartValue> value2 = null;
+            BarchartValue barValue = null;
+            var barchart = new Barchart();
+
+
+            var estimateData = repos.GetPrice(searchDto);
+
+            resultList.EstimateData = estimateData;
+            if (estimateData != null)
+            {
+                data = new List<string>();
+                value = new List<BarchartValue>();
+                value2 = new List<BarchartValue>();
+
+                foreach (EstimateData result in estimateData)
+                {
+                    barValue = new BarchartValue();
+                    barValue.name = result.DisplayName;
+                    barValue.value = Converting.ToDecimal(result.ParcelWAHPriceMax);
+                    barValue.key = result.DisplayCode;
+
+
+                    value.Add(barValue);
+
+
+                    barValue = new BarchartValue();
+                    barValue.name = result.DisplayName;
+                    barValue.value = Converting.ToDecimal(result.MarketWAHPriceMax);
+                    barValue.key = result.DisplayCode;
+                    value2.Add(barValue);
+
+
+
+                    data.Add(result.DisplayName);
+
+                }
+
+                barchart.Data = data;
+                barchart.Value = value;
+                barchart.Value2 = value2;
+            }
+
+            resultList.Barchart = barchart;
+
+            return Json(resultList);
+        }
+
+
+
+
         [HttpPost]
         public IHttpActionResult GetPriceOfCondo(SearchMap searchDto)
         {
             var repos = new TDAssetRespository();
             SetionType sectionT = new SetionType();
 
-            /* switch (SectionType)
-             {
-                 case "1":sectionT = SetionType.Region;break;
-                 case "2": sectionT = SetionType.Provice; break;
-                 case "3": sectionT = SetionType.Amphur; break;
-             }*/
-
-
 
             var estimateData = repos.GetPriceOfCondo(searchDto);
 
             return Json(estimateData);
+        }
+
+
+        [HttpPost]
+        public IHttpActionResult GetPriceOfCondoBI(SearchMap searchDto)
+        {
+            var repos = new TDAssetRespository();
+            SetionType sectionT = new SetionType();
+            GetPriceBI resultList = new GetPriceBI();
+            List<string> data = null;
+            List<BarchartValue> value = null;
+            List<BarchartValue> value2 = null;
+            BarchartValue barValue = null;
+            var barchart = new Barchart();
+
+
+            var estimateData = repos.GetPriceOfCondo(searchDto);
+
+            resultList.EstimateData = estimateData;
+            if (estimateData != null)
+            {
+                data = new List<string>();
+                value = new List<BarchartValue>();
+                value2 = new List<BarchartValue>();
+
+                foreach (EstimateData result in estimateData)
+                {
+                    barValue = new BarchartValue();
+                    barValue.name = result.DisplayName;
+                    barValue.value = Converting.ToDecimal(result.ParcelPriceMax);
+                    barValue.key = result.DisplayCode;
+
+
+                    value.Add(barValue);
+
+
+                    barValue = new BarchartValue();
+                    barValue.name = result.DisplayName;
+                    barValue.value = Converting.ToDecimal(result.MarketPriceMax);
+                    barValue.key = result.DisplayCode;
+                    value2.Add(barValue);
+
+
+
+                    data.Add(result.DisplayName);
+
+                }
+
+                barchart.Data = data;
+                barchart.Value = value;
+                barchart.Value2 = value2;
+            }
+
+            resultList.Barchart = barchart;
+
+            return Json(resultList);
+
+           
         }
 
 
@@ -144,6 +253,72 @@ namespace TDM.Controllers.api
 
             return Json(estimateData);
         }
+
+
+        [HttpPost]
+        public IHttpActionResult GetPriceOfConstructionBI(SearchMap searchDto)
+        {
+            var repos = new TDAssetRespository();
+            SetionType sectionT = new SetionType();
+
+            GetPriceBI resultList = new GetPriceBI();
+            List<string> data = null;
+            List<BarchartValue> value = null;
+            List<BarchartValue2> value2 = null;
+            BarchartValue barValue = null;
+            BarchartValue2 barValue3 = null;
+            var barchart = new Barchart();
+
+
+            var estimateData = repos.GetPriceOfConstrucionBI(searchDto);
+            resultList.EstimateData = estimateData;
+
+            if (estimateData != null)
+            {
+                data = new List<string>();
+                value = new List<BarchartValue>();
+                value2 = new List<BarchartValue2>();
+
+                foreach (EstimateData result in estimateData)
+                {
+                    barValue = new BarchartValue();
+                    barValue.name = result.DisplayName;
+                    barValue.value = Converting.ToDecimal(result.ParcelPrice);
+                    barValue.key = result.DisplayCode;
+
+
+                    value.Add(barValue);
+
+
+
+                    //  { xAxis: 0, y: 350, name: 'Line', symbolSize: 20, symbol: 'image://../asset/ico/折线图.png' }
+                    barValue3 = new BarchartValue2();
+                    barValue3.xAxis = 0;
+                    barValue3.y = 350;
+                    barValue3.name = result.DisplayName;
+                    barValue3.symbolSize = 20;
+                    barValue3.symbol = "";
+
+                    barValue3.key = result.DisplayCode;
+                    value2.Add(barValue3);
+
+
+
+                    data.Add(result.DisplayName);
+
+                }
+
+                barchart.Data = data;
+                barchart.Value = value;
+                barchart.Value3 = value2;
+            }
+
+            resultList.Barchart = barchart;
+
+
+            return Json(resultList);
+        }
+
 
 
         [HttpPost]

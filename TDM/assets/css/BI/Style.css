@@ -8032,6 +8032,8 @@ border-left: 3px solid transparent;
 
 
 
+
+
 /*
 .bg-muted{ background: #eaeaea; padding: 3px 8px;}
 .bg-primary{ background: rgba(63,81,181,1); padding: 3px 8px; color: #ffffff;} #3f51b5
@@ -8077,7 +8079,7 @@ border-left: 3px solid transparent;
 
 table.dataTable{
     border: 1px solid #eeeeee;
-    border-right: 0px solid transparent;
+   
 }
 
 
@@ -8095,7 +8097,7 @@ table.dataTable.display tbody tr.even > .sorting_1,
 table.dataTable.order-column.stripe tbody tr.even > .sorting_1,
 table.dataTable.display tbody tr.odd > .sorting_1, 
 table.dataTable.order-column.stripe tbody tr.odd > .sorting_1{
-    background-color: #ffffff;
+  
     border-color: #eeeeee;
 }
 
@@ -8196,4 +8198,76 @@ table.dataTable tfoot th select, table.dataTable tfoot td select{
 
 table.dataTable.display tbody tr:first-child td {
     border-top: 1px solid #eeeeee;
+}
+
+
+
+.m-fadeOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 500ms, opacity 500ms;
+}
+
+.m-fadeIn {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 500ms, opacity 500ms;
+}
+
+.card2 {
+    background-color: transparent;
+    border: none;
+}
+
+.panel-item {
+    display: flex;
+    align-items: center;
+}
+
+.card-text:last-child {
+    margin-bottom: 0;
+}
+
+.card2 .fa {
+    font-size: 50px;
+    color: #4CAF50;
+    padding-right: 1rem;
+}
+
+.card2 .mbr-content-header {
+    color: #03A9F4;
+}
+.card2 .mbr-content-title {
+    color: #8d97ad;
+    text-align: left;
+}
+
+.display-1 {
+   
+    
+}
+
+.btnRegion {
+   cursor:pointer;
+}
+
+    .btnRegion:not(td):hover, .btnProvince:not(td):hover, .btnAmphure:not(td):hover, .btnTumbol:not(td):hover {
+        /*-webkit-transform: scale(1.2);
+        color: #1290c8;*/
+    }
+
+    .btnRegion:hover, .btnProvince:hover, .btnAmphure:hover, .btnTumbol:hover {
+        /*   text-shadow: 3px 0px 3px #70db70;*/
+        text-decoration: underline;
+    }
+        .btnProvince {
+    cursor: pointer;
+}
+
+.btnAmphure {
+    cursor: pointer;
+}
+
+.btnTumbol {
+    cursor: pointer;
 }
