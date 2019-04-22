@@ -46,10 +46,6 @@ function tab_1_3Onclick() {
     setTimeout(function () {
 
         LoadSection1(3, '')
-        // MakeSpeedDometer('chartSpeedometer3_1', '', 19);
-        // MakeSpeedDometer('chartSpeedometer3_2', '', 21);
-        // MakeSpeedDometer('chartSpeedometer3_3', '', 32);
-        // MakeSpeedDometer('chartSpeedometer3_4', '', 12);
 
     }, 1000);
 }

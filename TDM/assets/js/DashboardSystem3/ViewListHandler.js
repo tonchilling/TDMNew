@@ -4,7 +4,7 @@ var code = ''; // ton
 
 var tabSelect = '1';
 var resultAll;
-
+var LocationType = 1;
 var section1Tab = '1';
 
 var viewListManager = {
@@ -93,6 +93,7 @@ var searchForm = {
         $('#ddlRegion').change(function (event) {
 
             var regionId = $('#ddlRegion').val();
+           
             mapApi.getProvincesByRegion(LocationType, regionId, function (provinces) {
 
                 if (provinces != null && provinces.length > 0) {
@@ -153,10 +154,6 @@ var searchForm = {
                                                // $('#ddlSubdistrict').append("<option value='999999'>ทั้งหมด</option>");
 
                                                 $('#ddlSubdistrict').prop('disabled', false);
-
-
-                                              
-
                                                 $.each(subDistricts, function (index, subDistrict) {
                                                     $("#ddlSubdistrict").append("<option value='" + subDistrict.ID + "'>" + subDistrict.Name + "</option>");
                                                 });

@@ -1331,7 +1331,95 @@ namespace TDM.Repositories
 
 
 
-      
+
+        public Land_Ratio GetLandRatio(SearchMap search)
+        {
+
+            IDataReader reader = null;
+        
+            RegisterLandSummary regSummaryData = null;
+            RegisterLandByMonth regSummarybByMonthData = null;
+            Land_Ratio result = null;
+
+            List<Land_RatioDetail> landRatioList = null;
+            Land_RatioDetail landRatio = null;
+            List<string> Category = null;
+            List<string> Series = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+         //   p.Add("@FromYM", search.FromYearMonth, dbType: DbType.String);
+          //  p.Add("@ToYM", search.ToYearMonth, dbType: DbType.String);
+            
+
+
+            try
+            {
+                result = new Land_Ratio();
+                landRatioList = new List<Land_RatioDetail>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+                   
+                    reader = conn.ExecuteReader("sp_GetLandRatio", p, commandType: CommandType.StoredProcedure);
+
+
+                   // reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        landRatio = new Land_RatioDetail();
+                        landRatio.ID = reader["ID"].ToString();
+                        landRatio.FromYear = reader["FromYear"].ToString();
+                        landRatio.ToYear = reader["ToYear"].ToString();
+                        landRatio.RegionCode = reader["RegionCode"].ToString();
+                        landRatio.RegionName = reader["RegionName"].ToString();
+                        landRatio.ProvinceCode = reader["ProvinceCode"].ToString();
+                        landRatio.ProvinceName = reader["ProvinceName"].ToString();
+                        landRatio.Ratio = reader["Ratio"].ToString();
+                        landRatio.CreateDate = reader["CreateDate"].ToString();
+                        landRatio.Shape = reader["Shape"].ToString();
+
+                        landRatioList.Add(landRatio);
+
+                    }
+
+                    result.Detail = landRatioList;
+
+                    if (landRatioList != null)
+                    {
+                        Category = new List<string>();
+                        Series = new List<string>();
+                        int row = 1;
+                        foreach (Land_RatioDetail dto in landRatioList)
+                        {
+                            if (row > 20)
+                            {
+                                break;
+                            }
+                            Series.Add(dto.Ratio);
+                            Category.Add(dto.ProvinceName);
+                            row++;
+                        }
+
+                        result.Category = Category;
+                        result.Series = Series;
+
+
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
     }
     public class MapSearchCriteria
     {

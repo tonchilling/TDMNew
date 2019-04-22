@@ -366,6 +366,26 @@ namespace TDM.Controllers.api
         }
 
 
+        [HttpPost]
+        public IHttpActionResult GetLandRatio(SearchMap searchDto)
+        {
+            var repos = new TDAssetRespository();
+            SetionType sectionT = new SetionType();
+
+            /* switch (SectionType)
+             {
+                 case "1":sectionT = SetionType.Region;break;
+                 case "2": sectionT = SetionType.Provice; break;
+                 case "3": sectionT = SetionType.Amphur; break;
+             }*/
+
+
+            var estimateData = repos.GetLandRatio(searchDto);
+
+            return Json(estimateData);
+
+        }
+
 
         public IHttpActionResult GetResultDetail(string searchCriteria, string radius, string parcel_type, string shapes, string object_id,
             string changwatCode, string amphurCode, string tumbonCode, string x, string y, string branchCode)

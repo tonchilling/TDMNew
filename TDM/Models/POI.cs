@@ -395,7 +395,35 @@ namespace TDM.Models
     }
 
 
+
+    public partial class Land_Ratio
+    {
+          public List<Land_RatioDetail> Detail  { get; set; }
+    public List<string> Category { get; set; }
+        public List<string> Series { get; set; }
     }
+
+    public partial class Land_RatioDetail
+    {
+        public string  ID { get; set; }
+        public string FromYear { get; set; }
+        public string ToYear { get; set; }
+        public string RegionCode { get; set; }
+        public string RegionName { get; set; }
+        public string ProvinceCode { get; set; }
+        public string ProvinceName { get; set; }
+        public string Ratio { get; set; }
+        public string CreateDate { get; set; }
+        public string CreateBy { get; set; }
+        public string UpdateDate { get; set; }
+        public string UpdateBy { get; set; }
+        public string Shape { get; set; }
+        
+    }
+
+
+
+}
 
 
 
