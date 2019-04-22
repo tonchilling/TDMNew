@@ -263,7 +263,10 @@ var searchForm = {
 
             map.clear();
 
+            /*
+            Comment for remove dialog
             $("#overlay").show();
+            */
             if (searchType == 'PROVINCE') {/*render PROVINCE map*/
                 if (targetId == idOfAll) {
                     try {
