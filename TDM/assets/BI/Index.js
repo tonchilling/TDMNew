@@ -5,59 +5,15 @@ var DisplayDataSection1;
 var objQuery = {};
 var selectCode = '';
 var LocationType = '1';
-var SectionRegion = {
-    "Data": [
-        { "name": "ภาคกลาง", "RegionCode": "1", "Region": "ภาคกลาง", "Province": "กรุงเทพ", "Amphure": "สาทร", "Tumbol": "ยานนาวา", "ChanodeNo": "10000", "MaxPrice": "500,000", "MinPrice": "100,000"   },
-        { "name": "ภาคตะวันออกเฉียงเหนือ", "RegionCode": "4", "Region": "ภาคตะวันออกเฉียงเหนือ", "Province": "อุุดรธานี", "Amphure": "เมืองอุดรธานี", "Tumbol": "หนองบัว", "ChanodeNo": "20223", "MaxPrice": "450,000", "MinPrice": "60,000" },
-        { "name": "ภาคตะวันตก", "RegionCode": "2", "Region": "ภาคตะวันตก", "Province": "เพชบุรี", "Amphure": "เมืองเพชรบุรี", "Tumbol": "บางจาก", "ChanodeNo": "40222", "MaxPrice": "350,000", "MinPrice": "100,000" },
-        { "name": "ภาคตะวันออก", "RegionCode": "6", "Region": "ภาคตะวันออก", "Province": "ชลบุรี", "Amphure": "สัตหีบ", "Tumbol": "สัตหีบ", "ChanodeNo": "88888", "MaxPrice": "320,000", "MinPrice": "100,000" },
-        { "name": "ภาคใต้", "RegionCode": "5", "Region": "ภาคใต้", "Province": "ภูเก็ต", "Amphure": "เมืองภูเก็ต", "Tumbol": "ลาไวย์", "ChanodeNo": "333333", "MaxPrice": "420,000", "MinPrice": "100,000" },
-        { "name": "ภาคเหนือ", "RegionCode": "3", "Region": "ภาคเหนือ", "Province": "เชียงใหม่", "Amphure": "เมืองเชียงใหม่", "Tumbol": "ท่าศาลา", "ChanodeNo": "777777", "MaxPrice": "330,000", "MinPrice": "100,000" },
-    ]
-}
+var SectionRegion = [];
 
-var SectionProvince = {
-    "Data": [
-        { "name": "กรุงเทพ", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "บางรัก", "Tumbol": "สีลม", "ChanodeNo": "11101", "MaxPrice": "500,000", "MinPrice": "100,000" },
-        { "name": "ปทุมธานี", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "2", "Province": "ปทุมธานี", "Amphure": "ธัญบุรี", "Tumbol": "รังสิต", "ChanodeNo": "11102", "MaxPrice": "154,000", "MinPrice": "60,000" },
-        { "name": "นครปฐม", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "3", "Province": "นครปฐม", "Amphure": "เมืองนครปฐม", "Tumbol": "นครปฐม", "ChanodeNo": "11103", "MaxPrice": "150,000", "MinPrice": "100,000" },
-        { "name": "นนทบุรี", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "4", "Province": "นนทบุรี", "Amphure": "เมืองนนทบุรี", "Tumbol": "บางเขน", "ChanodeNo": "11104", "MaxPrice": "220,000", "MinPrice": "100,000" },
-        { "name": "สมุทรปราการ", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "5", "Province": "สมุทรปราการ", "Amphure": "พระประแดง", "Tumbol": "สำโรง", "ChanodeNo": "11105", "MaxPrice": "140,000", "MinPrice": "100,000" },
-        { "name": "สมุทรสาคร", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "6", "Province": "สมุทรสาคร", "Amphure": "กระทุ่มแบน", "Tumbol": "อ้อมน้อย", "ChanodeNo": "11106", "MaxPrice": "120,000", "MinPrice": "100,000" },
-    ]
-}
+var SectionProvince = [];
 
 
-var SectionAmphure = {
-    "Data": [
-        { "name": "สาธร", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ยานนาวา", "ChanodeNo": "11101", "MaxPrice": "500,000", "MinPrice": "100,000" },
-        { "name": "บางรัก", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "บางรัก", "AmphureCode": "2", "Tumbol": "รังสิต", "ChanodeNo": "11102", "MaxPrice": "154,000", "MinPrice": "60,000" },
-        { "name": "ดินแดง", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "ดินแดง", "AmphureCode": "3", "Tumbol": "นครปฐม", "ChanodeNo": "11103", "MaxPrice": "150,000", "MinPrice": "100,000" },
-        { "name": "ดอนเมือง", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "ดอนเมือง", "AmphureCode": "4", "Tumbol": "บางเขน", "ChanodeNo": "11104", "MaxPrice": "220,000", "MinPrice": "100,000" },
-        { "name": "ดุสิต", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สุขุมวิท", "AmphureCode": "5", "Tumbol": "สุขุมวิท", "ChanodeNo": "11105", "MaxPrice": "140,000", "MinPrice": "100,000" },
-        { "name": "จตุจักร", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "จตุจักร", "AmphureCode": "6", "Tumbol": "อ้อมน้อย", "ChanodeNo": "11106", "MaxPrice": "120,000", "MinPrice": "100,000" },
-    ]
-}
+var SectionAmphure = [];
 
-var SectionTumbol = {
-    "Data": [
-        { "name": "ทุ่งมหาเมฆ", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งมหาเมฆ", "TumbolCode": "1", "ChanodeNo": "11101", "MaxPrice": "550,000", "MinPrice": "100,000" },
-        { "name": "ยานนาวา", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ยานนาวา", "TumbolCode": "2", "ChanodeNo": "11102", "MaxPrice": "450,000", "MinPrice": "60,000" },
-        { "name": "ทุ่งวัดดอน", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งวัดดอน", "TumbolCode": "3", "ChanodeNo": "11102", "MaxPrice": "400,000", "MinPrice": "60,000" },
-    ]
-}
+var SectionTumbol = [];
 
-
-var SectionChanod= {
-    "Data": [
-        { "name": "11101", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งมหาเมฆ", "TumbolCode": "1", "ChanodeNo": "11101", "MaxPrice": "160,000", "MinPrice": "100,000" },
-        { "name": "11102", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งมหาเมฆ", "TumbolCode": "1", "ChanodeNo": "11102", "MaxPrice": "150,000", "MinPrice": "60,000" },
-        { "name": "11103", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งมหาเมฆ", "TumbolCode": "1", "ChanodeNo": "11103", "MaxPrice": "140,000", "MinPrice": "60,000" },
-        { "name": "11104", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งมหาเมฆ", "TumbolCode": "1", "ChanodeNo": "11104", "MaxPrice": "130,000", "MinPrice": "60,000" },
-        { "name": "11105", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งมหาเมฆ", "TumbolCode": "1", "ChanodeNo": "11105", "MaxPrice": "120,000", "MinPrice": "60,000" },
-        { "name": "11106", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งมหาเมฆ", "TumbolCode": "1", "ChanodeNo": "11106", "MaxPrice": "110,000", "MinPrice": "60,000" }
-    ]
-}
 
 
 var land_chart1_region = {
@@ -313,7 +269,11 @@ function ChartCallBack(param) {
     else {
        // document.getElementById('console').innerHTML = mes;
     }
-    selectLocationLevel += 1;
+
+    if (selectLocationLevel == 0) {
+        selectLocationLevel = 1;
+    } else  if (selectLocationLevel < 4)
+        selectLocationLevel += 1;
 
     if (tabSelect == '3') {
 
@@ -329,8 +289,10 @@ function ChartCallBack(param) {
     else if (selectLocationLevel <= 4) {
 
         selectCode = param.data.key;
+        ReLoadAddress(selectCode);
         LoadData(selectLocationLevel, param.data.key);
     }
+    
     console.log(param);
 }
 
@@ -351,6 +313,9 @@ function LoadData(locationLevel,code) {
     var chartData;
     var constructionType = $('#ddlConstructionType').val();
     var objSearch = {};
+
+
+    waitingDialog.show('Waiting for loading data', { dialogSize: 'md', progressType: 'success' });
 
 
 
@@ -381,13 +346,13 @@ function LoadData(locationLevel,code) {
             $('.divView').append("<p> <span class='btnRegion'   data='" + $("#ddlRegion").val()+"'>" + $("#ddlRegion option:selected").text()+"</span></p>");
             break;
         case 2:
-            $('.divView').append("<p><span class='btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</span> > <span class='btnProvince' data='" + $("#ddlProvince").val() + "'> จ." + $("#ddlProvince option:selected").text() + "</span> </p>");
+            $('.divView').append("<p><span class='btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</span> > <span class='btnProvince' data='" + $("#ddlProvince").val() + "'> " + $("#ddlProvince option:selected").text() + "</span> </p>");
             break;
         case 3:
-            $('.divView').append("<p><span class='btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</span> > <span class='btnProvince' data='" + $("#ddlProvince").val() + "'> จ." + $("#ddlProvince option:selected").text() + "</span> > <span class='btnAmphure' data='" + $("#ddlDistrict").val() + "'>  เขต/อำเภอ " + $("#ddlDistrict option:selected").text() + "</span> </p>");
+            $('.divView').append("<p><span class='btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</span> > <span class='btnProvince' data='" + $("#ddlProvince").val() + "'> " + $("#ddlProvince option:selected").text() + "</span> > <span class='btnAmphure' data='" + $("#ddlDistrict").val() + "'> " + $("#ddlDistrict option:selected").text() + "</span> </p>");
             break;
         case 4:
-            $('.divView').append("<p><span class='btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</span> > <span class='btnProvince' data='" + $("#ddlProvince").val() + "'> จ." + $("#ddlProvince option:selected").text() + "</span> > <span class='btnAmphure' data='" + $("#ddlDistrict").val() + "'>  เขต/อำเภอ " + $("#ddlDistrict option:selected").text() + "</span> > <span class='btnTumbol' data='" + $("#ddlSubdistrict").val() + "'> แขวง/ตำบล " + $("#ddlSubdistrict option:selected").text() + "</span> </p>");   
+            $('.divView').append("<p><span class='btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</span> > <span class='btnProvince' data='" + $("#ddlProvince").val() + "'> " + $("#ddlProvince option:selected").text() + "</span> > <span class='btnAmphure' data='" + $("#ddlDistrict").val() + "'> " + $("#ddlDistrict option:selected").text() + "</span> > <span class='btnTumbol' data='" + $("#ddlSubdistrict").val() + "'> " + $("#ddlSubdistrict option:selected").text() + "</span> </p>");   
             break;
        
     }
@@ -444,29 +409,43 @@ function LoadData(locationLevel,code) {
         data: JSON.stringify(objSearch),
         success: function (data) {
 
-            resultAll = data;
-            DisplayDataSection1 = data.EstimateData;
-            objQuery.data = data.Barchart;
-            chartData = data.Barchart;
-            var html = '';
-            var count = 0;
-          
-            if (tabSelect == '1') {
-                LoadChartLand(DisplayDataSection1, chartData, locationLevel);
+            if (data != null && data.EstimateData != null) {
+                resultAll = data;
+                DisplayDataSection1 = data.EstimateData;
+                objQuery.data = data.Barchart;
+                chartData = data.Barchart;
+                var html = '';
+                var count = 0;
 
-            } else if (tabSelect == '2') {
-                LoadChartCondo(DisplayDataSection1, chartData, locationLevel);
-            } else if (tabSelect == '3') {
-                LoadChartBuilding(DisplayDataSection1, chartData);
-            } else if (tabSelect == '4') {
-                LoadGovernment(resultAll);
+                if (tabSelect == '1') {
+                    LoadChartLand(DisplayDataSection1, chartData, locationLevel);
+
+                } else if (tabSelect == '2') {
+                    LoadChartCondo(DisplayDataSection1, chartData, locationLevel);
+                } else if (tabSelect == '3') {
+                    LoadChartBuilding(DisplayDataSection1, chartData);
+                } else if (tabSelect == '4') {
+                    LoadGovernment(resultAll);
+                }
+
+
+                if (DisplayDataSection1 != null && DisplayDataSection1.length > 0) {
+                    if (locationLevel == "1") { }
+                    else if (locationLevel == "2") {
+
+                        $("#ddlRegion").val(DisplayDataSection1[0].RegionCode)
+
+                    }
+                    else if (locationLevel == "3") { }
+                }
             }
 
-            $('body').pleaseWait("stop");
-
+           // $('body').pleaseWait("stop");
+            waitingDialog.hide();
         },
         error: function (response) {
-            $('body').pleaseWait("stop");
+            waitingDialog.hide();
+          //  $('body').pleaseWait("stop");
             alert('failure');
         }
     });
@@ -483,7 +462,30 @@ function LoadData(locationLevel,code) {
   
 }
 
+function LoadAddress() {
+   
+  //  $('#ddlProvince').empty();
+    //$('#ddlDistrict').empty();
+    //$('#ddlSubdistrict').empty();
 
+
+    $('#ddlRegion').prop('disabled', true);
+    $("#ddlProvince").prop('disabled', true);
+    $('#ddlDistrict').prop('disabled', true);
+    $('#ddlSubdistrict').prop('disabled', true);
+    $.get(mapApi.getServerPath() + "/api/Address/GetAddressList", function (addressList) {
+
+        SectionProvince = addressList.ProvinceList;
+        SectionAmphure = addressList.AmphoeList;
+        SectionTumbol = addressList.TambolList;
+
+
+        $('#ddlRegion').prop('disabled', false);
+        $("#ddlProvince").prop('disabled', false);
+        $('#ddlDistrict').prop('disabled', false);
+        $('#ddlSubdistrict').prop('disabled', false);
+    });
+}
 
 function LoadConstructionType() {
 
@@ -929,8 +931,8 @@ function LoadChartLand(ObjData,chartData) {
             html += '</div>';
             html += ' <div class="card-text">';
             html += '<h3 class="mbr-content-header pt-3  mbr-fonts-style ' + btnSelect+' " data="' + item.DisplayCode + '">' + item.DisplayName + '</h3>';
-            html += '<h5 class="mbr-content-header pt-3  mbr-fonts-style display-1">ราคาประเมิน ' + item.ParcelWAHPriceMax + '</h4>';
-            html += '<h5 class="mbr-content-header pt-3  mbr-fonts-style display-1">ราคาขาย ' + item.MarketWAHPriceMax + '</h4>';
+            html += '<h5 class="mbr-content-header pt-3  mbr-fonts-style display-1">ราคาประเมิน ' + item.ParcelWAHPriceMax + ' (บาท/ตารางวา)</h4>';
+            html += '<h5 class="mbr-content-header pt-3  mbr-fonts-style display-1">ราคาขาย ' + item.MarketWAHPriceMax + ' (บาท/ตารางวา)</h4>';
 
             html += '<h5 class="mbr-content-title mbr-light mbr-fonts-style display-5">ภาค' + item.RegionName + ' <br>' + item.AmphureName + '<br>' + item.ProviceName + '</h5>';
             html += ' </div>';
@@ -962,7 +964,7 @@ function LoadChartLand(ObjData,chartData) {
     html += ' <th scope="col">จังหวัด</th>';
     html += '<th scope="col">อำเภอ</th>';
     html += ' <th scope="col">ตำบล</th>';
-    html += ' <th scope="col">เลขที่ฉโนด</th>';
+   // html += ' <th scope="col">เลขที่ฉโนด</th>';
     html += '<th scope="col">ราคาประเมิน</th>';
     html += '<th scope="col">ราคาซื้อขาย</th>';
     html += ' </tr>';
@@ -981,7 +983,7 @@ function LoadChartLand(ObjData,chartData) {
             html += '<td class="btnProvince" data="' + item.ProviceCode + '">' + item.ProviceName + '</td>';
             html += '<td class="btnAmphure" data="' + item.AmphureCode + '">' + item.AmphureName + '</td>';
             html += '<td class="btnTumbol" data="' + item.TAMBOLCode + '">' + item.TAMBOLName + '</td>';
-            html += '<td class="text-center">' + item.MaxParcelCHANODE_NO + '</td>';
+          //  html += '<td class="text-center">' + item.MaxParcelCHANODE_NO + '</td>';
             html += '<td class="text-right">' + item.ParcelWAHPriceMax + '</td>';
             html += '<td class="text-right">' + item.MarketWAHPriceMax + '</td>';
           
@@ -1648,9 +1650,9 @@ function LoadChartBuilding(data, chartData) {
     body += '<table class="table table-bordered table-striped">';
     body += '<thead>';
     body += '<tr class="bg-info" >';
-    body += '<th scope="col">ภาค</th>';
+    body += '<th scope="col">รหัส</th>';
+    body += '<th scope="col">ประเภทสิ่งปลูกสร้าง</th>';
     body += '<th scope="col">จังหวัด</th>';
-    body += '<th scope="col">ประเภท</th>';
 
     body += '<th scope="col">ราคา<br>(บาท/ตารางเมตร)</th>';
     body += '</tr>';
@@ -1661,9 +1663,10 @@ function LoadChartBuilding(data, chartData) {
             $.each(data, function (index, data) {
 
                 body += '<tr>';
-                body += '<td class="btnRegion" data="' + data.RegionCode + '">' + data.RegionName + '</td>';
-                body += '<td>' + data.ProviceName + '</td>';
+               // body += '<td class="btnRegion" data="' + data.RegionCode + '">' + data.RegionName + '</td>';
+                body += '<td>' + data.ConstructionType + '</td>';
                 body += '<td>' + data.ConstructionName + '</td>';
+                body += '<td>' + data.ProviceName + '</td>';
                 body += '<td class="text-right">' + parseFloat(data.ParcelPrice).toFixed(2) + '</td>';
 
                 body += '</tr>';
@@ -1798,7 +1801,7 @@ function LoadChart(Option, divChart) {
     var chartLoad = echarts.init(divChart);
     var option = Option;
 
-
+   
     setTimeout(function () {
         chartLoad.setOption(option, true);
         chartLoad.on("click", ChartCallBack);
@@ -1877,7 +1880,9 @@ function initialData() {
 
     selectLocationLevel = 0;
     LoadConstructionType();
+    LoadAddress();
     LoadData(selectLocationLevel, "");
+   
 
 }
 
@@ -1895,43 +1900,53 @@ $(document).on("change", "#ddlConstructionType", function () {
 
 $(document).on("click", ".btnRegion", function () {
  //   alert($(this).attr('data'))
-    $('body').pleaseWait();
+  //  $('body').pleaseWait();
     selectCode = $(this).attr('data');
     $("#ddlRegion").val($(this).attr('data'))
-    selectLocationLevel = 1;
+    if (selectCode == "") {
+        selectLocationLevel = 0;
+    } else {
+        selectLocationLevel = 1;
+    }
+    
+    ReLoadAddress(selectCode);
     LoadData(selectLocationLevel, $(this).attr('data'));
 
-    $("#ddlRegion").trigger("change");
+  
 });
 
 $(document).on("click", ".btnProvince", function () {
     //   alert($(this).attr('data'))
 
-    $('body').pleaseWait();
+   // $('body').pleaseWait();
     selectCode = $(this).attr('data');
     selectLocationLevel = 2;
     $("#ddlProvince").val($(this).attr('data'))
+
+    ReLoadAddress(selectCode);
     LoadData(selectLocationLevel, $(this).attr('data'));
 
-    $("#ddlProvince").trigger("change");
+    
 });
 
 $(document).on("click", ".btnAmphure", function () {
-    $('body').pleaseWait();
+   // $('body').pleaseWait();
     selectCode = $(this).attr('data');
     $("#ddlDistrict").val($(this).attr('data'))
     selectLocationLevel = 3;
+    ReLoadAddress(selectCode);
     LoadData(selectLocationLevel, $(this).attr('data'));
-    $("#ddlDistrict").trigger("change");
+   
 });
 
 
 $(document).on("click", ".btnTumbol", function () {
-    $('body').pleaseWait();
+  //  $('body').pleaseWait();
+    selectLocationLevel = 4;
     selectCode = $(this).attr('data');
     $("#ddlSubdistrict").val($(this).attr('data'))
-    selectLocationLevel = 4;
-    $("#ddlSubdistrict").trigger("change");
+    ReLoadAddress(selectCode);
+  //  $("#ddlSubdistrict").trigger("change");
     LoadData(selectLocationLevel, $(this).attr('data'));
 });
 
@@ -1939,11 +1954,120 @@ $(document).on("click", ".btnTumbol", function () {
 var regionId = '';
 var provinceId = '';
 var districtId = '';
+
+
+function ReLoadAddress(selectCode) {
+
+    var filterData = {};
+
+    if (selectLocationLevel == '4') {
+
+        filterData = SectionTumbol.filter(t => t.SUB_C == selectCode);
+        filterData = filterData[0];
+        LoadProvice(filterData.RegionCode, filterData.PRO_C);
+        LoadDistinct(filterData.PRO_C, filterData.DIS_C);
+        LoadSubDistinct(filterData.DIS_C, filterData.SUB_C);
+    } else if (selectLocationLevel == '3') {
+
+        filterData = SectionAmphure.filter(t => t.DIS_C == selectCode);
+        filterData = filterData[0];
+        LoadProvice(filterData.RegionCode, filterData.PRO_C);
+        LoadDistinct(filterData.PRO_C, filterData.DIS_C);
+        LoadSubDistinct(null);
+    } else if (selectLocationLevel == '2') {
+
+        filterData = SectionProvince.filter(t => t.PRO_C == selectCode);
+
+        filterData = filterData[0];
+        LoadProvice(filterData.RegionCode, filterData.PRO_C);
+        LoadDistinct(filterData.PRO_C);
+        LoadSubDistinct(null);
+    } else if (selectLocationLevel == '1') {
+
+        LoadProvice(selectCode, '');
+        LoadDistinct(null);
+        LoadSubDistinct(null);
+    } else if (selectLocationLevel == '0') {
+        LoadProvice(selectCode, '');
+        LoadDistinct(null);
+        LoadSubDistinct(null);
+    }
+
+}
+
+
+function LoadProvice(regionId,provincecode) {
+
+    $('#ddlProvince').empty();
+    $('#ddlProvince').append("<option value=''>เลือกจังหวัด</option>");
+    $('#ddlProvince').prop('disabled', false);
+
+    if (SectionProvince != null && SectionProvince.length > 0) {
+        $('#ddlProvince').empty();
+        $('#ddlProvince').append("<option value=''>เลือกจังหวัด</option>");
+
+        $.each(SectionProvince.filter(p => p.RegionCode == regionId), function (index, province) {
+            $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
+        });
+
+        if (provincecode != null)
+        $('#ddlProvince').val(provincecode);  
+
+    }
+}
+
+
+function LoadDistinct(provinceid,distinctid) {
+
+    $('#ddlDistrict').empty();
+    $('#ddlDistrict').append("<option value=''>เลือกอำเภอ</option>");
+    $('#ddlDistrict').prop('disabled', false);
+
+    if (SectionAmphure != null && SectionAmphure.length > 0) {
+       
+     
+
+        $.each(SectionAmphure.filter(p => p.PRO_C == provinceid), function (index, district) {
+            $("#ddlDistrict").append("<option value='" + district.DIS_C + "'>" + district.NAME_T + "</option>");
+        });
+
+        if (distinctid != null && distinctid!='')
+            $('#ddlDistrict').val(distinctid);  
+
+    }
+}
+
+
+function LoadSubDistinct(districtId,subdistinctid) {
+
+    $('#ddlSubdistrict').empty();
+    $('#ddlSubdistrict').append("<option value=''>เลือกตำบล</option>");
+    $('#ddlSubdistrict').prop('disabled', false);
+
+    if (SectionTumbol != null && SectionTumbol.length > 0) {
+      
+       
+
+        $.each(SectionTumbol.filter(p => p.DIS_C == districtId), function (index, subDistricts) {
+            $("#ddlSubdistrict").append("<option value='" + subDistricts.SUB_C + "'>" + subDistricts.NAME_T + "</option>");
+        });
+
+        if (subdistinctid != null && subdistinctid!="")
+            $('#ddlSubdistrict').val(subdistinctid);  
+
+    }
+}
+
+
+
+
 $(document).on("change", "#ddlRegion", function () {
 
     var selectId = $(this).val();
-    selectLocationLevel = 1;
-    LoadData(1, selectId);
+    selectLocationLevel = selectId==''? 0 : 1; // 0 all region ,1 select region
+
+   
+    LoadData(selectLocationLevel, selectId);
 
     $('#ddlProvince').empty();
     $('#ddlDistrict').empty();
@@ -1953,8 +2077,13 @@ $(document).on("change", "#ddlRegion", function () {
     $('#ddlDistrict').append("<option value=''>เลือกอำเภอ</option>");
     $('#ddlSubdistrict').append("<option value=''>เลือกตำบล</option>");
 
-     regionId = $('#ddlRegion').val();
-    mapApi.getProvincesByRegion(LocationType, regionId, function (provinces) {
+    regionId = $('#ddlRegion').val();
+
+
+    ReLoadAddress(regionId);
+   // LoadProvice(regionId);
+    
+   /* mapApi.getProvincesByRegion(LocationType, regionId, function (provinces) {
 
         if (provinces != null && provinces.length > 0) {
             $('#ddlProvince').empty();
@@ -1968,7 +2097,7 @@ $(document).on("change", "#ddlRegion", function () {
 
             
         }
-    });
+    });*/
   
 });
 
@@ -1976,32 +2105,35 @@ $(document).on("change", "#ddlRegion", function () {
 $(document).on("change", "#ddlProvince", function (event) {
 
 
-     provinceId = $("#ddlProvince").val();
+   var selectId = $("#ddlProvince").val();
 
     $('#ddlDistrict').empty();
     $('#ddlSubdistrict').empty();
     $('#ddlSubdistrict').append("<option value=''>เลือกตำบล</option>");
 
-    if (provinceId == '') {
+    if (selectId == '') {
         selectLocationLevel = 1;
+        selectId = $('#ddlRegion').val();
         $('#ddlDistrict').append("<option value=''>เลือกอำเภอ</option>");
-        LoadData(1, $('#ddlRegion').val());
+        LoadData(1, selectId);
 
     }
 
     else {
         selectLocationLevel = 2;
-        LoadData(2, provinceId);
+        LoadData(2, selectId);
 
     }
 
+    ReLoadAddress(selectId);
+   
 
 
 
 
-    $('#ddlDistrict').empty();
-    $('#ddlDistrict').prop('disabled', false);
-    mapApi.getDistrictsByProvince(regionId, provinceId, function (districts) {
+   
+
+   /* mapApi.getDistrictsByProvince(regionId, provinceId, function (districts) {
 
         if (districts != null && districts.length > 0) {
 
@@ -2012,28 +2144,36 @@ $(document).on("change", "#ddlProvince", function (event) {
             });
           
         }
-    });
+    });*/
 
     // event.stopPropagation();
 });
 
+
+
+
+
 $(document).on("change", "#ddlDistrict", function () {
-     districtId = $("#ddlDistrict").val();
+    var selectId = $("#ddlDistrict").val();
     $('#ddlSubdistrict').empty();
-    if (districtId == '') {
+    if (selectId == '') {
         selectLocationLevel = 2;
+        selectId = $("#ddlProvince").val();
         $('#ddlSubdistrict').append("<option value=''>เลือกตำบล</option>");
-        LoadData(2, provinceId);
+        LoadData(2, selectId);
     }
 
     else {
 
         selectLocationLevel = 3;
-        LoadData(3, districtId);
+        LoadData(3, selectId);
     }
 
+    ReLoadAddress(selectId);
 
 
+
+/*
 
     mapApi.getSubDistrictsByDistrict(regionId, districtId, function (subDistricts) {
 
@@ -2042,7 +2182,7 @@ $(document).on("change", "#ddlDistrict", function () {
         $.each(subDistricts, function (index, subDistrict) {
             $("#ddlSubdistrict").append("<option value='" + subDistrict.ID + "'>" + subDistrict.Name + "</option>");
         });
-    });
+    });*/
 });
 
 
@@ -2053,6 +2193,7 @@ $(document).on("change", "#ddlDistrict", function () {
         if (selectId == '') {
             selectLocationLevel = 3;
             var districtId = $("#ddlDistrict").val();
+            selectId = districtId;
             LoadData(3, districtId);
         }
         else {
@@ -2060,7 +2201,7 @@ $(document).on("change", "#ddlDistrict", function () {
             LoadData(4, selectId);
         }
 
-       
+        ReLoadAddress(selectId);
     
 });
 
