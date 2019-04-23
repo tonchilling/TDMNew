@@ -592,7 +592,7 @@ namespace TDM.Controllers.api
 
 
 
-                                            Utils.LatLngUTMConverter latLngUTMConverter = new Utils.LatLngUTMConverter("WGS 84");
+                                            TDM.Models.Util.LatLngUTMConverter latLngUTMConverter = new TDM.Models.Util.LatLngUTMConverter("WGS 84");
                                             //var rr = latLngUTMConverter.convertLatLngToUtm(15.000095111201411, 100.64638250268084);
 
                                             string utmShape = "";
