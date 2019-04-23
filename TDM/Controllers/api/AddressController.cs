@@ -48,7 +48,7 @@ namespace TDM.Controllers.api
                  case "3": sectionT = SetionType.Amphur; break;
              }*/
 
-
+            
 
             var results = repos.GetCluster();
 

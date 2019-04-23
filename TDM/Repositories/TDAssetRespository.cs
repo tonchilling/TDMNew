@@ -8,6 +8,7 @@ using Dapper;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using TDM.Models.Utils;
 
 namespace TDM.Repositories
 {
@@ -582,9 +583,9 @@ namespace TDM.Repositories
                         dataInfo.ProvinceName = reader["ProvinceName"].ToString();
                         dataInfo.Year = reader["Year"].ToString();
                         dataInfo.Quater = reader["Quater"].ToString();
-                        dataInfo.MaxPrice = Utils.Converting.ToDecimal(reader["MaxPrice"].ToString());
-                        dataInfo.MinPrice = Utils.Converting.ToDecimal(reader["MinPrice"].ToString());
-                        dataInfo.AvgPrice = Utils.Converting.ToDecimal(reader["AvgPrice"].ToString()); ;
+                        dataInfo.MaxPrice = Converting.ToDecimal(reader["MaxPrice"].ToString());
+                        dataInfo.MinPrice = Converting.ToDecimal(reader["MinPrice"].ToString());
+                        dataInfo.AvgPrice = Converting.ToDecimal(reader["AvgPrice"].ToString()); ;
 
                         DataList.Add(dataInfo);
                     }
@@ -597,21 +598,21 @@ namespace TDM.Repositories
                         mapInfo = new MapMenu3();
                         mapInfo.ProvinceCode = reader["ProvinceCode"].ToString();
                         mapInfo.ProvinceName = reader["ProvinceName"].ToString();
-                        mapInfo.Q1MaxPrice = Utils.Converting.ToDecimal( reader["Q1MaxPrice"].ToString());
-                        mapInfo.Q1MinPrice = Utils.Converting.ToDecimal(reader["Q1MinPrice"].ToString());
-                        mapInfo.Q1AvgPrice = Utils.Converting.ToDecimal(reader["Q1AvgPrice"].ToString()); ;
+                        mapInfo.Q1MaxPrice = Converting.ToDecimal( reader["Q1MaxPrice"].ToString());
+                        mapInfo.Q1MinPrice = Converting.ToDecimal(reader["Q1MinPrice"].ToString());
+                        mapInfo.Q1AvgPrice = Converting.ToDecimal(reader["Q1AvgPrice"].ToString()); ;
 
-                        mapInfo.Q2MaxPrice = Utils.Converting.ToDecimal(reader["Q2MaxPrice"].ToString());
-                        mapInfo.Q2MinPrice = Utils.Converting.ToDecimal(reader["Q2MinPrice"].ToString());
-                        mapInfo.Q2AvgPrice = Utils.Converting.ToDecimal(reader["Q2AvgPrice"].ToString());
+                        mapInfo.Q2MaxPrice = Converting.ToDecimal(reader["Q2MaxPrice"].ToString());
+                        mapInfo.Q2MinPrice = Converting.ToDecimal(reader["Q2MinPrice"].ToString());
+                        mapInfo.Q2AvgPrice = Converting.ToDecimal(reader["Q2AvgPrice"].ToString());
 
-                        mapInfo.Q3MaxPrice = Utils.Converting.ToDecimal(reader["Q3MaxPrice"].ToString());
-                        mapInfo.Q3MinPrice = Utils.Converting.ToDecimal(reader["Q3MinPrice"].ToString());
-                        mapInfo.Q3AvgPrice = Utils.Converting.ToDecimal(reader["Q3AvgPrice"].ToString());
+                        mapInfo.Q3MaxPrice = Converting.ToDecimal(reader["Q3MaxPrice"].ToString());
+                        mapInfo.Q3MinPrice = Converting.ToDecimal(reader["Q3MinPrice"].ToString());
+                        mapInfo.Q3AvgPrice = Converting.ToDecimal(reader["Q3AvgPrice"].ToString());
 
-                        mapInfo.Q4MaxPrice = Utils.Converting.ToDecimal(reader["Q4MaxPrice"].ToString());
-                        mapInfo.Q4MinPrice = Utils.Converting.ToDecimal(reader["Q4MinPrice"].ToString());
-                        mapInfo.Q4AvgPrice = Utils.Converting.ToDecimal(reader["Q4AvgPrice"].ToString());
+                        mapInfo.Q4MaxPrice = Converting.ToDecimal(reader["Q4MaxPrice"].ToString());
+                        mapInfo.Q4MinPrice = Converting.ToDecimal(reader["Q4MinPrice"].ToString());
+                        mapInfo.Q4AvgPrice = Converting.ToDecimal(reader["Q4AvgPrice"].ToString());
                         mapInfo.Shape = reader["Shape"].ToString();
                         MapInfoList.Add(mapInfo);
 
@@ -1042,7 +1043,6 @@ namespace TDM.Repositories
                 return result;
             }
         }
-<<<<<<< HEAD
 
 
         /// <summary>
@@ -1255,7 +1255,7 @@ namespace TDM.Repositories
 
                             data = resultList.Find(c=> c.CondoName==conG.name && c.MonthYearName== ym.MonthYearName);
                           
-                            conG.data.Add(data != null?Utils.Converting.ToDecimal( data.PriceMet):0);
+                            conG.data.Add(data != null?Converting.ToDecimal( data.PriceMet):0);
                         }
                     }
 
@@ -1279,9 +1279,7 @@ namespace TDM.Repositories
             return result;
         }
 
-=======
-        
->>>>>>> ec29944f7653ce33fcc471e5d3c0c864dc2e1290
+
     }
 
     public class MapSearchCriteria
@@ -1296,6 +1294,59 @@ namespace TDM.Repositories
         public SetionType Type { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+
+    }
+
+    [System.Runtime.Serialization.DataContract]
+    public class ImportShapeInfo
+    {
+        [System.Runtime.Serialization.DataMember]
+        public string ProjectID { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string SubjectID { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string SubjectName { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string ProvinceID { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string District { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string SubDistrict { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string ShapefileType { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string EocationEncoderType { get; set; }
+        
+        
+    }
+    public class Geometry
+    {
+        public int ImportID {get;set;}
+        public string Shape { get; set; }
+
+        public decimal AREA { get; set; }
+        public string AUTHOR_TYP { get; set; }
+        public string CREATE_USE { get; set; }
+        public string LANDOFFICE { get; set; }
+        public string LAND_NO { get; set; }
+        public string LAST_UPD_U { get; set; }
+        public string MAP_PARCEL { get; set; }
+        public string PARCEL_TYP { get; set; }
+        public string PERIMETER { get; set; }
+        public string RECORD_STA { get; set; }
+        public string TAMBOL_SEQ { get; set; }
+        public string UTMMAP1 { get; set; }
+        public string UTMMAP2 { get; set; }
+        public string UTMMAP3 { get; set; }
+        public string UTMMAP4 { get; set; }
+        public string UTMSCALE { get; set; }
+        public string CREATE_DTM { get; set; }
+        public string LAST_UPD_D { get; set; }
+        public string PARCEL_STA { get; set; }
+        public string ORIGIN_X { get; set; }
+        public string ORIGIN_Y { get; set; }
+        public string OPT_SEQ { get; set; }
+        
 
     }
 }

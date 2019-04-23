@@ -51,15 +51,15 @@
         <div class="row" style="padding-top: 10px;">
             <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
                 <div>ประเภทไฟล์</div>
-                <select class="form-control">
-                    <option value="0" >Shape File</option>
-                    <option value="1">Text File</option>
-                    <option value="2">KML/KMZ</option>
+                <select class="form-control" id="ddlShapeFile">
+                    <option value="0">Shape File</option>
+                    <!--<option value="1">Text File</option>
+                    <option value="2">KML/KMZ</option>-->
                 </select>
                 </div>
             <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
                 <div>ระบบพิกัด</div>
-                <select class="form-control">
+                <select class="form-control" id="ddlLocationType">
                     <option value="0">Lat, Long (DD)</option>
                     <option value="1">Indian 1975 UTM Zone47</option>
                     <option value="2">Indian 1975 UTM Zone48</option>
@@ -81,7 +81,7 @@
                 <div>ไฟล์ข้อมูล</div>
                 <div class="form-group">
                     <div class="input-group input-file" name="Fichier1">
-                        <input type="text" class="form-control" placeholder='Browse a file...' />
+                        <input type="text" class="form-control" placeholder='Browse a file...'  id="brwFile" />
                         <span class="input-group-btn">
                             <button class="btn btn-default btn-choose" type="button">Browse..</button>
                         </span>
@@ -274,27 +274,46 @@
     }
 
     function btnSubmit(id) {
-        var myFormData = JSON.stringify($('#myForm').serializeObject());
-        ImportShape.ShapeFile( $('input[type=file]')[0].files);
-        var url = rootUrl + "/api/AreaAnalysis/AddProject";
 
-        if (id > 0) {
-            url = rootUrl + "/api/AreaAnalysis/UpdateProject";
+        try {
+            var formData = $('#myForm').serializeObject();
+            if (formData.PUBLISH_DATE == '00/00/0000 00:00') {
+                formData.PUBLISH_DATE = formData.CREATE_DATE;
+            }
+
+            var myFormData = JSON.stringify(formData);
+
+            /*mode save data*/
+            if (id <= 0) {
+                uploadShapeData(myFormData);
+
+
+            } else {
+                ImportShape.ShapeFile($('input[type=file]')[0].files);
+                url = rootUrl + "/api/AreaAnalysis/UpdateProject";
+                url = http.url(url);
+
+                $.ajax({
+                    url,
+                        type: "POST",
+                    data: myFormData,
+                    dataType: "json",
+                    contentType: 'application/json',
+                    success: function (response) {
+                        $("#myModal").modal("hide");
+                        window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
+                    }
+                });
+            }
+        } catch (e) {
+            alert(e.message);
         }
 
-        url = http.url(url);
-      
-        $.ajax({
-            url,
-            type: "POST",
-            data: myFormData,
-            dataType: "json",
-            contentType: 'application/json',
-            success: function (response) {
-                $("#myModal").modal("hide");
-                window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
-            }
-        });
+        
+
+
+
+        
     }
 
     $.fn.serializeObject = function () {

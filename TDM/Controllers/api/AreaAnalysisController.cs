@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DotSpatial.Data;
+using DotSpatial.Projections;
 using Microsoft.SqlServer.Types;
 using Newtonsoft.Json;
 using System;
@@ -12,8 +14,8 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using TDM.Models;
-using TDM.Models;
 using TDM.Repositories;
+
 namespace TDM.Controllers.api
 {
     public class AreaAnalysisController : ApiController
@@ -125,6 +127,8 @@ namespace TDM.Controllers.api
                 return Json(ex);
             }
         }
+
+        
 
         [HttpPost]
         public IHttpActionResult DeleteProject(DelProjectImpact project)
@@ -502,6 +506,216 @@ namespace TDM.Controllers.api
                 return Json(ex);
             }
         }
+
+
+
+        [HttpPost]
+        public HttpResponseMessage UploadMapShape()
+        {
+            HttpResponseMessage result = null;
+            int bcount = 0;
+            try
+            {
+                
+                var httpRequest = HttpContext.Current.Request;
+
+                PROJECT_IMPACT importInfo = null;
+
+                if (httpRequest.Form.Count > 0)
+                {
+                    var imageInfo = httpRequest.Form["ImageInfo"];
+                    if (imageInfo != null)
+                    {
+                        importInfo =  (new System.Web.Script.Serialization.JavaScriptSerializer()).Deserialize<PROJECT_IMPACT>(imageInfo);
+                    }
+                }
+
+
+
+                List<Geometry> geometries = new List<Geometry>(0);
+                if (httpRequest.Files.Count > 0)
+                {
+                    string sessionID = Guid.NewGuid().ToString();
+
+
+
+                    var docfiles = new List<string>();
+                    foreach (string file in httpRequest.Files)
+                    {
+                        var postedFile = httpRequest.Files[file];
+
+                        string targetFolder = $@"{HttpContext.Current.Server.MapPath("~")}UploadShape\{sessionID}";
+                        if (!System.IO.Directory.Exists(targetFolder))
+                        {
+                            System.IO.Directory.CreateDirectory(targetFolder);
+                        }
+
+                        /*save file from client*/
+                        var zipFilePath = $@"{targetFolder}\{postedFile.FileName}";
+                        postedFile.SaveAs(zipFilePath);
+                        docfiles.Add(zipFilePath);
+
+                        /*extract zip file*/
+                        var extractFilePath = $"{targetFolder}";
+                        System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, extractFilePath, System.Text.Encoding.UTF8);
+
+                        /*process unzip file*/
+
+                        var zipDirs = System.IO.Directory.GetDirectories(targetFolder);
+                        zipDirs.ToList().ForEach(zipDir =>
+                        {
+                            var dirs = System.IO.Directory.GetDirectories(zipDir);
+                            dirs.ToList().ForEach(dir =>
+                            {
+                                var loop = true;
+                                /*search shape file*/
+                                while (loop)
+                                {
+                                    loop = false;
+                                    var files = System.IO.Directory.GetFiles(dir, "*.shp", System.IO.SearchOption.AllDirectories);
+                                    /*if dbf file not found then search shp*/
+                                    if (files.Count() == 0)
+                                    {
+                                        files = System.IO.Directory.GetFiles(dir, "*.dbf", System.IO.SearchOption.AllDirectories);
+                                    }
+
+                                    files.ToList().ForEach(f =>
+                                    {
+
+                                        var fileInfo = new System.IO.FileInfo(f);
+
+                                        try
+                                        {
+                                            
+                                            Shapefile indexMapFile = Shapefile.OpenFile(f);
+                                            indexMapFile.Reproject(KnownCoordinateSystems.Geographic.Asia.Indian1975);
+
+
+
+                                            Utils.LatLngUTMConverter latLngUTMConverter = new Utils.LatLngUTMConverter("WGS 84");
+                                            //var rr = latLngUTMConverter.convertLatLngToUtm(15.000095111201411, 100.64638250268084);
+
+                                            string utmShape = "";
+                                            foreach (IFeature feature in indexMapFile.Features)
+                                            {
+                                                if (feature != null && feature.Geometry != null)
+                                                {
+                                                    utmShape = feature.Geometry.Coordinates
+                                                                .Select(coordinate => latLngUTMConverter.convertLatLngToUtm(coordinate.Y, coordinate.X))
+                                                                .Select(utm=> $"{utm.Easting} {utm.Northing}")
+                                                                .Aggregate((current, next) => current + ", " + next);
+                                                    
+                                                    geometries.Add(new Geometry()
+                                                    {
+                                                        //Shape = feature.Geometry.ToString(),
+                                                        Shape = $"{feature.Geometry.OgcGeometryType.ToString().ToUpper()} (({utmShape}))",
+                                                        AREA = Convert.ToDecimal(feature.DataRow["AREA"]),
+                                                        ORIGIN_X = feature.DataRow["ORIGIN_X"].ToString(),
+                                                        ORIGIN_Y = feature.DataRow["ORIGIN_Y"].ToString()
+                                                    });
+                                                   
+
+                                                }
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+
+                                            string k = "";
+                                        }
+
+
+                                    });
+                                }
+
+                            });
+                        });
+
+
+                    }
+                    
+
+                    /*save data*/
+
+                    importInfo.ID = 0;
+                    importInfo.Area = geometries.Sum(g => g.AREA).ToString();
+                    PROJECT_IMPACT saveProject = tdmEntities.PROJECT_IMPACT.Add(importInfo);
+                    tdmEntities.SaveChanges();
+
+                    foreach (var geometry in geometries)
+                    {
+                        if (!geometry.Shape.Contains("MULTIPO"))
+                        {
+                            tdmEntities.PROJECT_IMPACT_GEOMETRY.Add(new PROJECT_IMPACT_GEOMETRY()
+                            {
+                                ProjectImpactID = importInfo.ID,
+                                OriginX = geometry.ORIGIN_X,
+                                OriginY = geometry.ORIGIN_Y,
+                                Area = geometry.AREA,
+                                Shape = (geometry.Shape.Contains("MULTIPO")) ? DbGeometry.MultiPolygonFromText(geometry.Shape, 4326) : DbGeometry.PolygonFromText(geometry.Shape, 4326),
+                                UpdateDate = DateTime.Now,
+                                CreateDate = DateTime.Now
+                            });
+                        }
+                    }
+
+                    tdmEntities.SaveChanges();
+
+                    result = Request.CreateResponse(HttpStatusCode.Created, "Success");
+
+
+                }
+                else
+                {
+                    result = Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
+            }
+            catch (Exception exc)
+            {
+
+                result = Request.CreateResponse(HttpStatusCode.InternalServerError,exc.Message);
+            }
+            
+            return result;
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetImpackShapes(ProjectImpactShapeSearch data)
+        {
+            List<PROJECT_IMPACT_GEOMETRY> results = null;
+            int numberPerPage = 100;
+            bool requireOtherPage = false;
+            var count = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == data.ImportID).Select(s => s.ProjectImpactID).Count();
+            
+            if(count > 0)
+            {
+                results = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == data.ImportID)
+                    .OrderBy(o => o.ShapeID)
+                    .Skip(numberPerPage * data.PageNo)
+                    .Take(numberPerPage).ToList();
+
+                requireOtherPage = (((numberPerPage * data.PageNo) + numberPerPage) < count);
+                requireOtherPage = false;
+                return Json(new
+                {
+                    ProjectImpactImportedID = data.ImportID,
+                    RequireOtherPage = requireOtherPage,
+                    PageNo = data.PageNo,
+                    Shapes = results.Select(r => r.Shape.WellKnownValue).ToList()
+            }, jsonSetting);
+            }
+            else
+            {
+                return Json(results, jsonSetting);
+            }
+
+            
+        }
+
+
+
+
+
     }
 
 }

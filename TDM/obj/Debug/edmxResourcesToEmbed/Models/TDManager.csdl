@@ -4,6 +4,7 @@
     <EntitySet Name="PROJECT_IMPACT" EntityType="TDManagementModel.PROJECT_IMPACT" />
     <EntitySet Name="PROV_IMPACT" EntityType="TDManagementModel.PROV_IMPACT" />
     <EntitySet Name="STATUS_IMPACT" EntityType="TDManagementModel.STATUS_IMPACT" />
+    <EntitySet Name="PROJECT_IMPACT_GEOMETRY" EntityType="TDManagementModel.PROJECT_IMPACT_GEOMETRY" />
   </EntityContainer>
   <EntityType Name="PROJECT_IMPACT">
     <Key>
@@ -24,6 +25,7 @@
     <Property Name="Shape" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
     <Property Name="AMPHOE_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="TAMBOL_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Area" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="PROV_IMPACT">
     <Key>
@@ -39,5 +41,19 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" />
     <Property Name="STATUS_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PROJECT_IMPACT_GEOMETRY">
+    <Key>
+      <PropertyRef Name="ProjectImpactID" />
+      <PropertyRef Name="ShapeID" />
+    </Key>
+    <Property Name="ProjectImpactID" Type="Int64" Nullable="false" />
+    <Property Name="ShapeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Area" Type="Decimal" Nullable="false" Precision="18" Scale="10" />
+    <Property Name="OriginX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OriginY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Shape" Type="Geometry" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
 </Schema>
