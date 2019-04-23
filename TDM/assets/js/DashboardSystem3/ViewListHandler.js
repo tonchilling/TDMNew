@@ -4,7 +4,7 @@ var code = ''; // ton
 
 var tabSelect = '1';
 var resultAll;
-
+var LocationType = 1;
 var section1Tab = '1';
 
 var viewListManager = {
@@ -93,6 +93,7 @@ var searchForm = {
         $('#ddlRegion').change(function (event) {
 
             var regionId = $('#ddlRegion').val();
+           
             mapApi.getProvincesByRegion(LocationType, regionId, function (provinces) {
 
                 if (provinces != null && provinces.length > 0) {
@@ -153,10 +154,6 @@ var searchForm = {
                                                // $('#ddlSubdistrict').append("<option value='999999'>ทั้งหมด</option>");
 
                                                 $('#ddlSubdistrict').prop('disabled', false);
-
-
-                                              
-
                                                 $.each(subDistricts, function (index, subDistrict) {
                                                     $("#ddlSubdistrict").append("<option value='" + subDistrict.ID + "'>" + subDistrict.Name + "</option>");
                                                 });
@@ -544,11 +541,11 @@ symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
            if ((targetInfo.PriceType == '0') || (targetInfo.PriceType == '1')) {
 
 
-               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPrice : targetInfo.ParcelWAHPrice) +
+               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPrice : targetInfo.ParcelWAHPrice) +
                   '<ul>' +
-                  '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMax : targetInfo.ParcelWAHPriceMax) +
-                  '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceMin : targetInfo.ParcelWAHPriceMin) +
-                  '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelPriceAvg : targetInfo.ParcelWAHPriceAvg) +
+                   '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPriceMax : targetInfo.ParcelWAHPriceMax) +
+                   '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPriceMin : targetInfo.ParcelWAHPriceMin) +
+                   '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPriceAvg : targetInfo.ParcelWAHPriceAvg) +
                   '</ul>'
            }
 

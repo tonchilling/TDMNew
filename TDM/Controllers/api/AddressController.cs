@@ -15,7 +15,7 @@ using TDM.Models;
 using TDM.Repositories;
 namespace TDM.Controllers.api
 {
-    [RoutePrefix("api/Address")]
+  //  [RoutePrefix("api/Address")]
     public class AddressController : ApiController
     {
         private JsonSerializerSettings jsonSetting = JsonHelper.createJsonSetting();

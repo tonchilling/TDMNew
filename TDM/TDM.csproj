@@ -276,7 +276,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TraceProgress.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Util\Converter.cs" />
+
     <Compile Include="Models\ViewModels\Map_ViewModel.cs" />
     <Compile Include="Models\ViewModels\POI_ViewModel.cs" />
     <Compile Include="Models\ViewModels\AMPHOE_ViewModel.cs" />
@@ -356,18 +356,24 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\TDAssetRespository.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+
     <Compile Include="Utils\LatLngUTMConverter.cs" />
     <Compile Include="Utils\ShapeExtractor.cs" />
     <Compile Include="Utils\Utils.cs" />
+
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\BI\BIManagment.js" />
     <Content Include="assets\BI\dashboard.js" />
     <Content Include="assets\BI\echarts-custom-for-dashboard.js" />
+    <Content Include="assets\BI\Index_bk.js" />
+    <Content Include="assets\BI\Index.js" />
     <Content Include="assets\BI\jquery-jvectormap-2.0.1.min.js" />
     <Content Include="assets\BI\jquery-jvectormap-world-mill-en.js" />
     <Content Include="assets\BI\pace.min.js" />
     <Content Include="assets\BI\perfect-scrollbar.min.js" />
     <Content Include="assets\BI\Script.js" />
+    <Content Include="assets\BI\Summary.js" />
     <Content Include="assets\BI\viewportchecker.js" />
     <Content Include="assets\bootstrap\css\bootstrap-progressbar-3.3.4.min.css" />
     <Content Include="assets\css\BI\animate.min.css" />
@@ -414,7 +420,17 @@
     <Content Include="assets\icons\TDM\measurement_tool_03_hover.png" />
     <Content Include="assets\icons\TDM\measurement_tool_05_hover.png" />
     <Content Include="assets\img\button-search-BU-6.png" />
+    <Content Include="assets\img\graph\barchar1.png" />
+    <Content Include="assets\img\graph\barchart.jpg" />
+    <Content Include="assets\img\graph\doughnutchart.jpg" />
+    <Content Include="assets\img\graph\doughnutchart1.png" />
+    <Content Include="assets\img\graph\linechart.jpg" />
+    <Content Include="assets\img\graph\linechart1.png" />
+    <Content Include="assets\img\graph\piechart.jpg" />
+    <Content Include="assets\img\graph\piechart1.png" />
     <Content Include="assets\img\map.png" />
+    <Content Include="assets\img\profile.jpg" />
+    <Content Include="assets\img\small.gif" />
     <Content Include="assets\img\tmp\2019-01-13-01.jpg" />
     <Content Include="assets\img\tmp\2019-01-13-02.jpg" />
     <Content Include="assets\img\tmp\2019-01-13-03.jpg" />
@@ -482,6 +498,7 @@
     <Content Include="Scripts\Home\Menu2.js" />
     <Content Include="Scripts\Home\Menu3.js" />
     <Content Include="Scripts\Home\Menu1.js" />
+    <Content Include="Scripts\jquery.pleaseWait.js" />
     <Content Include="Scripts\Main.js" />
     <Content Include="Scripts\Map\Identity.js" />
     <Content Include="Scripts\map_loader.js" />
@@ -1579,6 +1596,7 @@
     <Content Include="assets\css\fontawesome5.3.1.css" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\AreaInfo\Index.js" />
     <Content Include="Scripts\ChangesPrice\Index.js" />
@@ -1599,6 +1617,7 @@
     <Content Include="Scripts\Shared\helper.js" />
     <Content Include="Scripts\Shared\http.js" />
     <Content Include="Scripts\Shared\land_layer_map.js" />
+    <Content Include="Scripts\waiting.js" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1684,6 +1703,9 @@
     <Content Include="Views\Home\Menu2.cshtml" />
     <Content Include="Views\Home\Menu3.cshtml" />
     <Content Include="Views\BI\Index.cshtml" />
+    <Content Include="Views\BI\Index_bk.cshtml" />
+    <Content Include="Views\BI\Summary.cshtml" />
+    <Content Include="Views\BI\BIManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

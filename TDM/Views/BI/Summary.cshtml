@@ -1,0 +1,503 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="กรมธนารักษ์">
+    <meta name="Description" content=" กรมธนารักษ์">
+    <title>กรมธนารักษ์</title>
+
+    <style type="text/css">
+        .table > tbody > tr.tdDetail > td {
+            padding: 0px;
+            line-height: 0px;
+            height: 0px;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+        .modal-header h3, h4 {
+         height:40px;
+        }
+
+        .modal-header  {
+          background-color:rgba(0, 0, 0, 0.03);
+        }
+        .panel_header {
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+    </style>
+    @section Scripts {
+        @Scripts.Render("~/assets/css/customize.css?v1113")
+        @Scripts.Render("~/assets/css/Kim_Style.css?vwwww33333")
+    }
+
+
+
+    <script src="~/Scripts/waiting.js?ver=1.0220"></script>
+    <link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
+    <link href="~/assets/css/customize.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+    <!-- CORE CSS FRAMEWORK - START -->
+    <link href="~/assets/css/BI/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/pace-theme-flash.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/bootstrap-theme.min.css" rel="stylesheet" />
+    <!-- CORE CSS FRAMEWORK - END -->
+    <!-- CORE CSS TEMPLATE - START -->
+    <link href="~/assets/css/BI/animate.min.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
+
+    <link href="~/assets/css/BI/Style.css?ver=1r23433d" rel="stylesheet" />
+
+    <!-- CORE CSS TEMPLATE - END -->
+
+    <style type="text/css">
+        .selectpicker {
+            -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+            -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+            -moz-transition: 0.3s;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+            background-color: #fff;
+        }
+
+            .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
+                color: #333;
+                background-color: #fff;
+                /*border-color: gold;*/
+            }
+
+
+        .dropdown-menu > li > a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        body .section4 p {
+            color: #428bca;
+        }
+
+        .bootstrap-select.btn-group .dropdown-menu li a i.check-mark {
+            display: none;
+        }
+
+
+
+
+        .zoom {
+            transition: transform .2s; /* Animation */
+        }
+
+            .zoom:hover {
+                transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+            }
+
+
+        table.dataTable thead th, table.dataTable thead td {
+            border-bottom: 1px solid #eeeeee !important;
+            color: #fff;
+        }
+
+        .profile_details {
+            float: right;
+            padding-right: 1em;
+        }
+
+            .profile_details ul li {
+                list-style-type: none;
+                position: relative;
+                padding-top: 5px;
+            }
+
+
+            .profile_details ul {
+                padding: 0px;
+                padding-top: 2px;
+            }
+
+        .profile_img span.prfil-img {
+            float: left;
+        }
+
+        .img-responsive {
+            height: 40px;
+            width: auto;
+        }
+
+        .user-name {
+            float: left;
+            margin-top: 7px;
+            margin-left: 11px;
+            height: 35px;
+        }
+
+        .profile_details li a i.fa.lnr {
+            position: absolute;
+            top: 34%;
+            right: 8%;
+            color: #68AE00;
+            font-size: 1.6em;
+        }
+
+        .user-name p {
+            font-size: 1em;
+            color: #FC8213;
+            line-height: 0px;
+            font-weight: 700;
+        }
+
+        .user-name span {
+            font-size: .75em;
+            font-style: italic;
+            color: #ffffff;
+            font-weight: normal;
+            margin-top: .3em;
+        }
+
+        .profile_details_drop.open .fa.fa-angle-down {
+            display: none;
+        }
+
+        .divView span {
+            font-size: 22px;
+            color: #FC8213;
+        }
+
+        .divSection1Land {
+            padding: 15px;
+        }
+        .fa-primary {
+            color: #007bff;
+        }
+        .fa-danger {
+        
+            color:#ff0000;
+        
+        }
+    </style>
+    <!-- Bootstrap -->
+    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery-ui.js"></script>
+    <script src="~/assets/js/bootstrap-select.min.js?33"></script>
+    <script src="~/Scripts/map_loader.js"></script>
+</head>
+<body class="nav-md">
+   
+    <div class="page-topbar">
+        <div class="logo-area">
+
+        </div>
+        <div class="quick-area">
+            <div class="pull-left">
+                <ul class="info-menu left-links list-inline list-unstyled">
+                    <li class="sidebar-toggle-wrap">
+                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+
+
+
+                </ul>
+            </div>
+            <div class="profile_details">
+                <ul>
+                    <li class="dropdown profile_details_drop">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <div class="profile_img">
+                                <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
+                                <div class="user-name">
+                                    <p>User</p>
+                                    <span>Administrator</span>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu drp-mnu">
+                            <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
+                            <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
+                            <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- START CONTENT -->
+
+    <div class="page-sidebar pagescroll expandit">
+
+        <!-- MAIN MENU - START -->
+        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+
+
+
+
+            <ul class="wraplist" style="height: auto;">
+
+                <li class="menusection">ค้นหา  </li>
+                <li class="">
+                    <a href="#">
+
+                        <div class="row">
+                            <div class="col-xs-11">
+                                <i class="fa fa-search icon-primary"></i>  <span class="title">เลือกพื้นที่ที่ต้องการค้นหา</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-11">
+                                <div class="form-group">
+                                    <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                        <option value="">เลือกภาค</option>
+                                        <option value="1">ภาคกลาง</option>
+                                        <option value="2">ตะวันตก</option>
+                                        <option value="3">เหนือ</option>
+                                        <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                        <option value="5">ใต้</option>
+                                        <option value="6">ตะวันออก</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-11">
+                                <div class="form-group">
+                                    <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                        <option value="">เลือกจังหวัด</option>
+                                        <option value="1">กรุงเทพ</option>
+                                        <option value="2">นนทบุรี</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+                      
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#">
+
+
+
+
+                    </a>
+                   
+
+                    <div class="row">
+                     
+
+                    </div>
+
+                    <div class="row  divProvince1 invisible">
+                        <div class="col-xs-11">
+                            <div class="form-group">
+                                <select class="form-control form-control-lg"
+                                        title="จังหวัดที่เปรียบเทียบ"
+                                        placeholder="จังหวัดที่เปรียบเทียบ"
+                                        name="ddlProvince1" id="ddlProvince1" multiple>
+
+                                    <option value="1">นนทบุรี</option>
+                                    <option value="2">นครปฐม</option>
+                                    <option value="3">ปทุมธานี</option>
+
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+              
+
+
+            </ul>
+
+
+
+        </div>
+        <!-- MAIN MENU - END -->
+
+
+
+    </div>
+    <section id="main-content">
+        <section class="wrapper main-wrapper row" style=''>
+
+            
+
+            <div class="col-xs-12">
+                <div class="divView">
+
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-lg-12">
+            
+            </div>
+
+            <div class="clearfix"></div>
+
+
+            <div class="divLand ">
+                <!-- MAIN CONTENT AREA STARTS -->
+                <!-- Dashboard Menu -->
+
+
+                <div class="divMap">
+
+                    <div class="col-xs-12">
+
+                        <section class="box ">
+                            <header class="panel_header">
+                                <i class="fa fa-2x fa-map-marker fa-danger" aria-hidden="true"> แผนที่</i>
+                                <div class="actions panel_actions pull-right">
+                                    <button class="btnRefresh btn btn-primary">Refresh</button>
+                                    <a class="box_toggle fa fa-chevron-down"></a>
+                                    <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                    <a class="box_close fa fa-times"></a>
+                                </div>
+                            </header>
+                            <div class="content-body">
+                                <div class="row" style="text-align:center; overflow-x:auto">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="divSection1Land">
+                                            <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+
+                </div>
+
+                <div class="divSection1">
+
+                    <div class="col-xs-12">
+
+                        <section class="box ">
+                            <header class="panel_header">
+                                <i class="fa fa-bar-chart fa-2x fa-primary" aria-hidden="true"> กราฟ </i>
+                                <div class="actions panel_actions pull-right">
+                                    <a class="box_toggle fa fa-chevron-down"></a>
+                                    <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                    <a class="box_close fa fa-times"></a>
+                                </div>
+                            </header>
+                            <div class="content-body">
+                                <div class="row" style="text-align:center; overflow-x:auto">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="divSection1Land">
+                                            <div class="chartSection1" style="height:600px" id="chartSection1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-xs-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <i class="fa fa-2x fa-table fa-primary" aria-hidden="true"> ตาราง</i>
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+                        <div class="content-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="divSection2">
+                                        <table class="table table-bordered table-striped   " id="tblSection2"></table>
+                                    </div>
+                                </div>
+                            </div> <!-- End .row -->
+
+                        </div>
+                    </section>
+                </div>
+
+
+
+
+            </div>
+
+         
+
+
+
+
+
+
+
+
+            <!-- MAIN CONTENT AREA ENDS -->
+        </section>
+
+
+        @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
+    </section>
+
+
+
+    <!-- END CONTENT -->
+    <!-- END CONTAINER -->
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+
+    <script src="~/assets/BI/pace.min.js"></script>
+    <script src="~/assets/BI/viewportchecker.js"></script>
+    <script src="~/assets/BI/jquery-jvectormap-2.0.1.min.js"></script>
+    <script src="~/assets/BI/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/assets/BI/dashboard.js"></script>
+    <script src="~/assets/BI/echarts-custom-for-dashboard.js"></script>
+
+    <script src="~/assets/BI/perfect-scrollbar.min.js"></script>
+    <script src="~/assets/BI/Script.js?ver=1.22d33442"></script>
+    <script src="~/assets/BI/Summary.js?ver=33543353"></script>
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
+
+    <script type="text/javascript">
+
+
+
+    </script>
+</body>
+</html>
+
+

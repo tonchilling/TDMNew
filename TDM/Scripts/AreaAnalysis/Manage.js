@@ -418,7 +418,7 @@ var ImportShape = {
 
     },
     unZip: function (zipFile, callback) {
-        require(["https://p-staging.treasury.go.th/TDManagement/assets/js/JSZip/jszip.js"], function (JSZip) {
+        require(["http://localhost:50029/assets/js/JSZip/jszip.js"], function (JSZip) {
        
             (new JSZip()).loadAsync(zipFile).then(callback);
         });
@@ -466,15 +466,15 @@ var ImportShape = {
                      point = ImportShape.changeSpatialReference(geometry);
                  });
 
-                 var row = [
+                /* var row = [
                      a['CODE'],
                      a['NAME_E'],
                      a['NAME_T'],
                      point.x,
                      point.y,
                    
-                 ].join('^');
-                 return row;
+                 ].join('^');*/
+             //    return datas;
              });
 
          //console.log("datas", datas)
