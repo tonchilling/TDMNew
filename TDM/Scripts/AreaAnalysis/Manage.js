@@ -231,11 +231,12 @@ function searchProjectImpactList(start, count, keyword) {
 }
 
 function onSearchProjectClick(value) {
+    /*
     var file = $('input[type=file]')[0].files[0];
     console.log("fileName", file.name)
     ImportShape.ShapeFileX(file);
-   
-    return false;
+   */
+    
     if (value === 'Reset') {
         $("#allProvince").val('');
         $("#allProvince").change();
@@ -245,18 +246,77 @@ function onSearchProjectClick(value) {
     searchProjectImpactList(0, 1000, JSON.parse(searchData));
 }
 
+
+
+function uploadShapeData(formData) {
+
+    var data = new FormData();
+    var files = $('#myForm').find('input[type=file]').get(0).files;
+
+    /*validate
+    var inputData = JSON.parse(formData);
+    if (inputData.SUBJECT_ID == '' ||
+        inputData.SUBJECT_NAME == '' ||
+        inputData.PROVINCE_ID == '' ||
+        inputData.AMPHOE_ID == '' ||
+        inputData.TAMBOL_ID == '' ||
+        files.length == 0
+        ) {
+        alert('กรุณาตรวจสอบข้อมูล "รหัสโครงการ","ชื่อโครงการ","พื้นที่กระทบ","อำเภอ","ตำบล","ไฟล์ข้อมูล"');
+        return;
+    }*/
+
+    /*Add input form data*/
+    data.append("ImageInfo", formData);
+    /*Add the uploaded image content to the form data collection*/
+    data.append("UploadedImage", files[0]);
+
+    /*Make Ajax request with the contentType = false, and procesDate = false*/
+    var ajaxRequest = $.ajax({
+        type: "POST",
+        url: http.url(rootUrl + "/api/AreaAnalysis/UploadMapShape"),
+        contentType: false,
+        processData: false,
+        data: data
+    });
+
+    $("#myModal1").modal("hide");
+    dlWaiting.show();
+    ajaxRequest.done(function (xhr, textStatus) {
+        dlWaiting.hide();
+        alert('success');
+        
+
+    });
+
+    
+}
+
+
+
+ 
+
 function AddProject(projectId, statusId) {
 
-   
-    var url = http.url("/AreaAnalysis/AddEditProject?projectId=" + projectId + "&statusId=" + statusId);
+    try {
+        
+        
+        var url = http.url("/AreaAnalysis/AddEditProject?projectId=" + projectId + "&statusId=" + statusId);
 
-    $("#myModalBodyDiv1").load(url, function (response, status, xhr) {
-        if (status == "error") {
-        } else {
-            $("#myModal1").modal("show");
-            $("#myModal1").appendTo("body");
-        }
-    });
+        $("#myModalBodyDiv1").load(url, function (response, status, xhr) {
+            if (status == "error") {
+            } else {
+                $("#myModal1").modal("show");
+                $("#myModal1").appendTo("body");
+                //$('#btnSubmit').click(uploadShapeData);
+
+            }
+        });
+
+    } catch (e) {
+        alert(e.message);
+    }
+    
 }
 
 function DelProvImpact(projectId, projectName) {
@@ -448,7 +508,7 @@ function bs_input_file() {
     $(".input-file").before(
         function () {
             if (!$(this).prev().hasClass('input-ghost')) {
-                alert('xxxxx');
+                
                 var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
                 element.attr("name", $(this).attr("name"));
                 element.change(function () {
@@ -471,6 +531,29 @@ function bs_input_file() {
         }
     );
 }
+
+var dlWaiting = {
+    show: function () {
+        var modalLoading = '<div class="modal" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false role="dialog" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: auto; width: 300px; height: 300px;">\
+                <div class="modal-dialog">\
+                    <div class="modal-content">\
+                        <div class="modal-body">\
+                            <h3>Processing your request...</h3>\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>';
+        $(document.body).append(modalLoading);
+        $("#pleaseWaitDialog").modal("show");
+    },
+
+    hide: function () {
+        $("#pleaseWaitDialog").modal("hide");
+    }
+};
+
+
+
 $(function () {
     bs_input_file();
 });

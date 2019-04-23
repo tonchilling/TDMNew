@@ -99,6 +99,10 @@ namespace TDM.Models
         public string Id { get; set; }
     }
 
+    public class ProjectImpactShapeSearch {
+        public int ImportID { get; set; }
+        public int PageNo { get; set; }
+    }
 
 
     public partial class PROJECT_IMPACTDto
@@ -356,6 +360,7 @@ namespace TDM.Models
     }
 
 
+
     public partial class Barchart
     {
         public List<string> Data { get; set; }
@@ -373,6 +378,7 @@ namespace TDM.Models
         public decimal value { get; set; }
         public string key { get; set; }
     }
+
 
 
     public partial class BarchartValue2
@@ -424,7 +430,5 @@ namespace TDM.Models
 
 
 }
-
-
 
 

@@ -10,6 +10,8 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
  using TDM.Models.ViewModels;
+using TDM.Models.Utils;
+
 namespace TDM.Repositories
 {
     public class TDAssetRespository : BaseRepository
@@ -815,7 +817,9 @@ namespace TDM.Repositories
                         mapInfo = new MapMenu3();
                         mapInfo.ProvinceCode = reader["ProvinceCode"].ToString();
                         mapInfo.ProvinceName = reader["ProvinceName"].ToString();
-                        mapInfo.Q1MaxPrice = Converting.ToDecimal(reader["Q1MaxPrice"].ToString());
+
+                        mapInfo.Q1MaxPrice = Converting.ToDecimal( reader["Q1MaxPrice"].ToString());
+
                         mapInfo.Q1MinPrice = Converting.ToDecimal(reader["Q1MinPrice"].ToString());
                         mapInfo.Q1AvgPrice = Converting.ToDecimal(reader["Q1AvgPrice"].ToString()); ;
 
@@ -1261,6 +1265,80 @@ namespace TDM.Repositories
             }
         }
 
+
+
+        /// <summary>
+        /// Home>Menu1
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public RegisterLand GetRegisterLand(SearchMap search)
+        {
+
+            IDataReader reader = null;
+            RegisterLand result = null;
+            RegisterLandSummary regSummaryData = null;
+            RegisterLandByMonth regSummarybByMonthData = null;
+            List<RegisterLandByMonth> regSummaryByMonthList = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@Month", search.Month, dbType: DbType.String);
+            p.Add("@Year", search.Year, dbType: DbType.String);
+           
+
+          
+            try
+            {
+               
+                result = new RegisterLand();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+                    
+                    //conn.
+                    reader = conn.ExecuteReader("[GetLandRegisterMenu1]", p, commandType: CommandType.StoredProcedure);
+
+                    if (reader.Read())
+                    {
+                        regSummaryData = new RegisterLandSummary();
+                        regSummaryData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
+                        regSummaryData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
+                        regSummaryData.ParcelMonthRegister = Converting.ToDecimal(reader["ParcelMonthRegister"].ToString());
+                        regSummaryData.ParcelMonthNewRegister = Converting.ToDecimal(reader["ParcelMonthNewRegister"].ToString());
+
+                       
+                    }
+
+                    result.summaryData = regSummaryData;
+
+                    reader.NextResult();
+                    regSummaryByMonthList = new List<RegisterLandByMonth>();
+                    while (reader.Read())
+                    {
+                        regSummarybByMonthData = new RegisterLandByMonth();
+                        regSummarybByMonthData.RegMonth = Converting.ToDecimal(reader["RegMonth"].ToString());
+                        regSummarybByMonthData.MonthName = Converting.ToMonthShortName(reader["RegMonth"].ToString());
+                        regSummarybByMonthData.RegYear = reader["RegYear"].ToString();
+                        regSummarybByMonthData.ParcelRegister = Converting.ToDecimal(reader["ParcelRegister"].ToString());
+                        regSummarybByMonthData.ParcelNewRegister = Converting.ToDecimal(reader["ParcelNewRegister"].ToString());
+                        regSummaryByMonthList.Add(regSummarybByMonthData);
+
+                    }
+
+                    result.summaryByMonthData = regSummaryByMonthList;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
+
         /// <summary>
         /// Home>Menu2
         /// </summary>
@@ -1398,9 +1476,11 @@ namespace TDM.Repositories
                         foreach (YearMonth ym in yearMonthList)
                         {
 
+
                             data = resultList.Find(c => c.CondoName == conG.name && c.MonthYearName == ym.MonthYearName);
 
                             conG.data.Add(data != null ? Converting.ToDecimal(data.PriceMet) : 0);
+
                         }
                     }
 
@@ -1427,6 +1507,7 @@ namespace TDM.Repositories
 
 
 
+
         public Land_Ratio GetLandRatio(SearchMap search)
         {
 
@@ -1446,6 +1527,7 @@ namespace TDM.Repositories
          //   p.Add("@FromYM", search.FromYearMonth, dbType: DbType.String);
           //  p.Add("@ToYM", search.ToYearMonth, dbType: DbType.String);
             
+
 
 
             try
@@ -1528,6 +1610,59 @@ namespace TDM.Repositories
         public SetionType Type { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+
+    }
+
+    [System.Runtime.Serialization.DataContract]
+    public class ImportShapeInfo
+    {
+        [System.Runtime.Serialization.DataMember]
+        public string ProjectID { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string SubjectID { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string SubjectName { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string ProvinceID { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string District { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string SubDistrict { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string ShapefileType { get; set; }
+        [System.Runtime.Serialization.DataMember]
+        public string EocationEncoderType { get; set; }
+        
+        
+    }
+    public class Geometry
+    {
+        public int ImportID {get;set;}
+        public string Shape { get; set; }
+
+        public decimal AREA { get; set; }
+        public string AUTHOR_TYP { get; set; }
+        public string CREATE_USE { get; set; }
+        public string LANDOFFICE { get; set; }
+        public string LAND_NO { get; set; }
+        public string LAST_UPD_U { get; set; }
+        public string MAP_PARCEL { get; set; }
+        public string PARCEL_TYP { get; set; }
+        public string PERIMETER { get; set; }
+        public string RECORD_STA { get; set; }
+        public string TAMBOL_SEQ { get; set; }
+        public string UTMMAP1 { get; set; }
+        public string UTMMAP2 { get; set; }
+        public string UTMMAP3 { get; set; }
+        public string UTMMAP4 { get; set; }
+        public string UTMSCALE { get; set; }
+        public string CREATE_DTM { get; set; }
+        public string LAST_UPD_D { get; set; }
+        public string PARCEL_STA { get; set; }
+        public string ORIGIN_X { get; set; }
+        public string ORIGIN_Y { get; set; }
+        public string OPT_SEQ { get; set; }
+        
 
     }
 }
