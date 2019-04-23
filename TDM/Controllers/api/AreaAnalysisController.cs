@@ -683,7 +683,7 @@ namespace TDM.Controllers.api
         public IHttpActionResult GetImpackShapes(ProjectImpactShapeSearch data)
         {
             List<PROJECT_IMPACT_GEOMETRY> results = null;
-            int numberPerPage = 100;
+            int numberPerPage = 500;
             bool requireOtherPage = false;
             var count = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == data.ImportID).Select(s => s.ProjectImpactID).Count();
             
@@ -695,7 +695,7 @@ namespace TDM.Controllers.api
                     .Take(numberPerPage).ToList();
 
                 requireOtherPage = (((numberPerPage * data.PageNo) + numberPerPage) < count);
-                requireOtherPage = false;
+               
                 return Json(new
                 {
                     ProjectImpactImportedID = data.ImportID,

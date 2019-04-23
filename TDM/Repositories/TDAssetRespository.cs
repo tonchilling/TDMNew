@@ -198,7 +198,7 @@ namespace TDM.Repositories
             return result;
         }
 
-
+        /*
         /// <summary>
         /// Home>Menu1
         /// </summary>
@@ -269,7 +269,7 @@ namespace TDM.Repositories
             return result;
         }
 
-
+        */
 
         public List<DropdownObj> GetCluster()
         {
