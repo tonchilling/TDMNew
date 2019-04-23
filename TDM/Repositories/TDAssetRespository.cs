@@ -295,8 +295,6 @@ namespace TDM.Repositories
         }
 
 
-      
-
 
         public List<DropdownObj> GetCluster()
         {

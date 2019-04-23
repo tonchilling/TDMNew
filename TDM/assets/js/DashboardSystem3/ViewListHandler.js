@@ -644,12 +644,12 @@ function loadImpactShapes(projectImpactImportedID, pageNo) {
                     var sridOut = [102100];
                     try {
                         //var trans = gisIframeWindow.GIS.transform(shape.WellKnownText, 102100, [4326, 4327]);
-
+                        /*
                         var trans = gisIframeWindow.GIS.transform(shape.WellKnownText, sridIn, sridOut);
                         trans = gisIframeWindow.GIS.transform(trans[0].shape, sridIn, sridOut);
+                        */
 
-
-                        map.addGraphic(trans[0].shape, TDMap.getRedSymbol());
+                        map.addGraphic(shape.WellKnownText, TDMap.getRedSymbol());
 
                     } catch (e) {
                         alert(e.message);
