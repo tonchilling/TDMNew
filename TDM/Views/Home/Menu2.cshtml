@@ -8,8 +8,43 @@
 
 <link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
 <link href="~/assets/css/customize.css" rel="stylesheet" />
+<link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
+<link href="~/assets/css/customize.css?v1113" rel="stylesheet" />
+<link href="~/assets/css/Kim_Style.css?v233333" rel="stylesheet" />
+<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+<link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 <!-- Bootstrap -->
 <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/assets/js/bootstrap-select.min.js"></script>
+
+<style type="text/css">
+    .selectpicker {
+        -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+        -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+        -moz-transition: 0.3s;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        background-color: #fff;
+    }
+
+        .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
+            color: #333;
+            background-color: #fff;
+            /*border-color: gold;*/
+        }
+
+
+    .dropdown-menu > li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+</style>
 <div role="main" class="container-fluid">
 
     <!-- Header -->
@@ -30,7 +65,7 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="panel panel-primary">
                                             <div class="panel-heading">
-                                                <h4 class="headerwhite">4. รายงานแสดงแนวโน้มราคาซื้อขายอาคารชุด</h4>
+                                                <h4 class="headerwhite">รายงานแสดงแนวโน้มราคาซื้อขายอาคารชุด</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -60,18 +95,18 @@
 
                                                                 <div class="funkyradio-success">
                                                                     <input type="radio" name="Type1" id="rdRegion" checked />
-                                                                    <label for="rdRegion">Region</label>
+                                                                    <label for="rdRegion">ภาค</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-6">
                                                                 <div class="funkyradio-primary">
                                                                     <input type="radio" name="Type1" id="rdCluster" />
-                                                                    <label for="rdCluster">Cluster</label>
+                                                                    <label for="rdCluster">คลัสเตอร์</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                   
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-6 pnlRegion">
@@ -134,78 +169,31 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                <div class="col-md-6 col-sm-6 col-xs-3">
                                                                     <div class="form-group">
-                                                                        <select class="form-control form-control-lg ddlFromMonth">
-                                                                            <option value="1">Jan</option>
-                                                                            <option value="2">Feb</option>
-                                                                            <option value="3">Mar</option>
-                                                                            <option value="4">Apr</option>
-                                                                            <option value="5">May</option>
-                                                                            <option value="6">Jun</option>
-                                                                            <option value="7">Jul</option>
-                                                                            <option value="8">Aug</option>
-                                                                            <option value="9">Sep</option>
-                                                                            <option value="10">Oct</option>
-                                                                            <option value="11">Nov</option>
-                                                                            <option value="12">Dec</option>
-                                                                        </select>
+                                                                        <div class='input-group ' id='txtSFromDate'>
+
+                                                                            <input class="form-control txtSFromDate" id="txtSearchStartDate" placeholder="จากวันที่" />
+                                                                            <span class="input-group-addon">
+                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                            </span>
+                                                                        </div>
                                                                     </div>
+
                                                                 </div>
-                                                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                <div class="col-md-6 col-sm-6 col-xs-3">
                                                                     <div class="form-group">
-                                                                        <select class="form-control form-control-lg ddlFromYear" 
-                                                                                name="ddlFromYear" id="ddlFromYear" required>
-                                                                            <option value="">เลือกปี</option>
-                                                                            <option value="2010">2010</option>
-                                                                            <option value="2011">2011</option>
-                                                                            <option value="2012">2012</option>
-                                                                            <option value="2013">2013</option>
-                                                                            <option value="2014">2014</option>
-                                                                            <option value="2015">2015</option>
-                                                                            <option value="2016">2016</option>
-                                                                            <option value="2017">2017</option>
-                                                                            <option value="2018">2018</option>
-                                                                            <option value="2019">2019</option>
-                                                                        </select>
+                                                                        <div class='input-group ' id='txtSToDate'>
+                                                                            <input class="form-control txtSToDate" id="txtSearchEndDate" placeholder="ถึงวันที่" />
+                                                                            <span class="input-group-addon">
+                                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                                            </span>
+                                                                        </div>
                                                                     </div>
+
                                                                 </div>
-                                                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                                                    <div class="form-group">
-                                                                        <select class="form-control form-control-lg  ddlToMonth">
-                                                                            <option value="1">Jan</option>
-                                                                            <option value="2">Feb</option>
-                                                                            <option value="3">Mar</option>
-                                                                            <option value="4">Apr</option>
-                                                                            <option value="5">May</option>
-                                                                            <option value="6">Jun</option>
-                                                                            <option value="7">Jul</option>
-                                                                            <option value="8">Aug</option>
-                                                                            <option value="9">Sep</option>
-                                                                            <option value="10">Oct</option>
-                                                                            <option value="11">Nov</option>
-                                                                            <option value="12">Dec</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                                                    <div class="form-group">
-                                                                        <select class="form-control form-control-lg ddlToYear" 
-                                                                                name="ddlToYear" id="ddlToYear" required>
-                                                                            <option value="">เลือกปี</option>
-                                                                            <option value="2010">2010</option>
-                                                                            <option value="2011">2011</option>
-                                                                            <option value="2012">2012</option>
-                                                                            <option value="2013">2013</option>
-                                                                            <option value="2014">2014</option>
-                                                                            <option value="2015">2015</option>
-                                                                            <option value="2016">2016</option>
-                                                                            <option value="2017">2017</option>
-                                                                            <option value="2018">2018</option>
-                                                                            <option value="2019">2019</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+
+
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -218,7 +206,7 @@
                                                                         <input class="form-control txtName" id="txtName" placeholder="ชื่ออาคารชุด">
                                                                     </div>
                                                                 </div>
-                                                              
+
                                                             </div>
                                                         </div>
 
@@ -227,12 +215,12 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-1 col-sm-offset-5">
-                                                        <button class="form-control btn btn-primary btnSearch">Search</button>
+                                                        <button class="form-control btn btn-primary btnSearch">ค้นหา</button>
 
                                                     </div>
                                                     <div class="col-xs-1 ">
 
-                                                        <button class="form-control btn btn-default">Cancel</button>
+                                                        <button class="form-control btn btn-default">ยกเลิก</button>
                                                     </div>
 
                                                 </div>
@@ -244,24 +232,24 @@
                                 </div>
 
                                 <div class="row">
-                                   
+
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                       
-                                            <div class="panel panel-primary">
-                                                <div class="panel-heading">
-                                                    <h4 class="headerwhite">แผนภูมิแสดงราคาซื้อขายเฉลี่ย</h4>
-                                                </div>
-                                                <div class="panel-body center">
 
-                                                    <div class="panel-body center chartBarNormal">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h4 class="headerwhite">แผนภูมิแสดงราคาซื้อขายเฉลี่ย</h4>
+                                            </div>
+                                            <div class="panel-body center">
 
-                                                        <div id="graph1" style="height:100%;width:100%;"></div>
-                                                       
+                                                <div class="panel-body center chartBarNormal">
 
-                                                    </div>
+                                                    <div id="graph1" style="height:100%;width:100%;"></div>
+
+
                                                 </div>
                                             </div>
-                                      
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="row">
@@ -275,19 +263,17 @@
                                                     <thead>
                                                         <tr>
                                                             <th scope="col" class="center" rowspan="3">ชื่ออาคารชุด</th>
-                                                            <th scope="col" class="center" >ราคาซื้อขายดิน</th>
+                                                            <th scope="col" class="center">ราคาซื้อขายดิน</th>
                                                         </tr>
-                                                      
-                                                      
+
+
                                                     </thead>
-                                                    <tbody>
-                                                      
-                                                    </tbody>
+                                                    <tbody></tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -299,55 +285,12 @@
 </div>
 
 <!-- Icon Menu -->
-<div class="row section4">
-    <div class="col-md-1 col-sm-1 col-xs-12"></div>
-    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count tile_stats_count_first center">
-        <a href="~/Home/Menu1">
-            <div class="count text-center" style="margin-top:10px;margin-bottom:5px">
-                <p><i class="fa fa-building txt-light-blue fa-5x"></i></p>
-                <p>รายงานซื้อขายจดทะเบียนที่ดิน</p>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count center">
-        <a href="~/Home/Menu2">
-            <div class="count  text-center" style="margin-top:10px;margin-bottom:5px">
-                <p><i class="fa fa-refresh txt-light-blue fa-5x"></i></p>
-                <p>รายงานแนวโน้มราคาซื้อขายอาคารชุด</p>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count center">
-        <a href="~/Home/Menu3">
-            <div class="count text-center" style="margin-top:10px;margin-bottom:5px">
-                <p><i class="fa fa-table txt-light-blue  fa-5x"></i></p>
-                <p>รายงานแสดงการเปลี่ยนแปลงราคาซื้อขาย</p>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count center">
-        <a href="~/Home/System_3_with_Layout?Menu=5">
-            <div class="count text-center" style="margin-top:10px;margin-bottom:5px">
-                <p><i class="fa fa-users txt-light-blue fa-5x"></i></p>
-                <p>รายงานปริมาณการเข้าใช้งานระบบ</p>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-2 col-sm-2 col-xs-6 tile_stats_count center">
-        <a href="~/DashboardSystem3/Index">
-            <div class="count text-center" style="margin-top:10px;margin-bottom:5px">
-                <p><i class="fa fa-bar-chart txt-light-blue fa-5x"></i></p>
-                <p>สร้างรายงานด้วย BI</p>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-1 col-sm-1 col-xs-12"></div>
-</div>
+@Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
 
 
 
-<script src="~/Scripts/Home/Menu2.js?ver=1.dddd3e22"></script>
+<script src="~/Scripts/Home/Menu2.js?ver=1.dddd3dde22"></script>
 
-<script src="~/assets/js/DashboardSystem3/customize.js"></script>
+
 
 

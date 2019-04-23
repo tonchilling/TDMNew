@@ -13,5 +13,15 @@ namespace TDM.Controllers
         {
             return View();
         }
+
+        public ActionResult Summary()
+        {
+            return View();
+        }
+
+        public ActionResult BIManagement()
+        {
+            return View();
+        }
     }
 }

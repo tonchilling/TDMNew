@@ -158,6 +158,9 @@ namespace TDM.Models
     }
 
 
+
+
+
     public partial class EstimateData
     {
         public string DisplayCode { get; set; }
@@ -229,6 +232,7 @@ namespace TDM.Models
         public string REMARK { get; set; }
         public string PriceCompare { get; set; }
         public string Color { get; set; }
+        public string CondoName { get; set; }
 
     }
 
@@ -350,6 +354,75 @@ namespace TDM.Models
         public decimal MaxPrice { get; set; }
         public decimal AvgPrice { get; set; }
     }
+
+
+    public partial class Barchart
+    {
+        public List<string> Data { get; set; }
+
+        public List<BarchartValue> Value { get; set; }
+        public List<BarchartValue> Value2 { get; set; }
+        public List<BarchartValue2> Value3 { get; set; }
+    }
+
+
+    public partial class BarchartValue
+    {
+
+        public string name { get; set; }
+        public decimal value { get; set; }
+        public string key { get; set; }
+    }
+
+
+    public partial class BarchartValue2
+    {
+
+        public decimal xAxis { get; set; }
+        public decimal y { get; set; }
+        public string name { get; set; }
+        public decimal symbolSize { get; set; }
+        public string symbol { get; set; }
+        public string key { get; set; }
+    }
+
+   
+
+    public partial class GetPriceBI
+    {
+        public List<EstimateData> EstimateData { get; set; }
+        public Barchart Barchart { get; set; }
+    }
+
+
+
+    public partial class Land_Ratio
+    {
+          public List<Land_RatioDetail> Detail  { get; set; }
+    public List<string> Category { get; set; }
+        public List<string> Series { get; set; }
+    }
+
+    public partial class Land_RatioDetail
+    {
+        public string  ID { get; set; }
+        public string FromYear { get; set; }
+        public string ToYear { get; set; }
+        public string RegionCode { get; set; }
+        public string RegionName { get; set; }
+        public string ProvinceCode { get; set; }
+        public string ProvinceName { get; set; }
+        public string Ratio { get; set; }
+        public string CreateDate { get; set; }
+        public string CreateBy { get; set; }
+        public string UpdateDate { get; set; }
+        public string UpdateBy { get; set; }
+        public string Shape { get; set; }
+        
+    }
+
+
+
 }
 
 

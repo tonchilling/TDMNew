@@ -239,24 +239,13 @@
 
                                 </div>
                             </div>
+                            <input type="file" />
                             <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:0px" allowfullscreen></iframe>
                         </form>
 
                     </div>
 
-                    <div class="row" style="padding-top: 10px;">
-                        <div class="col-md-12 col-sm-12 co-xs-12" style="padding-left: 0px;">
-                            <div>ไฟล์ข้อมูล</div>
-                            <div class="form-group">
-                                <div class="input-group input-file" name="Fichier1">
-                                    <input type="text" class="form-control" placeholder='Browse a file...' />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default btn-choose" type="button">Browse..</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
 
                     <div class="modal fade modal-manage" id="myModal1">
                         <div class="modal-dialog">
@@ -282,6 +271,7 @@
         </div>
         <!-- end Inner Wrapper -->
     </div>
+
     <!-- end Outer Wrapper-->
 
     <script src="~/Scripts/Shared/helper.js"></script>
@@ -334,7 +324,7 @@
     <script src="~/assets/js/ReadShapeFile/shapefile.js?33e343"></script>
     <script src="~/assets/js/ReadShapeFile/stream.js"></script>
     <script src="~/assets/js/togeojson/togeojson.js"></script>
-    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4ee97s4e664"></script>
+    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4ee974044664"></script>
     <script>
       
       /*  var iframeElement = document.getElementById('tdmap');

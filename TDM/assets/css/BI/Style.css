@@ -326,7 +326,7 @@ a:hover, a:focus {
     color: #ffffff;
 }
 .bg-info {
-    background: #03A9F4;
+    background: #007bff !important;
     padding: 3px 8px;
     color: #ffffff;
 }
@@ -836,9 +836,36 @@ a:hover, a:focus {
     border-left: 4px solid transparent;
     white-space: nowrap;
 }
-#main-menu-wrapper li .sub-menu a {
-    line-height: 36px;
-    min-height: 36px;
+
+#main-menu-wrapper li .displayChart a {
+    display: inline;
+    line-height: 42px;
+    min-height: 42px;
+    height: auto;
+    color: #f1f1f1;
+    color: #424242;
+    text-decoration: none;
+    padding-left: 5px;
+    clear: both;
+    border-left: 4px solid transparent;
+    white-space: nowrap;
+
+}
+
+
+.shadow {
+    /*  -webkit-box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.75);*/
+}
+
+
+#main-menu-wrapper section.box {
+    margin: 15px 10px;
+}
+
+#main-menu-wrapper section header {
+    min-height:30px;
 }
 #main-menu-wrapper li .sub-menu a {
     color: rgba(174, 178, 183, 1.0);
@@ -857,8 +884,8 @@ a:hover, a:focus {
 
 #main-menu-wrapper li a:hover {
     background-color: #ffffff;
-    border-left: 4px solid #3F51B5;
-    /*color: #ffffff;*/
+    /*border-left: 4px solid #3F51B5;
+   color: #ffffff;*/
 }
 #main-menu-wrapper li.open a {
     background-color: rgba(33, 33, 33, 0.1);
@@ -875,7 +902,7 @@ a:hover, a:focus {
     color: #616161;
 }
 #main-menu-wrapper li a i {
-    display: inline-block;
+  
     width: 45px;
     height: 34px;
     line-height: 34px;
@@ -1002,8 +1029,8 @@ a:hover, a:focus {
     display: inline-block;
 }
 .profile-info .profile-image img {
-    height: 65px;
-    width: 65px;
+    /* height: 100px;*/
+    width: 120px;
     float: right;
     top: 5px;
     left: 5px;
@@ -1122,15 +1149,15 @@ section header {
     border-bottom: 0px solid transparent;
     vertical-align: top;
     position: relative;
-    min-height: 75px;
+    min-height: 60px;
 }
 section header .title {
-    margin-top: 10px;
+    margin-top: 0px;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     font-size: 19px;
-    padding-left: 30px;
-    padding-top: 15px;
-    line-height: 30px;
+    padding-left: 1px;
+    padding-top: 5px;
+    line-height: 1px;
     color: #676767;
     font-weight: 400;
     text-transform: uppercase;
@@ -1168,11 +1195,11 @@ section.nobox .content-body {
     padding: 0 0px 0px 0px;
 }
 section.box .actions {
-    margin: 10px 15px 0 15px;
+    margin: 4px 15px 0 15px;
     line-height: 50px;
     position: absolute;
     right: 0px;
-    top:0px;
+    top: 0px;
 }
 section.box .actions a {
     color: #bcbcbc;
@@ -4009,7 +4036,7 @@ a.cke_button_off:hover, .cke_hc a.cke_button_off:focus, .cke_hc a.cke_button_off
 ----------------------------------------------*/
 
 .glyphicon, .fa {
-    font-size: 14px;
+   
 }
 .icon-sm {
     font-size: 21px;
@@ -8032,6 +8059,8 @@ border-left: 3px solid transparent;
 
 
 
+
+
 /*
 .bg-muted{ background: #eaeaea; padding: 3px 8px;}
 .bg-primary{ background: rgba(63,81,181,1); padding: 3px 8px; color: #ffffff;} #3f51b5
@@ -8077,7 +8106,7 @@ border-left: 3px solid transparent;
 
 table.dataTable{
     border: 1px solid #eeeeee;
-    border-right: 0px solid transparent;
+   
 }
 
 
@@ -8095,7 +8124,7 @@ table.dataTable.display tbody tr.even > .sorting_1,
 table.dataTable.order-column.stripe tbody tr.even > .sorting_1,
 table.dataTable.display tbody tr.odd > .sorting_1, 
 table.dataTable.order-column.stripe tbody tr.odd > .sorting_1{
-    background-color: #ffffff;
+  
     border-color: #eeeeee;
 }
 
@@ -8197,3 +8226,106 @@ table.dataTable tfoot th select, table.dataTable tfoot td select{
 table.dataTable.display tbody tr:first-child td {
     border-top: 1px solid #eeeeee;
 }
+
+
+
+.m-fadeOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 500ms, opacity 500ms;
+}
+
+.m-fadeIn {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 500ms, opacity 500ms;
+}
+
+.card2 {
+    background-color: transparent;
+    border: none;
+}
+
+.panel-item {
+    display: flex;
+    align-items: center;
+}
+
+.card-text:last-child {
+    margin-bottom: 0;
+}
+
+.card2 .fa {
+    font-size: 50px;
+    color: #4CAF50;
+    padding-right: 1rem;
+}
+
+.card2 .mbr-content-header {
+    color: #03A9F4;
+}
+.card2 .mbr-content-title {
+    color: #8d97ad;
+    text-align: left;
+}
+
+.display-1 {
+   
+    
+}
+
+.btnRegion {
+   cursor:pointer;
+}
+
+    .btnRegion:not(td):hover, .btnProvince:not(td):hover, .btnAmphure:not(td):hover, .btnTumbol:not(td):hover {
+        /*-webkit-transform: scale(1.2);
+        color: #1290c8;*/
+    }
+
+    .btnRegion:hover, .btnProvince:hover, .btnAmphure:hover, .btnTumbol:hover {
+        /*   text-shadow: 3px 0px 3px #70db70;*/
+        text-decoration: underline;
+    }
+        .btnProvince {
+    cursor: pointer;
+}
+
+.btnAmphure {
+    cursor: pointer;
+}
+
+.btnTumbol {
+    cursor: pointer;
+}
+
+.dragdrop {
+    outline: 2px dashed #92b0b3;
+    padding: 60px 0px 35px 2%;
+}
+
+
+/* Hiding the checkbox, but allowing it to be focused */
+.badgebox {
+    opacity: 0;
+}
+
+    .badgebox + .badge {
+        /* Move the check mark away when unchecked */
+        text-indent: -999999px;
+        /* Makes the badge's width stay the same checked and unchecked */
+        width: 27px;
+    }
+
+    .badgebox:focus + .badge {
+        /* Set something to make the badge looks focused */
+        /* This really depends on the application, in my case it was: */
+        /* Adding a light border */
+        box-shadow: inset 0px 0px 5px;
+        /* Taking the difference out of the padding */
+    }
+
+    .badgebox:checked + .badge {
+        /* Move the check mark back when checked */
+        text-indent: 0;
+    }
