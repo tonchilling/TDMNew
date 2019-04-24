@@ -470,7 +470,13 @@ var ParcelMapController = {
             if (targetInfo.MapStructure.Shape.indexOf(';') !== -1) {
                 targetShape=targetInfo.MapStructure.Shape.split(';')[1];
             }
-            map.addGraphic(targetShape, symbol);
+
+            var sridIn = 32647;
+            var sridOut = [102100];
+            var trans = gisIframeWindow.GIS.transform(targetShape, sridIn, sridOut);
+            trans = gisIframeWindow.GIS.transform(trans[0].shape, sridIn, sridOut);
+
+            map.addGraphic(trans[0].shape, symbol);
            ParcelMapController.drawWithInfo(targetInfo);
         } else {
             alert('Shape Not OK');
@@ -601,6 +607,78 @@ symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
     }
 }
 
+function switchTabExten(id) {
+    
+    /**/
+    if (id == 'tab1') {
+        
+        $("#tdmap").appendTo(".divLand");
+    } else if (id == 'tab4') {
+        $("#tdmap").appendTo(".tdmapSec4");
+    }
+    
+}
+
+function loadImpactShapes(projectImpactImportedID, pageNo) {
+
+    /**/
+    try {
+
+        var data = {
+            ImportID: projectImpactImportedID,
+            PageNo: pageNo
+        };
+        $.ajax({
+            url: rootUrl + "/api/AreaAnalysis/GetImpackShapes",
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.PageNo == 0 || data.Shapes.length == 0) {
+                    map.clear();
+                }
+
+                $.each(data.Shapes, function (index, shape) {
+                    var sridIn = 32647;
+                    var sridOut = [102100];
+                    try {
+                        //var trans = gisIframeWindow.GIS.transform(shape.WellKnownText, 102100, [4326, 4327]);
+                        /*
+                        var trans = gisIframeWindow.GIS.transform(shape.WellKnownText, sridIn, sridOut);
+                        trans = gisIframeWindow.GIS.transform(trans[0].shape, sridIn, sridOut);
+                        */
+
+                        map.addGraphic(shape.WellKnownText, TDMap.getRedSymbol());
+
+                    } catch (e) {
+                        alert(e.message);
+                    }
+                    
+
+
+
+                });
+                /*CoordinateSystemId*/
+                
+
+                if (data.RequireOtherPage) {
+                    loadImpactShapes(data.ProjectImpactImportedID, data.PageNo+1);
+                }
+                /*
+                ProjectImpactImportedID 
+                PageNo: 0
+                RequireOtherPage: true
+                Shapes*/
+            }
+        });
+        
+    } catch (e) {
+        alert(e.message);
+    }
+
+
+}
 
 
 

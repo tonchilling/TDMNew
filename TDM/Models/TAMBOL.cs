@@ -28,6 +28,7 @@ namespace TDM.Models
         public string SUB_C { get; set; }
         public string NAME_E { get; set; }
         public string NAME_T { get; set; }
+        public string RegionCode { get; set; }
         public System.Data.Entity.Spatial.DbGeometry Shape { get; set; }
         public byte[] GDB_GEOMATTR_DATA { get; set; }
     }

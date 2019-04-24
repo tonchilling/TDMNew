@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="TDManagementModel.PROV_IMPACT" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="TDManagementModel.STATUS_IMPACT" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="TDManagementModel.PROJECT_IMPACT" Width="1.5" PointX="7.75" PointY="2" />
+        <EntityTypeShape EntityType="TDManagementModel.PROJECT_IMPACT_GEOMETRY" Width="1.5" PointX="9.5" PointY="2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

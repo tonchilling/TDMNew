@@ -138,7 +138,7 @@ $(document).on("click", ".liTab", function () {
     $('.divSection22').addClass("invisible").css({ position: "absolute" });
     $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
 
-
+    switchTabExten($(this).attr("id"));
     if ($(this).attr("id") == "tab1") {
 
 
@@ -493,9 +493,10 @@ function LoadSection1View(data) {
 }
 function LoadSection23(data) {
     
+    /*
     $(".tdmapSec4").empty();
     $("#tdmap").clone().appendTo(".tdmapSec4");
-    
+    */
     //  $("#lbHeader").text(tabSelect == '1' ? "ราคาประเมิน ราย" : "ราคาซื้อขาย ราย" + GetSectionDisplayText(sectionType));
     // $("#lbHeaderGraph").text("แผนภูมิแสดงราคาที่ดิน ราย" + GetSectionDisplayText(sectionType));
     LoadSection2EvalBox1_LeftBox(data);
@@ -886,7 +887,7 @@ function LoadSection4() {
                 if (data != null && data.length > 0) {
                     $.each(data, function (index, item) {
 
-                        tableStr += '<tr data-toggle="collapse" data-target="#accordion" class="clickable">';
+                        tableStr += '<tr data-toggle="collapse" data-target="#accordion" class="clickable" onclick="loadImpactShapes(' + item.ID + ',0)">';
                         tableStr += ' <td class="td__Center">' + item.SUBJECT_NAME + '</td>';
                         tableStr += '<td class="td__Center">' + item.ProvinceName + '</td>';
                         tableStr += '<td class="td__Center">xx</td>';

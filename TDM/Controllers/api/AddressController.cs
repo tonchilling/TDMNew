@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Http;
 using TDM.Models;
 using TDM.Repositories;
+using TDM.Models.ViewModels;
 namespace TDM.Controllers.api
 {
   //  [RoutePrefix("api/Address")]
@@ -22,7 +23,7 @@ namespace TDM.Controllers.api
         private TDManagementEntities tdmEntities = null;
         private TDASSETEntities tdaEntities = null;
         private commonEntities cmEntities = null;
-
+      
         protected AddressController()
         {
             tdmEntities = new TDManagementEntities();
@@ -48,7 +49,7 @@ namespace TDM.Controllers.api
                  case "3": sectionT = SetionType.Amphur; break;
              }*/
 
-
+            
 
             var results = repos.GetCluster();
 
@@ -124,6 +125,18 @@ namespace TDM.Controllers.api
         public IHttpActionResult GetProvinces()
         {
             return Json(tdaEntities.PROVINCEs.Where(p => p.PRO_C !="").OrderBy(o => o.NAME_T));
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetAddressList()
+        {
+            var repos = new TDAssetRespository();
+            AddressList addrList = new AddressList();
+
+          
+
+
+            return Json(repos.GetAddressList(null));
         }
 
         public IHttpActionResult GetStateById(int ID)

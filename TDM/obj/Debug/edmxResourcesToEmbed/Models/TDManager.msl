@@ -4,6 +4,7 @@
     <EntitySetMapping Name="PROJECT_IMPACT">
       <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT">
         <MappingFragment StoreEntitySet="PROJECT_IMPACT">
+          <ScalarProperty Name="Area" ColumnName="Area" />
           <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
           <ScalarProperty Name="AMPHOE_ID" ColumnName="AMPHOE_ID" />
           <ScalarProperty Name="Shape" ColumnName="Shape" />
@@ -36,6 +37,20 @@
         <MappingFragment StoreEntitySet="STATUS_IMPACT">
           <ScalarProperty Name="STATUS_NAME" ColumnName="STATUS_NAME" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROJECT_IMPACT_GEOMETRY">
+      <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT_GEOMETRY">
+        <MappingFragment StoreEntitySet="PROJECT_IMPACT_GEOMETRY">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="Shape" ColumnName="Shape" />
+          <ScalarProperty Name="OriginY" ColumnName="OriginY" />
+          <ScalarProperty Name="OriginX" ColumnName="OriginX" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="ShapeID" ColumnName="ShapeID" />
+          <ScalarProperty Name="ProjectImpactID" ColumnName="ProjectImpactID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -42,4 +42,13 @@ namespace TDM.Models.ViewModels
         public string MarketDrawingCode { get; set; }
         public string Shape { get; set; }
     }
+
+
+    public class AddressList
+    {
+        public List<PROVINCE> ProvinceList { get; set; }
+        public List<AMPHOE> AmphoeList { get; set; }
+    public List<TAMBOL> TambolList { get; set; }
+
+    }
 }

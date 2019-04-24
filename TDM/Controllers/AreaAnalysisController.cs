@@ -28,7 +28,7 @@ namespace TDM.Controllers
         public ActionResult AddEditProject(int projectId, int statusId = 0)
         {
             PROJECT_IMPACT_ViewModel model = new PROJECT_IMPACT_ViewModel();
-            tdaEntities.Configuration.ProxyCreationEnabled = false;
+            tdaEntities.Configuration.ProxyCreationEnabled = false;/**/
             if (projectId > 0)
             {
                 PROJECT_IMPACT project = db.PROJECT_IMPACT.SingleOrDefault(x => x.ID == projectId && x.IS_DELETED == false);
@@ -50,9 +50,7 @@ namespace TDM.Controllers
             }
             try
             {
-                /* result = searchResult.Select(r => new TDM.Models.ViewModels.MAP_ViewModel()
-                 {
-                     Name = r.ProviceName,*/
+                
 
                 model.PROVINCE = tdaEntities.PROVINCEs.Select(r => new PROVINCE_ViewModel()
                 {
@@ -75,11 +73,24 @@ namespace TDM.Controllers
 
                 }).ToList();
 
+
+                if(model.PUBLISH_DATE == null)
+                {
+                    model.PUBLISH_DATE = DateTime.Now;
+                }
             }
             catch(Exception ex) {
                 return Json(ex);
             }
+/*
            
+            
+            
+            var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(model);
+            var json = System.IO.File.ReadAllText(@"C:\inetpub\wwwroot\GitHub\TDMNew\3Parties\json.txt");
+
+            model = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<PROJECT_IMPACT_ViewModel>(json);*/
+
             return PartialView("Manage_Modal", model);
         }
     }

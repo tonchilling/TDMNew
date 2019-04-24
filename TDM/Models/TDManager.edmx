@@ -12,6 +12,11 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SUBJECT_ID" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="SUBJECT_NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PROVINCE_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="AMPHOE_ID" Type="nvarchar" MaxLength="10" />
+          <Property Name="TAMBOL_ID" Type="nvarchar" MaxLength="10" />
+          <Property Name="Area" Type="nvarchar" MaxLength="100" />
+          <Property Name="Shape" Type="varchar" MaxLength="8000" />
           <Property Name="CREATE_DATE" Type="datetime" Nullable="false" />
           <Property Name="CREATE_BY" Type="nvarchar" MaxLength="50" />
           <Property Name="UPDATE_DATE" Type="datetime" Nullable="false" />
@@ -19,11 +24,21 @@
           <Property Name="PUBLISH_DATE" Type="datetime" />
           <Property Name="IS_PUBLISHED" Type="bit" Nullable="false" />
           <Property Name="IS_DELETED" Type="bit" Nullable="false" />
-          <Property Name="PROVINCE_ID" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" />
-          <Property Name="Shape" Type="varchar" MaxLength="8000" />
-          <Property Name="AMPHOE_ID" Type="nvarchar" MaxLength="10" />
-          <Property Name="TAMBOL_ID" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="PROJECT_IMPACT_GEOMETRY">
+          <Key>
+            <PropertyRef Name="ProjectImpactID" />
+            <PropertyRef Name="ShapeID" />
+          </Key>
+          <Property Name="ProjectImpactID" Type="bigint" Nullable="false" />
+          <Property Name="ShapeID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Area" Type="decimal" Precision="18" Scale="10" Nullable="false" />
+          <Property Name="OriginX" Type="nvarchar" MaxLength="50" />
+          <Property Name="OriginY" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shape" Type="geometry" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="PROV_IMPACT">
           <Key>
@@ -42,6 +57,7 @@
         </EntityType>
         <EntityContainer Name="TDManagementModelStoreContainer">
           <EntitySet Name="PROJECT_IMPACT" EntityType="Self.PROJECT_IMPACT" Schema="tdadmin" store:Type="Tables" />
+          <EntitySet Name="PROJECT_IMPACT_GEOMETRY" EntityType="Self.PROJECT_IMPACT_GEOMETRY" Schema="tdadmin" store:Type="Tables" />
           <EntitySet Name="PROV_IMPACT" EntityType="Self.PROV_IMPACT" Schema="tdadmin" store:Type="Tables" />
           <EntitySet Name="STATUS_IMPACT" EntityType="Self.STATUS_IMPACT" Schema="tdadmin" store:Type="Tables" />
         </EntityContainer>
@@ -53,6 +69,7 @@
           <EntitySet Name="PROJECT_IMPACT" EntityType="TDManagementModel.PROJECT_IMPACT" />
           <EntitySet Name="PROV_IMPACT" EntityType="TDManagementModel.PROV_IMPACT" />
           <EntitySet Name="STATUS_IMPACT" EntityType="TDManagementModel.STATUS_IMPACT" />
+          <EntitySet Name="PROJECT_IMPACT_GEOMETRY" EntityType="TDManagementModel.PROJECT_IMPACT_GEOMETRY" />
         </EntityContainer>
         <EntityType Name="PROJECT_IMPACT">
           <Key>
@@ -73,6 +90,7 @@
           <Property Name="Shape" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="AMPHOE_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="TAMBOL_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PROV_IMPACT">
           <Key>
@@ -89,6 +107,20 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="STATUS_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="PROJECT_IMPACT_GEOMETRY">
+          <Key>
+            <PropertyRef Name="ProjectImpactID" />
+            <PropertyRef Name="ShapeID" />
+          </Key>
+          <Property Name="ProjectImpactID" Type="Int64" Nullable="false" />
+          <Property Name="ShapeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Area" Type="Decimal" Nullable="false" Precision="18" Scale="10" />
+          <Property Name="OriginX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OriginY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shape" Type="Geometry" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -98,6 +130,7 @@
           <EntitySetMapping Name="PROJECT_IMPACT">
             <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT">
               <MappingFragment StoreEntitySet="PROJECT_IMPACT">
+                <ScalarProperty Name="Area" ColumnName="Area" />
                 <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
                 <ScalarProperty Name="AMPHOE_ID" ColumnName="AMPHOE_ID" />
                 <ScalarProperty Name="Shape" ColumnName="Shape" />
@@ -130,6 +163,20 @@
               <MappingFragment StoreEntitySet="STATUS_IMPACT">
                 <ScalarProperty Name="STATUS_NAME" ColumnName="STATUS_NAME" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROJECT_IMPACT_GEOMETRY">
+            <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT_GEOMETRY">
+              <MappingFragment StoreEntitySet="PROJECT_IMPACT_GEOMETRY">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Shape" ColumnName="Shape" />
+                <ScalarProperty Name="OriginY" ColumnName="OriginY" />
+                <ScalarProperty Name="OriginX" ColumnName="OriginX" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="ShapeID" ColumnName="ShapeID" />
+                <ScalarProperty Name="ProjectImpactID" ColumnName="ProjectImpactID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
