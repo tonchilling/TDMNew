@@ -321,7 +321,7 @@ namespace TDM.Models
             return ds.Tables[0];
         }
 
-        public DataSet GetLoginHistory(string datestart, string dateend, string timestart, string timeend, string sysid,string hour)
+        public DataSet GetLoginHistory(string datestart, string dateend, string timestart, string timeend, string sysid, string hour)
         {
             DataSet ds = new DataSet();
             using (SqlConnection con = new SqlConnection(cs))
@@ -401,7 +401,6 @@ namespace TDM.Models
             return ds;
         }
 
-
         public DataSet GetTransactionPlanHdByCode(string Code)
         {
             DataSet ds = new DataSet();
@@ -444,7 +443,7 @@ namespace TDM.Models
             return ds;
         }
 
-        public DataSet GetTransactionPlanHdByCodeAndProvince(string Code,string Province)
+        public DataSet GetTransactionPlanHdByCodeAndProvince(string Code, string Province)
         {
             DataSet ds = new DataSet();
             using (SqlConnection con = new SqlConnection(cs))
@@ -489,12 +488,35 @@ namespace TDM.Models
             return ds;
         }
 
-        public DataSet GetTransactionPlanDtByCodeAndProvince(string Code,string Province)
+        public DataSet GetTransactionPlanDtByCodeAndProvince(string Code, string Province)
         {
             DataSet ds = new DataSet();
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand("sp_TPS_GetTransactionPlanDtByCodeAndProvince", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("Code", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("Province", SqlDbType.VarChar));
+                cmd.Parameters["Code"].Value = String.IsNullOrEmpty(Code) ? (object)DBNull.Value : Code;
+                cmd.Parameters["Province"].Value = String.IsNullOrEmpty(Province) ? (object)DBNull.Value : Province;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
+
+        public DataSet GetTransactionPlanDistrictByCodeAndProvince(string Code, string Province)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetTransactionPlanDistrictByCodeAndProvince", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Clear();
@@ -538,7 +560,7 @@ namespace TDM.Models
             return ds.Tables[0];
         }
 
-        public DataSet GetSHPByPoint(string Point_47,string Point_48)
+        public DataSet GetSHPByPoint(string Point_47, string Point_48)
         {
             DataSet ds = new DataSet();
             using (SqlConnection con = new SqlConnection(cs))
@@ -566,7 +588,7 @@ namespace TDM.Models
             DataSet ds = new DataSet();
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlCommand cmd = new SqlCommand("sp_TPS_GetSHAPEByTransactionPlanHdCode", con); 
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetSHAPEByTransactionPlanHdCode", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Clear();
@@ -582,6 +604,26 @@ namespace TDM.Models
             return ds;
         }
 
+        public DataSet GetSHAPEProvinceByProvince(string ProvinceCode)
+        {
+            DataSet ds = new DataSet();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("sp_TPS_GetSHAPEProvinceByProvince", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(new SqlParameter("ProvinceCode", SqlDbType.VarChar));
+                cmd.Parameters["ProvinceCode"].Value = String.IsNullOrEmpty(ProvinceCode) ? (object)DBNull.Value : ProvinceCode;
+
+                con.Open();
+                var adapter = new SqlDataAdapter(cmd);
+
+                adapter.Fill(ds);
+            }
+            return ds;
+        }
         public DataSet GetSHAPEDistrictByDistrictCode(string DistrictCode)
         {
             DataSet ds = new DataSet();

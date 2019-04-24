@@ -122,10 +122,15 @@ namespace TDM.Controllers.api
             return result;
         }
 
-        public IHttpActionResult GetTransactionPlanHdByCode(string Code)
+        public string GetTransactionPlanHdByCode(string Code)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return Json(db.GetTransactionPlanHdByCode(Code));
+            DataSet ds = new DataSet();
+            ds = db.GetTransactionPlanHdByCode(Code);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
         }
 
         public string GetTransactionPlanHdByCode_TOP1(string Code)
@@ -167,6 +172,16 @@ namespace TDM.Controllers.api
             db.Configuration.ProxyCreationEnabled = false;
             DataSet ds = new DataSet();
             ds = db.GetTransactionPlanDtByCodeAndProvince(Code, Province);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
+        }
+        public string GetTransactionPlanDistrictByCodeAndProvince(string Code, string Province)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            DataSet ds = new DataSet();
+            ds = db.GetTransactionPlanDistrictByCodeAndProvince(Code, Province);
             string result = "";
             if (ds.Tables.Count > 0)
                 result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
@@ -225,12 +240,23 @@ namespace TDM.Controllers.api
                 result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
             return result;
         }
-
+        
         public string GetSHAPETransactionPlanHdByCode(string Code) // get Map all by TransactionPlan Code
         {
             db.Configuration.ProxyCreationEnabled = false;
             DataSet ds = new DataSet();
             ds = db.GetSHAPETransactionPlanHdByCode(Code);
+            string result = "";
+            if (ds.Tables.Count > 0)
+                result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
+            return result;
+        }
+ 
+        public string GetSHAPEProvinceByProvince(string ProvinceCode) 
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            DataSet ds = new DataSet();
+            ds = db.GetSHAPEProvinceByProvince(ProvinceCode);
             string result = "";
             if (ds.Tables.Count > 0)
                 result = DataTableToJSONWithStringBuilder(ds.Tables[0]);
