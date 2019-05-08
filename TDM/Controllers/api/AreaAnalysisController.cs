@@ -701,7 +701,8 @@ namespace TDM.Controllers.api
                     ProjectImpactImportedID = data.ImportID,
                     RequireOtherPage = requireOtherPage,
                     PageNo = data.PageNo,
-                    Shapes = results.Select(r => r.Shape.WellKnownValue).ToList()
+                    Shapes = results.Select(r => r.Shape.WellKnownValue).ToList(),
+                    
             }, jsonSetting);
             }
             else
