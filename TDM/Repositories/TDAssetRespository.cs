@@ -1016,8 +1016,10 @@ namespace TDM.Repositories
                         data.TAMBOL_ID = reader["TAMBOL_ID"].ToString();
                         data.TambolName = reader["TambolName"].ToString();
                         data.Shape = reader["Shape"].ToString();
-                        data.Area = reader["Area"].ToString();
-                        data.ParcelTotal = reader["ParcelTotal"].ToString();
+
+                        data.ParcelTotal = reader.GetInt32(reader.GetOrdinal("ParcelTotal")).ToString("#,##0");
+                        data.Area = Convert.ToDecimal( reader.GetString(reader.GetOrdinal("Area"))).ToString("#,##0.00");
+
 
                         result.Add(data);
 

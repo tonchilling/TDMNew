@@ -335,3 +335,4 @@ C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\DotSpatial.GeoAPI.dll
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\DotSpatial.NetTopologySuite.dll
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\DotSpatial.Projections.dll
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\DotSpatial.Serialization.dll
+C:\inetpub\wwwroot\GitHub\TDMNew\TDM\obj\Release\TDM.csprojResolveAssemblyReference.cache
