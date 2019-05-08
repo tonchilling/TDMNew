@@ -1,6 +1,14 @@
-﻿body {
+﻿@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../../fonts/THSarabunNew.ttf') format('truetype');
+}
+
+
+body {
+    font-family: 'Arial', sans-serif;
     padding-top: 0px;
-    color:#555;
+    color: #555;
+   
 }
 .panel-login {
 	border-color: #ccc;
@@ -703,15 +711,15 @@ color:#428bca;
 
         .table thead tr th {
             font-size: 14px;
-            height: 24px;
+            height: 45px;
         }
 
         .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
             padding: 3px;
             line-height: 1.42857143;
             vertical-align: middle;
-            horizontal border-top: 1px solid #ddd;
-            height: 40px;
+            horizontal: border-top: 1px solid #ddd;
+            min-height: 28px;
         }
 
         .btn-success {
@@ -959,6 +967,11 @@ form.main-search input[type="text"], form.main-search input[type="date"], form.m
   position: absolute;
   left: 0px;
   top: 2px;
+}
+
+
+table.dataTable tr td {
+    padding: 3px 10px 10px 3px !important;
 }
 
 

@@ -19,7 +19,8 @@ namespace TDM.Controllers.api
 {
     public class PriceSysController : ApiController
     {
-
+        int overMax = 10;
+       
         public IHttpActionResult GetPOIs(string changwatCode, string amphurCode, string tumbonCode)
         {
             var repos = new TDAssetRespository();
@@ -62,6 +63,21 @@ namespace TDM.Controllers.api
         }
 
 
+        [HttpGet]
+        public IHttpActionResult GetDropDownList(string Code)
+        {
+            var repos = new TDAssetRespository();
+            SetionType sectionT = new SetionType();
+
+
+
+            var estimateData = repos.GetDropDownList(Code);
+
+            return Json(estimateData);
+        }
+
+
+
 
         [HttpPost]
         public IHttpActionResult GetPriceBI(SearchMap searchDto)
@@ -74,19 +90,24 @@ namespace TDM.Controllers.api
             List<BarchartValue> value2 = null;
             BarchartValue barValue = null;
             var barchart = new Barchart();
+            int row = 0;
 
+            var estimateData = repos.GetPriceBI(searchDto);
 
-            var estimateData = repos.GetPrice(searchDto);
-
-            resultList.EstimateData = estimateData;
+            resultList.EstimateData = estimateData.OrderByDescending(o => o.ParcelPriceMax).ToList();
             if (estimateData != null)
             {
                 data = new List<string>();
                 value = new List<BarchartValue>();
                 value2 = new List<BarchartValue>();
 
-                foreach (EstimateData result in estimateData)
+                row = 0;
+                foreach (EstimateData result in estimateData.OrderByDescending(o => o.ParcelWAHPriceMax))
                 {
+                    if (row >= overMax)
+                    {
+                        break;
+                    }
                     barValue = new BarchartValue();
                     barValue.name = result.DisplayName;
                     barValue.value = Converting.ToDecimal(result.ParcelWAHPriceMax);
@@ -105,6 +126,7 @@ namespace TDM.Controllers.api
 
 
                     data.Add(result.DisplayName);
+                    row++;
 
                 }
 
@@ -145,19 +167,26 @@ namespace TDM.Controllers.api
             List<BarchartValue> value2 = null;
             BarchartValue barValue = null;
             var barchart = new Barchart();
+            int row = 0;
 
+            var estimateData = repos.GetPriceOfCondoBI(searchDto);
 
-            var estimateData = repos.GetPriceOfCondo(searchDto);
-
-            resultList.EstimateData = estimateData;
+            resultList.EstimateData = estimateData.OrderByDescending(o => o.ParcelPriceMax).ToList();
             if (estimateData != null)
             {
                 data = new List<string>();
                 value = new List<BarchartValue>();
                 value2 = new List<BarchartValue>();
 
-                foreach (EstimateData result in estimateData)
+                foreach (EstimateData result in estimateData.OrderByDescending(o => o.ParcelPriceMax))
                 {
+
+                    if (row >= overMax)
+                    {
+                        break;
+                    }
+
+
                     barValue = new BarchartValue();
                     barValue.name = result.DisplayName;
                     barValue.value = Converting.ToDecimal(result.ParcelPriceMax);
@@ -176,6 +205,8 @@ namespace TDM.Controllers.api
 
 
                     data.Add(result.DisplayName);
+
+                    row++;
 
                 }
 
@@ -251,8 +282,8 @@ namespace TDM.Controllers.api
 
 
             var estimateData = repos.GetPriceOfConstrucion(searchDto);
-
-            return Json(estimateData);
+           
+            return Json(estimateData.OrderByDescending(o => o.ParcelPrice).ToList() );
         }
 
 
@@ -261,7 +292,7 @@ namespace TDM.Controllers.api
         {
             var repos = new TDAssetRespository();
             SetionType sectionT = new SetionType();
-
+            int row = 0;
             GetPriceBI resultList = new GetPriceBI();
             List<string> data = null;
             List<BarchartValue> value = null;
@@ -272,7 +303,7 @@ namespace TDM.Controllers.api
 
 
             var estimateData = repos.GetPriceOfConstrucionBI(searchDto);
-            resultList.EstimateData = estimateData;
+            resultList.EstimateData = resultList.EstimateData = estimateData.OrderByDescending(o => o.ParcelPrice).ToList();
 
             if (estimateData != null)
             {
@@ -280,8 +311,13 @@ namespace TDM.Controllers.api
                 value = new List<BarchartValue>();
                 value2 = new List<BarchartValue2>();
 
-                foreach (EstimateData result in estimateData)
+                foreach (EstimateData result in estimateData.OrderByDescending(o => o.ParcelPrice))
                 {
+
+                    if (row >= overMax)
+                    {
+                        break;
+                    }
                     barValue = new BarchartValue();
                     barValue.name = result.DisplayName;
                     barValue.value = Converting.ToDecimal(result.ParcelPrice);
@@ -306,6 +342,9 @@ namespace TDM.Controllers.api
 
 
                     data.Add(result.DisplayName);
+
+                    
+                    row++;
 
                 }
 

@@ -44,6 +44,98 @@ function initialData() {
     CMPLTADMIN_SETTINGS.sectionBoxActions();
  
 }
+
+
+$(document).on("click", ".btnQuery", function () {
+    $(".boxfield").removeClass("m-fadeOut m-fadeIn absolute").addClass("m-fadeIn");
+    GeneratePreview();
+});
+
+
+$(document).on("click", ".btnPreview", function () {
+   
+    GeneratePreview();
+});
+
+function GeneratePreview() {
+    $(".divPreview").removeClass("m-fadeOut m-fadeIn absolute").addClass("m-fadeIn");
+    $(".divPreviewBody").empty();
+
+    var html = "";
+    html +='<div class="row">';
+
+    if (objSelection != null && objSelection.length>0 ) {
+
+        $.each(objSelection, function (index, item) {
+            if (item.GType == '1') {
+                html +='<div class="col-xs-12">'
+                html +='<section class="box " >'
+                html +='<header class="panel_header bg-info">'
+                html +='<i class="fa fa-2x fa-table " aria-hidden="true"> Table</i>'
+                html +='</header>'
+                html +='<div class="content-body">'
+                html +='<div class="row">'
+                html +='<div class="col-md-12 col-sm-12 col-xs-12">'
+                html += '<div class="divTablePreview">'
+                if (item.Fields != null && item.Fields.length > 0) {
+                    html += '<table class="table  table-striped"   id = "EstimateChartTable0">';
+                    html += '<thead>';
+                    html += '<tr class="bg-info" >';
+
+
+                    $.each(item.Fields, function (index, item) {
+                        html += ' <th  scope="col">' + item.dataname + '</th>';
+                    });
+
+                    html += ' </tr>';
+                    html += '</thead>';
+
+                    html += ' </table>';
+
+                  
+                }
+
+            } if (item.GType == '2') {
+                html +='<div class="col-xs-4">'
+                html +='<div class="divBarchartPreview">'
+            }
+            if (item.GType == '3') {
+                html +='<div class="col-xs-4">'
+                html +='<div class="divLinechartPreview">'
+            }
+            if (item.GType == '4') {
+                html +='<div class="col-xs-4">'
+                html +='<div class="divPiePreview">'
+            }
+
+
+            html += '</div>'
+            html += '</div>'
+            html += '</div>'
+            html += '</div>'
+            html += '</div>'
+        });
+
+      
+    }
+
+
+ 
+  
+       
+        html +='</div>'
+
+    $(".divPreviewBody").append(html);
+
+    $(".divTablePreview table").DataTable();
+
+    
+
+   
+
+}
+
+
 $(document).on("change", "#ddlSelectGraph", function () {
 
     var menuDisplay = "";
@@ -102,7 +194,7 @@ $(document).on("click", ".btnSave", function () {
     obj.No = objSelection != null ? objSelection.length + 1 : 1;
     obj.GType = $("#ddlSelectGraph option:selected").val();
     obj.GtypeName = $("#ddlSelectGraph option:selected").text();
-
+    obj.Fields = objTableFieldSelect;
     objSelection.push(obj);
 
     LoadSelectionTable(objSelection);
@@ -156,8 +248,8 @@ $(document).on("click", ".btnRemove", function () {
         case "divDragTable":
             objTableFieldSelect = objTableFieldSelect.filter(d => d.elementid != $(this).closest("button").attr("id"));
             setTimeout(function () {
-                TableManage.fields = objTableFieldSelect;
-                TableManage.Display("divTableDisplay");
+               // TableManage.Fields = objTableFieldSelect;
+                //TableManage.Display("divTableDisplay");
             }, 1000);
             break;
         case "divBarchartX":
@@ -285,8 +377,8 @@ function GenerateTable(ev) {
     $(ev.target).append(selectElement.clone().append("<i class='fa fa-remove fa-2x text-danger btnRemove'>"));
 
     setTimeout(function () {
-        TableManage.fields = objTableFieldSelect;
-        TableManage.Display("divTableDisplay");
+     //   TableManage.Fields = objTableFieldSelect;
+      //  TableManage.Display("divTableDisplay");
     }, 1000);
 
 
@@ -304,18 +396,18 @@ function newdrop(ev) {
 
 var TableManage = {
 
-    fields:[],
+    Fields:[],
     Display: function (eleClassName) {
         var html = "";
         var selectEle = "." + eleClassName;
         $(selectEle).empty();
-        if (TableManage.fields != null && TableManage.fields.length > 0) {
+        if (TableManage.Fields != null && TableManage.Fields.length > 0) {
             html += '<table class="table  table-striped"   id = "EstimateChartTable0">';
             html += '<thead>';
             html += '<tr class="bg-info" >';
 
 
-            $.each(TableManage.fields, function (index, item) {
+            $.each(TableManage.Fields, function (index, item) {
                 html += ' <th  scope="col">' + item.dataname+'</th>';
             });
 

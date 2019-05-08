@@ -128,6 +128,8 @@ namespace TDM.Models
 
         public string TambolName { get; set; }
         public string Shape { get; set; }
+        public string Area { get; set; }
+        public string ParcelTotal { get; set; }
     }
 
     public partial class POI
@@ -237,6 +239,7 @@ namespace TDM.Models
         public string PriceCompare { get; set; }
         public string Color { get; set; }
         public string CondoName { get; set; }
+        public string Percent { get; set; }
 
     }
 

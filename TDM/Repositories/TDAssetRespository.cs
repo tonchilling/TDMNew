@@ -94,6 +94,7 @@ namespace TDM.Repositories
                         prov.NAME_T = reader["NAME_T"].ToString();
                         prov.NAME_E = reader["NAME_E"].ToString();
                         prov.RegionCode = reader["RegionCode"].ToString();
+                        prov.ClusterCode = reader["ClusterCode"].ToString();
                         provinceList.Add(prov);
 
                     }
@@ -112,6 +113,7 @@ namespace TDM.Repositories
                         amphoe.NAME_E = reader["NAME_E"].ToString();
                         amphoe.DIS_C = reader["DIS_C"].ToString();
                         amphoe.RegionCode = reader["RegionCode"].ToString();
+                        amphoe.ClusterCode = reader["ClusterCode"].ToString();
                         amphoeList.Add(amphoe);
 
                     }
@@ -124,14 +126,15 @@ namespace TDM.Repositories
                     {
                         tambol = new Models.TAMBOL();
                         tambol.PRO_C = reader["PRO_C"].ToString();
-                        tambol.ON_PRO_THA = reader["ON_PRO_THA"].ToString();
-                        tambol.ON_PRO_ENG = reader["ON_PRO_ENG"].ToString();
+                    //    tambol.ON_PRO_THA = reader["ON_PRO_THA"].ToString();
+                      //  tambol.ON_PRO_ENG = reader["ON_PRO_ENG"].ToString();
                         tambol.NAME_T = reader["NAME_T"].ToString();
                         tambol.NAME_E = reader["NAME_E"].ToString();
                         tambol.DIS_C = reader["DIS_C"].ToString();
-                        tambol.ON_DIS_THA = reader["ON_DIS_THA"].ToString();
+                      //  tambol.ON_DIS_THA = reader["ON_DIS_THA"].ToString();
                         tambol.SUB_C= reader["SUB_C"].ToString();
                         tambol.RegionCode = reader["RegionCode"].ToString();
+                        tambol.ClusterCode = reader["ClusterCode"].ToString();
                         tambolList.Add(tambol);
 
                     }
@@ -312,6 +315,39 @@ namespace TDM.Repositories
                 {
 
                     reader = conn.ExecuteReader("GetCluster", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.DropdownObj();
+                        data.Name = reader["Name"].ToString();
+                        data.Value = reader["Value"].ToString();
+                        result.Add(data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            { }
+
+            return result;
+        }
+
+
+        public List<DropdownObj> GetDropDownList(string table)
+        {
+            IDataReader reader = null;
+            List<DropdownObj> result = null;
+            DropdownObj data = null;
+            var p = new DynamicParameters();
+            // p.Add("@SectionType", (int)search.SectionType);
+            // p.Add("@Code", search.Code, dbType: DbType.String);
+
+            try
+            {
+                result = new List<DropdownObj>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader(string.Format("sp_{0}_dropdownlist", table), p, commandType: CommandType.StoredProcedure);
 
                     while (reader.Read())
                     {
@@ -526,6 +562,95 @@ namespace TDM.Repositories
         }
 
 
+        public List<EstimateData> GetPriceBI(SearchMap search)
+        {
+            IDataReader reader = null;
+            List<EstimateData> result = null;
+            EstimateData data = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@ChanodeNo", search.ChanodeNo == null ? "" : search.ChanodeNo, dbType: DbType.String);
+            p.Add("@LocationType", (int)search.LocationType, dbType: DbType.String);
+            try
+            {
+                result = new List<EstimateData>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("GetPriceBI", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.EstimateData();
+                        data.DisplayCode = reader["DisplayCode"].ToString();
+                        data.DisplayName = reader["DisplayName"].ToString();
+                        data.RegionCode = reader["RegionCode"].ToString();
+                        data.RegionName = reader["RegionName"].ToString();
+                        data.ProviceCode = reader["ProviceCode"].ToString();
+                        data.ProviceName = reader["ProviceName"].ToString();
+                        data.AmphureCode = reader["AmphureCode"].ToString();
+                        data.AmphureName = reader["AmphureName"].ToString();
+                        data.TAMBOLCode = reader["TAMBOLCode"].ToString();
+                        data.TAMBOLName = reader["TAMBOLName"].ToString();
+
+                        data.MarketPrice = Converting.ToDecimal(reader["MarketPrice"].ToString()).ToString("##,##0.00");
+                        data.MarketPriceMin = Converting.ToDecimal(reader["MarketPriceMin"].ToString()).ToString("##,##0.00");
+                        data.MarketPriceMax = Converting.ToDecimal(reader["MarketPriceMax"].ToString()).ToString("##,##0.00");
+                        data.MarketPriceAvg = Converting.ToDecimal(reader["MarketPriceAvg"].ToString()).ToString("##,##0.00");
+                        data.MaxMarketAddrCode = reader["MaxMarketAddrCode"].ToString();
+                        data.MaxMarketCHANODE_NO = reader["MaxMarketCHANODE_NO"].ToString();
+                        data.MinMarketAddrCode = reader["MinMarketAddrCode"].ToString();
+                        data.MinMarketCHANODE_NO = reader["MinMarketCHANODE_NO"].ToString();
+
+                        data.MarketWAHPrice = Converting.ToDecimal(reader["MarketWAHPrice"].ToString()).ToString("##,##0.00");
+                        data.MarketWAHPriceMin = Converting.ToDecimal(reader["MarketWAHPriceMin"].ToString()).ToString("##,##0.00");
+                        data.MarketWAHPriceMax = Converting.ToDecimal(reader["MarketWAHPriceMax"].ToString()).ToString("##,##0.00");
+                        data.MarketWAHPriceAvg = Converting.ToDecimal(reader["MarketWAHPriceAvg"].ToString()).ToString("##,##0.00");
+                        data.MaxMarketWAHAddrCode = reader["MaxMarketWAHAddrCode"].ToString();
+                        data.MaxMarketWAHCHANODE_NO = reader["MaxMarketWAHCHANODE_NO"].ToString();
+                        data.MinMarketWAHAddrCode = reader["MinMarketWAHAddrCode"].ToString();
+                        data.MinMarketWAHCHANODE_NO = reader["MinMarketWAHCHANODE_NO"].ToString();
+
+
+                        data.ParcelPrice = Converting.ToDecimal(reader["ParcelPrice"].ToString()).ToString("##,##0.00");
+                        data.ParcelPriceMin = Converting.ToDecimal(reader["ParcelPriceMin"].ToString()).ToString("##,##0.00");
+                        data.ParcelPriceMax = Converting.ToDecimal(reader["ParcelPriceMax"].ToString()).ToString("##,##0.00");
+                        data.ParcelPriceAvg = Converting.ToDecimal(reader["ParcelPriceAvg"].ToString()).ToString("##,##0.00");
+                        data.MaxParcelAddrCode = reader["MaxParcelAddrCode"].ToString();
+                        data.MaxParcelCHANODE_NO = reader["MaxParcelCHANODE_NO"].ToString();
+                        data.MinParcelAddrCode = reader["MinParcelAddrCode"].ToString();
+                        data.MinParcelCHANODE_NO = reader["MinParcelCHANODE_NO"].ToString();
+
+
+                        data.ParcelWAHPrice = Converting.ToDecimal(reader["ParcelWAHPrice"].ToString()).ToString("##,##0.00");
+                        data.ParcelWAHPriceMin = Converting.ToDecimal(reader["ParcelWAHPriceMin"].ToString()).ToString("##,##0.00");
+                        data.ParcelWAHPriceMax = Converting.ToDecimal(reader["ParcelWAHPriceMax"].ToString()).ToString("##,##0.00");
+                        data.ParcelWAHPriceAvg = Converting.ToDecimal(reader["ParcelWAHPriceAvg"].ToString()).ToString("##,##0.00");
+                        data.MaxParcelWAHAddrCode = reader["MaxParcelWAHAddrCode"].ToString();
+                        data.MaxParcelWAHCHANODE_NO = reader["MaxParcelWAHCHANODE_NO"].ToString();
+                        data.MinParcelWAHAddrCode = reader["MinParcelWAHAddrCode"].ToString();
+                        data.MinParcelWAHCHANODE_NO = reader["MinParcelWAHCHANODE_NO"].ToString();
+
+
+                        data.LAND_AREA = reader["LAND_AREA"].ToString();
+                        data.LAND_Total = reader["LAND_Total"].ToString();
+                        data.MarketColor = reader["MarketColor"].ToString();
+                        data.ParcelColor = reader["ParcelColor"].ToString();
+                      //  data.Shape = reader["Shape"].ToString();
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Section 2,3
         /// </summary>
@@ -547,6 +672,72 @@ namespace TDM.Repositories
                 {
 
                     reader = conn.ExecuteReader("[GetPrice_Condo]", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.EstimateData();
+                        data.DisplayCode = reader["DisplayCode"].ToString();
+                        data.DisplayName = reader["DisplayName"].ToString();
+                        data.RegionCode = reader["RegionCode"].ToString();
+                        data.RegionName = reader["RegionName"].ToString();
+                        data.ProviceCode = reader["ProviceCode"].ToString();
+                        data.ProviceName = reader["ProviceName"].ToString();
+                        data.AmphureCode = reader["AmphureCode"].ToString();
+                        data.AmphureName = reader["AmphureName"].ToString();
+                        data.TAMBOLCode = reader["TAMBOLCode"].ToString();
+                        data.TAMBOLName = reader["TAMBOLName"].ToString();
+                        data.MarketPrice = reader["MarketPrice"].ToString();
+                        data.MarketPriceMin = reader["MarketPriceMin"].ToString();
+                        data.MarketPriceMax = reader["MarketPriceMax"].ToString();
+                        data.MarketPriceAvg = reader["MarketPriceAvg"].ToString();
+                        data.ParcelPrice = reader["ParcelPrice"].ToString();
+                        data.ParcelPriceMin = reader["ParcelPriceMin"].ToString();
+                        data.ParcelPriceMax = reader["ParcelPriceMax"].ToString();
+                        data.ParcelPriceAvg = reader["ParcelPriceAvg"].ToString();
+                        data.LAND_AREA = reader["LAND_AREA"].ToString();
+                        data.LAND_Total = reader["LAND_Total"].ToString();
+                        data.MarketColor = reader["MarketColor"].ToString();
+                        data.ParcelColor = reader["ParcelColor"].ToString();
+                        data.Shape = reader["Shape"].ToString();
+                        data.RegisterNo = reader["RegisterNo"].ToString();
+                        data.LATITUDE = reader["LATITUDE"].ToString();
+                        data.LONGITUDE = reader["LONGITUDE"].ToString();
+                        data.CondoName = reader["CondoName"].ToString();
+
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Section 2,3
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<EstimateData> GetPriceOfCondoBI(SearchMap search)
+        {
+            IDataReader reader = null;
+            List<EstimateData> result = null;
+            EstimateData data = null;
+            var p = new DynamicParameters();
+            p.Add("@SectionType", (int)search.SectionType);
+            p.Add("@Code", search.Code, dbType: DbType.String);
+            p.Add("@LocationType", search.LocationType, dbType: DbType.String);
+            try
+            {
+                result = new List<EstimateData>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("[GetPrice_CondoBI]", p, commandType: CommandType.StoredProcedure);
 
                     while (reader.Read())
                     {
@@ -680,7 +871,8 @@ namespace TDM.Repositories
                       //  data.REMARK = reader["REMARK"].ToString();
                       //  data.CreateDate = reader["CreateDate"].ToString();
                        // data.PriceCompare = reader["PriceCompare"].ToString();
-                      //  data.Color = reader["Color"].ToString();
+                        data.Color = reader["Color"].ToString();
+                        data.Percent= reader["Percent"].ToString();
                         result.Add(data);
 
                     }
@@ -824,6 +1016,8 @@ namespace TDM.Repositories
                         data.TAMBOL_ID = reader["TAMBOL_ID"].ToString();
                         data.TambolName = reader["TambolName"].ToString();
                         data.Shape = reader["Shape"].ToString();
+                        data.Area = reader["Area"].ToString();
+                        data.ParcelTotal = reader["ParcelTotal"].ToString();
 
                         result.Add(data);
 
