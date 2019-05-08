@@ -619,11 +619,13 @@ function switchTabExten(id) {
     
 }
 
-function loadImpactShapes(projectImpactImportedID, pageNo) {
+function loadImpactShapes(ele,projectImpactImportedID, pageNo) {
 
     /**/
     try {
 
+        $($(ele).parent()).find("tr").css('background-color', '#FFFFFF');
+        $(ele).css('background-color', '#CEC9CB');
         var data = {
             ImportID: projectImpactImportedID,
             PageNo: pageNo
@@ -663,7 +665,7 @@ function loadImpactShapes(projectImpactImportedID, pageNo) {
                 
 
                 if (data.RequireOtherPage) {
-                    loadImpactShapes(data.ProjectImpactImportedID, data.PageNo+1);
+                    loadImpactShapes(ele, data.ProjectImpactImportedID, data.PageNo + 1);
                 }
                 /*
                 ProjectImpactImportedID 

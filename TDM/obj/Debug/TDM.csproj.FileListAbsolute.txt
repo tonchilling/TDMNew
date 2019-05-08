@@ -224,7 +224,6 @@ C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\DotSpatial.NetTopologySuite.dll
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\DotSpatial.Projections.dll
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\DotSpatial.Serialization.dll
 C:\inetpub\wwwroot\GitHub\TDMNew\TDM\bin\roslyn\System.IO.FileSystem.dll
-C:\inetpub\wwwroot\GitHub\TDMNew\TDM\obj\Debug\TDM.csprojResolveAssemblyReference.cache
 E:\Github\TDM\TDM\bin\ApplicationInsights.config
 E:\Github\TDM\TDM\bin\SqlServerTypes\x64\msvcr120.dll
 E:\Github\TDM\TDM\bin\SqlServerTypes\x64\SqlServerSpatial140.dll
@@ -338,3 +337,4 @@ E:\Github\TDM\TDM\obj\Debug\TDM.pdb
 E:\Github\TDM\TDM\obj\Debug\TDM.csprojAssemblyReference.cache
 E:\Github\TDM\TDM\obj\Debug\TDM.csproj.CoreCompileInputs.cache
 E:\Github\TDM\TDM\obj\Debug\TDM.csproj.CopyComplete
+C:\inetpub\wwwroot\GitHub\TDMNew\TDM\obj\Debug\TDM.csprojResolveAssemblyReference.cache
