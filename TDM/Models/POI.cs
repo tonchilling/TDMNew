@@ -239,6 +239,7 @@ namespace TDM.Models
         public string PriceCompare { get; set; }
         public string Color { get; set; }
         public string CondoName { get; set; }
+        public string Percent { get; set; }
 
     }
 

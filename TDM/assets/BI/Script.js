@@ -3661,8 +3661,12 @@ jQuery(function($) {
     });
 
     $(window).load(function() {
+        CMPLTADMIN_SETTINGS.windowBasedLayout();
+        CMPLTADMIN_SETTINGS.mainmenuScroll();
+        //CMPLTADMIN_SETTINGS.cmpltadminWidgetWeather();
         CMPLTADMIN_SETTINGS.isotopeGallery();
         CMPLTADMIN_SETTINGS.loginPage();
+        CMPLTADMIN_SETTINGS.widgetSparklineChart();
     });
 
 });

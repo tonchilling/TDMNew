@@ -66,12 +66,18 @@ address .info i {
   width: 20px;
 }
 
+
+@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../../fonts/THSarabunNew.ttf') format('truetype');
+}
+
 body, html {
-  color: #474747;
-  font-family: 'Arial', sans-serif;
-  height: 100%;
-  margin: 0;
-  font-size: 14px;
+    color: #474747;
+    font-family: 'Arial', sans-serif;
+    height: 100%;
+    margin: 0;
+    font-size: 14px;
 }
 body.navigation-fixed #outer-wrapper.show-nav #inner-wrapper .header, html.navigation-fixed #outer-wrapper.show-nav #inner-wrapper .header {
   left: -200px;
@@ -7120,3 +7126,5 @@ body.navigation-top-header .header .wrapper .toggle-navigation {
     opacity: 0;
   }
 }
+
+

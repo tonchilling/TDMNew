@@ -16,6 +16,7 @@ namespace TDM.Models
     {
         public int OBJECTID { get; set; }
         public string RegionCode { get; set; }
+        public string ClusterCode { get; set; }
         public string ON_PRO_THA { get; set; }
         public string ON_PRO_ENG { get; set; }
         public string PRO_C { get; set; }
