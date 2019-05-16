@@ -355,6 +355,9 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\TDAssetRespository.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Utils\LatLngUTMConverter.cs" />
+    <Compile Include="Utils\ShapeExtractor.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\BI\BIManagment.js" />

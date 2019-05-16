@@ -951,7 +951,7 @@ function LoadSection4() {
                 if (data != null && data.length > 0) {
                     $.each(data, function (index, item) {
 
-                        tableStr += '<tr data-toggle="collapse" data-target="#accordion" class="clickable" onclick="loadImpactShapes(' + item.ID + ',0)">';
+                        tableStr += '<tr data-toggle="collapse" data-target="#accordion" class="clickable" onclick="loadImpactShapes(this,' + item.ID + ',0)">';
                         tableStr += ' <td class="td__Center">' + item.SUBJECT_NAME + '</td>';
                         tableStr += '<td class="td__Center">' + item.ProvinceName + '</td>';
                         tableStr += '<td class="td__Center" align="center">' + item.ParcelTotal + '</td>';
