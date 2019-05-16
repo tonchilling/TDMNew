@@ -16,43 +16,69 @@
             height: 0px;
         }
     </style>
-  @section Scripts {
-    @Scripts.Render("~/assets/css/customize.css?v1113")
-    @Scripts.Render("~/assets/css/Kim_Style.css?vwwww3333ds3")
-}
-    <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
-    <link href="~/assets/css/customize.css?v1113" rel="stylesheet" />
-    
+    @section Scripts {
+        @Scripts.Render("~/assets/css/customize.css?v113")
+        @Scripts.Render("~/assets/css/Kim_Style.css?v333")
+    }
+
+    <script src="~/Scripts/waiting.js?ver=1.0220"></script>
+
+
     <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
     <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-     
+
+    <!-- CORE CSS FRAMEWORK - START -->
+    <link href="~/assets/css/BI/bootstrap.min.css?ver=1.3330" rel="stylesheet" />
+
+    <link href="~/assets/css/BI/pace-theme-flash.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/bootstrap-theme.min.css" rel="stylesheet" />
+    <!-- CORE CSS FRAMEWORK - END -->
+    <!-- CORE CSS TEMPLATE - START -->
+    <link href="~/assets/css/BI/animate.min.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
+    <link href="~/assets/css/customize.css" rel="stylesheet" />
+    <link href="~/assets/css/custom_pera/custom.min.css" rel="stylesheet" />
+    <link href="~/assets/css/Kim_Style.css?ver1.3ddd3" rel="stylesheet" />
+    <link href="~/assets/css/BI/Style.css?ver1.333dd3" rel="stylesheet" />
+
+    <!-- CORE CSS TEMPLATE - END -->
+    <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
+
+
+    <!-- Bootstrap -->
+    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery-ui.js"></script>
+    <script src="~/assets/js/bootstrap-select.min.js?33"></script>
+
     <style type="text/css">
-      .selectpicker  {
-    -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-    -moz-transition: 0.3s;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    background-color: #fff;
-}
+        .selectpicker {
+            -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+            -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+            -moz-transition: 0.3s;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+            background-color: #fff;
+        }
 
-      .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
-    color: #333;
-    background-color: #fff;
-   /*border-color: gold;*/ 
-}
+            .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
+                color: #333;
+                background-color: #fff;
+                /*border-color: gold;*/
+            }
 
-      
+
         .dropdown-menu > li > a {
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-   font-size:14px;
-    line-height: 1.42857143;
-    color: #333;
-    white-space: nowrap;
-}
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
+        }
 
         .x_content h1 {
             font-size: 28px;
@@ -64,15 +90,15 @@
             font-weight: 500;
         }
 
-        .x_content h3{
+        .x_content h3 {
             font-size: 24px;
             font-weight: 500;
         }
+
         .x_content h4 {
             font-size: 20px;
             font-weight: 500;
         }
-
     </style>
     <!-- Bootstrap -->
     <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
@@ -81,315 +107,383 @@
     <script src="~/Scripts/map_loader.js"></script>
 </head>
 <body class="nav-md">
+    <div class="page-topbar">
+        <div class="logo-area">
 
-   <div class="container body">
+        </div>
 
-        <div class="main_container">
-            <!-- Modal -->
-            <div class="modal fade" id="ModalChartBar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content" style="width: 150%; margin-left: -188px;">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">การติดตามความก้าวหน้าของงาน</h4>
-                        </div>
-                        <div class="modal-body">
+        <div class="quick-area">
+            <div class="pull-left">
+                <ul class="info-menu left-links list-inline list-unstyled">
+                    <li class="sidebar-toggle-wrap">
+                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+                </ul>
+            </div>
+            <div class="profile_details">
+                <ul>
+                    <li class="dropdown profile_details_drop">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <div class="profile_img">
+                                <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
+                                <div class="user-name">
+                                    <p>User</p>
+                                    <span>Administrator</span>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu drp-mnu">
+                            <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
+                            <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
+                            <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="page-sidebar pagescroll expandit">
+
+        <!-- MAIN MENU - START -->
+        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+
+
+
+
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 934px;">
+                    <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true"
+                        data-slide-speed="200" data-height="934" data-initialized="1" style="overflow: hidden; width: auto;height: 934px;">
+                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                        <li class="sidebar-toggler-wrapper hide">
+                            <div class="sidebar-toggler">
+                                <span></span>
+                            </div>
+                        </li>
+                        <!-- END SIDEBAR TOGGLER BUTTON -->
+                        <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+
+                        <li class="nav-item   ">
+                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-home" style="color:red"></i>
+                                <span class="title">หน้าหลัก</span>
+                            </a>
+                        </li>
+
+                        <!-- <li class="nav-item   ">
+                            <a href="~/Home/Menu1" class="nav-link nav-toggle">
+                                <i class="fa fa-money" style="color:blue"></i>
+                                <span class="title">ซื้อขายจดทะเบียน</span>
+                            </a>
+                        </li>-->
+                        <li class="nav-item   ">
+                            <a href="~/Home/Menu2" class="nav-link nav-toggle">
+                                <i class="fa fa-bar-chart" style="color:blue"></i>
+                                <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
+                            </a>
+                        </li>
+                        <li class="nav-item   ">
+                            <a href="~/Home/Menu3" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-random" style="color:red"></i>
+                                <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
+                            </a>
+                        </li>
+                        <li class="nav-item   ">
+                            <a href="~/Home/System_3_with_Layout?Menu=5" class="nav-link nav-toggle">
+                                <i class="fa fa-users" style="color:purple"></i>
+                                <span class="title">ปริมาณการเข้าใช้ระบบ</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item   ">
+                            <a href="~/BI/Index" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                                <span class="title">สร้างรายงานด้วย BI</span>
+                            </a>
+                        </li>
+                        <!-- <li class="btnLogout" onclick="logout()">
+                            <a href="https://p-staging.treasury.go.th/pvalue/logout">
+
+                                <i class="icon-key"></i> ออกจากระบบ
+                            </a>
+                        </li>-->
+
+
+                    </ul>
+                    <div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                </div>
+                <!-- END SIDEBAR MENU -->
+            </div>
+
+
+
+        </div>
+        <!-- MAIN MENU - END -->
+
+
+
+    </div>
+
+
+
+    <section id="main-content">
+        <section id="menulist">
+            <div class="content-heading bg-white">
+
+                <div class="row">
+                    <div class="col-sm-12 divView">
+                        <!-- Header -->
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h2 class=" text-center  text-info"><i class="fa fa-bar-chart" aria-hidden="true"> ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</i></h2>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-            <!--. Modal -->
-            <!-- top navigation -->
-            <!-- /top navigation -->
-            <!-- page content -->
-            <div role="main" class="container-fluid">
 
-                <!-- Header -->
-                <div class="row ">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <h1>ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</h1>
+        </section>
+
+        <section class="wrapper main-wrapper row" style=''>
+            <div class="main_container">
+                <!-- Modal -->
+                <div class="modal fade" id="ModalChartBar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="width: 150%; margin-left: -188px;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">การติดตามความก้าวหน้าของงาน</h4>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!--. Modal -->
+                <!-- top navigation -->
+                <!-- /top navigation -->
+                <!-- page content -->
+                <div role="main" class="container-fluid">
 
-                <!-- Dashboard Menu -->
+                    <!-- Header -->
+                    <div class="row ">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Menu -->
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="panel with-nav-tabs panel-primary">
+                                <div class="panel-heading">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active" onclick="tab_1_1Onclick()"><a href="#tab1primary" data-toggle="tab">ที่ดิน</a></li>
+                                        <li onclick="tab_1_2Onclick()"><a href="#tab2primary" data-toggle="tab">อาคารชุด</a></li>
+                                        <li onclick="tab_1_3Onclick()"><a href="#tab3primary" data-toggle="tab">สิ่งปลูกสร้าง</a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab1primary">
+
+                                            <div class="row" style="text-align:center;">
+                                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                                    <div class="form-group text-left">
+                                                        <h4 for="ddlLand" class="text-left">แผนงาน/โครงการ</h4>
+                                                        <select class="form-control form-control-lg"
+                                                                name="ddlLand" id="ddlLand">
+                                                            <option value="0">เลือกทั้งหมด</option>
+
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="text-align:center; overflow-x:auto">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="divSection1Land">
+                                                        <table class="tblChart">
+
+                                                            <tr></tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade in " id="tab2primary">
+
+                                            <div class="row" style="text-align:center;">
+                                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                                    <div class="form-group text-left">
+                                                        <h4 for="ddlTown" class="text-left">ประเภท</h4>
+                                                        <select class="form-control form-control-lg"
+                                                                name="ddlTown" id="ddlTown">
+                                                            <option value="0">เลือกทั้งหมด</option>
+
+
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="text-align:center; overflow-x:auto">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="divSection2Town">
+                                                        <table class="tblChart"></table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane  fade in" id="tab3primary">
+                                            <div class="x_panel tile  ">
+
+                                                <div class="x_content">
+                                                    <div class="row" style="text-align:center;">
+                                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                                            <div class="form-group text-left">
+                                                                <h4 for="ddlBuild" class="text-left">ประเภท</h4>
+                                                                <select class="form-control form-control-lg"
+                                                                        name="ddlBuild" id="ddlBuild">
+                                                                    <option value="0">เลือกทั้งหมด</option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="text-align:center; overflow-x:auto">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="divSection3Build">
+                                                                <table class="tblChart"></table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ราคาประเมิน (ที่ดิน) Menu -->
+
+
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="panel with-nav-tabs panel-primary">
                             <div class="panel-heading">
                                 <ul class="nav nav-tabs">
-                                    <li class="active" onclick="tab_1_1Onclick()"><a href="#tab1primary" data-toggle="tab">ที่ดิน</a></li>
-                                    <li onclick="tab_1_2Onclick()"><a href="#tab2primary" data-toggle="tab">อาคารชุด</a></li>
-                                    <li onclick="tab_1_3Onclick()"><a href="#tab3primary" data-toggle="tab">สิ่งปลูกสร้าง</a></li>
+                                    <li id="tab1" class="liTab active"><a href="#tabDetail1" data-toggle="tab">ที่ดิน</a></li>
+                                    <li id="tab2" class="liTab "><a href="#tabDetail1" data-toggle="tab">อาคารชุด</a></li>
+                                    <li id="tab3" class="liTab "><a href="#tabDetail1" data-toggle="tab">สิ่งปลูกสร้าง</a></li>
+                                    <li id="tab4" class="liTab"><a href="#tabDetail2" data-toggle="tab">พื้นที่ที่มีการพัฒนาโครงการรัฐ</a></li>
 
                                 </ul>
                             </div>
                             <div class="panel-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane fade in active" id="tab1primary">
+                                <div class="tab tab-content">
+                                    <div class="tab-pane fade in active" id="tabDetail1">
+                                        <!--Tabl1-->
 
-                                        <div class="x_panel tile  ">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="x_panel tile  ">
 
-                                            <div class="x_content">
-                                                <div class="row" style="text-align:center;">
-                                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                                        <div class="form-group text-left">
-                                                            <h4 for="ddlLand" class="text-left">แผนงาน/โครงการ</h4>
-                                                            <select class="form-control form-control-lg"
-                                                                    name="ddlLand" id="ddlLand">
-                                                                <option value="0">เลือกทั้งหมด</option>
+                                                <div class="x_content">
+                                                    <div class="row divTab1">
+                                                        <div class="col-md-2 col-sm-2 col-xs-12">
+                                                            <div class="form-group">
+                                                                <select class="form-control form-control-lg" name="ddlType" id="ddlType" required>
+                                                                    <option value="0">ทั้งหมด</option>
+                                                                    <option value="1">ราคาประเมิน</option>
+                                                                    <option value="2">ราคาซื้อขาย</option>
 
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" style="text-align:center; overflow-x:auto">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="divSection1Land">
-                                                            <table class="tblChart">
-
-                                                                <tr></tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="tab-pane fade in " id="tab2primary">
-
-                                        <div class="x_panel tile  ">
-
-                                            <div class="x_content">
-
-                                                <div class="row" style="text-align:center;">
-                                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                                        <div class="form-group text-left">
-                                                            <h4 for="ddlTown" class="text-left">ประเภท</h4>
-                                                            <select class="form-control form-control-lg"
-                                                                    name="ddlTown" id="ddlTown">
-                                                                <option value="0">เลือกทั้งหมด</option>
-
-
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" style="text-align:center; overflow-x:auto">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="divSection2Town">
-                                                            <table class="tblChart"></table>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane  fade in" id="tab3primary">
-                                        <div class="x_panel tile  ">
-
-                                            <div class="x_content">
-                                                <div class="row" style="text-align:center;">
-                                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                                        <div class="form-group text-left">
-                                                            <h4 for="ddlBuild" class="text-left">ประเภท</h4>
-                                                            <select class="form-control form-control-lg"
-                                                                    name="ddlBuild" id="ddlBuild">
-                                                                <option value="0">เลือกทั้งหมด</option>
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" style="text-align:center; overflow-x:auto">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="divSection3Build">
-                                                            <table class="tblChart"></table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- ราคาประเมิน (ที่ดิน) Menu -->
-
-
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="panel with-nav-tabs panel-primary">
-                        <div class="panel-heading">
-                            <ul class="nav nav-tabs">
-                                <li id="tab1" class="liTab active"><a href="#tabDetail1" data-toggle="tab">ที่ดิน</a></li>
-                                <li id="tab2" class="liTab "><a href="#tabDetail1" data-toggle="tab">อาคารชุด</a></li>
-                                <li id="tab3" class="liTab "><a href="#tabDetail1" data-toggle="tab">สิ่งปลูกสร้าง</a></li>
-                                <li id="tab4" class="liTab"><a href="#tabDetail2" data-toggle="tab">พื้นที่ที่มีการพัฒนาโครงการรัฐ</a></li>
-
-                            </ul>
-                        </div>
-                        <div class="panel-body">
-                            <div class="tab tab-content">
-                                <div class="tab-pane fade in active" id="tabDetail1">
-                                    <!--Tabl1-->
-
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="x_panel tile  ">
-
-                                            <div class="x_content">
-                                                <div class="row divTab1">
-                                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                                        <div class="form-group">
-                                                            <select class="form-control form-control-lg" name="ddlType" id="ddlType" required>
-                                                                <option value="0">ทั้งหมด</option>
-                                                                <option value="1">ราคาประเมิน</option>
-                                                                <option value="2">ราคาซื้อขาย</option>
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-2 col-sm-2 col-xs-12 divTab1">
-                                                        <p>
-                                                            <h4 id="lbHeader">
-                                                                ราคาประเมิน/ซื้อขาย
-                                                            </h4>
-                                                        </p>
-                                                        <div id="container1">
-                                                            <div id="EvalBox1" style="overflow-y: scroll; height:1100px;">
-                                                                <!-- Add ราคาประเมิน รายภาค -->
-                                                                <!-- Add ราคาประเมิน รายภาค -->
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-10 col-sm-10 col-xs-12 divTab2">
-                                                        <div class="row">
-                                                            <!-- Search map section1 part 1(Search) -->
-                                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                <section>
-                                                                    <div class="row">
-                                                                        <div class="col-xs-12">
-                                                                            <div class="panel panel-primary">
-                                                                                <div class="panel-heading">
-                                                                                    <div class="row">
-                                                                                        <div class="col-xs-6">
-                                                                                            <h4 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-2 col-sm-2 col-xs-12 divTab1">
+                                                            <p>
+                                                                <h4 id="lbHeader">
+                                                                    ราคาประเมิน/ซื้อขาย
+                                                                </h4>
+                                                            </p>
+                                                            <div id="container1">
+                                                                <div id="EvalBox1" style="overflow-y: scroll; height:1100px;">
+                                                                    <!-- Add ราคาประเมิน รายภาค -->
+                                                                    <!-- Add ราคาประเมิน รายภาค -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-10 col-sm-10 col-xs-12 divTab2">
+                                                            <div class="row">
+                                                                <!-- Search map section1 part 1(Search) -->
+                                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                    <section>
+                                                                        <div class="row">
+                                                                            <div class="col-xs-12">
+                                                                                <div class="panel panel-primary">
+                                                                                    <div class="panel-heading">
+                                                                                        <div class="row">
+                                                                                            <div class="col-xs-6">
+                                                                                                <h4 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h4>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                                <div class="panel-body">
+                                                                                    <div class="panel-body">
 
-                                                                                    <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
-                                                                                    <div class="row ">
-                                                                                        <div class="col-sm-6 col-xs-12" style="padding:0px">
-                                                                                            <div class="row  funkyradio">
-                                                                                                <div class="col-sm-12 col-xs-12">
-                                                                                                    <b>เลือกภาค/คลัสเตอร์</b>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="row  funkyradio">
-                                                                                                <div class="col-sm-6 col-xs-12 ">
-
-                                                                                                    <div class="funkyradio-success">
-                                                                                                        <input type="radio" name="Type1" id="rdRegion" checked />
-                                                                                                        <label for="rdRegion">ภาค</label>
+                                                                                        <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
+                                                                                        <div class="row ">
+                                                                                            <div class="col-sm-6 col-xs-12" style="padding:0px">
+                                                                                                <div class="row  funkyradio">
+                                                                                                    <div class="col-sm-12 col-xs-12">
+                                                                                                        <b>เลือกภาค/คลัสเตอร์</b>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                                <div class="col-sm-6 col-xs-12">
-                                                                                                    <div class="funkyradio-primary">
-                                                                                                        <input type="radio" name="Type1" id="rdCluster" />
-                                                                                                        <label for="rdCluster">คลัสเตอร์</label>
+                                                                                                <div class="row  funkyradio">
+                                                                                                    <div class="col-sm-6 col-xs-12 ">
+
+                                                                                                        <div class="funkyradio-success">
+                                                                                                            <input type="radio" name="Type1" id="rdRegion" checked />
+                                                                                                            <label for="rdRegion">ภาค</label>
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-
-
-
-                                                                                    <div class="row">
-                                                                                        <div class="col-sm-6 col-xs-12 pnlRegion">
-                                                                                            <div class="form-group">
-                                                                                                <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
-                                                                                                    <option value="">เลือกภาค</option>
-                                                                                                    <option value="1">ภาคกลาง</option>
-                                                                                                    <option value="2">ตะวันตก</option>
-                                                                                                    <option value="3">เหนือ</option>
-                                                                                                    <option value="4">ตะวันออกเฉียงเหนือ</option>
-                                                                                                    <option value="5">ใต้</option>
-                                                                                                    <option value="6">ตะวันออก</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-
-
-                                                                                    </div>
-                                                                                    <div class="row">
-
-                                                                                        <div class="col-sm-6 col-xs-12">
-                                                                                            <div class="form-group">
-                                                                                                <label for="ddlProvince">เลือกจังหวัด</label>
-                                                                                                <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
-                                                                                                    <option value="">เลือกจังหวัด</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-sm-6 col-xs-12 divTab1">
-                                                                                            <div class="form-group">
-                                                                                                <label for="ddlDistrict">เลือกอำเภอ</label>
-                                                                                                <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
-                                                                                                    <option value="">เลือกอำภอ</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-
-
-                                                                                    </div>
-                                                                                    <div class="row">
-
-                                                                                        <div class="col-sm-6 col-xs-12 divTab1">
-                                                                                            <div class="form-group">
-                                                                                                <label for="ddlSubdistrict">เลือกตำบล</label>
-                                                                                                <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
-                                                                                                    <option value="">เลือกตำบล</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-
-
-                                                                                        <div class="col-sm-6  col-xs-12 divTab1 divSection21" style="padding:0px">
-                                                                                            <div class="row  funkyradio">
-                                                                                                <div class="col-sm-6 col-xs-12">
-
-                                                                                                    <div class="funkyradio-success">
-                                                                                                        <label for="rdType1"></label>
-                                                                                                        <input type="radio" name="rdType1" id="rdType1" checked />
-                                                                                                        <label class="lbType1" for="rdType1">ราคาประเมิน/ตรว.</label>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="col-sm-6 col-xs-12 divTab1">
-                                                                                                    <div class="funkyradio-primary">
-                                                                                                        <label for="rdType2"></label>
-                                                                                                        <input type="radio" name="rdType2" id="rdType2" />
-                                                                                                        <label class="lbType2" for="rdType2">ราคาประเมิน/แปลง</label>
+                                                                                                    <div class="col-sm-6 col-xs-12">
+                                                                                                        <div class="funkyradio-primary">
+                                                                                                            <input type="radio" name="Type1" id="rdCluster" />
+                                                                                                            <label for="rdCluster">คลัสเตอร์</label>
+                                                                                                        </div>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -397,586 +491,481 @@
 
 
 
-                                                                                        <div class="col-sm-3  col-xs-12divTab1  divSection22 invisible">
-                                                                                            <div class="form-group">
-                                                                                                <div class='input-group date' id='txtSFromDate'>
-
-                                                                                                    <input class="form-control txtSFromDate" id="txtSearchStartDate" placeholder="จากวันที่" />
-                                                                                                    <span class="input-group-addon">
-                                                                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                    </span>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-sm-3 col-xs-12 divTab1 divSection22 invisible">
-                                                                                            <div class="form-group">
-                                                                                                <div class='input-group date' id='txtSToDate'>
-                                                                                                    <input class="form-control txtSToDate" id="txtSearchEndDate" placeholder="ถึงวันที่" />
-                                                                                                    <span class="input-group-addon">
-                                                                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                                                                    </span>
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-6 col-xs-12 pnlRegion">
+                                                                                                <div class="form-group">
+                                                                                                    <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                                                                                        <option value="">เลือกภาค</option>
+                                                                                                        <option value="1">ภาคกลาง</option>
+                                                                                                        <option value="2">ตะวันตก</option>
+                                                                                                        <option value="3">เหนือ</option>
+                                                                                                        <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                                                                                        <option value="5">ใต้</option>
+                                                                                                        <option value="6">ตะวันออก</option>
+                                                                                                    </select>
                                                                                                 </div>
                                                                                             </div>
 
 
                                                                                         </div>
+                                                                                        <div class="row">
 
-                                                                                    </div>
+                                                                                            <div class="col-sm-6 col-xs-12">
+                                                                                                <div class="form-group">
+                                                                                                    <label for="ddlProvince">เลือกจังหวัด</label>
+                                                                                                    <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                                                                                        <option value="">เลือกจังหวัด</option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-sm-6 col-xs-12 divTab1">
+                                                                                                <div class="form-group">
+                                                                                                    <label for="ddlDistrict">เลือกอำเภอ</label>
+                                                                                                    <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                                                                                        <option value="">เลือกอำภอ</option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
 
-                                                                                    <div class="row divSection2Building  invisible" style="padding-bottom:10px">
 
-                                                                                        <div class="col-xs-6 ">
-                                                                                            <select class="form-control form-control-lg" name="ddlConstructionType" id="ddlConstructionType" placeholder="สิ่งปลูกสร้าง">
-                                                                                                <option value="">ประเภทสิ่งปลูกสร้าง</option>
-                                                                                                <option value="1">โรงเรียน</option>
-                                                                                                <option value="2">บ้้าน</option>
-                                                                                            </select>
                                                                                         </div>
-                                                                                        <div class="col-xs-6">
-                                                                                            <div class="panel panel-primary" style="margin-top:-150px">
-                                                                                                <div class="panel-heading">
-                                                                                                    <h4 class="headerwhite">เลือกเปรียบเทียบรายจังหวัด</h4>
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-sm-6 col-xs-12 divTab1">
+                                                                                                <div class="form-group">
+                                                                                                    <label for="ddlSubdistrict">เลือกตำบล</label>
+                                                                                                    <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                                                                                        <option value="">เลือกตำบล</option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                            <div class="col-sm-6  col-xs-12 divTab1 divSection21" style="padding:0px">
+                                                                                                <div class="row  funkyradio">
+                                                                                                    <div class="col-sm-6 col-xs-12">
+
+                                                                                                        <div class="funkyradio-success">
+                                                                                                            <label for="rdType1"></label>
+                                                                                                            <input type="radio" name="rdType1" id="rdType1" checked />
+                                                                                                            <label class="lbType1" for="rdType1">ราคาประเมิน/ตรว.</label>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-sm-6 col-xs-12 divTab1">
+                                                                                                        <div class="funkyradio-primary">
+                                                                                                            <label for="rdType2"></label>
+                                                                                                            <input type="radio" name="rdType2" id="rdType2" />
+                                                                                                            <label class="lbType2" for="rdType2">ราคาประเมิน/แปลง</label>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+
+
+                                                                                            <div class="col-sm-3  col-xs-12divTab1  divSection22 invisible">
+                                                                                                <div class="form-group">
+                                                                                                    <div class='input-group date' id='txtSFromDate'>
+
+                                                                                                        <input class="form-control txtSFromDate" id="txtSearchStartDate" placeholder="จากวันที่" />
+                                                                                                        <span class="input-group-addon">
+                                                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                                                        </span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-sm-3 col-xs-12 divTab1 divSection22 invisible">
+                                                                                                <div class="form-group">
+                                                                                                    <div class='input-group date' id='txtSToDate'>
+                                                                                                        <input class="form-control txtSToDate" id="txtSearchEndDate" placeholder="ถึงวันที่" />
+                                                                                                        <span class="input-group-addon">
+                                                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                                                        </span>
+                                                                                                    </div>
                                                                                                 </div>
 
-                                                                                                <div class="panel-body">
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-sm-12 col-xs-12">
-                                                                                                            <select class="form-control form-control-lg"
-                                                                                                                    id="ddlProvince1"
-                                                                                                                    title="จังหวัด"
-                                                                                                                    placeholder="จังหวัด" multiple></select>
+
+                                                                                            </div>
+
+                                                                                        </div>
+
+                                                                                        <div class="row divSection2Building  invisible" style="padding-bottom:10px">
+
+                                                                                            <div class="col-xs-6 ">
+                                                                                                <select class="form-control form-control-lg" name="ddlConstructionType" id="ddlConstructionType" placeholder="สิ่งปลูกสร้าง">
+                                                                                                    <option value="">ประเภทสิ่งปลูกสร้าง</option>
+                                                                                                    <option value="1">โรงเรียน</option>
+                                                                                                    <option value="2">บ้้าน</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="col-xs-6">
+                                                                                                <div class="panel panel-primary" style="margin-top:-150px">
+                                                                                                    <div class="panel-heading">
+                                                                                                        <h4 class="headerwhite">เลือกเปรียบเทียบรายจังหวัด</h4>
+                                                                                                    </div>
+
+                                                                                                    <div class="panel-body">
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-sm-12 col-xs-12">
+                                                                                                                <select class="form-control form-control-lg"
+                                                                                                                        id="ddlProvince1"
+                                                                                                                        title="จังหวัด"
+                                                                                                                        placeholder="จังหวัด" multiple></select>
+
+                                                                                                            </div>
 
                                                                                                         </div>
 
-                                                                                                    </div>
+                                                                                                        <div class="row" style="padding-top:10px">
+                                                                                                            <div class="col-sm-6 col-xs-12">
 
-                                                                                                    <div class="row" style="padding-top:10px">
-                                                                                                        <div class="col-sm-6 col-xs-12">
-
-                                                                                                            <div class="form-group">
-                                                                                                                <div class='input-group'>
-                                                                                                                    <input class="form-control txtPercent" id="txtPercent" value="10" placeholder="% ความต่าง" />
-                                                                                                                    <span class="input-group-addon">
-                                                                                                                        <span>%</span>
-                                                                                                                    </span>
+                                                                                                                <div class="form-group">
+                                                                                                                    <div class='input-group'>
+                                                                                                                        <input class="form-control txtPercent" id="txtPercent" value="10" placeholder="% ความต่าง" />
+                                                                                                                        <span class="input-group-addon">
+                                                                                                                            <span>%</span>
+                                                                                                                        </span>
+                                                                                                                    </div>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
+
                                                                                                     </div>
+                                                                                                </div>
 
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row divTab1 ">
+                                                                                            <div class="col-md-2 col-xs-12">
+                                                                                                <div class="form-group">
+                                                                                                    <input class="form-control MinCostEstimate" id="MinCostEstimate0" value="0" placeholder="ราคาประเมินต่ำสุด" />
                                                                                                 </div>
                                                                                             </div>
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row divTab1 ">
-                                                                                        <div class="col-md-2 col-xs-12">
-                                                                                            <div class="form-group">
-                                                                                                <input class="form-control MinCostEstimate" id="MinCostEstimate0" value="0" placeholder="ราคาประเมินต่ำสุด" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-md-8 col-xs-12">
-                                                                                            <div class="row">
-                                                                                                <div class="col-md-12">
-                                                                                                    <div id="CostEstimateSlider0"></div>
+                                                                                            <div class="col-md-8 col-xs-12">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <div id="CostEstimateSlider0"></div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-1 minDiv" id="minDiv0"></div>
+                                                                                                    <div class="col-md-1 offset-md-10 maxDiv" id="maxDiv0"></div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="row">
-                                                                                                <div class="col-md-1 minDiv" id="minDiv0"></div>
-                                                                                                <div class="col-md-1 offset-md-10 maxDiv" id="maxDiv0"></div>
+                                                                                            <div class="col-md-2 col-xs-12">
+                                                                                                <div class="form-group">
+                                                                                                    <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="100000000000000" placeholder="ราคาประเมินสูงสุด" />
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="col-md-2 col-xs-12">
-                                                                                            <div class="form-group">
-                                                                                                <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="100000000000000" placeholder="ราคาประเมินสูงสุด" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                   
-                                                                                    <div class="row">
 
-                                                                                        <div class="col-sm-2 col-xs-6 col-sm-offset-4">
-                                                                                            <button class="form-control  btn btn-primary  btn-large btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-sm-2 col-xs-6 col-sm-offset-4">
+                                                                                                <button class="form-control  btn btn-primary  btn-large btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
+                                                                                            </div>
+                                                                                            <div class="col-sm-2 col-xs-6">
+                                                                                                <button class="form-control  btn btn-default  btn-large btnCancel" id="btnCancel" name="btnCancel"><i class="fa fa-refresh"></i> ยกเลิก </button>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="col-sm-2 col-xs-6">
-                                                                                            <button class="form-control  btn btn-default  btn-large btnCancel" id="btnCancel" name="btnCancel"><i class="fa fa-refresh"></i> ยกเลิก </button>
-                                                                                        </div>
+                                                                                        <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
                                                                                     </div>
-                                                                                    <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </section>
+                                                                    </section>
+                                                                </div>
                                                             </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                    <!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
+                                                                    <div class="divLand">
+                                                                        <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
+                                                                    </div>
+                                                                    <!-- display for construction-->
+                                                                    <div class="divSection2Building" id="divConstruction">
+
+                                                                    </div>
+                                                                    <!-- display for construction-->
+                                                                    <!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
+                                                                </div>
+                                                            </div>
+                                                            <!-- Search section1 part 1(Search) -->
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Tabl1-->
+                                    </div>
+
+                                    <div class="tab-pane fade in" id="tabDetail2">
+                                        <!-- row 3 -->
+                                        <div class="row Tab3">
+                                            <!-- Display none -->
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div class="x_panel tile fixed_height_750 overflow_hidden" style="border:1px solid #E6E9ED;padding:10px 17px">
+                                                    <div class="x_title">
+                                                        <div class="col-md-10 col-sm-8 col-xs-9">
+                                                            <label class="Label__Header">พื้นที่ที่มีการพัฒนาโครงการรัฐ</label>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-4 col-xs-3">
+
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="x_content">
+                                                        <div class="divInfoSection4">
+                                                            <table id="datatable4" class="table   datatable4 tblInfoSection4">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="th__center">ชื่อโครงการ</th>
+                                                                        <th class="th__center">พื้นที่</th>
+                                                                        <th class="th__center">จำนวนแปลงที่ดินที่กระทบ</th>
+                                                                        <th class="th__center">เนื้อที่รวม</th>
+                                                                        <th class="th__center">ราคาประเมินทั้งหมด</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr data-toggle="collapse" data-target="#accordion" class="clickable">
+                                                                        <td class="td__Center">โครงการพื้นที่ 4</td>
+                                                                        <td class="td__Center">นครราชสีมา</td>
+                                                                        <td class="td__Center">31</td>
+                                                                        <td class="td__Center">1,000,000</td>
+                                                                        <td class="td__Center">ไม่พบ</td>
+
+                                                                    </tr>
+                                                                    <tr class="tdDetail">
+                                                                        <td colspan="5" class="td__Center">
+                                                                            <div id="accordion" class="collapse">
+
+                                                                                <div class="panel ">
+                                                                                    <div class="panel-heading">
+                                                                                        <label> จำนวนแปลงที่ดิน 31 แปลง</label>
+                                                                                        <label class="pull-right clickable" data-toggle="collapse" data-target="#accordion"><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <table class="table table-hover table-bordered tblDetail">
+                                                                                            <thead style="visibility:hidden;position:absolute">
+                                                                                                <tr>
+                                                                                                    <th class="th__center">
+
+
+                                                                                                    </th>
+
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+                                                                                                    </td>
+
+                                                                                                </tr>
+
+                                                                                            </tbody>
+
+                                                                                        </table>
+
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr data-toggle="collapse" data-target="#accordion2" class="clickable">
+                                                                        <td class="td__Center">โครงการพื้นที่ 3</td>
+                                                                        <td class="td__Center">นครราชสีมา</td>
+                                                                        <td class="td__Center">37</td>
+                                                                        <td class="td__Center">2,000,000</td>
+                                                                        <td class="td__Center">ไม่พบ</td>
+                                                                    </tr>
+                                                                    <tr class="tdDetail">
+                                                                        <td colspan="5" class="td__Center">
+                                                                            <div id="accordion2" class="collapse">
+
+                                                                                <div class="panel ">
+                                                                                    <div class="panel-heading">
+                                                                                        <label> จำนวนแปลงที่ดิน 31 แปลง</label>
+                                                                                        <label class="pull-right clickable" data-toggle="collapse" data-target="#accordion2"><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
+                                                                                    </div>
+                                                                                    <div class="panel-body">
+                                                                                        <table class="table table-hover table-bordered tblDetail">
+                                                                                            <thead style="visibility:hidden;position:absolute">
+                                                                                                <tr>
+                                                                                                    <th class="th__center">
+
+
+                                                                                                    </th>
+
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
+                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
+                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
+                                                                                                    </td>
+
+                                                                                                </tr>
+
+                                                                                            </tbody>
+
+                                                                                        </table>
+
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                <!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
-                                                                <div class="divLand">
-                                                                    <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
-                                                                </div>
-                                                                <!-- display for construction-->
-                                                                <div class="divSection2Building" id="divConstruction">
-
-                                                                </div>
-                                                                <!-- display for construction-->
-                                                                <!-- Add Iframe Graph ระบุความสนใจตามเขตการปกครอง -->
+                                                            <div class="col-xs-2  offset-xs-3">
+                                                                <a href="~/AreaAnalysis/Manage">
+                                                                    <button class="form-control  btn btn-primary  btn-large btnManage" id="btnManage" name="btnManage"><i class="fa fa-plus"></i>  เพิ่ม </button>
+                                                                </a>
                                                             </div>
-                                                        </div>
-                                                        <!-- Search section1 part 1(Search) -->
-                                                    </div>
-                                                </div>
-
-                                                <div class="row chartBar">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="x_panel tile fixed_height_750 overflow_hidden">
-                                                            <div class="x_title">
-                                                                <div class="col-md-10 col-sm-8 col-xs-9">
-                                                                    <h3 id="lbHeaderGraph">แผนภูมิแสดงราคาที่ดิน</h3>
-                                                                </div>
-                                                                <div class="col-md-2 col-sm-4 col-xs-3">ภาค
-                                                                    <ul class="nav navbar-right panel_toolbox">
-                                                                        <li>
-                                                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                                        </li>
-                                                                        <li class="dropdown">
-                                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                                            <ul class="dropdown-menu" role="menu">
-                                                                                <li>
-                                                                                    <a href="#">Settings 1</a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="#">Settings 2</a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="close-link"><i class="fa fa-close"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="clearfix"></div>
-                                                                <div class="x_content" style="padding-top:10px">
-
-                                                                    <div id="EvalBox1chartBar" class="chartBarNormal" style="height:600px"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
 
-                                                <div class="row tableLand">
-                                                    <div class="col-md-10 col-sm-10 col-xs-12">
-                                                        <div class="x_panel tile fixed_height_750 overflow_hidden">
-                                                            <div class="x_title">
-                                                                <div class="col-md-10 col-sm-8 col-xs-9">
-                                                                    <h3 id="lbHeaderTable">ตารางแสดงราคาที่ดิน</h3>
-                                                                </div>
-                                                                <div class="col-md-2 col-sm-4 col-xs-3">
-                                                                    <ul class="nav navbar-right panel_toolbox">
-                                                                        <li>
-                                                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                                        </li>
-                                                                        <li class="dropdown">
-                                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                                            <ul class="dropdown-menu" role="menu">
-                                                                                <li>
-                                                                                    <a href="#">Settings 1</a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="#">Settings 2</a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="close-link"><i class="fa fa-close"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="clearfix"></div>
-                                                                <div class="x_content" style="padding-top:10px">
-                                                                    <div id="EvalBox1Table">
-                                                                        <!-- Add ตาราง แผนภูมิแสดงราคาที่ดินรายภาค -->
-                                                                        <table class="table table-bordered table-striped tblInfo">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th scope="col">ภาค</th>
-                                                                                    <th scope="col">จำนวนแปลงที่ดิน</th>
-                                                                                    <th scope="col">ราคาสูงสุด</th>
-                                                                                    <th scope="col">ราคาต่ำสุด</th>
-                                                                                    <th scope="col">ราคาเฉลี่ย</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                              
-                                                                            </tbody>
-                                                                        </table>
-                                                                        <!-- Add ตาราง แผนภูมิแสดงราคาที่ดินรายภาค -->
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                                        <div class="x_panel tile fixed_height_750 overflow_hidden">
-                                                            <div class="x_title">
-                                                                <div class="col-md-10 col-sm-8 col-xs-9">
-                                                                    <label class="Label__Header">RECENT ACTIVITIES</label>
-                                                                </div>
-                                                                <div class="col-md-2 col-sm-4 col-xs-3">
-                                                                    <ul class="nav navbar-right panel_toolbox">
-                                                                        <li>
-                                                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                                        </li>
-                                                                        <li class="dropdown">
-                                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                                            <ul class="dropdown-menu" role="menu">
-                                                                                <li>
-                                                                                    <a href="#">Settings 1</a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="#">Settings 2</a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="close-link"><i class="fa fa-close"></i></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="clearfix"></div>
-                                                            </div>
-                                                            <div class="x_content">
-                                                                <div class="">
-                                                                    <ul class="to_do">
-                                                                        <li>
-                                                                            <i class="fa fa-check-square fa-2x" aria-hidden="true" style="color:#1579d9"></i>
-                                                                            <label class="RecentActive__Label">You have 4 pending tasks.</label>
-                                                                            <label class="RecentActive__Label__Alert" style="background-color:gold">
-                                                                                Take action
-                                                                                <i class="fa fa-share-square" aria-hidden="true"></i>
-                                                                            </label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-bar-chart fa-2x" aria-hidden="true" style="color:#1be9e3"></i>
-                                                                            <label class="RecentActive__Label">Finnce Report for 2017 has been released.</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-user fa-2x" aria-hidden="true" style="color:#dc2a2a"></i>
-                                                                            <label class="RecentActive__Label">You have 5 pending membership that requires a quick review.</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color:#365dad"></i>
-                                                                            <label class="RecentActive__Label">Now order received with </label>
-                                                                            <label class="RecentActive__Label__Alert" style="background-color:#33FFFF">
-                                                                                Reference Number : DR23923
-                                                                            </label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-user fa-2x" aria-hidden="true" style="color:#3ae127"></i>
-                                                                            <label class="RecentActive__Label">You have 5 pending membership that requires a quick review.</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-bell fa-2x" aria-hidden="true" style="color:#bf307b"></i>
-                                                                            <label class="RecentActive__Label">Web server hardware needs to be upgraded</label>
-                                                                            <label class="RecentActive__Label__Alert" style="background-color:#33D1FF">
-                                                                                Overdue
-                                                                            </label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-briefcase fa-2x" aria-hidden="true" style="color:#3cc81a"></i>
-                                                                            <label class="RecentActive__Label">IPO Report for year 2013 has been released.</label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-check-square fa-2x" aria-hidden="true" style="color:#c26017"></i>
-                                                                            <label class="RecentActive__Label">You have 4 pending tasks.</label>
-                                                                            <label class="RecentActive__Label__Alert" style="background-color:gold">
-                                                                                Take action
-                                                                                <i class="fa fa-share-square" aria-hidden="true"></i>
-                                                                            </label>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-bar-chart fa-2x" aria-hidden="true" style="color:#4a1347"></i>
-                                                                            <label class="RecentActive__Label">Finnce Report for 2017 has been released.</label>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                                <div class="x_panel tile fixed_height_750 overflow_hidden">
+                                                    <div class="x_title">
+                                                        <div class="col-md-10 col-sm-8 col-xs-9">
+                                                            <label class="Label__Header">พื้นที่ที่มีการพัฒนาโครงการรัฐ</label>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-4 col-xs-3">
+
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="x_content tdmapSec4">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                    <!--Tabl1-->
-                                </div>
-
-                                <div class="tab-pane fade in" id="tabDetail2">
-                                    <!-- row 3 -->
-                                    <div class="row Tab3">
-                                        <!-- Display none -->
-                                        <div class="col-md-4 col-sm-4 col-xs-12">
-                                            <div class="x_panel tile fixed_height_750 overflow_hidden">
-                                                <div class="x_title">
-                                                    <div class="col-md-10 col-sm-8 col-xs-9">
-                                                        <label class="Label__Header">พื้นที่ที่มีการพัฒนาโครงการรัฐ</label>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-4 col-xs-3">
-                                                        <ul class="nav navbar-right panel_toolbox">
-                                                            <li>
-                                                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                            </li>
-                                                            <li class="dropdown">
-                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                                <ul class="dropdown-menu" role="menu">
-                                                                    <li>
-                                                                        <a href="#">Settings 1</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">Settings 2</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a class="close-link"><i class="fa fa-close"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <div class="x_content">
-                                                    <div class="divInfoSection4">
-                                                        <table id="datatable4" class="table   datatable4 tblInfoSection4">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="th__center">ชื่อโครงการ</th>
-                                                                    <th class="th__center">พื้นที่</th>
-                                                                    <th class="th__center">จำนวนแปลงที่ดินที่กระทบ</th>
-                                                                    <th class="th__center">เนื้อที่รวม</th>
-                                                                    <th class="th__center">ราคาประเมินทั้งหมด</th>
-
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-                                                                    <td class="td__Center">โครงการพื้นที่ 4</td>
-                                                                    <td class="td__Center">นครราชสีมา</td>
-                                                                    <td class="td__Center">31</td>
-                                                                    <td class="td__Center">1,000,000</td>
-                                                                    <td class="td__Center">ไม่พบ</td>
-
-                                                                </tr>
-                                                                <tr class="tdDetail">
-                                                                    <td colspan="5" class="td__Center">
-                                                                        <div id="accordion" class="collapse">
-
-                                                                            <div class="panel ">
-                                                                                <div class="panel-heading">
-                                                                                    <label> จำนวนแปลงที่ดิน 31 แปลง</label>
-                                                                                    <label class="pull-right clickable" data-toggle="collapse" data-target="#accordion"><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
-                                                                                </div>
-                                                                                <div class="panel-body">
-                                                                                    <table class="table table-hover table-bordered tblDetail">
-                                                                                        <thead style="visibility:hidden;position:absolute">
-                                                                                            <tr>
-                                                                                                <th class="th__center">
 
 
-                                                                                                </th>
 
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                    <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                    <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                </td>
-
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                    <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                    <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                </td>
-
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                    <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                    <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                </td>
-
-                                                                                            </tr>
-
-                                                                                        </tbody>
-
-                                                                                    </table>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-
-                                                                </tr>
-                                                                <tr data-toggle="collapse" data-target="#accordion2" class="clickable">
-                                                                    <td class="td__Center">โครงการพื้นที่ 3</td>
-                                                                    <td class="td__Center">นครราชสีมา</td>
-                                                                    <td class="td__Center">37</td>
-                                                                    <td class="td__Center">2,000,000</td>
-                                                                    <td class="td__Center">ไม่พบ</td>
-                                                                </tr>
-                                                                <tr class="tdDetail">
-                                                                    <td colspan="5" class="td__Center">
-                                                                        <div id="accordion2" class="collapse">
-
-                                                                            <div class="panel ">
-                                                                                <div class="panel-heading">
-                                                                                    <label> จำนวนแปลงที่ดิน 31 แปลง</label>
-                                                                                    <label class="pull-right clickable" data-toggle="collapse" data-target="#accordion2"><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
-                                                                                </div>
-                                                                                <div class="panel-body">
-                                                                                    <table class="table table-hover table-bordered tblDetail">
-                                                                                        <thead style="visibility:hidden;position:absolute">
-                                                                                            <tr>
-                                                                                                <th class="th__center">
-
-
-                                                                                                </th>
-
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                    <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                    <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                </td>
-
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                    <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                    <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                </td>
-
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                    <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                    <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                </td>
-
-                                                                                            </tr>
-
-                                                                                        </tbody>
-
-                                                                                    </table>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-
-                                                                </tr>
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xs-2  offset-xs-3">
-                                                            <a href="~/AreaAnalysis/Manage"> 
-                                                                <button class="form-control  btn btn-primary  btn-large btnManage" id="btnManage" name="btnManage"><i class="fa fa-plus"></i>  เพิ่ม </button>
-                                                      </a>
-                                                                </div>
-                                                          
-
-                                                        </div>
-                                                    </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-8 col-sm-8 col-xs-12">
-                                            <div class="x_panel tile fixed_height_750 overflow_hidden">
-                                                <div class="x_title">
-                                                    <div class="col-md-10 col-sm-8 col-xs-9">
-                                                        <label class="Label__Header">พื้นที่ที่มีการพัฒนาโครงการรัฐ</label>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-4 col-xs-3">
-                                                        <ul class="nav navbar-right panel_toolbox">
-                                                            <li>
-                                                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                            </li>
-                                                            <li class="dropdown">
-                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                                <ul class="dropdown-menu" role="menu">
-                                                                    <li>
-                                                                        <a href="#">Settings 1</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">Settings 2</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a class="close-link"><i class="fa fa-close"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <div class="x_content tdmapSec4">
-
-                                                </div>
-                                               
-                                            </div>
-                                        </div>
-
-                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row chartBar">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 id="lbHeaderGraph"> แผนภูมิแสดงราคาที่ดิน</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="EvalBox1chartBar" class="chartBarNormal" style="height:600px"></div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div class="row chartBar">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 id="lbHeaderTable"> ตารางแสดงราคาที่ดิน</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="EvalBox1Table">
+                                    <!-- Add ตาราง แผนภูมิแสดงราคาที่ดินรายภาค -->
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr class="bg-info">
+                                                <th scope="col">ภาค</th>
+                                                <th scope="col">จำนวนแปลงที่ดิน</th>
+                                                <th scope="col">ราคาสูงสุด</th>
+                                                <th scope="col">ราคาต่ำสุด</th>
+                                                <th scope="col">ราคาเฉลี่ย</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                    <!-- Add ตาราง แผนภูมิแสดงราคาที่ดินรายภาค -->
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
                 </div>
 
 
 
+
+
+                <!--. custom -->
             </div>
 
+        </section>
 
+    </section>
 
-
-
-
-
-            <!-- Icon Menu -->
-             @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
-
-
-
-
-            <br />
-            <br />
-            <!--. custom -->
-        </div>
-        <!-- footer content -->
-        <footer>
-            <div class="ac-gf-footer-legal-copyright">Copyright © 2018 สงวนลิขสิทธิ์ โดย กรมธนารักษ์ ซอยอารีย์สัมพันธ์ ถ.พระรามที่ 6 สามเสนใน เขตพญาไท กรุงเทพฯ 10400</div>
-        </footer>
-    </div>
-
- 
-
-     <script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.343sdd8533e"></script>
-    <script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?dwfd3d33"></script>
 
     <script type="text/javascript">
 
@@ -984,13 +973,13 @@
 
         function drawRegionsMap() {
             var data = google.visualization.arrayToDataTable([
-              ['Country', 'Popularity'],
-              ['Germany', 200],
-              ['United States', 300],
-              ['Brazil', 400],
-              ['Canada', 500],
-              ['France', 600],
-              ['RU', 700]
+                ['Country', 'Popularity'],
+                ['Germany', 200],
+                ['United States', 300],
+                ['Brazil', 400],
+                ['Canada', 500],
+                ['France', 600],
+                ['RU', 700]
             ]);
 
             var options = {};
@@ -1002,11 +991,11 @@
 
         function DrawThai() {
             var data = google.visualization.arrayToDataTable([
-              ['City','Name', 'Total'],
-              ['TH-10', 'Bangkok', 2761477],
-               ['TH-12', 'Nonthaburi', 500000],
+                ['City', 'Name', 'Total'],
+                ['TH-10', 'Bangkok', 2761477],
+                ['TH-12', 'Nonthaburi', 500000],
                 ['TH-50', 'Chiang Mai', 3999999],
-                  ['TH-41', 'Udon Thani',1090000],
+                ['TH-41', 'Udon Thani', 1090000],
             ]);
 
             var options = {
@@ -1018,9 +1007,9 @@
                 legend: { textStyle: { color: 'black', fontSize: 10 } },
                 keepAspectRatio: false,
 
-              //  backgroundColor: '#fff',
-              //  datalessRegionColor: '#f8bbd0',
-               // defaultColor: '#f5f5f5',
+                //  backgroundColor: '#fff',
+                //  datalessRegionColor: '#f8bbd0',
+                // defaultColor: '#f5f5f5',
             };
 
             var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
@@ -1029,28 +1018,28 @@
 
         function drawCity2Map() {
             var data = google.visualization.arrayToDataTable([
-              ['Country', 'Latitude'],
-              ['Algeria', 36], ['Angola', -8], ['Benin', 6], ['Botswana', -24],
-              ['Burkina Faso', 12], ['Burundi', -3], ['Cameroon', 3],
-              ['Canary Islands', 28], ['Cape Verde', 15],
-              ['Central African Republic', 4], ['Ceuta', 35], ['Chad', 12],
-              ['Comoros', -12], ['Cote d\'Ivoire', 6],
-              ['Democratic Republic of the Congo', -3], ['Djibouti', 12],
-              ['Egypt', 26], ['Equatorial Guinea', 3], ['Eritrea', 15],
-              ['Ethiopia', 9], ['Gabon', 0], ['Gambia', 13], ['Ghana', 5],
-              ['Guinea', 10], ['Guinea-Bissau', 12], ['Kenya', -1],
-              ['Lesotho', -29], ['Liberia', 6], ['Libya', 32], ['Madagascar', null],
-              ['Madeira', 33], ['Malawi', -14], ['Mali', 12], ['Mauritania', 18],
-              ['Mauritius', -20], ['Mayotte', -13], ['Melilla', 35],
-              ['Morocco', 32], ['Mozambique', -25], ['Namibia', -22],
-              ['Niger', 14], ['Nigeria', 8], ['Republic of the Congo', -1],
-              ['Réunion', -21], ['Rwanda', -2], ['Saint Helena', -16],
-              ['São Tomé and Principe', 0], ['Senegal', 15],
-              ['Seychelles', -5], ['Sierra Leone', 8], ['Somalia', 2],
-              ['Sudan', 15], ['South Africa', -30], ['South Sudan', 5],
-              ['Swaziland', -26], ['Tanzania', -6], ['Togo', 6], ['Tunisia', 34],
-              ['Uganda', 1], ['Western Sahara', 25], ['Zambia', -15],
-              ['Zimbabwe', -18]
+                ['Country', 'Latitude'],
+                ['Algeria', 36], ['Angola', -8], ['Benin', 6], ['Botswana', -24],
+                ['Burkina Faso', 12], ['Burundi', -3], ['Cameroon', 3],
+                ['Canary Islands', 28], ['Cape Verde', 15],
+                ['Central African Republic', 4], ['Ceuta', 35], ['Chad', 12],
+                ['Comoros', -12], ['Cote d\'Ivoire', 6],
+                ['Democratic Republic of the Congo', -3], ['Djibouti', 12],
+                ['Egypt', 26], ['Equatorial Guinea', 3], ['Eritrea', 15],
+                ['Ethiopia', 9], ['Gabon', 0], ['Gambia', 13], ['Ghana', 5],
+                ['Guinea', 10], ['Guinea-Bissau', 12], ['Kenya', -1],
+                ['Lesotho', -29], ['Liberia', 6], ['Libya', 32], ['Madagascar', null],
+                ['Madeira', 33], ['Malawi', -14], ['Mali', 12], ['Mauritania', 18],
+                ['Mauritius', -20], ['Mayotte', -13], ['Melilla', 35],
+                ['Morocco', 32], ['Mozambique', -25], ['Namibia', -22],
+                ['Niger', 14], ['Nigeria', 8], ['Republic of the Congo', -1],
+                ['Réunion', -21], ['Rwanda', -2], ['Saint Helena', -16],
+                ['São Tomé and Principe', 0], ['Senegal', 15],
+                ['Seychelles', -5], ['Sierra Leone', 8], ['Somalia', 2],
+                ['Sudan', 15], ['South Africa', -30], ['South Sudan', 5],
+                ['Swaziland', -26], ['Tanzania', -6], ['Togo', 6], ['Tunisia', 34],
+                ['Uganda', 1], ['Western Sahara', 25], ['Zambia', -15],
+                ['Zimbabwe', -18]
             ]);
 
             var options = {
@@ -1225,7 +1214,7 @@
             gisIframeWindow.GIS.removeGraphic();
         }
 
-      
+
 
         map.addGraphic = function (shape, symbol) {
             var sridIn = 32647;
@@ -1338,23 +1327,23 @@
 
         $(function () {
 
-              InitialData();
+            InitialData();
 
-          /*  MakeSpeedDometer('chartSpeedometer1_1', '', 12.5);
-            MakeSpeedDometer('chartSpeedometer1_2', '', 11);
-            MakeSpeedDometer('chartSpeedometer1_3', '', 16.7);
-            MakeSpeedDometer('chartSpeedometer1_4', '', 19);
-            MakeSpeedDometer('chartSpeedometer1_5', '', 22);*/
+            /*  MakeSpeedDometer('chartSpeedometer1_1', '', 12.5);
+              MakeSpeedDometer('chartSpeedometer1_2', '', 11);
+              MakeSpeedDometer('chartSpeedometer1_3', '', 16.7);
+              MakeSpeedDometer('chartSpeedometer1_4', '', 19);
+              MakeSpeedDometer('chartSpeedometer1_5', '', 22);*/
             viewListManager.init();
             var iframeElement = document.getElementById('tdmap');
-         iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
+            iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
             gisIframeWindow = null;
             iframeElement.onload = function () {
-               gisIframeWindow = iframeElement.contentWindow;
+                gisIframeWindow = iframeElement.contentWindow;
             }
 
 
-           
+
 
 
 
@@ -1379,8 +1368,7 @@
         }
 
 
-        function LoadChart5()
-        {
+        function LoadChart5() {
             var chartBar5 = echarts.init(document.getElementById('chartBar5'));
             var option = {
                 title: {
@@ -1426,9 +1414,9 @@
                                 color: function (params) {
                                     // build a color map as your need.
                                     var colorList = [
-                                      '#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
-                                       '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
-                                       '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+                                        '#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+                                        '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                                        '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
                                     ];
                                     return colorList[params.dataIndex]
                                 },
@@ -1445,7 +1433,7 @@
             };
 
             setTimeout(function () {
-                chartBar5.setOption(option,true);
+                chartBar5.setOption(option, true);
 
 
             }, 1000);
@@ -1454,300 +1442,312 @@
 
 
 
-    function InitialData()
-        {
+        function InitialData() {
 
 
-        $('.txtFromDate').datetimepicker({
-            format: 'mm-dd-yyyy',
-            minView: 2,
-            pickTime: false,
-            autoclose: true
-        });
-
-
-        $('.txtToDate').datetimepicker({
-            format: 'mm-dd-yyyy',
-            minView: 2,
-            pickTime: false,
-            autoclose: true
-        });
-
-        //  $("#datatable4").DataTable();
-        $(".tblDetail").DataTable({ searching: false , info: false});
-
-        LoadChart();
-        $.get("/TDManagement/api/Address/GetProvinces", {}, function (data) {
-
-            $("#province").empty();
-            $("#province").append("<option value=''>จังหวัด</option>");
-            $.each(data, function (index, row) {
-                provinceList[row.OBJECTID] = row.NAME_T;
-                provincesMap[row.PRO_C] = row;
-                $("#province").append("<option value='" + row.PRO_C + "'>" + row.NAME_T + "</option>");
+            $('.txtFromDate').datetimepicker({
+                format: 'mm-dd-yyyy',
+                minView: 2,
+                pickTime: false,
+                autoclose: true
             });
-            //$("#province").selectpicker('refresh');
-            searchProjectImpactList(0, 1000, null);
-        });
 
 
+            $('.txtToDate').datetimepicker({
+                format: 'mm-dd-yyyy',
+                minView: 2,
+                pickTime: false,
+                autoclose: true
+            });
 
-    }
+            //  $("#datatable4").DataTable();
+            $(".tblDetail").DataTable({ searching: false, info: false });
 
-    function testxx() {
-        alert('Heayy');
-        $.get("http://localhost:50028/api/Address/GetProvinces", {}, function (provinces) {
+            LoadChart();
+            $.get("/TDManagement/api/Address/GetProvinces", {}, function (data) {
 
-            if (provinces != null && provinces.length > 0) {
-                $("#ddlProvince").empty();
-                $("#ddlProvince").append("<option value=''>จังหวัด</option>");
-                provinces.forEach(function (province, index) {
-                    $("#ddlProvince").append("<option value='" + province.PROVINCE_SEQ + "'>" + province.PROVINCE_NAME_TH + "</option>");
+                $("#province").empty();
+                $("#province").append("<option value=''>จังหวัด</option>");
+                $.each(data, function (index, row) {
+                    provinceList[row.OBJECTID] = row.NAME_T;
+                    provincesMap[row.PRO_C] = row;
+                    $("#province").append("<option value='" + row.PRO_C + "'>" + row.NAME_T + "</option>");
                 });
-            }
-        });
+                //$("#province").selectpicker('refresh');
+                searchProjectImpactList(0, 1000, null);
+            });
 
 
 
-    }
+        }
 
+        function testxx() {
+            alert('Heayy');
+            $.get("http://localhost:50028/api/Address/GetProvinces", {}, function (provinces) {
 
-    function LoadChart() {
-
-        //var chartBar = echarts.init(document.getElementById('chartBar1'));
-       // var chartBar2 = echarts.init(document.getElementById('chartBar2'));
-       // var chartBar3 = echarts.init(document.getElementById('chartBar3'));
-
-
-        var option = {
-            title: {
-                text: '',
-                subtext: ''
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: ['ราคาประเมินรวม']
-            },
-            toolbox: {
-                show: false,
-                feature: {
-                    mark: { show: true },
-                    dataView: { show: true, readOnly: false },
-                    magicType: { show: true, type: ['line', 'bar'] },
-                    restore: { show: true },
-                    saveAsImage: { show: true }
+                if (provinces != null && provinces.length > 0) {
+                    $("#ddlProvince").empty();
+                    $("#ddlProvince").append("<option value=''>จังหวัด</option>");
+                    provinces.forEach(function (province, index) {
+                        $("#ddlProvince").append("<option value='" + province.PROVINCE_SEQ + "'>" + province.PROVINCE_NAME_TH + "</option>");
+                    });
                 }
-            },
-            calculable: true,
-            xAxis: [
-                {
-                    type: 'value',
-                    boundaryGap: [0, 0.01]
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'category',
-                    data: [{ label: 'ใต้', value: 'ใต้', labelColor: 'yellow' }, 'กลาง', 'เหนือ', 'ตะวันตก', 'ตะวันออก', 'ตะวันออกเฉียงเหนือ']
-                }
-            ],
-            series: [
-                {
-                    name: 'ราคาประเมินรวม',
-                    type: 'bar',
-                    data: [18203, 23489, 29034, 104970, 131744, 630230],
-                    itemStyle: {
-                        normal: {
-                            color: function (params) {
-                                // build a color map as your need.
-                                var colorList = [
-                                  '#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
-                                   '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
-                                   '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
-                                ];
-                                return colorList[params.dataIndex]
-                            },
-                            label: {
-                                show: false,
-                                position: 'top',
-                                formatter: '{b}\n{c}'
-                            }
-                        }
-                    }
-
-                }
-            ]
-        };
+            });
 
 
-        var option2 = {
-            title: {
-                text: '',
-                subtext: ''
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: ['ราคาประเมินรวม']
-            },
-            toolbox: {
-                show: false,
-                feature: {
-                    mark: { show: true },
-                    dataView: { show: false, readOnly: false },
-                    magicType: { show: false, type: ['line', 'bar'] },
-                    restore: { show: false },
-                    saveAsImage: { show: false }
-                }
-            },
-            calculable: true,
-            xAxis: [
-                {
-                    type: 'value'
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'category',
-                    data: [{ label: 'ใต้', value: 'ใต้', labelColor: 'yellow' }, 'กลาง', 'เหนือ', 'ตะวันตก', 'ตะวันออก', 'ตะวันออกเฉียงเหนือ']
-                }
-            ],
-            series: [
-                {
-                    name: 'ราคาเฉลี่ย',
-                    type: 'bar',
-                    data: [60000, 300000, 700000, 67000, 460000, 550000],
-                    itemStyle: {
-                        normal: {
-                            color: 'green'
-                        },
-                        emphasis: {
-                            color: '#00e600'
 
-                        }
-                    }
-                },
-         {
-             name: 'ราคาต่ำสุด',
-             type: 'bar',
-             data: [20000, 300000, 40000, 50000, 60000, 40000],
-
-             itemStyle: {
-                 normal: {
-                     color: 'yellow'
-                 },
-                 emphasis: {
-
-
-                 }
-             }
-         },
-         {
-             name: 'สูงสุด',
-             type: 'bar',
-             data: [120000, 1300000, 140000, 150000, 160000, 140000],
-
-             itemStyle: {
-                 normal: {
-                     color: 'red'
-                 },
-                 emphasis: {
-
-
-                 }
-             }
-         }
-            ]
-        };
-
-
-        var horizontalOption = {
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: ['蒸发量', '降水量']
-            },
-            toolbox: {
-                show: false,
-                feature: {
-                    mark: { show: true },
-                    dataView: { show: true, readOnly: false },
-                    magicType: { show: true, type: ['line', 'bar'] },
-                    restore: { show: true },
-                    saveAsImage: { show: true }
-                }
-            },
-            calculable: true,
-            xAxis: [
-                {
-                    type: 'category',
-                    data: ['เชียงราย', 'เชียงใหม่', 'แพร่', 'น่าน', 'พะเยา', 'ลำพูน', 'ลำปาง', 'แม่ฮ่องสอน']
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'value',
-                    splitArea: { show: true }
-                }
-            ],
-            series: [
-                {
-                    name: 'ราคาซื้อขายที่ดินเฉลี่ยต่อตารางวา',
-                    type: 'bar',
-                    data: [150000, 300000, 200000, 90000, 70000, 150000, 190000, 30000],
-                    itemStyle: {
-                        normal: {
-                            color: 'green'
-                        },
-                        emphasis: {
-                            color: '#00e600'
-
-                        }
-                    }
-                },
-                {
-                    name: 'ราคาซื้อขายที่ดินต่ำสุดเต่อตารางวา',
-                    type: 'bar',
-                    data: [30000, 60000, 200000, 43000, 32000, 50000, 60000, 10000],
-                    itemStyle: {
-                        normal: {
-                            color: 'yellow'
-                        },
-                        emphasis: {
-                            color: '#ffff00'
-
-                        }
-                    }
-                }
-                ,
-                {
-                    name: 'ราคาซื้อขายที่ดินสูงสุดเต่อตารางวา',
-                    type: 'bar',
-                    data: [200000, 500000, 250000, 170000, 89000, 260000, 390000, 10000],
-                    itemStyle: {
-                        normal: {
-                            color: 'red'
-                        },
-                        emphasis: {
-                            color: '#ff7043'
-
-                        }
-                    }
-                }
-            ]
         }
 
 
-    //    chartBar.setOption(option2);
-       // chartBar2.setOption(option2);
+        function LoadChart() {
 
-      //  chartBar3.setOption(horizontalOption);
-    }
+            //var chartBar = echarts.init(document.getElementById('chartBar1'));
+            // var chartBar2 = echarts.init(document.getElementById('chartBar2'));
+            // var chartBar3 = echarts.init(document.getElementById('chartBar3'));
+
+
+            var option = {
+                title: {
+                    text: '',
+                    subtext: ''
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['ราคาประเมินรวม']
+                },
+                toolbox: {
+                    show: false,
+                    feature: {
+                        mark: { show: true },
+                        dataView: { show: true, readOnly: false },
+                        magicType: { show: true, type: ['line', 'bar'] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'value',
+                        boundaryGap: [0, 0.01]
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'category',
+                        data: [{ label: 'ใต้', value: 'ใต้', labelColor: 'yellow' }, 'กลาง', 'เหนือ', 'ตะวันตก', 'ตะวันออก', 'ตะวันออกเฉียงเหนือ']
+                    }
+                ],
+                series: [
+                    {
+                        name: 'ราคาประเมินรวม',
+                        type: 'bar',
+                        data: [18203, 23489, 29034, 104970, 131744, 630230],
+                        itemStyle: {
+                            normal: {
+                                color: function (params) {
+                                    // build a color map as your need.
+                                    var colorList = [
+                                        '#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+                                        '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                                        '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+                                    ];
+                                    return colorList[params.dataIndex]
+                                },
+                                label: {
+                                    show: false,
+                                    position: 'top',
+                                    formatter: '{b}\n{c}'
+                                }
+                            }
+                        }
+
+                    }
+                ]
+            };
+
+
+            var option2 = {
+                title: {
+                    text: '',
+                    subtext: ''
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['ราคาประเมินรวม']
+                },
+                toolbox: {
+                    show: false,
+                    feature: {
+                        mark: { show: true },
+                        dataView: { show: false, readOnly: false },
+                        magicType: { show: false, type: ['line', 'bar'] },
+                        restore: { show: false },
+                        saveAsImage: { show: false }
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'category',
+                        data: [{ label: 'ใต้', value: 'ใต้', labelColor: 'yellow' }, 'กลาง', 'เหนือ', 'ตะวันตก', 'ตะวันออก', 'ตะวันออกเฉียงเหนือ']
+                    }
+                ],
+                series: [
+                    {
+                        name: 'ราคาเฉลี่ย',
+                        type: 'bar',
+                        data: [60000, 300000, 700000, 67000, 460000, 550000],
+                        itemStyle: {
+                            normal: {
+                                color: 'green'
+                            },
+                            emphasis: {
+                                color: '#00e600'
+
+                            }
+                        }
+                    },
+                    {
+                        name: 'ราคาต่ำสุด',
+                        type: 'bar',
+                        data: [20000, 300000, 40000, 50000, 60000, 40000],
+
+                        itemStyle: {
+                            normal: {
+                                color: 'yellow'
+                            },
+                            emphasis: {
+
+
+                            }
+                        }
+                    },
+                    {
+                        name: 'สูงสุด',
+                        type: 'bar',
+                        data: [120000, 1300000, 140000, 150000, 160000, 140000],
+
+                        itemStyle: {
+                            normal: {
+                                color: 'red'
+                            },
+                            emphasis: {
+
+
+                            }
+                        }
+                    }
+                ]
+            };
+
+
+            var horizontalOption = {
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['蒸发量', '降水量']
+                },
+                toolbox: {
+                    show: false,
+                    feature: {
+                        mark: { show: true },
+                        dataView: { show: true, readOnly: false },
+                        magicType: { show: true, type: ['line', 'bar'] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: ['เชียงราย', 'เชียงใหม่', 'แพร่', 'น่าน', 'พะเยา', 'ลำพูน', 'ลำปาง', 'แม่ฮ่องสอน']
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        splitArea: { show: true }
+                    }
+                ],
+                series: [
+                    {
+                        name: 'ราคาซื้อขายที่ดินเฉลี่ยต่อตารางวา',
+                        type: 'bar',
+                        data: [150000, 300000, 200000, 90000, 70000, 150000, 190000, 30000],
+                        itemStyle: {
+                            normal: {
+                                color: 'green'
+                            },
+                            emphasis: {
+                                color: '#00e600'
+
+                            }
+                        }
+                    },
+                    {
+                        name: 'ราคาซื้อขายที่ดินต่ำสุดเต่อตารางวา',
+                        type: 'bar',
+                        data: [30000, 60000, 200000, 43000, 32000, 50000, 60000, 10000],
+                        itemStyle: {
+                            normal: {
+                                color: 'yellow'
+                            },
+                            emphasis: {
+                                color: '#ffff00'
+
+                            }
+                        }
+                    }
+                    ,
+                    {
+                        name: 'ราคาซื้อขายที่ดินสูงสุดเต่อตารางวา',
+                        type: 'bar',
+                        data: [200000, 500000, 250000, 170000, 89000, 260000, 390000, 10000],
+                        itemStyle: {
+                            normal: {
+                                color: 'red'
+                            },
+                            emphasis: {
+                                color: '#ff7043'
+
+                            }
+                        }
+                    }
+                ]
+            }
+
+
+            //    chartBar.setOption(option2);
+            // chartBar2.setOption(option2);
+
+            //  chartBar3.setOption(horizontalOption);
+        }
 
     </script>
 </body>
+
+
+<script src="~/assets/BI/pace.min.js"></script>
+<script src="~/assets/BI/viewportchecker.js"></script>
+<script src="~/assets/BI/jquery-jvectormap-2.0.1.min.js"></script>
+<script src="~/assets/BI/jquery-jvectormap-world-mill-en.js"></script>
+<script src="~/assets/BI/dashboard.js"></script>
+<script src="~/assets/BI/echarts-custom-for-dashboard.js"></script>
+
+<script src="~/assets/BI/perfect-scrollbar.min.js"></script>
+<script src="~/assets/BI/Script.js?ver=1.2233d42"></script>
+<script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.343sdd8533e"></script>
+<script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?dwfddd3"></script>
 </html>

@@ -8,209 +8,70 @@
 @section Scripts {
 }
 
-<script src="~/Scripts/waiting.js?ver=1.0220"></script>
-
+<link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
 <link href="~/assets/css/customize.css" rel="stylesheet" />
 <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
-
 <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-
-<!-- CORE CSS FRAMEWORK - START -->
-<link href="~/assets/css/BI/bootstrap.min.css?ver=1.3330" rel="stylesheet" />
-
-<link href="~/assets/css/BI/pace-theme-flash.css" rel="stylesheet" />
-<link href="~/assets/css/BI/bootstrap-theme.min.css" rel="stylesheet" />
-<!-- CORE CSS FRAMEWORK - END -->
-<!-- CORE CSS TEMPLATE - START -->
-<link href="~/assets/css/BI/animate.min.css" rel="stylesheet" />
-<link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
-<link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
-
-<link href="~/assets/css/Kim_Style.css?ver1.33" rel="stylesheet" />
-<link href="~/assets/css/BI/Style.css?ver1.333dd3" rel="stylesheet" />
-
-<!-- CORE CSS TEMPLATE - END -->
-<link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
-
-
 <!-- Bootstrap -->
+
+<style type="text/css">
+    .selectpicker {
+        -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+        -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
+        -moz-transition: 0.3s;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        background-color: #fff;
+    }
+
+        .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
+            color: #333;
+            background-color: #fff;
+            /*border-color: gold;*/
+        }
+
+    .dropdown-menu > li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+</style>
 <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="~/assets/js/jquery-ui.js"></script>
-<script src="~/assets/js/bootstrap-select.min.js?33"></script>
+<script src="~/assets/js/bootstrap-select.min.js"></script>
 
-<body class="nav-md">
-    <div class="page-topbar">
-        <div class="logo-area">
 
+
+<div role="main" class="container-fluid">
+
+    <!-- Header -->
+    <div class="row ">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <h1>ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</h1>
         </div>
+    </div>
 
-        <div class="quick-area">
-            <div class="pull-left">
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="sidebar-toggle-wrap">
-                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
-
-
-
-                </ul>
-            </div>
-            <div class="profile_details">
-                <ul>
-                    <li class="dropdown profile_details_drop">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <div class="profile_img">
-                                <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
-                                <div class="user-name">
-                                    <p>User</p>
-                                    <span>Administrator</span>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel with-nav-tabs panel-primary">
+                <div class="panel-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel tile" style="border:none;padding:0;">
+                            <div class="x_content">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h4 class="headerwhite">รายงานแสดงการเปลี่ยนแปลงราคาซื้อขายและแสดงผลค่าเฉลี่ยอัตราเพิ่มสูงสุดและอัตราต่ำสุด (S/A ratio)</h4>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu drp-mnu">
-                            <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                            <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-                            <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-    <div class="page-sidebar pagescroll expandit">
-
-        <!-- MAIN MENU - START -->
-        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-
-
-
-
-            <div class="page-sidebar navbar-collapse collapse">
-                <!-- BEGIN SIDEBAR MENU -->
-                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 934px;">
-                    <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true"
-                        data-slide-speed="200" data-height="934" data-initialized="1" style="overflow: hidden; width: auto;height: 934px;">
-                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                        <li class="sidebar-toggler-wrapper hide">
-                            <div class="sidebar-toggler">
-                                <span></span>
-                            </div>
-                        </li>
-                        <!-- END SIDEBAR TOGGLER BUTTON -->
-                        <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-
-                        <li class="nav-item   ">
-                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-home" style="color:red"></i>
-                                <span class="title">หน้าหลัก</span>
-                            </a>
-                        </li>
-
-                        <!-- <li class="nav-item   ">
-                            <a href="~/Home/Menu1" class="nav-link nav-toggle">
-                                <i class="fa fa-money" style="color:blue"></i>
-                                <span class="title">ซื้อขายจดทะเบียน</span>
-                            </a>
-                        </li>-->
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu2" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu3" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-random" style="color:red"></i>
-                                <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/System_3_with_Layout?Menu=5" class="nav-link nav-toggle">
-                                <i class="fa fa-users" style="color:purple"></i>
-                                <span class="title">ปริมาณการเข้าใช้ระบบ</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/Index" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
-                                <span class="title">สร้างรายงานด้วย BI</span>
-                            </a>
-                        </li>
-                        <!-- <li class="btnLogout" onclick="logout()">
-                            <a href="https://p-staging.treasury.go.th/pvalue/logout">
-
-                                <i class="icon-key"></i> ออกจากระบบ
-                            </a>
-                        </li>-->
-
-
-                    </ul>
-                    <div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
-                </div>
-                <!-- END SIDEBAR MENU -->
-            </div>
-
-
-
-        </div>
-        <!-- MAIN MENU - END -->
-
-
-
-    </div>
-
-    <section id="main-content">
-        <section id="menulist">
-            <div class="content-heading bg-white">
-
-                <div class="row">
-                    <div class="col-sm-12 divView">
-                        <!-- Header -->
-                        <div class="row ">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <h2 class=" text-center  text-info"><i class="glyphicon glyphicon-random" aria-hidden="true"> การเปลี่ยนแปลงราคาซื้อขาย</i></h2>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </section>
-        <section class="wrapper main-wrapper row" style=''>
-
-
-            <div class="col-xs-12">
-                <section class="box ">
-                    <header class="panel_header">
-                        <div class="col-sm-10">
-
-                            <h3 class="text-primary pull-left">รายงานแสดงการเปลี่ยนแปลงราคาซื้อขายและแสดงผลค่าเฉลี่ยอัตราเพิ่มสูงสุดและอัตราต่ำสุด (S/A ratio)</h3>
-                        </div>
-                        <div class="actions panel_actions pull-right">
-                            <a class="box_toggle fa fa-chevron-down"></a>
-                            <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
-                            <a class="box_close fa fa-times"></a>
-                        </div>
-                    </header>
-                    <div class="content-body">
-
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
 
                                 <div class="row">
                                     <div class="col-xs-12">
@@ -218,7 +79,7 @@
                                             <div class="panel-heading">
                                                 <div class="row">
                                                     <div class="col-xs-6">
-                                                        <h3 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h3>
+                                                        <h4 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -321,25 +182,28 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
 
                                         <div class="panel panel-primary">
                                             <div class="panel-heading">
-                                                <h3 class="headerwhite">การเปลี่ยนแปลงราคาซื้อขาย</h3>
+                                                <h4 class="headerwhite">การเปลี่ยนแปลงราคาซื้อขาย</h4>
                                             </div>
                                             <div class="panel-body center">
-                                                <!--<div class="row">
+                                                <div class="row">
                                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                                         <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
                                                     </div>
-                                                </div>-->
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                                         <div class="divTable">
-                                                            <table id="tbSort" class="table table-bordered table-striped">
+                                                            <table id="tbSort" class="table table-bordered table-striped tblInfo">
                                                                 <thead>
-                                                                    <tr class="bg-info">
+                                                                    <tr>
                                                                         <th scope="col" class="center">จังหวัด</th>
                                                                         <th scope="col" class="center">ช่วงเวลา</th>
                                                                         <th scope="col" class="center">S/A Ratio<br>ต่ำสุด</th>
@@ -357,26 +221,28 @@
                                     </div>
 
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
-        </section>
-    </section>
-</body>
+        </div>
+    </div>
+</div>
 
-
+<!-- Icon Menu -->
+@Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
 <script>
 
     $(function () {
 
 
         var iframeElement = document.getElementById('tdmap');
-        // iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
+        iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
         gisIframeWindow = null
         iframeElement.onload = function () {
-            //   gisIframeWindow = iframeElement.contentWindow;
+            gisIframeWindow = iframeElement.contentWindow;
 
 
         }
@@ -552,16 +418,7 @@
     }
 
 </script>
-<script src="~/assets/BI/pace.min.js"></script>
-<script src="~/assets/BI/viewportchecker.js"></script>
-<script src="~/assets/BI/jquery-jvectormap-2.0.1.min.js"></script>
-<script src="~/assets/BI/jquery-jvectormap-world-mill-en.js"></script>
-<script src="~/assets/BI/dashboard.js"></script>
-<script src="~/assets/BI/echarts-custom-for-dashboard.js"></script>
-
-<script src="~/assets/BI/perfect-scrollbar.min.js"></script>
-<script src="~/assets/BI/Script.js?ver=1.2233ddd442"></script>
-<script src="~/Scripts/Home/Menu3.js?ver=1.02330392"></script>
-
+<script src="~/Scripts/Home/Menu3.js?ver=1.0233099002"></script>
+<script src="~/Scripts/Map/Identity.js"></script>
 
 

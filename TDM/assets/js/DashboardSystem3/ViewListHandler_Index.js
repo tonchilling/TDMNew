@@ -51,6 +51,75 @@ function tab_1_3Onclick() {
 }
 
 
+var minCostLimit = 0;
+var maxCostLimit = 100000000000000;
+var minCost = minCostLimit;
+var maxCost = maxCostLimit;
+var slider0 = null;
+var slider1 = null;
+
+
+$(document).ready(function () {
+
+
+    //  $('#overlay').invisible();
+    $('#ddlType').val("1");
+    $('.txtSFromDate').datetimepicker({
+        format: 'mm-dd-yyyy',
+        minView: 2,
+        pickTime: false,
+        autoclose: true
+    });
+
+
+    $('.txtSToDate').datetimepicker({
+        format: 'mm-dd-yyyy',
+        minView: 2,
+        pickTime: false,
+        autoclose: true
+    });
+
+
+    //   $("#ddlMaptype").selectpicker('refresh');
+    $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
+    $('.divSection22').addClass("invisible").css({ position: "absolute" });
+
+    // $('.divSection21').addClass("invisible").css({ position: "absolute" });
+
+    LoadSection1(1, '');
+    LoadSlide();
+
+
+
+
+    DisplaySection2SearchRegionCluster(1);
+    /* $('#tdmap').load(function () {
+         $('#tdmap').contents().find("head")
+           .append($("<style type='text/css'>  path {fill-opacity:0.4} path:hover, polygon:hover { fill-opacity:0.6 !important; } </style>"));
+     });*/
+
+
+
+
+
+    SearchAll('0', '');
+    LoadSection4();
+
+    LoadConstructionType();
+
+    CMPLTADMIN_SETTINGS.windowBasedLayout();
+    CMPLTADMIN_SETTINGS.mainMenu();
+    CMPLTADMIN_SETTINGS.mainmenuCollapsed();
+    CMPLTADMIN_SETTINGS.mainmenuScroll();
+    CMPLTADMIN_SETTINGS.sectionBoxActions();
+    CMPLTADMIN_SETTINGS.chatAPI();
+    CMPLTADMIN_SETTINGS.chatApiScroll();
+    CMPLTADMIN_SETTINGS.chatApiWindow();
+    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
+
+
+});
+
 $(document).on("click", "#rdRegion", function () {
     DisplaySection2SearchRegionCluster(1)
 });
@@ -511,7 +580,7 @@ function LoadSection2EvalBox1_LeftBox(data) {
     if (data != null) {
         if (data != null && data.length > 0) {
             $.each(data, function (index, data) {
-                body += '<div class="alert leftbox alert-1 msg pmvByAreaBox">';
+                body += '<div class=" leftbox r4_counter db_box bg-success zoom">';
                 body += '<h3 class="Header">' + data.DisplayName + '</h4>';
 
                 if (tabSelect == '1') {
@@ -560,9 +629,9 @@ function LoadSection2Construction(data)
     var body = '';
     $("#divConstruction").empty();
 
-    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<table class="table table-bordered table-striped ">';
     body += '<thead>';
-    body += '<tr>';
+    body += '<tr class="bg-info">';
     body += '<th scope="col">ลำดับ</th>';
     body += '<th scope="col">รหัส</th>';
     body += '<th scope="col">ชื่อ</th>';
@@ -717,9 +786,9 @@ function LoadSection2EvalBox1_Table(data) {
     var body = "";
     $("#EvalBox1Table").empty();
 
-    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<table class="table table-bordered table-striped ">';
     body += '<thead>';
-    body += '<tr>';
+    body += '<tr class="bg-info">';
     body += '<th scope="col">' + GetSectionDisplayText(sectionType) + '</th>';
 
     if (tabSelect=='1') {
@@ -858,10 +927,10 @@ function LoadSection4() {
     }
     $(".divInfoSection4").empty();
 
-
-    tableStr += '<table id="datatable4" class="table   datatable4 tblInfoSection4">';
+    
+        tableStr += '<table id="datatable4" class="table   table-bordered table-striped  tblInfoSection4">';
     tableStr += '<thead>';
-    tableStr += '<tr>';
+    tableStr += '<tr class="bg-info">';
     tableStr += '<th class="th__center">ชื่อโครงการ</th>';
     tableStr += '<th class="th__center">พื้นที่</th>';
     tableStr += '<th class="th__center">จำนวนแปลงที่ดินที่กระทบ</th>';
@@ -1239,66 +1308,7 @@ function MakeSpeedDometer(name, tital, data) {
 }
 
 
-var minCostLimit = 0;
-var maxCostLimit = 100000000000000;
-var minCost = minCostLimit;
-var maxCost = maxCostLimit;
-var slider0 = null;
-var slider1 = null;
 
-
-$(document).ready(function () {
-
-    
-  //  $('#overlay').invisible();
-    $('#ddlType').val("1");
-    $('.txtSFromDate').datetimepicker({
-        format: 'mm-dd-yyyy',
-        minView: 2,
-        pickTime: false,
-        autoclose: true
-    });
-
-
-    $('.txtSToDate').datetimepicker({
-        format: 'mm-dd-yyyy',
-        minView: 2,
-        pickTime: false,
-        autoclose: true
-    });
-
-
- //   $("#ddlMaptype").selectpicker('refresh');
-    $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
-    $('.divSection22').addClass("invisible").css({ position: "absolute" });
-
-   // $('.divSection21').addClass("invisible").css({ position: "absolute" });
-  
-    LoadSection1(1, '');
-    LoadSlide();
-
-
-   
-
-    DisplaySection2SearchRegionCluster(1);
-   /* $('#tdmap').load(function () {
-        $('#tdmap').contents().find("head")
-          .append($("<style type='text/css'>  path {fill-opacity:0.4} path:hover, polygon:hover { fill-opacity:0.6 !important; } </style>"));
-    });*/
-
-    
-   
-  
-   
-    SearchAll('0', '');
-    LoadSection4();
-
-    LoadConstructionType();
-   
-
-
-
-});
 
 $(document).on("mouseover", ".popup", function () {
     var data = $(this).attr("data");

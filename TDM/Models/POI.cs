@@ -404,6 +404,12 @@ namespace TDM.Models
     }
 
 
+    public partial class GetProjectImpacteBI
+    {
+        public List<PROJECT_IMPACTDto> EstimateData { get; set; }
+        public Barchart Barchart { get; set; }
+    }
+
 
     public partial class Land_Ratio
     {

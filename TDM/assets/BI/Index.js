@@ -448,7 +448,7 @@ function LoadData(locationLevel,code) {
             $('#ddlDistrict').removeClass("hide").addClass("hide")
             $('#ddlSubdistrict').removeClass("hide").addClass("hide")
             break;
-        case 4: urlForSearch = mapApi.getServerPath() + '/api/AreaAnalysis/GetAllProjectImpact';
+        case 4: urlForSearch = mapApi.getServerPath() + '/api/AreaAnalysis/GetAllProjectImpactBI';
             $('.btnLand').css('opacity', '0.3');
             $('.btnCondo').css('opacity', '0.3');
             $('.btnBuilding').css('opacity', '0.3');
@@ -496,7 +496,7 @@ function LoadData(locationLevel,code) {
                 } else if (tabSelect == '3') {
                     LoadChartBuilding(DisplayDataSection1, chartData);
                 } else if (tabSelect == '4') {
-                    LoadGovernment(resultAll);
+                    LoadGovernment(DisplayDataSection1, chartData);
                 }
 
 
@@ -643,7 +643,7 @@ function LoadChartCondo_Section1(locationLevel, code) {
             html += '</div>';
             html += ' <div class="card-text">';
             html += '<h3 class="mbr-content-header pt-3  mbr-fonts-style" data="' + item.TumbolCode + '">' + item.name + '</h3>';
-            html += '<h4 class="mbr-content-header pt-3  mbr-fonts-style display-1">' + item.MaxPrice + '</h4>';
+            html += '<h4 class="mbr-content-header pt-3  mbr-fonts-style display-1">' + formatCurrency(item.MaxPrice) + '</h4>';
             html += '<h5 class="mbr-content-title mbr-light mbr-fonts-style display-5">' + item.Tumbol + ' <br>' + item.Amphure + '<br>' + item.Province + '</h5>';
             html += ' </div>';
             html += '</div>';
@@ -1004,6 +1004,14 @@ function LoadChartLand(ObjData,chartData) {
     var count = 0;
     var btnSelect = 'btnRegion';
 
+    $(".divCondo .divSection1").empty();
+    $(".divCondo .divSection1").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeOut")
+
+    $(".divCondo .divSection2").empty();
+    $(".divCondo .divSection2").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeOut")
+
+
+
     $(".divLand").removeClass("m-fadeOut m-fadeIn absolute").addClass("m-fadeIn");
     $(".divLand .divSection1").empty();
 
@@ -1044,22 +1052,44 @@ function LoadChartLand(ObjData,chartData) {
             html += '<table class="table ">'
             html += '<thead >'
             html += '<tr class="text-primary font-weight-bolder text-light">'
-            html += '<td></td>'
-            html += '<td><h4><i class="fa fa-arrow-up text-info" aria-hidden="true"></i> ราคาสูงสุด</h4></td>'
-            html += '<td><h4><i class="fa fa-arrow-down  text-warning" aria-hidden="true"></i> ราคาต่ำสุด</h4></td>'
+            html += '<td>(ราคา/ตรว.)</td>'
+            if (selectLocationLevel == '4') {
+                html += '<td><h4> ราคา</h4></td>'
+            } else {
+                html += '<td><h4><i class="fa fa-arrow-up text-info" aria-hidden="true"></i> ราคาสูงสุด</h4></td>'
+                html += '<td><h4><i class="fa fa-arrow-down  text-warning" aria-hidden="true"></i> ราคาต่ำสุด</h4></td>'
+            }
             html += '</tr>'
             html += '</thead>'
             html += '<tbody>'
-            html += '<tr>'
-            html += '<td>ราคาประเมิน</td>'
-            html += '<td>' + item.ParcelWAHPriceMax + '</td>'
-            html += '<td>' + item.ParcelWAHPriceMin + '</td>'
-            html += '</tr>'
-            html += '<tr>'
-            html += '<td>ราคาซื้อขาย</td>'
-            html += '<td>' + item.MarketWAHPriceMax + '</td>'
-            html += '<td>' + item.MarketWAHPriceMin + '</td>'
-            html += '</tr>'
+
+            if (selectLocationLevel == '4') {
+                html += '<tr>'
+                html += '<td>ราคาประเมิน</td>'
+                html += '<td>' + item.ParcelWAHPriceMax + '</td>'
+               
+                html += '</tr>'
+                html += '<tr>'
+                html += '<td>ราคาซื้อขาย</td>'
+                html += '<td>' + item.MarketWAHPriceMax + '</td>'
+
+                html += '</tr>'
+            } else {
+                html += '<tr>'
+                html += '<td>ราคาประเมิน</td>'
+                html += '<td>' + item.ParcelWAHPriceMax + '</td>'
+                html += '<td>' + item.ParcelWAHPriceMin + '</td>'
+                html += '</tr>'
+                html += '<tr>'
+                html += '<td>ราคาซื้อขาย</td>'
+                html += '<td>' + item.MarketWAHPriceMax + '</td>'
+                html += '<td>' + item.MarketWAHPriceMin + '</td>'
+                html += '</tr>'
+            }
+
+
+
+          
             html += '</tbody>'
             html += '</table>'
             html += '</div>'
@@ -1116,8 +1146,9 @@ function LoadChartLand(ObjData,chartData) {
     html += '<th scope="col">อำเภอ</th>';
     html += ' <th scope="col">ตำบล</th>';
    // html += ' <th scope="col">เลขที่ฉโนด</th>';
-    html += '<th scope="col">ราคาประเมิน</th>';
-    html += '<th scope="col">ราคาซื้อขาย</th>';
+
+    html += '<th scope="col">ราคาประเมิน<p>(ราคา/ตรว.)</p></th>';
+    html += '<th scope="col">ราคาซื้อขาย<p>(ราคา/ตรว.)</p></th>';
     html += ' </tr>';
     html += '</thead>';
     html += '<tbody>';
@@ -1134,9 +1165,11 @@ function LoadChartLand(ObjData,chartData) {
             html += '<td class="btnProvince" data="' + item.ProviceCode + '">' + item.ProviceName + '</td>';
             html += '<td class="btnAmphure" data="' + item.AmphureCode + '">' + item.AmphureName + '</td>';
             html += '<td class="btnTumbol" data="' + item.TAMBOLCode + '">' + item.TAMBOLName + '</td>';
-          //  html += '<td class="text-center">' + item.MaxParcelCHANODE_NO + '</td>';
+
             html += '<td class="text-right">' + item.ParcelWAHPriceMax + '</td>';
             html += '<td class="text-right">' + item.MarketWAHPriceMax + '</td>';
+
+           
           
             html += '</tr>';
         });
@@ -1176,6 +1209,7 @@ function LoadChartLand(ObjData,chartData) {
                 orient: 'vertical',
                 x: 'left',
                 show: true,
+                itemWidth:10,
                 data: chartData.Data
             },
             toolbox: {
@@ -1242,6 +1276,7 @@ function LoadChartLand(ObjData,chartData) {
                 orient: 'vertical',
                 x: 'left',
                 show: true,
+                itemWidth: 10,
                 data: chartData.Data
             },
             toolbox: {
@@ -1294,12 +1329,40 @@ function LoadChartLand(ObjData,chartData) {
                 text: '',
                 subtext: ''
             },
+            color: [
+                "#ff7f50",
+                "#87cefa",
+                "#da70d6",
+                "#32cd32",
+                "#6495ed",
+                "#ff69b4",
+                "#ba55d3",
+                "#cd5c5c",
+                "#ffa500",
+                "#40e0d0",
+                "#1e90ff",
+                "#ff6347",
+                "#7b68ee",
+                "#00fa9a",
+                "#ffd700",
+                "#6699FF",
+                "#ff6666",
+                "#3cb371",
+                "#b8860b",
+                "#30e0e0"
+            ],
+            
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
                     type: 'none',
                 }
             },
+            grid: {
+
+            }
+   ,
+            animation:true,
             legend: {
                 data: ['ราคาประเมิน', 'ราคาซื้อขาย']
             },
@@ -1313,17 +1376,44 @@ function LoadChartLand(ObjData,chartData) {
                     saveAsImage: { show: true }
                 }
             },
+        
             calculable: true,
             xAxis: [
                 {
                     type: 'value',
-                    show: false,
+                    show: true,
+                   
+                      
                 }
             ],
             yAxis: [
                 {
                     type: 'category',
-                    data: chartData.Data
+                    data: chartData.Data,
+                    show: true,
+                    axisLabel: {
+                        show: true,
+                        margin: 2,
+                        formatter: function (params) {
+                            return params.length > 15 ? params.substring(0, 15) + '..' : params;
+                        }
+                    },
+                    splitLine: {
+                        show: true,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
+                        shadowBlur: 10,
+                        lineStyle: {
+                            color: '#ccc',
+                            width:2
+                        },
+                        shadowBlur: 10,
+                    },
+                    splitArea: {
+                        show: true,
+                        color: ['rgba(250,250,250,0.8)', 'rgba(200,200,200,0.8)'] ,
+                        shadowColor: '#F8FFFF',
+                        shadowBlur: 10,
+                    }
                    
                 }
             ],
@@ -1342,14 +1432,7 @@ function LoadChartLand(ObjData,chartData) {
                     },
                     itemStyle: {
                         normal: {
-                            color: function (params) {
-                                // build a color map as your need.
-                                var colorList = [
-                                    '#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B'
-                                   
-                                ];
-                                return colorList[params.dataIndex]
-                            },
+                           
                             label: {
                                 show: false,
                                 position: 'top',
@@ -1373,15 +1456,7 @@ function LoadChartLand(ObjData,chartData) {
                     },
                     itemStyle: {
                         normal: {
-                            color: function (params) {
-                                // build a color map as your need.
-                                var colorList = [
-                                    '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD'
-                                  
-                                ];
-                                return colorList[params.dataIndex]
-                                return colorList[params.dataIndex]
-                            },
+                           
                             label: {
                                 show: false,
                                 position: 'top',
@@ -1402,7 +1477,7 @@ function LoadChartLand(ObjData,chartData) {
         LoadChart(option3, document.getElementById('chart3'))
 
 
-
+        waitingDialog.hide();
 
 
 
@@ -1466,7 +1541,7 @@ function LoadChartCondo(ObjData, chartData) {
             html += '<table class="table ">'
             html += '<thead >'
             html += '<tr class="text-primary font-weight-bolder text-light">'
-            html += '<td>(ราคา/ตารางวา)</td>'
+            html += '<td>(ราคา/ตรว.)</td>'
             if (selectLocationLevel == '4') {
                 html += '<td><h4><i class="fa fa-arrow-up text-info" aria-hidden="true"></i> ราคา</h4></td>'
             } else {
@@ -1552,7 +1627,7 @@ function LoadChartCondo(ObjData, chartData) {
     html += '<th scope="col">อำเภอ</th>';
     html += ' <th scope="col">ตำบล</th>';
     html += ' <th scope="col">ชื่อคอนโด</th>';
-    html += '<th scope="col">ราคาซื้อขาย</th>';
+    html += '<th scope="col">ราคาซื้อขาย<p>(ราคา/ตรว.)</p></th>';
     html += ' </tr>';
     html += '</thead>';
     html += '<tbody>';
@@ -1570,7 +1645,7 @@ function LoadChartCondo(ObjData, chartData) {
             html += '<td class="btnAmphure" data="' + item.AmphureCode + '">' + item.AmphureName + '</td>';
             html += '<td class="btnTumbol" data="' + item.TAMBOLCode + '">' + item.TAMBOLName + '</td>';
             html += '<td>' + item.CondoName + '</td>';
-            html += '<td class="text-right">' + item.ParcelPriceMax + '</td>';
+            html += '<td class="text-right">' + formatCurrency(item.ParcelPriceMax) + '</td>';
 
             html += '</tr>';
         });
@@ -1601,7 +1676,13 @@ function LoadChartCondo(ObjData, chartData) {
         legend: {
             orient: 'vertical',
             x: 'left',
+            layout: 'vertical',
             show: true,
+            itemWidth: 8,
+            formatter: function (params) {
+                return params.length > 9 ? params.substring(0, 9) + '..' : params;
+            },
+        
             data: chartData.Data
         },
         toolbox: {
@@ -1799,17 +1880,44 @@ function LoadChartCondo(ObjData, chartData) {
                 return rez;
             }  
         },
+        grid: {
+            width:'auto'
+        },
         calculable: true,
         xAxis: [
             {
                 type: 'value',
-                show: false,
+                show: true,
             }
         ],
         yAxis: [
             {
                 type: 'category',
-                data: chartData.Data
+                data: chartData.Data,
+                axisLabel: {
+                    show: true,
+                    margin: 2,
+                    formatter: function (params) {
+                        return params.length > 6 ? params.substring(0, 6) + '..' : params;
+                    }
+                },
+                splitLine: {
+                    show: true,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    shadowBlur: 10,
+                    lineStyle: {
+                        color: '#ccc',
+                        width: 2
+                    },
+                    shadowBlur: 10,
+                },
+                splitArea: {
+                    show: true,
+                    color: ['rgba(250,250,250,0.8)', 'rgba(200,200,200,0.8)'],
+                    shadowColor: '#F8FFFF',
+                    shadowBlur: 10,
+                }
+
 
              
             }
@@ -1830,16 +1938,8 @@ function LoadChartCondo(ObjData, chartData) {
                 },
                 itemStyle: {
                     normal: {
-                        color: function (params) {
-                            // build a color map as your need.
-                            var colorList = [
-                                '#B5C334'
-                            ];
-                            return colorList[params.dataIndex]
-                        },
-                        emphasis: {
-                            color: '#93CD10'
-                        },
+                        color: '#B5C334',
+                        
                         label: {
                             show: false,
                             position: 'top',
@@ -1857,10 +1957,12 @@ function LoadChartCondo(ObjData, chartData) {
         ]
     };
 
-    LoadChart(option, document.getElementById('chartCondo3'))
+    LoadChart(option, document.getElementById('chartCondo3'));
+    waitingDialog.hide();
+
 }
 
-function LoadGovernment(tempData) {
+function LoadGovernment(ObjData, chartData) {
 
     var subject_id = "";
     var subject_name = "";
@@ -1894,15 +1996,15 @@ function LoadGovernment(tempData) {
     tableStr += '<tbody>';
 
   
-    if (tempData != null) {
-        if (tempData != null && tempData.length > 0) {
-            $.each(tempData, function (index, item) {
+    if (ObjData != null) {
+        if (ObjData != null && ObjData.length > 0) {
+            $.each(ObjData, function (index, item) {
 
                         tableStr += '<tr data-toggle="collapse" data-target="#accordion" class="clickable">';
                         tableStr += ' <td class="td__Center">' + item.SUBJECT_NAME + '</td>';
                         tableStr += '<td class="td__Center">' + item.ProvinceName + '</td>';
-                tableStr += '<td class="td__Center">' + formatCurrency(item.ParcelTotal) + '</td>';
-                tableStr += '<td class="td__Center">' + formatCurrency(item.Area) + '</td>';
+                tableStr += '<td class="td__Center">' + item.ParcelTotal + '</td>';
+                tableStr += '<td class="td__Center">' + item.Area + '</td>';
                    //     tableStr += '<td class="td__Center"></td>';
                         tableStr += '</tr>';
 
@@ -1915,7 +2017,160 @@ function LoadGovernment(tempData) {
 
             $(".divGov .divSection1 table").DataTable({ searching: false, info: false });
                     //   $(".tblInfoSection4").DataTable({ searching: true, info: false });
+        }
+
+
+
+        var option = {
+            title: {
+                text: 'จำนวนแปลงที่ดินที่ได้รับผลกระทบ',
+                subtext: '',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                layout: 'vertical',
+                show: true,
+                itemWidth: 8,
+                formatter: function (params) {
+                    return params.length > 9 ? params.substring(0, 9) + '..' : params;
+                },
+
+                data: chartData.Data
+            },
+            toolbox: {
+                show: false,
+                feature: {
+                    mark: { show: true },
+                    dataView: { show: true, readOnly: false },
+                    magicType: {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                },
+                formatter: function (params) {
+                    var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
+                    let rez = '<p>' + params.name + ' : ' + formatCurrency(params.value) + '</p>';
+
+
+                    return rez;
                 }
+            },
+            calculable: true,
+            series: [
+                {
+                    name: 'จำนวนแปลงทีได้รับผลกระทบ',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: chartData.Value,
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false,
+                                position: 'top',
+                                formatter: '{b}\{c}'
+                                /*  formatter: '{b}\n{c}'*/
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+
+        LoadChart(option, document.getElementById('ChartGov1'))
+
+
+
+         option = {
+            title: {
+                text: 'เนื้อที่รวมที่ได้รับผลกระทบ',
+                subtext: '',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                layout: 'vertical',
+                show: true,
+                itemWidth: 8,
+                formatter: function (params) {
+                    return params.length > 9 ? params.substring(0, 9) + '..' : params;
+                },
+
+                data: chartData.Data
+            },
+            toolbox: {
+                show: false,
+                feature: {
+                    mark: { show: true },
+                    dataView: { show: true, readOnly: false },
+                    magicType: {
+                        show: true,
+                        type: ['pie', 'funnel'],
+                        option: {
+                            funnel: {
+                                x: '25%',
+                                width: '50%',
+                                funnelAlign: 'left',
+                                max: 1548
+                            }
+                        }
+                    },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                },
+                formatter: function (params) {
+                    var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
+                    let rez = '<p>' + params.name + ' : ' + formatCurrency(params.value) + '</p>';
+
+
+                    return rez;
+                }
+            },
+            calculable: true,
+            series: [
+                {
+                    name: 'จำนวนแปลงทีได้รับผลกระทบ',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: chartData.Value2,
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false,
+                                position: 'top',
+                                formatter: '{b}\{c}'
+                                /*  formatter: '{b}\n{c}'*/
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+
+        LoadChart(option, document.getElementById('ChartGov2'));
+
             }
     
 
@@ -2040,14 +2295,45 @@ function LoadChartBuilding(data, chartData) {
         xAxis: [
             {
                 type: 'category',
-                show: false,
-                data: chartData.Data
+                show: true,
+                data: chartData.Data,
+                axisLabel: {
+                    show: true,
+                    margin: 2,
+                    formatter: function (params) {
+                        return params.length > 10 ? params.substring(0, 10) + '..' : params;
+                    }
+                }
             }
         ],
         yAxis: [
             {
                 type: 'value',
-                show: false
+                show: true,
+                axisLabel: {
+                    show: true,
+                    margin: 2,
+                    formatter: function (params) {
+                        return params.length > 10 ? params.substring(0, 10) + '..' : params;
+                    }
+                },
+                splitLine: {
+                    show: true,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    shadowBlur: 10,
+                    lineStyle: {
+                        color: '#ccc',
+                        width: 2
+                    },
+                    shadowBlur: 10,
+                },
+                splitArea: {
+                    show: true,
+                    color: ['rgba(250,250,250,0.8)', 'rgba(200,200,200,0.8)'],
+                    shadowColor: '#F8FFFF',
+                    shadowBlur: 10,
+                }
+
             }
         ],
         series: [
@@ -2068,7 +2354,7 @@ function LoadChartBuilding(data, chartData) {
                         label: {
                             show: true,
                             position: 'top',
-                            formatter: '{b}\n{c}'
+                            formatter: '{c}'
                         }
                     }
                 },
@@ -2133,11 +2419,12 @@ function LoadSection(types) {
         return n == 4;
     });
 
-    $(".divGov").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeOut absolute")
+
 
     $(".divLand").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeOut absolute")
     $(".divCondo").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeOut absolute")
     $(".divBuilding").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeOut absolute")
+    $(".divGov").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeOut absolute")
     $(".divProvince1").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeOut absolute")
    
     if (land.length > 0) {

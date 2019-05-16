@@ -546,6 +546,7 @@ padding-bottom:10px;
     color: #fff;
     background-color: #428bca;
     border-color: #428bca;
+    padding:5px;
 }
 
 .leftbox {
@@ -673,12 +674,12 @@ width:1200px;
 }
 
 h1 {
-  color: white;
-  font-size: 2.25em;
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 2em;
-  text-shadow: 0px 2px 0px #000000;
+    color: white;
+    font-size: 2.5em;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 2em;
+     text-shadow:none;
 }
 
 h4,h3 {
@@ -686,7 +687,7 @@ h4,h3 {
 color:#777;
 }
     .headerwhite {
-    
+    padding-left:8px;
     color:#ffffff;
     }
 .tblChart tr td {
@@ -848,21 +849,20 @@ hr.style1{
 	border: 2px dashed rgba(0, 0, 0, 0.15);
 }
 .leftbox> h3 {
-    color: #1d811f;
+    color: #ffffff;
 
 }
 .leftbox h4 {
-    color: #2cac2f;
-
+    color: #ffffff;
 }
 .leftbox h5 {
-    color: #14b918;
-
+    color: #ffffff;
+    font-size:18px;
 }
 .leftbox i {
-    color: #1891ce;
-    cursor:pointer;
-    font-size:15px;
+    color: #fabb27;
+    cursor: pointer;
+    font-size: 15px;
 }
 
 form.main-search input[type="text"], form.main-search input[type="date"], form.main-search input[type="email"], form.main-search input[type="search"], form.main-search input[type="password"], form.main-search input[type="number"], form.main-search input[type="tel"], form.main-search textarea.form-control, form.main-search .selectpicker {

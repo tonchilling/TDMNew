@@ -15,7 +15,7 @@ using System.Web;
 using System.Web.Http;
 using TDM.Models;
 using TDM.Repositories;
-
+using TDM.Models.Utils;
 namespace TDM.Controllers.api
 {
     public class AreaAnalysisController : ApiController
@@ -23,7 +23,7 @@ namespace TDM.Controllers.api
         private JsonSerializerSettings jsonSetting = JsonHelper.createJsonSetting();
         private TDManagementEntities tdmEntities = null;
         private TDASSETEntities tdaEntities = null;
-
+        int overMax = 10;
         protected AreaAnalysisController()
         {
             tdmEntities = new TDManagementEntities();
@@ -215,6 +215,72 @@ namespace TDM.Controllers.api
         /// <param name="searchDto"></param>
         /// <returns></returns>
         [HttpPost]
+        public IHttpActionResult GetAllProjectImpactBI(PROJECT_IMPACTDto searchDto)
+        {
+            var repos = new TDAssetRespository();
+
+            GetProjectImpacteBI resultList = new GetProjectImpacteBI();
+            List<string> data = null;
+            List<BarchartValue> value = null;
+            List<BarchartValue> value2 = null;
+            BarchartValue barValue = null;
+            var barchart = new Barchart();
+            int row = 0;
+
+            var estimateData = repos.GetPROJECT_IMPACT(searchDto);
+
+            if (estimateData != null)
+            {
+                resultList.EstimateData = estimateData.OrderByDescending(o => o.ParcelTotal).ToList();
+
+                data = new List<string>();
+                value = new List<BarchartValue>();
+                value2 = new List<BarchartValue>();
+
+                foreach (PROJECT_IMPACTDto result in estimateData.OrderByDescending(o => o.ParcelTotal))
+                {
+
+                    if (row >= overMax)
+                    {
+                        break;
+                    }
+
+
+                    barValue = new BarchartValue();
+                    barValue.name = result.SUBJECT_NAME;
+                    barValue.value = Converting.ToDecimal(result.ParcelTotal);
+                    barValue.key = result.SUBJECT_ID;
+
+
+                    value.Add(barValue);
+
+
+                    barValue = new BarchartValue();
+                    barValue.name = result.SUBJECT_NAME;
+                    barValue.value = Converting.ToDecimal(result.Area);
+                    barValue.key = result.SUBJECT_ID;
+                    value2.Add(barValue);
+
+
+
+                    data.Add(result.SUBJECT_NAME);
+
+                    row++;
+
+                }
+
+                barchart.Data = data;
+                barchart.Value = value;
+                barchart.Value2 = value2;
+            }
+
+            resultList.Barchart = barchart;
+
+
+            return Json(resultList);
+        }
+
+        [HttpPost]
         public IHttpActionResult GetAllProjectImpact(PROJECT_IMPACTDto searchDto)
         {
             var repos = new TDAssetRespository();
@@ -222,6 +288,8 @@ namespace TDM.Controllers.api
 
             return Json(estimateData);
         }
+
+
 
         [HttpGet]
         public IHttpActionResult GetAllProjectImpact(int start, int count, string subject_id = "", string subject_name = "", string prov_name = "", DateTime? publish_date = null)

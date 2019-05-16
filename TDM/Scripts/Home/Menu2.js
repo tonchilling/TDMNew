@@ -32,6 +32,16 @@ $(function () {
         autoclose: true
     });
 
+
+    CMPLTADMIN_SETTINGS.windowBasedLayout();
+    CMPLTADMIN_SETTINGS.mainMenu();
+    CMPLTADMIN_SETTINGS.mainmenuCollapsed();
+    CMPLTADMIN_SETTINGS.mainmenuScroll();
+    CMPLTADMIN_SETTINGS.sectionBoxActions();
+    CMPLTADMIN_SETTINGS.chatAPI();
+    CMPLTADMIN_SETTINGS.chatApiScroll();
+    CMPLTADMIN_SETTINGS.chatApiWindow();
+    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
   
     searchForm.initComp();
 
@@ -371,18 +381,18 @@ function LoadTable(data)
     $(".divTable").empty();
 
 
-    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<table class="table table-bordered table-striped">';
 
     if (data != null && data.length > 0) {
         body += '<thead>';
-        body += '<tr>';
+        body += '<tr class="bg-info">';
 
 
         body += '<th scope="col" rowspan="2"  class="text-center" >ชื่ออาคารชุด</th>';
         body += '<th scope="col"  class="text-center"  colspan="' + (Object.keys(data[0]).length - 3) + '">ราคาซื้อขาย</th>';
 
         body += '</tr>';
-        body += '<tr>';
+        body += '<tr class="bg-info">';
         var col = 0;
 
         $.each(data, function (index, item) {
@@ -528,6 +538,7 @@ function LoadGraph1Display(months, newLandRegisters, LandRegisters) {
 
     var graph1 = echarts.init(document.getElementById('graph1'));
 
+    window.onresize = graph1.resize;
     var option = {
         title: {
             text: '',
@@ -562,7 +573,33 @@ function LoadGraph1Display(months, newLandRegisters, LandRegisters) {
         ],
         yAxis: [
             {
-                type: 'value'
+                type: 'value' ,
+                show: true,
+                axisLabel: {
+                    show: true,
+                    margin: 2,
+                    formatter: function (params) {
+                        return params.length > 6 ? params.substring(0, 6) + '..' : params;
+                    }
+                },
+                splitLine: {
+                    show: true,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    shadowBlur: 10,
+                    lineStyle: {
+                        color: '#ccc',
+                        width: 2
+                    },
+                    shadowBlur: 10,
+                },
+                splitArea: {
+                    show: true,
+                    color: ['rgba(250,250,250,0.8)', 'rgba(200,200,200,0.8)'],
+                    shadowColor: '#F8FFFF',
+                    shadowBlur: 10,
+                }
+
+                
             }
         ],
         series: [
@@ -597,6 +634,13 @@ function LoadGraphView(YearMonthArray, CondoLineGraphList) {
 
     var graph1 = echarts.init(document.getElementById('graph1'));
 
+
+
+
+    window.onresize = graph1.resize;
+
+
+
     var condoNameList =CondoLineGraphList !=null? CondoLineGraphList.map(x => x.name):null;
     
     option = {
@@ -626,7 +670,31 @@ function LoadGraphView(YearMonthArray, CondoLineGraphList) {
         ],
         yAxis: [
             {
-                type: 'value'
+                type: 'value',
+                show: true,
+                axisLabel: {
+                    show: true,
+                    margin: 2,
+                    formatter: function (params) {
+                        return params.length > 6 ? params.substring(0, 6) + '..' : params;
+                    }
+                },
+                splitLine: {
+                    show: true,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    shadowBlur: 10,
+                    lineStyle: {
+                        color: '#ccc',
+                        width: 2
+                    },
+                    shadowBlur: 10,
+                },
+                splitArea: {
+                    show: true,
+                    color: ['rgba(250,250,250,0.8)', 'rgba(200,200,200,0.8)'],
+                    shadowColor: '#F8FFFF',
+                    shadowBlur: 10,
+                }
             }
         ],
         series: CondoLineGraphList
@@ -634,70 +702,7 @@ function LoadGraphView(YearMonthArray, CondoLineGraphList) {
 
 
 
-    /* option = {
-         tooltip: {
-             trigger: 'axis'
-         },
-         legend: {
-             data: ['condo 1', 'condo 2', 'condo 3', 'condo 4', 'condo 5']
-         },
-         toolbox: {
-             show: true,
-             feature: {
-                 mark: { show: true },
-                 dataView: { show: true, readOnly: false },
-                 magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
-                 restore: { show: true },
-                 saveAsImage: { show: true }
-             }
-         },
-         calculable: true,
-         xAxis: [
-             {
-                 type: 'category',
-                 boundaryGap: true,
-                 data: ['ธค-60', 'มก-61', 'กพ-61', 'มีค-61', 'เมษา-61', 'พฤ-61', 'มิย-61']
-             }
-         ],
-         yAxis: [
-             {
-                 type: 'value'
-             }
-         ],
-         series: [
-             {
-                 name: 'condo 1',
-                 type: 'line',
-                 stack: 'test',
-                 data: [120000, 130002, 100001, 134000, 90000, 230000, 210000]
-             },
-             {
-                 name: 'condo 2',
-                 type: 'line',
-                 stack: 'test',
-                 data: [220000, 182000, 191000, 234000, 290000, 330000, 310000]
-             },
-             {
-                 name: 'condo 3',
-                 type: 'line',
-                 stack: 'test',
-                 data: [150000, 232000, 201000, 154000, 190000, 330000, 410000]
-             },
-             {
-                 name: 'condo 4',
-                 type: 'line',
-                 stack: 'test',
-                 data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
-             },
-             {
-                 name: 'condo 5',
-                 type: 'line',
-                 stack: 'test',
-                 data: [320000, 332000, 301000, 334000, 390000, 330000, 320000]
-             }
-         ]
-     };
-     */
+   
 
     setTimeout(function () {
         graph1.setOption(option, true);

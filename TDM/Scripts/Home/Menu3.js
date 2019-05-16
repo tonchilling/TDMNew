@@ -2,7 +2,31 @@
 var LocationType='1'
 $(function () {
 
-  
+
+
+    $.get(mapApi.getServerPath() + "/api/PriceSys/GetDropDownList", { Code: 'land' }, function (data) {
+        $("#ddlYear").empty();
+        if (data != null && data.length > 0) {
+            $("#ddlYear").append("<option value=''>เลือกทั้งหมด</option>");
+            $.each(data, function (index, row) {
+                $("#ddlYear").append(`<option value="${row.Value}">${row.Name}</option>`);
+            });
+
+
+        }
+    });
+
+
+    CMPLTADMIN_SETTINGS.windowBasedLayout();
+    CMPLTADMIN_SETTINGS.mainMenu();
+    CMPLTADMIN_SETTINGS.mainmenuCollapsed();
+    CMPLTADMIN_SETTINGS.mainmenuScroll();
+    CMPLTADMIN_SETTINGS.sectionBoxActions();
+    CMPLTADMIN_SETTINGS.chatAPI();
+    CMPLTADMIN_SETTINGS.chatApiScroll();
+    CMPLTADMIN_SETTINGS.chatApiWindow();
+    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
+
     searchForm.initComp();
     $("#ddlProvince1").selectpicker('refresh')
     $(".divTable table").DataTable({
@@ -161,7 +185,7 @@ var searchForm = {
             $('#ddlDistrict').prop('disabled', 'disabled');
             $('#ddlSubdistrict').prop('disabled', 'disabled');
 
-            map.clear();
+           // map.clear();
         });
 
 
@@ -277,7 +301,7 @@ var searchForm = {
             }
             _mapCurrModule = mode;
 
-            map.clear();
+           // map.clear();
         }
 
 
@@ -328,11 +352,11 @@ var searchForm = {
             dataType: "json",
             contentType: 'application/json',
             success: function (data) {
-                map.clear();
+            //    map.clear();
                 
                 if (data != null && data.MapInfoList != null) {
                     try {
-                        TransformMap(data.MapInfoList, objSearch.ProvinceCodeCompare1.split(","));
+                    //    TransformMap(data.MapInfoList, objSearch.ProvinceCodeCompare1.split(","));
                     } catch (e) {
                         alert(e.message);
                     }
@@ -430,9 +454,9 @@ function LoadTable(data)
     var body = '';
     $(".divTable").empty();
 
-    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<table class="table table-bordered table-striped">';
     body += '<thead>';
-    body += '<tr>';
+    body += '<tr  class="bg-info">';
     body += '<th scope="col" class="center">จังหวัด</th>';
     body += '<th scope="col" class="center">ช่วงเวลา</th>';
     body += '<th scope="col" class="center">SA/Ratio<br>ต่ำสุด</th>';
@@ -585,6 +609,9 @@ var mapApi = {
         alert(response.responseText);
     }
 }
+
+
+
 
 
 
