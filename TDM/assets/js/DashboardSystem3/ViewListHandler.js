@@ -26,10 +26,10 @@ var searchForm = {
 
     initComp: function (eleName) {
         searchForm.setupSearchForm();
-        setTimeout(function () {
+       /*  setTimeout(function () {
             var target = $('#pnlSectionSearch1');
             
-            $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+           $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
             $("#overlay")
                .height(target.height())
@@ -46,7 +46,7 @@ var searchForm = {
                })
                 .hide();
 
-        }, 5000);
+        }, 5000);*/
         
     },
     ddlProvince: $("#ddlProvince"),
@@ -68,6 +68,7 @@ var searchForm = {
         $('#ddlSubdistrict').prop('disabled', 'disabled');
 
         $('#bttSearch').click(function () {
+            waitingDialog.show('Waiting for Searching', { dialogSize: 'md', progressType: 'success' });
             searchForm.search();
         });
 
@@ -128,7 +129,7 @@ var searchForm = {
 
                         } else {
                             $('#ddlDistrict').prop('disabled', false);
-                            mapApi.getDistrictsByProvince(regionId, provinceId, function (districts) {
+                            mapApi.getDistrictsByProvince(LocationType, provinceId, function (districts) {
                                 if (districts != null && districts.length > 0) {
 
                                     searchForm.clearDropDown('ddlDistrict');
@@ -147,7 +148,7 @@ var searchForm = {
                                         if (districtId == '' || districtId == '999999') {
                                             $('#ddlSubdistrict').prop('disabled', 'disabled');
                                         } else {
-                                            mapApi.getSubDistrictsByDistrict(regionId,districtId, function (subDistricts) {
+                                            mapApi.getSubDistrictsByDistrict(LocationType,districtId, function (subDistricts) {
 
                                                 searchForm.clearDropDown('ddlSubdistrict');
                                                // $('#ddlSubdistrict').empty();
@@ -232,6 +233,7 @@ var searchForm = {
 
         }
 
+        waitingDialog.show('Waiting for Searching', { dialogSize: 'md', progressType: 'success' });
 
         try {
 
@@ -262,7 +264,7 @@ var searchForm = {
            
 
             map.clear();
-
+            map.clear();
             /*
             Comment for remove dialog
             $("#overlay").show();
@@ -274,16 +276,21 @@ var searchForm = {
                     
                     criteria.id = $('#ddlRegion').val(); 
                     mapApi.getProvinceShapeByRegion(criteria, function (data) {
-                        
-                        //alert('back from sever');
-                        if (data != null && data.length > 0) {
 
-                            $.each(data, function (index, shape) {
-                                ParcelMapController.draw(shape,ParcelMapController.ProvinceType);
-                                
-                            });
+                        try {
+                            //alert('back from sever');
+                            if (data != null && data.length > 0) {
+
+                                $.each(data, function (index, shape) {
+                                    ParcelMapController.draw(shape, ParcelMapController.ProvinceType);
+
+                                });
+                            }
+                        } catch (e) {
+
                         }
-                        $("#overlay").hide();
+                        waitingDialog.hide();
+                       // $("#overlay").hide();
                     });
                     } catch (e) {
                         alert(e.message);
@@ -292,14 +299,19 @@ var searchForm = {
                     criteria.id = targetId;
                     mapApi.getProvinceShapeByID(criteria, function (data) {
 
+                        try {
                         if (data != null && data.length > 0) {
 
                             $.each(data, function (index, shape) {
                                 ParcelMapController.draw(shape, ParcelMapController.ProvinceType);
                             });
                             
+                            }
+                        } catch (e) {
+
                         }
-                        $("#overlay").hide();
+                        waitingDialog.hide();
+                      //  $("#overlay").hide();
                     });
                 }
 
@@ -308,50 +320,68 @@ var searchForm = {
                     criteria.id =$("#ddlProvince").val();
                     mapApi.getDistrictShapeByProvince(criteria, function (data) {
 
+                        try {
                         if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
                                 ParcelMapController.draw(shape,ParcelMapController.DistrictType);
                                 
                             });
+                            }
+                        } catch (e) {
+
                         }
-                        $("#overlay").hide();
+                        waitingDialog.hide();
+                      //  $("#overlay").hide();
                     });
                 } else {
                     criteria.id = targetId;
                     mapApi.getDistrictShapeByID(criteria, function (data) {
 
+                        try {
                         if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
                                 ParcelMapController.draw(shape, ParcelMapController.DistrictType);
                             });
+                            }
+                        } catch (e) {
+
                         }
-                        $("#overlay").hide();
+                        waitingDialog.hide();
+                      //  $("#overlay").hide();
                     });
                 }
             } else { /*render subdistrict map*/
                 if (targetId == idOfAll) {
                     criteria.id = $("#ddlDistrict").val();
                     mapApi.getSubDistrictShapeByDistrict(criteria, function (data) {
-
+                        try {
                         if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
                                 ParcelMapController.draw(shape,ParcelMapController.SubDistrictType);
                                 
                             });
+                            }
+                        } catch (e) {
+
                         }
-                        $("#overlay").hide();
+                        waitingDialog.hide();
+                      //  $("#overlay").hide();
                     });
                 } else {
                     criteria.id = targetId;
                     mapApi.getSubDistrictShapeByID(criteria, function (data) {
 
-
+                        try {
                         if (data != null && data.length > 0) {
                             $.each(data, function (index, shape) {
                                 ParcelMapController.draw(shape, ParcelMapController.SubDistrictType);
                             });
+                            }
+                        } catch (e) {
+
                         }
-                        $("#overlay").hide();
+                        waitingDialog.hide();
+                      //  $("#overlay").hide();
                     });
                 }
             }
@@ -359,6 +389,7 @@ var searchForm = {
 
 
         } catch (e) {
+            waitingDialog.hide();
             alert(e.message);
         }
 
@@ -455,8 +486,9 @@ var ParcelMapController = {
     DistrictType:2,
     SubDistrictType:3,
     draw: function (targetInfo,type) {
-        
-        var price = (_mapCurrModule == 1) ? targetInfo.ParcelPrice : targetInfo.MarketPrice;
+
+       
+        var price = (_mapCurrModule == 1) ? targetInfo.ParcelPrice.replaceAll(',', '') : targetInfo.MarketPrice.replaceAll(',', '');
         /*if area type is not Condo then get shape color code*/
         if (targetInfo.AreaType != "2") {
             targetInfo.MapStructure.ParcelDrawingCode = ParcelMapController.getParcelMapColor(price, type);
@@ -518,15 +550,15 @@ var ParcelMapController = {
             "yoffset": 0
         };
 symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
-       targetInfo.ParcelPrice    = (targetInfo.ParcelPrice > 0) ? targetInfo.ParcelPrice : 0;
-       targetInfo.ParcelPriceMin = (targetInfo.ParcelPriceMin > 0) ? targetInfo.ParcelPriceMin : 0;
-       targetInfo.ParcelPriceMax = (targetInfo.ParcelPriceMax > 0) ? targetInfo.ParcelPriceMax : 0;
-       targetInfo.ParcelPriceAvg = (targetInfo.ParcelPriceAvg > 0) ? targetInfo.ParcelPriceAvg : 0;
+        targetInfo.ParcelPrice = (targetInfo.CostEstUnitType == '1') ? targetInfo.ParcelWAHPrice.replaceAll(",", "") : targetInfo.ParcelPrice.replaceAll(",", "")  ;
+        targetInfo.ParcelPriceMin = (targetInfo.CostEstUnitType == '1') ? targetInfo.ParcelWAHPriceMin.replaceAll(",", "") : targetInfo.ParcelPriceMin.replaceAll(",", "");
+        targetInfo.ParcelPriceMax = (targetInfo.CostEstUnitType == '1') ? targetInfo.ParcelWAHPriceMax.replaceAll(",", "") : targetInfo.ParcelPriceMax.replaceAll(",", "");
+        targetInfo.ParcelPriceAvg = (targetInfo.CostEstUnitType == '1') ? targetInfo.ParcelWAHPriceAvg.replaceAll(",", "") : targetInfo.ParcelPriceAvg.replaceAll(",", "") ;
 
-       targetInfo.MarketPrice    = (targetInfo.MarketPrice > 0) ? targetInfo.MarketPrice : 0;
-       targetInfo.MarketPriceMin = (targetInfo.MarketPriceMin > 0) ? targetInfo.MarketPriceMin : 0;
-       targetInfo.MarketPriceMax = (targetInfo.MarketPriceMax > 0) ? targetInfo.MarketPriceMax : 0;
-       targetInfo.MarketPriceAvg = (targetInfo.MarketPriceAvg > 0) ? targetInfo.MarketPriceAvg : 0;
+        targetInfo.MarketPrice = (targetInfo.CostEstUnitType == '1') ? targetInfo.MarketWAHPrice.replaceAll(",", "") : targetInfo.MarketPrice.replaceAll(",", "");
+        targetInfo.MarketPriceMin = (targetInfo.CostEstUnitType == '1') ? targetInfo.MarketWAHPriceMin.replaceAll(",", "") : targetInfo.MarketPriceMin.replaceAll(",", "") ;
+        targetInfo.MarketPriceMax = (targetInfo.CostEstUnitType == '1') ? targetInfo.MarketWAHPriceMax.replaceAll(",", "") : targetInfo.MarketPriceMax.replaceAll(",", "") ;
+        targetInfo.MarketPriceAvg = (targetInfo.CostEstUnitType == '1') ? targetInfo.MarketWAHPriceAvg.replaceAll(",", ""): targetInfo.MarketPriceAvg.replaceAll(",","") ;
        
        
        var price = '';
@@ -541,15 +573,15 @@ symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
            if ((targetInfo.PriceType == '0') || (targetInfo.PriceType == '1')) {
 
 
-               price = '<br/>ราคาประเมิน ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPrice : targetInfo.ParcelWAHPrice) +
+               price = '<br/>ราคาประเมิน ' + (((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '1')) ? toDisplayDecimal(targetInfo.ParcelPrice) : toDisplayDecimal(targetInfo.ParcelPrice)) +
                   '<ul>' +
-                   '<li>ราคาประเมินสูงสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPriceMax : targetInfo.ParcelWAHPriceMax) +
-                   '<li>ราคาประเมินต่ำสุด ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPriceMin : targetInfo.ParcelWAHPriceMin) +
-                   '<li>ราคาประเมินเฉลี่ย ' + toDisplayDecimal(((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '2')) ? targetInfo.ParcelWAHPriceAvg : targetInfo.ParcelWAHPriceAvg) +
+                   '<li>ราคาประเมินสูงสุด ' + (((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '1')) ? toDisplayDecimal(targetInfo.ParcelPriceMax) : toDisplayDecimal(targetInfo.ParcelPriceMax))   +
+                   '<li>ราคาประเมินต่ำสุด ' + (((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '1')) ? toDisplayDecimal(targetInfo.ParcelPriceMin) : toDisplayDecimal(targetInfo.ParcelPriceMin))   +
+                   '<li>ราคาประเมินเฉลี่ย ' + (((targetInfo.PriceType == '0') && (targetInfo.CostEstUnitType == '1')) ? toDisplayDecimal(targetInfo.ParcelPriceAvg) : toDisplayDecimal(targetInfo.ParcelPriceAvg))  +
                   '</ul>'
            }
 
-           if ((targetInfo.PriceType == '0') || targetInfo.PriceType != '2') {
+           if ((targetInfo.PriceType == '0') || targetInfo.PriceType == '2') {
                price += '<br/>ราคาขาย ' + toDisplayDecimal(targetInfo.MarketPrice) +
                '<ul>' +
                '<li>ราคาขายสูงสุด ' + toDisplayDecimal(targetInfo.MarketPriceMax) +

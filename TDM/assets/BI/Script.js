@@ -3653,7 +3653,7 @@ jQuery(function($) {
 
     $(window).resize(function() {
         CMPLTADMIN_SETTINGS.windowBasedLayout();
-        //CMPLTADMIN_SETTINGS.mainmenuScroll();
+        CMPLTADMIN_SETTINGS.mainmenuScroll();
         //CMPLTADMIN_SETTINGS.cmpltadminWidgetWeather();
         CMPLTADMIN_SETTINGS.isotopeGallery();
         CMPLTADMIN_SETTINGS.loginPage();

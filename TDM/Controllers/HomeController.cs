@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using TDM.Repositories;
 namespace TDM.Controllers
 {
     public class HomeController : Controller
     {
+        TDAssetRespository repos = new TDAssetRespository();
+
         public ActionResult Index()
         {
             return View();
@@ -33,6 +35,8 @@ namespace TDM.Controllers
         }
         public ActionResult Menu1()
         {
+            ViewData["RegisterYear"] = repos.GetLandRegisterYear();
+
             return View();
         }
         public ActionResult Menu2()

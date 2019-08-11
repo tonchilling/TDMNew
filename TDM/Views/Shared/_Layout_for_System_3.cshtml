@@ -4,30 +4,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>กรมธนารักษ์</title>
-
     @***************************
         *   JS
         ****************************@
     <!-- jQuery -->
     <script src="~/assets/js/jquery-2.1.0.min.js"></script>
-
     <!-- Bootstrap -->
     <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
-
     <!-- FastClick -->
     <script src="~/assets/js/fastclick/fastclick.js"></script>
-
     <!-- NProgress -->
     <script src="~/assets/js/nprogress/nprogress.js"></script>
-
     <!-- Custom Theme Scripts -->
     <script src="~/assets/js/custom_pera/custom.min.js"></script>
-
     <!-- Custom Pera Scripts -->
     <script src="~/assets/js/custom_pera/custom.pera.js"></script>
-
     <!-- Datatables -->
     <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
     <script src="~/assets/js/datatables/dataTables.bootstrap.min.js"></script>
@@ -57,40 +49,33 @@
     <script src="~/assets/js/datatables/jszip.min.js"></script>
     <script src="~/assets/js/datatables/pdfmake.min.js"></script>
     <script src="~/assets/js/datatables/vfs_fonts.js"></script>
- 
 
     <!-- e Chart -->
     @*<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>*@
-
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+        <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>*@
     <!-- e Chart -->
     <script src="~/assets/js/Chart/echarts.min.js"></script>
-
     @***************************
         *    CSS
         ****************************@
     <!-- Bootstrap -->
     <link href="~/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Font Awesome -->
     <link href="~/assets/fonts/font-awesome.min.css" rel="stylesheet">
-
     <!-- NProgress -->
     <link href="~/assets/css/nprogress/nprogress.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="~/assets/css/custom_pera/custom.min.css" rel="stylesheet">
-
     <!-- Fonts Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
- 
+
     <!-- Datatables -->
     <link href="~/assets/css/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="~/assets/css/datatables/buttons.bootstrap.min.css" rel="stylesheet">
@@ -98,11 +83,20 @@
     <link href="~/assets/css/datatables/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="~/assets/css/datatables/scroller.bootstrap.min.css" rel="stylesheet">
 
+
+    <!-- CORE CSS TEMPLATE - START -->
+    <link href="~/assets/css/BI/animate.min.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
+
+    <link href="~/assets/css/Kim_Style.css?ver1.33" rel="stylesheet" />
+    <link href="~/assets/css/BI/Style.css?ver1.333deeed3" rel="stylesheet" />
     <!-- Mapping ESRI -->
     <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" /> -->
     @*<link rel="stylesheet" href="https://js.arcgis.com/3.26/esri/css/esri.css">*@
     <style>
+
         html, body {
             height: 100%;
             width: 100%;
@@ -111,14 +105,18 @@
         }
     </style>
     <style>
+
         #map {
             height: 100%;
             width: 55%;
             margin: 0;
             padding: 0;
         }
-    </style>
 
+        .navbar-collapse.collapse {
+            margin-top:40px;
+        }
+    </style>
     @*<script src="https://js.arcgis.com/3.26/"></script>*@
     <script>
         var map;
@@ -132,9 +130,38 @@
         });
     </script>
     <!-- End of Mapping -->
-
 </head>
 <body class="nav-md" onload="select_active_tab();">
     @RenderBody()
 </body>
-</html >
+<script src="~/assets/BI/pace.min.js"></script>
+<script src="~/assets/BI/viewportchecker.js"></script>
+<script src="~/assets/BI/jquery-jvectormap-2.0.1.min.js"></script>
+<script src="~/assets/BI/jquery-jvectormap-world-mill-en.js"></script>
+<script src="~/assets/BI/dashboard.js"></script>
+<script src="~/assets/BI/echarts-custom-for-dashboard.js"></script>
+<script src="~/assets/BI/Script.js?ver=1.2233d442"></script>
+<script src="~/assets/BI/perfect-scrollbar.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        CMPLTADMIN_SETTINGS.windowBasedLayout();
+        CMPLTADMIN_SETTINGS.mainMenu();
+        CMPLTADMIN_SETTINGS.mainmenuCollapsed();
+        CMPLTADMIN_SETTINGS.mainmenuScroll();
+        CMPLTADMIN_SETTINGS.sectionBoxActions();
+        /* LoadChart1();
+         LoadChart2();
+         LoadChart3();
+         LoadChartCondo1();
+         LoadChartCondo2();
+         LoadChartCondo3();
+         LoadChartBuilding1();*/
+        CMPLTADMIN_SETTINGS.chatAPI();
+        CMPLTADMIN_SETTINGS.chatApiScroll();
+        CMPLTADMIN_SETTINGS.chatApiWindow();
+        CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
+    });
+</script>
+</html>

@@ -1,78 +1,207 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout_for_System_3.cshtml";
-}
+﻿<body class="nav-md">
 
-<!--<div class="container body"> -->
-<div class="">
-    <div class="main_container">
-        <!-- page content -->
-        <div class="right_col" role="main">
-            <div class="">
-                <div class="clearfix"></div>
-                <div class="row">
-                    @{ 
-                        var Menu = Request.QueryString["Menu"];
-                       
-                     }
-                    
-                    @Html.Partial("~/Views/Shared/_PartialPage_Header_System_3.cshtml") 
+    @{
+        Layout = "~/Views/Shared/_Layout_for_System_3.cshtml";
+    }
+    <!--<div class="container body"> -->
+    <div class="page-sidebar pagescroll expandit">
+
+        <!-- MAIN MENU - START -->
+        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+
+
+
+
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 934px;">
+                    <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true" data-slide-speed="200" data-height="934" data-initialized="1" style="overflow: hidden; width: auto; height: 934px;">
+                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                        <li class="sidebar-toggler-wrapper hide">
+                            <div class="sidebar-toggler">
+                                <span></span>
+                            </div>
+                        </li>
+                        <!-- END SIDEBAR TOGGLER BUTTON -->
+                        <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+
+                        <li class="nav-item   ">
+                            <a href="~/BI/Index" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-home" style="color:red"></i>
+                                <span class="title">หน้าหลัก</span>
+                            </a>
+                        </li>
+                        <li class="nav-item   ">
+                            <a href="~/BI/BIViewer" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                                <span class="title">รายงานด้วย BI</span>
+                            </a>
+                        </li>
+
+
+                        <!-- <li class="nav-item   ">
+        <a href="~/Home/Menu1" class="nav-link nav-toggle">
+            <i class="fa fa-money" style="color:blue"></i>
+            <span class="title">ซื้อขายจดทะเบียน</span>
+        </a>
+    </li>-->
+                        <li class="nav-item   ">
+                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                                <span class="title">เรียกดูแผนที่/ราคา</span>
+                            </a>
+                        </li>
+                        <li class="nav-item   ">
+                            <a href="~/Home/Menu1" class="nav-link nav-toggle">
+                                <i class="fa fa-bar-chart" style="color:blue"></i>
+                                <span class="title">รายงายซื้อขายจดทะเบียนที่ดิน</span>
+                            </a>
+                        </li>
+                        <li class="nav-item   ">
+                            <a href="~/Home/Menu2" class="nav-link nav-toggle">
+                                <i class="fa fa-bar-chart" style="color:blue"></i>
+                                <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
+                            </a>
+                        </li>
+                        <li class="nav-item   ">
+                            <a href="~/Home/Menu3" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-random" style="color:red"></i>
+                                <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
+                            </a>
+                        </li>
+                        <li class="nav-item   ">
+                            <a href="~/Home/System_3_with_Layout?Menu=5" class="nav-link nav-toggle">
+                                <i class="fa fa-users" style="color:purple"></i>
+                                <span class="title">ปริมาณการเข้าใช้ระบบ</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item   ">
+                            <a href="~/BI/BIManager" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                                <span class="title">สร้างรายงานด้วย BI</span>
+                            </a>
+                        </li>
+                        <!-- <li class="btnLogout" onclick="logout()">
+        <a href="https://p-staging.treasury.go.th/pvalue/logout">
+
+            <i class="icon-key"></i> ออกจากระบบ
+        </a>
+    </li>-->
+
+                    </ul><div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
                 </div>
+                <!-- END SIDEBAR MENU -->
+            </div>
+
+
+
+        </div>
+        <!-- MAIN MENU - END -->
+
+
+
+    </div>
+
+    <section id="main-content">
+        <section id="menulist">
+            <div class="content-heading bg-white">
+
                 <div class="row">
-                    
-                    @Html.Partial("~/Views/Shared/_PartialPage_Search_System_3.cshtml")
-                    <div id="SessionContent">
-                    @{
+                    <div class="col-sm-9 divView">
 
-                    @**********************************************************************@
-                    @* เลือก output file ที่ต้องการตาม Tab ที่ selected เพื่อ render output ที่ต้องการ *@
-                    @**********************************************************************@
-                    var tab_selected_no = Request.QueryString["tab_selected_name"];
-                    var assess_or_selling = Request.QueryString["price"];
-                    Response.Write(assess_or_selling);
-
-                    if (tab_selected_no == "1")
-                    {
-                        Html.RenderPartial("~/Views/Shared/_PartialPage_Output_System_3.cshtml");
-                    }
-                    else
-                        if (tab_selected_no == "2")
-                        {
-                            if (assess_or_selling == "assessing")
-                            {
-                                Html.RenderPartial("~/Views/Shared/_PartialPage_Output_2_System_3.cshtml");
-                            } else
-                            {
-                                Html.RenderPartial("~/Views/Shared/_PartialPage_Output_2_1_System_3.cshtml");
-                            } 
-                        }
-                        else
-                                if (tab_selected_no == "3")
-                                {
-
-                                    //Html.RenderPartial("~/Views/Shared/_PartialPage_Output_3_System_3.cshtml");
-                                } 
-                                else
-                                {
-                                    if (tab_selected_no == "4")
-                                    {
-                                        //Html.RenderPartial("~/Views/Shared/_PartialPage_Output_4_System_3.cshtml");
-                                    }
-                                    else
-                                    {
-                                        if (tab_selected_no == "5")
-                                        {
-                                            //Html.RenderPartial("~/Views/Shared/_PartialPage_Output_5_System_3.cshtml");
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
                     </div>
+
                 </div>
             </div>
-        </div>
-        <!-- /page content -->
-        @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
-    </div>
-</div>
+
+        </section>
+
+
+
+        <section class="wrapper main-wrapper row" style=''>
+
+            <div class="">
+                <div class="main_container">
+                    <!-- page content -->
+                    <div class="right_col" role="main">
+                        <div class="">
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                @{
+                                    var Menu = Request.QueryString["Menu"];
+
+                                }
+
+                                @Html.Partial("~/Views/Shared/_PartialPage_Header_System_3.cshtml")
+                            </div>
+                            <div class="row">
+
+                                @Html.Partial("~/Views/Shared/_PartialPage_Search_System_3.cshtml")
+                                <div id="SessionContent">
+                                    @{
+
+                                        @**********************************************************************@
+                                        @* เลือก output file ที่ต้องการตาม Tab ที่ selected เพื่อ render output ที่ต้องการ *@
+                                        @**********************************************************************@
+                                        var tab_selected_no = Request.QueryString["tab_selected_name"];
+                                        var assess_or_selling = Request.QueryString["price"];
+                                        Response.Write(assess_or_selling);
+
+                                        if (tab_selected_no == "1")
+                                        {
+                                            Html.RenderPartial("~/Views/Shared/_PartialPage_Output_System_3.cshtml");
+                                        }
+                                        else
+                                            if (tab_selected_no == "2")
+                                        {
+                                            if (assess_or_selling == "assessing")
+                                            {
+                                                Html.RenderPartial("~/Views/Shared/_PartialPage_Output_2_System_3.cshtml");
+                                            }
+                                            else
+                                            {
+                                                Html.RenderPartial("~/Views/Shared/_PartialPage_Output_2_1_System_3.cshtml");
+                                            }
+                                        }
+                                        else
+                                                    if (tab_selected_no == "3")
+                                        {
+
+                                            //Html.RenderPartial("~/Views/Shared/_PartialPage_Output_3_System_3.cshtml");
+                                        }
+                                        else
+                                        {
+                                            if (tab_selected_no == "4")
+                                            {
+                                                //Html.RenderPartial("~/Views/Shared/_PartialPage_Output_4_System_3.cshtml");
+                                            }
+                                            else
+                                            {
+                                                if (tab_selected_no == "5")
+                                                {
+                                                    //Html.RenderPartial("~/Views/Shared/_PartialPage_Output_5_System_3.cshtml");
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /page content -->
+                 
+                </div>
+            </div>
+        </section>
+    </section>
+    </body>

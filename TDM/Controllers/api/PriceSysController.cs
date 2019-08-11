@@ -45,19 +45,27 @@ namespace TDM.Controllers.api
         [HttpPost]
         public IHttpActionResult GetPrice(SearchMap searchDto)
         {
+            List<EstimateData> estimateData=null;
             var repos = new TDAssetRespository();
             SetionType sectionT = new SetionType();
-         
-           /* switch (SectionType)
+
+            /* switch (SectionType)
+             {
+                 case "1":sectionT = SetionType.Region;break;
+                 case "2": sectionT = SetionType.Provice; break;
+                 case "3": sectionT = SetionType.Amphur; break;
+             }*/
+
+
+            if (searchDto.costEstUnitType == "2") // ราคาซื้อขาย
             {
-                case "1":sectionT = SetionType.Region;break;
-                case "2": sectionT = SetionType.Provice; break;
-                case "3": sectionT = SetionType.Amphur; break;
-            }*/
-
-        
-
-            var estimateData = repos.GetPrice(searchDto);
+                estimateData = repos.GetPrice(searchDto);
+                  estimateData = estimateData.Where(o => (Converting.ToDecimal(o.MarketWAHPrice) >= Converting.ToDecimal(searchDto.costEstMin) && Converting.ToDecimal(o.MarketWAHPrice) <= Converting.ToDecimal(searchDto.costEstMax))).ToList();
+            }
+            else {
+                estimateData = repos.GetPrice(searchDto).Where(o => (Converting.ToDecimal(o.ParcelWAHPrice) >= Converting.ToDecimal(searchDto.costEstMin) && Converting.ToDecimal(o.ParcelWAHPrice) <= Converting.ToDecimal(searchDto.costEstMax))).ToList();
+            }
+           
 
             return Json(estimateData);
         }
@@ -102,7 +110,7 @@ namespace TDM.Controllers.api
                 value2 = new List<BarchartValue>();
 
                 row = 0;
-                foreach (EstimateData result in estimateData.OrderByDescending(o => o.ParcelWAHPriceMax))
+                foreach (EstimateData result in estimateData.OrderByDescending(o => Converting.ToDecimal(o.ParcelWAHPriceMax)))
                 {
                     if (row >= overMax)
                     {
@@ -171,14 +179,14 @@ namespace TDM.Controllers.api
 
             var estimateData = repos.GetPriceOfCondoBI(searchDto);
 
-            resultList.EstimateData = estimateData.OrderByDescending(o => o.ParcelPriceMax).ToList();
+            resultList.EstimateData = estimateData.OrderByDescending(o => Converting.ToDecimal(o.ParcelPriceMax)).ToList();
             if (estimateData != null)
             {
                 data = new List<string>();
                 value = new List<BarchartValue>();
                 value2 = new List<BarchartValue>();
 
-                foreach (EstimateData result in estimateData.OrderByDescending(o => o.ParcelPriceMax))
+                foreach (EstimateData result in estimateData.OrderByDescending(o => Converting.ToDecimal(o.ParcelPriceMax)))
                 {
 
                     if (row >= overMax)
@@ -283,7 +291,7 @@ namespace TDM.Controllers.api
 
             var estimateData = repos.GetPriceOfConstrucion(searchDto);
            
-            return Json(estimateData.OrderByDescending(o => o.ParcelPrice).ToList() );
+            return Json(estimateData.OrderByDescending(o => Converting.ToDecimal(o.ParcelPrice)).ToList() );
         }
 
 
@@ -303,7 +311,7 @@ namespace TDM.Controllers.api
 
 
             var estimateData = repos.GetPriceOfConstrucionBI(searchDto);
-            resultList.EstimateData = resultList.EstimateData = estimateData.OrderByDescending(o => o.ParcelPrice).ToList();
+            resultList.EstimateData = resultList.EstimateData = estimateData.OrderByDescending(o => Converting.ToDecimal(o.ParcelPrice)).ToList();
 
             if (estimateData != null)
             {
@@ -311,7 +319,7 @@ namespace TDM.Controllers.api
                 value = new List<BarchartValue>();
                 value2 = new List<BarchartValue2>();
 
-                foreach (EstimateData result in estimateData.OrderByDescending(o => o.ParcelPrice))
+                foreach (EstimateData result in estimateData.OrderByDescending(o => Converting.ToDecimal(o.ParcelPrice)))
                 {
 
                     if (row >= overMax)

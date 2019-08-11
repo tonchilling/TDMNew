@@ -23,6 +23,7 @@ namespace TDM.Controllers.api
         private JsonSerializerSettings jsonSetting = JsonHelper.createJsonSetting();
         private TDManagementEntities tdmEntities = null;
         private TDASSETEntities tdaEntities = null;
+       
         int overMax = 10;
         protected AreaAnalysisController()
         {

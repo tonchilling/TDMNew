@@ -49,6 +49,7 @@ namespace TDM.Models
         public EstimateType EstimateType { get; set; }
         public SetionType SectionType { get; set; }
         public LocationType LocationType { get; set; }
+        public string costEstUnitType { get; set; } // pricetype = 1 ราคาประเมิน pricetype = 2 ราคาซื้อขาย
         public string Code { get; set; }
         public string RegionCode { get; set; }
         public string ProvinceCode { get; set; }
@@ -69,7 +70,8 @@ namespace TDM.Models
         public string FromYearMonth { get; set; }
         public string ToYearMonth { get; set; }
         public string CondoName { get; set; }
-
+        public string costEstMin { get; set; }
+        public string costEstMax { get; set; }
     }
 
     public partial class EstimateDataAll
@@ -169,6 +171,7 @@ namespace TDM.Models
 
     public partial class EstimateData
     {
+        public string Name { get; set; }
         public string DisplayCode { get; set; }
         public string DisplayName { get; set; }
         public string RegionCode { get; set; }
@@ -241,6 +244,10 @@ namespace TDM.Models
         public string CondoName { get; set; }
         public string Percent { get; set; }
 
+        public Models.ViewModels.MapStructureInfo MapStructure { get; set; }
+        public string PriceType { get; set; }
+        public string CostEstUnitType { get; set; }
+        public string AreaType { get; set; }
     }
 
     public partial class ConstructionData

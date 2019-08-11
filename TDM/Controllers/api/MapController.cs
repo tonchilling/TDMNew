@@ -15,7 +15,7 @@ using System.Web;
 using System.Web.Http;
 using TDM.Models;
 using TDM.Repositories;
-
+using TDM.Models.Utils;
 namespace TDM.Controllers.api
 {
     public class MapController : ApiController
@@ -46,13 +46,13 @@ namespace TDM.Controllers.api
         public IHttpActionResult GetProvinces()
         {
             
-            return Json(tdaEntities.PROVINCEs.Select(p => new { ID = p.PRO_C, Name = ((p.NAME_T != null) ? p.NAME_T.Replace("จ.",""): "") }).OrderBy(o => o.Name));
+            return Json(tdaEntities.PROVINCEs.Select(p => new { ID = p.PRO_C, Name = p.NAME_T }).OrderBy(o => o.Name));
 
             /* 
             var provinces = VirtualDb.GetProvinces();
             return Json(provinces.Where(p => p.PROVINCE_SEQ != 0).OrderBy(o => o.PROVINCE_NAME_TH));
             */
-            //return Json(VirtualDb.GetProvinces().OrderBy(o => o.ON_PRO_THA));
+            //return Json(VirtualDb.GetProvinces().OrderBy(o => o.NAME_T));
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace TDM.Controllers.api
         [HttpGet]
         public IHttpActionResult GetDistrictsByProvince(int id)
         {
-            return Json(tdaEntities.AMPHOEs.Where(ap => ap.PRO_C == id.ToString()).Select(s => new { ID = s.DIS_C, Name = ((s.NAME_T != null) ? s.NAME_T.Replace("อ.", "") : "") }).ToList());
+            return Json(tdaEntities.AMPHOEs.Where(ap => ap.PRO_C == id.ToString()).Select(s => new { ID = s.DIS_C, Name = s.NAME_T }).OrderBy(o => o.Name));
 
             //return Json(cmEntities.TB_MAS_AMPHUR.Where(p => p.PROVINCE_SEQ == id).OrderBy(o => o.AMPHUR_NAME_TH));
         }
@@ -80,9 +80,9 @@ namespace TDM.Controllers.api
             searchMap.Code = id;
             var provinces = repos.GetAMPHOE(searchMap);
 
-            return Json(provinces.Select(p => new { ID = p.DIS_C, Name = p.ON_DIS_THA }));
+            return Json(provinces.Select(p => new { ID = p.DIS_C, Name = p.NAME_T }).OrderBy(o => o.Name));
 
-           // return Json(tdaEntities.AMPHOEs.Where(ap => ap.PRO_C == id.ToString()).Select(s => new { ID = s.DIS_C, Name = ((s.NAME_T != null) ? s.NAME_T.Replace("อ.", "") : "") }).ToList());
+            // return Json(tdaEntities.AMPHOEs.Where(ap => ap.PRO_C == id.ToString()).Select(s => new { ID = s.DIS_C, Name = ((s.NAME_T != null) ? s.NAME_T.Replace("อ.", "") : "") }).ToList());
 
             //return Json(cmEntities.TB_MAS_AMPHUR.Where(p => p.PROVINCE_SEQ == id).OrderBy(o => o.AMPHUR_NAME_TH));
         }
@@ -97,13 +97,13 @@ namespace TDM.Controllers.api
 */
 
 
-            return Json(cmEntities.TB_MAS_TAMBOL.OrderBy(o => o.TAMBOL_NAME_TH));
+            return Json(cmEntities.TB_MAS_TAMBOL.OrderBy(o => o.TAMBOL_NAME_TH).OrderBy(o => o.TAMBOL_NAME_TH));
 
         }
 
         public IHttpActionResult GetSubDistrictsByDistrict(int id)
         {
-            return Json(tdaEntities.TAMBOLs.Where(t => t.DIS_C == id.ToString()).Select(s => new { ID = s.SUB_C, Name = ((s.NAME_T != null) ? s.NAME_T.Replace("ต.", "") : "") }));
+            return Json(tdaEntities.TAMBOLs.Where(t => t.DIS_C == id.ToString()).Select(s => new { ID = s.SUB_C, Name = s.NAME_T }).OrderBy(o => o.Name));
 
 
             //return Json(cmEntities.TB_MAS_TAMBOL.Where(p => p.AMPHUR_SEQ == id).OrderBy(o => o.TAMBOL_NAME_TH));
@@ -118,11 +118,11 @@ namespace TDM.Controllers.api
             searchMap.Code = id;
             var provinces = repos.GetTAMBOL(searchMap);
 
-            return Json(provinces.Select(p => new { ID = p.SUB_C, Name = p.ON_SUB_THA }));
+            return Json(provinces.Select(p => new { ID = p.SUB_C, Name = p.NAME_T }).OrderBy(o => o.Name));
 
 
 
-         //   return Json(tdaEntities.TAMBOLs.Where(t => t.DIS_C == id.ToString()).Select(s => new { ID = s.SUB_C, Name = ((s.NAME_T != null) ? s.NAME_T.Replace("ต.", "") : "") }));
+            //   return Json(tdaEntities.TAMBOLs.Where(t => t.DIS_C == id.ToString()).Select(s => new { ID = s.SUB_C, Name = ((s.NAME_T != null) ? s.NAME_T.Replace("ต.", "") : "") }));
 
 
             //return Json(cmEntities.TB_MAS_TAMBOL.Where(p => p.AMPHUR_SEQ == id).OrderBy(o => o.TAMBOL_NAME_TH));
@@ -208,7 +208,7 @@ namespace TDM.Controllers.api
             searchMap.Code = id;
             var provinces = repos.GetProvince(searchMap);
 
-            return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.ON_PRO_THA }));
+            return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.NAME_T }));
         }
 
         
@@ -548,8 +548,72 @@ namespace TDM.Controllers.api
             return result;
         }
 
+
+        private List<Models.EstimateData> GetMapInfo(MapSearchCriteria criteria)
+        {
+            List<Models.EstimateData> result = new List<Models.EstimateData>(0);
+            var repos = new TDAssetRespository();
+            List<EstimateData> searchResult = null;
+
+            if (criteria.AreaType == "1")
+            {
+                searchResult = repos.GetPrice(new SearchMap()
+                {
+                    SectionType = criteria.Type,
+                    Code = criteria.ID,
+                    ChanodeNo = criteria.ChanodeNo
+                });
+            }
+            else if (criteria.AreaType == "2")
+            {
+                searchResult = repos.GetCondoPrice(new SearchMap()
+                {
+                    SectionType = criteria.Type,
+                    Code = criteria.ID,
+                    ChanodeNo = criteria.ChanodeNo
+                });
+            }
+
+            if (searchResult != null && searchResult.Count() > 0)
+            {
+
+                if (criteria.CostEstUnitType == "2") // ราคาซื้อขาย
+                {
+
+                    searchResult = searchResult.Where(o => (Converting.ToDecimal(o.MarketWAHPrice) >= Converting.ToDecimal(criteria.CostEstMin) && Converting.ToDecimal(o.MarketWAHPrice) <= Converting.ToDecimal(criteria.CostEstMax))).ToList();
+                }
+                else
+                {
+                    searchResult = searchResult.Where(o => (Converting.ToDecimal(o.ParcelWAHPrice) >= Converting.ToDecimal(criteria.CostEstMin) && Converting.ToDecimal(o.ParcelWAHPrice) <= Converting.ToDecimal(criteria.CostEstMax))).ToList();
+                }
+
+
+                foreach (EstimateData data in searchResult)
+                {
+                    data.Name = data.DisplayName;
+
+                    data.MapStructure = new Models.ViewModels.MapStructureInfo()
+                    {
+                        ParcelDrawingCode = (criteria.AreaType == "2") ? "poin" : data.ParcelColor,
+                        MarketDrawingCode = (criteria.AreaType == "2") ? "poin" : data.MarketColor,
+
+                        Shape = data.Shape.ToString()
+
+
+                    };
+                    data.PriceType = criteria.PriceType;
+                    data.CostEstUnitType = criteria.CostEstUnitType;
+                    data.AreaType = criteria.AreaType;
+
+                }
+            }
+
+            return searchResult;
+        }
+
+
         //private List<Models.ViewModels.MAP_ViewModel> GetMapInfo(SetionType type, string code)
-        private List<Models.ViewModels.MAP_ViewModel> GetMapInfo(MapSearchCriteria criteria)
+        private List<Models.ViewModels.MAP_ViewModel> GetMapInfo1(MapSearchCriteria criteria)
         {
             List<Models.ViewModels.MAP_ViewModel> result = new List<Models.ViewModels.MAP_ViewModel>(0);
             var repos = new TDAssetRespository();

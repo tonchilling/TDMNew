@@ -1,32 +1,20 @@
-﻿var LocationType = '1'
-
-var regionObj = {
-    "data": [
-            { "name": "เลือกภาค", "value": "" },
-          { "name": "ภาคกลาง", "value": "1" },
-         { "name": "ภาคตะวันตก", "value": "2" },
-         { "name": "ภาคเหนือ", "value": "3" },
-         { "name": "ภาคตะวันออกเฉียงเหนือ", "value": "4" },
-         { "name": "ภาคใต้", "value": "5" },
-          { "name": "ภาคตะวันออก", "value": "6" }]
-}
-
+﻿
+var LocationType='1'
 $(function () {
 
-    LoadGraph1();
-    LoadGraph2();
-
-    CMPLTADMIN_SETTINGS.windowBasedLayout();
-    CMPLTADMIN_SETTINGS.mainMenu();
-    CMPLTADMIN_SETTINGS.mainmenuCollapsed();
-    CMPLTADMIN_SETTINGS.mainmenuScroll();
-    CMPLTADMIN_SETTINGS.sectionBoxActions();
-    CMPLTADMIN_SETTINGS.chatAPI();
-    CMPLTADMIN_SETTINGS.chatApiScroll();
-    CMPLTADMIN_SETTINGS.chatApiWindow();
-    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
+  
     searchForm.initComp();
-
+    $("#ddlProvince1").selectpicker('refresh')
+    $(".divTable table").DataTable({
+        searching: false
+        , info: false
+       , drawCallback: function (setting) {
+           MergeCommonRows($(".divTable table"),1)
+    }
+    }).on('draw.dt', function () {
+        MergeCommonRows($(".divTable table"), 1)
+    });;
+   
 });
 
 $(document).on("click", "#rdRegion", function () {
@@ -44,7 +32,19 @@ $(document).on("click", ".btnSearch", function () {
 });
 
 
+$(document).on("change", "#ddlProvince1", function () {
+    var proviceOption1;
 
+    if ($(this).val() == "999999") {
+        proviceOption1 = $("#ddlProvince1 option").clone();
+    }
+    else {
+        proviceOption1 = $("#ddlProvince1 option:not([value='" + $(this).val() + "'])").clone();
+    }
+
+
+
+});
 
 
 /// tabid=1 region
@@ -104,8 +104,6 @@ function LoadCluster() {
 
 
 
-
-
 var searchForm = {
 
     initComp: function (eleName) {
@@ -113,7 +111,7 @@ var searchForm = {
         setTimeout(function () {
             var target = $('#pnlSectionSearch1');
 
-            //$("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
+          //  $("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
             $("#overlay")
                .height(target.height())
@@ -163,7 +161,7 @@ var searchForm = {
             $('#ddlDistrict').prop('disabled', 'disabled');
             $('#ddlSubdistrict').prop('disabled', 'disabled');
 
-
+            map.clear();
         });
 
 
@@ -190,19 +188,26 @@ var searchForm = {
 
                     var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
 
+                    var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
 
+                    $("#ddlProvince1").empty();
+
+                    $("#ddlProvince1").append(proviceOption1);
+
+                    $("#ddlProvince1").selectpicker('refresh')
 
                     $("#ddlProvince").change(function (event) {
 
-
-                        $("#ddlProvince2").empty();
+                        $("#ddlProvince1").empty();
+                   
                         var provinceId = $("#ddlProvince").val();
                         var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "']):not([value='999999'])").clone();
-                        //   var proviceOption2 = $("#ddlProvince option:not([value='" + provinceId + "'])").clone();
 
+                        $("#ddlProvince1").append(proviceOption1);
+                        $("#ddlProvince1").selectpicker('refresh')
+                       
 
-
-
+                        
                         if (provinceId == '' || provinceId == '999999') {
                             $('#ddlDistrict').prop('disabled', 'disabled');
                             $('#ddlSubdistrict').prop('disabled', 'disabled');
@@ -272,7 +277,7 @@ var searchForm = {
             }
             _mapCurrModule = mode;
 
-
+            map.clear();
         }
 
 
@@ -282,7 +287,7 @@ var searchForm = {
         var sectionType = '';
         var code = '';
         //ton
-        if ($('#ddlSubdistrict').val() != "" && $("#ddlSubdistrict").val() != '999999') {
+       /* if ($('#ddlSubdistrict').val() != "" && $("#ddlSubdistrict").val() != '999999') {
             sectionType = '4';
             code = $('#ddlSubdistrict').val();
         }
@@ -290,7 +295,7 @@ var searchForm = {
             sectionType = '3';
             code = $('#ddlDistrict').val();
         }
-        else if ($("#ddlProvince").val() != '' && $("#ddlProvince").val() != '999999') {
+        else*/ if ($("#ddlProvince").val() != '' && $("#ddlProvince").val() != '999999') {
             sectionType = '2';
             code = $('#ddlProvince').val();
         }
@@ -304,51 +309,198 @@ var searchForm = {
 
 
         var objSearch = {};
-
+        var provinceCode1 = $('#ddlProvince1').val();
 
         objSearch = {
             SectionType: sectionType,
-            code: code,
-            Month: '',
-            Year: $('#ddlYear').val()
+            LocationType:LocationType,
+            Code: code,
+            Year: $('.ddlYear').val(),
+            ProvinceCodeCompare1: (provinceCode1 != null && provinceCode1.length > 0) ? provinceCode1.join() : ""
 
         };
 
 
         $.ajax({
-            url: rootUrl + "/api/PriceSys/GetRegisterLand",
+            url: rootUrl + "/api/PriceSys/GetLandPriceCompareMenu3",
             type: "POST",
             data: JSON.stringify(objSearch),
             dataType: "json",
             contentType: 'application/json',
             success: function (data) {
-
-                var month = [];
-                var newLandRegister = [];
-                var LandRegister = [];
-                if (data != null) {
-
-                    setTimeout(function () {
-                        $('.lbNewRegLand').text(data.summaryData.ParcelNewRegister);
-                        $('.lbRegLand').text(data.summaryData.ParcelRegister);
-                        $('.lbNewMonthRegLand').text(data.summaryData.ParcelMonthNewRegister);
-                        $('.lbMonthRegLand').text(data.summaryData.ParcelMonthRegister);
+                map.clear();
+                
+                if (data != null && data.MapInfoList != null) {
+                    try {
+                        TransformMap(data.MapInfoList, objSearch.ProvinceCodeCompare1.split(","));
+                    } catch (e) {
+                        alert(e.message);
                     }
-        , 400);
-
-                    var month = data.summaryByMonthData.map(x => x.MonthName);
-                    var newLandRegister = data.summaryByMonthData.map(x => x.ParcelRegister);
-                    var LandRegister = data.summaryByMonthData.map(x => x.ParcelNewRegister);
-
-                    LoadGraph1Display(month, newLandRegister, LandRegister);
-                    LoadGraph2Display(month, newLandRegister, LandRegister);
+                    //TransformMap(data.MapInfoList);
+                    
                 }
+                if (data != null && data.DataList != null) {
+                    LoadTable(data.DataList)
+
+                }
+
+               
+
+               
 
 
             }
         });
     }
 }
+
+
+var TDMap = {
+    getPolygonSymbol: function () {
+        return {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [173, 255, 47],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0, 255],
+                "width": 1
+            }
+        };
+    },
+    getPolygonSymbolByGroup: function (isComparison) {
+        return {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": (isComparison) ? [255, 102, 255] : [0, 153, 76],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0, 255],
+                "width": 1
+            }
+        };
+    }
+}
+
+function TransformMap(data) {
+    TransformMap(data,null)
+}
+function TransformMap(data,compareList)
+{
+
+    var sridIn = 32647;
+    var sridOut = [102100];
+    var trans;
+    //map.clear();
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, item) {
+                if (item.Shape) {
+
+                    var targetShape = item.Shape;
+                    if (item.Shape.indexOf(';') !== -1) {
+                        targetShape = item.Shape.split(';')[1];
+                    }
+                    var symbol = null;
+                    if (compareList == null) {
+                        
+                        symbol = TDMap.getPolygonSymbol();
+                    } else {
+                        
+                        symbol = TDMap.getPolygonSymbolByGroup(compareList.includes(item.ProvinceCode));
+                    }
+
+                    map.addGraphic(targetShape, symbol);
+                   // ParcelMapController.drawWithInfo(targetInfo);
+                } else {
+                    alert('Shape Not OK');
+                }
+
+
+               // trans = gisIframeWindow.GIS.transform(item.Shape, sridIn, sridOut);
+            });
+            }
+    }
+}
+
+function LoadTable(data)
+{
+    var body = '';
+    $(".divTable").empty();
+
+    body += '<table class="table table-bordered table-striped tblInfo">';
+    body += '<thead>';
+    body += '<tr>';
+    body += '<th scope="col" class="center">จังหวัด</th>';
+    body += '<th scope="col" class="center">ช่วงเวลา</th>';
+    body += '<th scope="col" class="center">SA/Ratio<br>ต่ำสุด</th>';
+    body += '<th scope="col" class="center">SA/Ratio<br>สูงสุด</th>';
+    body += '<th scope="col" class="center">SA/Ratio<br>เฉลี่ย</th>';
+    body += '</tr>';
+    body += '</thead>';
+;
+    body += '<tbody>';
+    if (data != null) {
+        if (data != null && data.length > 0) {
+            $.each(data, function (index, item) {
+
+                body += '<tr>';
+                body += '<td>' + item.ProvinceName + '</td>';
+                body += '<td>ไตรมาส ' + item.Quater + ' </td>';
+                body += '<td>' + item.MinPrice + '</td>';
+                body += '<td>' + item.MaxPrice + '</td>';
+                body += '<td>' + item.AvgPrice + '</td>';
+
+                body += '</tr>';
+            });
+        }
+    }
+    body += '</tbody>';
+    body += '</table>';
+    $(".divTable").append(body);
+
+   // $(".divTable table").DataTable({ searching: false, info: false });
+
+    $(".divTable table").DataTable({
+        searching: false
+       , info: false
+      , drawCallback: function (setting) {
+          MergeCommonRows($(".divTable table"), 1)
+      }
+    }).on('draw.dt', function () {
+        MergeCommonRows($(".divTable table"), 1)
+    });;
+
+}
+
+
+
+
+function MergeCommonRows(table, columnIndexToMerge) {
+    previous = null;
+    cellToExtend = null;
+    table.find("td:nth-child(" + columnIndexToMerge + ")").each(function () {
+        jthis = $(this);
+        content = jthis.text()
+        if (previous == content && content !== "") {
+            jthis.remove();
+            if (cellToExtend.attr("rowspan") == undefined) {
+                cellToExtend.attr("rowspan", 2);
+            }
+            else {
+                currentrowspan = parseInt(cellToExtend.attr("rowspan"));
+                cellToExtend.attr("rowspan", currentrowspan + 1);
+            }
+        }
+        else {
+            previous = content;
+            cellToExtend = jthis;
+        }
+    });
+}
+
 
 var mapApi = {
     getServerPath: function () {
@@ -433,296 +585,8 @@ var mapApi = {
         alert(response.responseText);
     }
 }
-function LoadGraph1Display(months, newLandRegisters, LandRegisters) {
-
-    var graph1 = echarts.init(document.getElementById('graph1'));
-
-    var option = {
-        title: {
-            text: '',
-            subtext: ''
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'none',
-            }
-        },
-        legend: {
-            data: ['จำนวนแปลงแบ่งแยกใหม่', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน']
-        },
-        toolbox: {
-            show: false,
-            feature: {
-                mark: { show: true },
-                dataView: { show: true, readOnly: false },
-                magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
-                restore: { show: true },
-                saveAsImage: { show: true }
-            }
-        },
-        calculable: true,
-        xAxis: [
-            {
-                type: 'category',
-                boundaryGap: false,
-                data: months
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value'
-            }
-        ],
-        series: [
-
-            {
-                name: 'จำนวนแปลงแบ่งแยกใหม่',
-                type: 'line',
-                smooth: true,
-                itemStyle: { normal: { areaStyle: { type: 'default' } } },
-                data: newLandRegisters
-            },
-            {
-                name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน',
-                type: 'line',
-                smooth: true,
-                itemStyle: { normal: { areaStyle: { type: 'default' } } },
-                data: LandRegisters
-            }
-        ]
-    };
-
-    setTimeout(function () {
-        graph1.setOption(option, true);
 
 
-    }, 1000);
-
-}
-function LoadGraph2Display(months, newLandRegisters, LandRegisters) {
-
-    var graph1 = echarts.init(document.getElementById('graph2'));
-
-    var option = option = {
-        title: {
-            text: '',
-            subtext: ''
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'none',
-            }
-        },
-        legend: {
-            data: ['จำนวนแปลงแบ่งแยกใหม่สะสมรายเดือน (แปลง)', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียนสะสมรายเดือน (แปลง)']
-        },
-        toolbox: {
-            show: false,
-            feature: {
-                mark: { show: true },
-                dataView: { show: true, readOnly: false },
-                magicType: { show: true, type: ['line', 'bar'] },
-                restore: { show: true },
-                saveAsImage: { show: true }
-            }
-        },
-        calculable: true,
-        xAxis: [
-            {
-                type: 'category',
-                data: months
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value'
-            }
-        ],
-        series: [
-            {
-                name: 'จำนวนแปลงแบ่งแยกใหม่สะสมรายเดือน (แปลง)',
-                type: 'bar',
-                data: newLandRegisters,
-                markPoint: {
-                    data: [
-
-                    ]
-                },
-                markLine: {
-
-                }
-            },
-            {
-                name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียนสะสมรายเดือน (แปลง)',
-                type: 'bar',
-                data: LandRegisters,
-                markPoint: {
-                    data: [
-
-                    ]
-                },
-                markLine: {
-
-                }
-            }
-        ]
-    };
 
 
-    setTimeout(function () {
-        graph1.setOption(option, true);
 
-
-    }, 1000);
-
-}
-
-
-function LoadGraph1() {
-
-    var graph1 = echarts.init(document.getElementById('graph1'));
-
-    var option = {
-        title: {
-            text: '',
-            subtext: ''
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'none',
-            }
-        },
-        legend: {
-            data: ['จำนวนแปลงแบ่งแยกใหม่', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน']
-        },
-        toolbox: {
-            show: false,
-            feature: {
-                mark: { show: true },
-                dataView: { show: true, readOnly: false },
-                magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
-                restore: { show: true },
-                saveAsImage: { show: true }
-            }
-        },
-        calculable: true,
-        xAxis: [
-            {
-                type: 'category',
-                boundaryGap: false,
-                data: ['มค.', 'กพ.', 'มค.', 'มย.', 'พค.', 'มิย.', 'กค.', 'สค.', 'กย.', 'ตค.', 'พฤ.', 'ธค.']
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value'
-            }
-        ],
-        series: [
-
-            {
-                name: 'จำนวนแปลงแบ่งแยกใหม่',
-                type: 'line',
-                smooth: true,
-                itemStyle: { normal: { areaStyle: { type: 'default' } } },
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            },
-            {
-                name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียน',
-                type: 'line',
-                smooth: true,
-                itemStyle: { normal: { areaStyle: { type: 'default' } } },
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            }
-        ]
-    };
-
-    setTimeout(function () {
-        graph1.setOption(option, true);
-
-
-    }, 1000);
-
-}
-
-function LoadGraph2() {
-
-    var graph1 = echarts.init(document.getElementById('graph2'));
-
-    var option = option = {
-        title: {
-            text: '',
-            subtext: ''
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'none',
-            }
-        },
-        legend: {
-            data: ['จำนวนแปลงแบ่งแยกใหม่สะสมรายเดือน (แปลง)', 'จำนวนแปลงที่มีการซื้อขายจดทะเบียนสะสมรายเดือน (แปลง)']
-        },
-        toolbox: {
-            show: false,
-            feature: {
-                mark: { show: true },
-                dataView: { show: true, readOnly: false },
-                magicType: { show: true, type: ['line', 'bar'] },
-                restore: { show: true },
-                saveAsImage: { show: true }
-            }
-        },
-        calculable: true,
-        xAxis: [
-            {
-                type: 'category',
-                data: ['มค.', 'กพ.', 'มค.', 'มย.', 'พค.', 'มิย.', 'กค.', 'สค.', 'กย.', 'ตค.', 'พฤ.', 'ธค.']
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value'
-            }
-        ],
-        series: [
-            {
-                name: 'จำนวนแปลงแบ่งแยกใหม่สะสมรายเดือน (แปลง)',
-                type: 'bar',
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                markPoint: {
-                    data: [
-
-                    ]
-                },
-                markLine: {
-
-                }
-            },
-            {
-                name: 'จำนวนแปลงที่มีการซื้อขายจดทะเบียนสะสมรายเดือน (แปลง)',
-                type: 'bar',
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                markPoint: {
-                    data: [
-
-                    ]
-                },
-                markLine: {
-
-                }
-            }
-        ]
-    };
-
-
-    setTimeout(function () {
-        graph1.setOption(option, true);
-
-
-    }, 1000);
-
-}

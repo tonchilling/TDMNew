@@ -44,12 +44,6 @@ namespace TDM.Models.Utils
 
                 }
 
-        public static string ToMonthShortName(string index)
-        {
-            string shortMonth = months[Convert.ToInt32(index) - 1];
-
-            return shortMonth;
-
-        }
+      
     }
 }

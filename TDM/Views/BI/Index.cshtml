@@ -16,7 +16,6 @@
     <title>กรมธนารักษ์</title>
 
     <style type="text/css">
-       
     </style>
     @section Scripts {
         @Scripts.Render("~/assets/css/customize.css?v113")
@@ -27,7 +26,7 @@
     <script src="~/Scripts/waiting.js?ver=1.0220"></script>
 
     <link href="~/assets/css/customize.css" rel="stylesheet" />
-    <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+
 
     <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
@@ -47,11 +46,12 @@
 
     <!-- CORE CSS TEMPLATE - END -->
     <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
-
+    <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
 
     <!-- Bootstrap -->
     <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/assets/js/jquery-ui.js"></script>
+
     <script src="~/assets/js/bootstrap-select.min.js?33"></script>
 
 </head>
@@ -132,18 +132,37 @@
                         <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
 
                         <li class="nav-item   ">
-                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
+                            <a href="~/BI/Index" class="nav-link nav-toggle">
                                 <i class="glyphicon glyphicon-home" style="color:red"></i>
                                 <span class="title">หน้าหลัก</span>
                             </a>
                         </li>
+                        <li class="nav-item   ">
+                            <a href="~/BI/BIViewer" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                                <span class="title">รายงานด้วย BI</span>
+                            </a>
+                        </li>
+
 
                         <!-- <li class="nav-item   ">
-          <a href="~/Home/Menu1" class="nav-link nav-toggle">
-              <i class="fa fa-money" style="color:blue"></i>
-              <span class="title">ซื้อขายจดทะเบียน</span>
-          </a>
-      </li>-->
+        <a href="~/Home/Menu1" class="nav-link nav-toggle">
+            <i class="fa fa-money" style="color:blue"></i>
+            <span class="title">ซื้อขายจดทะเบียน</span>
+        </a>
+    </li>-->
+                        <li class="nav-item   ">
+                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
+                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                                <span class="title">เรียกดูแผนที่/ราคา</span>
+                            </a>
+                        </li>
+                        <li class="nav-item   ">
+                            <a href="~/Home/Menu1" class="nav-link nav-toggle">
+                                <i class="fa fa-bar-chart" style="color:blue"></i>
+                                <span class="title">รายงายซื้อขายจดทะเบียนที่ดิน</span>
+                            </a>
+                        </li>
                         <li class="nav-item   ">
                             <a href="~/Home/Menu2" class="nav-link nav-toggle">
                                 <i class="fa fa-bar-chart" style="color:blue"></i>
@@ -164,7 +183,7 @@
                         </li>
 
                         <li class="nav-item   ">
-                            <a href="~/BI/Index" class="nav-link nav-toggle">
+                            <a href="~/BI/BIManager" class="nav-link nav-toggle">
                                 <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
                                 <span class="title">สร้างรายงานด้วย BI</span>
                             </a>
@@ -279,7 +298,7 @@
 
                             </div>
 
-                         
+
                         </li>
 
                     </ul><div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
@@ -1109,7 +1128,7 @@
 
     <script src="~/assets/BI/perfect-scrollbar.min.js"></script>
     <script src="~/assets/BI/Script.js?ver=1.2233d442"></script>
-    <script src="~/assets/BI/Index.js?ver=1.5ddddddsxe"></script>
+    <script src="~/assets/BI/Index.js?ver=1.5dddsxe"></script>
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
     <script type="text/javascript">

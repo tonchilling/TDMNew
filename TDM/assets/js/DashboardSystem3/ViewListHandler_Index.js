@@ -52,7 +52,7 @@ function tab_1_3Onclick() {
 
 
 var minCostLimit = 0;
-var maxCostLimit = 100000000000000;
+var maxCostLimit = 100000000;
 var minCost = minCostLimit;
 var maxCost = maxCostLimit;
 var slider0 = null;
@@ -86,6 +86,17 @@ $(document).ready(function () {
 
     // $('.divSection21').addClass("invisible").css({ position: "absolute" });
 
+
+    CMPLTADMIN_SETTINGS.windowBasedLayout();
+    CMPLTADMIN_SETTINGS.mainMenu();
+    CMPLTADMIN_SETTINGS.mainmenuCollapsed();
+    CMPLTADMIN_SETTINGS.mainmenuScroll();
+    CMPLTADMIN_SETTINGS.sectionBoxActions();
+    CMPLTADMIN_SETTINGS.chatAPI();
+    CMPLTADMIN_SETTINGS.chatApiScroll();
+    CMPLTADMIN_SETTINGS.chatApiWindow();
+    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
+
     LoadSection1(1, '');
     LoadSlide();
 
@@ -101,21 +112,12 @@ $(document).ready(function () {
 
 
 
-
+    waitingDialog.show('Waiting for Searching', { dialogSize: 'md', progressType: 'success' });
     SearchAll('0', '');
     LoadSection4();
 
     LoadConstructionType();
 
-    CMPLTADMIN_SETTINGS.windowBasedLayout();
-    CMPLTADMIN_SETTINGS.mainMenu();
-    CMPLTADMIN_SETTINGS.mainmenuCollapsed();
-    CMPLTADMIN_SETTINGS.mainmenuScroll();
-    CMPLTADMIN_SETTINGS.sectionBoxActions();
-    CMPLTADMIN_SETTINGS.chatAPI();
-    CMPLTADMIN_SETTINGS.chatApiScroll();
-    CMPLTADMIN_SETTINGS.chatApiWindow();
-    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
 
 
 });
@@ -191,7 +193,7 @@ $(document).on("change", "#ddlType", function () {
 });
 
 
-$(document).on("click", ".liTab", function () {
+$(document).on("click", ".liTab", function (event) {
     $(".liTab").removeClass("active");
     $(this).addClass("active");
 
@@ -218,8 +220,8 @@ $(document).on("click", ".liTab", function () {
         $(".tableLand").removeClass("invisible").css({ position: "relative" });
         
         $("#ddlType").empty();
-        $("#ddlType").append("<option value='0'>เลือกทั้งหมด</option>");
-            $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
+             $("#ddlType").append("<option value='0'>เลือกทั้งหมด</option>");
+            $("#ddlType").append("<option value='1' selected>ราคาประเมิน</option>");
             $("#ddlType").append("<option value='2'>ราคาซื้อขาย</option>");
             tabSelect = '1';
 
@@ -228,14 +230,16 @@ $(document).on("click", ".liTab", function () {
             $("#lbHeaderTable").text("ตารางแสดงราคาที่ดิน");
             
             $('.divSection21').removeClass("invisible").css({ position: "relative" });
-           
+            $('.divSection22').removeClass("invisible").addClass("invisible").css({ position: "absolute" });
+            
             searchForm.search();
           
             $('.lbType1').text("ราคาประเมิน/ตรว.");
             $('.lbType2').text("ราคาประเมิน/แปลง");
         }
         , 400);
-    } else if ($(this).attr("id") == "tab2")
+    }
+    else if ($(this).attr("id") == "tab2")
     {
         
         tabSelect = '2';
@@ -250,6 +254,7 @@ $(document).on("click", ".liTab", function () {
         $(".tableLand").removeClass("invisible").css({ position: "relative" });
 
         $('.divSection21').removeClass("invisible").css({ position: "relative" });
+        $('.divSection22').removeClass("invisible").addClass("invisible").css({ position: "absolute" });
         $('.divSection2Building').addClass("invisible").css({ position: "absolute" });
    //     $('.divLand').removeClass("invisible").css({ position: "relative" });
         setTimeout(function () {
@@ -267,7 +272,8 @@ $(document).on("click", ".liTab", function () {
 
       
 
-    } else if ($(this).attr("id") == "tab3")
+    }
+    else if ($(this).attr("id") == "tab3")
     {
 
         $(".chartBar").addClass("invisible").css({ position: "absolute" });
@@ -277,7 +283,7 @@ $(document).on("click", ".liTab", function () {
        
         $('.divTab2').removeClass("col-md-10 col-sm-10")
         $('.divTab2').addClass("col-md-12 col-sm-12")
-          searchForm.search();
+       //   searchForm.search();
         $("#ddlType").empty();
         $("#ddlType").append("<option value='1'>ราคาประเมิน</option>");
         $('.divLand').addClass("invisible").css({ position: "absolute" });
@@ -321,7 +327,7 @@ $(document).on("click", ".liTab", function () {
     }
    , 400);
 
-
+    event.stopPropagation();
 
 
 });
@@ -352,7 +358,10 @@ function SearchAll(sectionTypeTemp, codeTemp) {
         code: codeTemp,
         ConStructionType: constructionType,
         ProvinceCodeCompare1: (provinceCode1!=null && provinceCode1.length > 0) ? provinceCode1.join() : "",
-        PercentCompare: percentCompare
+        PercentCompare: percentCompare,
+        costEstMin: $('.MinCostEstimate').val(),
+        costEstMax: $('.MaxCostEstimate').val(),
+        costEstUnitType: $('#ddlType').val()
 
     };
 
@@ -365,22 +374,33 @@ function SearchAll(sectionTypeTemp, codeTemp) {
         success: function (data) {
 
             resultAll = data;
-            if (selectType == '3')
-            {
-                setTimeout(function () {
-                    LoadSection2Construction(data);
-                }, 400);
-            }
-            else
-            {
-                setTimeout(function () {
-                    LoadSection23(data);
-                }, 400);
+            $("#EvalBox1").empty();
+            $("#EvalBox1chartBar").empty();
+            $("#EvalBox1Table").empty();
+
+            if (data != null && data.length > 0) {
+                if (selectType == '3') {
+                    setTimeout(function () {
+                        LoadSection2Construction(data);
+                        waitingDialog.hide();
+                    }, 400);
+                }
+                else {
+                    setTimeout(function () {
+                        LoadSection23(data);
+                        waitingDialog.hide();
+                    }, 400);
+                }
+            } else {
+                waitingDialog.hide();
+                map.clear();
+              
             }
            
         },
         error: function (response) {
             alert('failure');
+            waitingDialog.hide();
         }
     });
 }
@@ -554,6 +574,8 @@ function LoadSection1View(data) {
 
     $('[data-toggle="tooltip"]').tooltip();
 
+
+
 }
 function LoadSection23(data) {
     
@@ -586,33 +608,33 @@ function LoadSection2EvalBox1_LeftBox(data) {
                 if (tabSelect == '1') {
                     if (sectionType == "4") {
 
-                        body += '<h5>ราคา : ' + parseFloat(data.ParcelWAHPrice).toFixed(2) + ' บาท  </h5>';
+                        body += '<h5>ราคา : ' + data.ParcelWAHPrice + ' บาท  </h5>';
                     }
                     else {
                         if ($('#ddlType').val() == "1") {
-                            body += '<h5>ราคาสูงสุด : ' + parseFloat(data.ParcelWAHPriceMax).toFixed(2)+ ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelWAHAddrCode + '" data-chanode="' + data.MaxParcelWAHCHANODE_NO + '"></i> </h5>';
-                            body += ' <h5>ราคาต่ำสุด:  ' + parseFloat(data.ParcelWAHPriceMin).toFixed(2) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelWAHProvinceCode + '" data-chanode="' + data.MinParcelWAHCHANODE_NO + '"></i></h5>';
-                            body += '<h5>ราคาเฉลี่ย :  ' + parseFloat(data.ParcelWAHPriceAvg).toFixed(2) + ' บาท </h5>';
+                            body += '<h5>ราคาสูงสุด : ' + data.ParcelWAHPriceMax + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelWAHAddrCode + '" data-chanode="' + data.MaxParcelWAHCHANODE_NO + '"></i> </h5>';
+                            body += ' <h5>ราคาต่ำสุด:  ' + data.ParcelWAHPriceMin + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelWAHProvinceCode + '" data-chanode="' + data.MinParcelWAHCHANODE_NO + '"></i></h5>';
+                            body += '<h5>ราคาเฉลี่ย :  ' + data.ParcelWAHPriceAvg + ' บาท </h5>';
                         } else if ($('#ddlType').val() == "2") {
-                            body += '<h5>ราคาสูงสุด : ' + parseFloat(data.MarketWAHPriceMax).toFixed(2) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketWAHAddrCode + '" data-chanode="' + data.MaxMarketWAHCHANODE_NO + '"></i></h5>';
-                            body += ' <h5>ราคาต่ำสุด:  ' + parseFloat(data.MarketWAHPriceMin).toFixed(2) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketWAHAddrCode + '" data-chanode="' + data.MinMarketWAHCHANODE_NO + '"></i></h5>';
-                            body += '<h5>ราคาเฉลี่ย :  ' + parseFloat(data.MarketWAHPriceAvg).toFixed(2) + ' บาท </h5>';
+                            body += '<h5>ราคาสูงสุด : ' + data.MarketWAHPriceMax + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketWAHAddrCode + '" data-chanode="' + data.MaxMarketWAHCHANODE_NO + '"></i></h5>';
+                            body += ' <h5>ราคาต่ำสุด:  ' + data.MarketWAHPriceMin + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketWAHAddrCode + '" data-chanode="' + data.MinMarketWAHCHANODE_NO + '"></i></h5>';
+                            body += '<h5>ราคาเฉลี่ย :  ' + data.MarketWAHPriceAvg + ' บาท </h5>';
                         } else {
                             body += '<h4>ราคาประเมิน</h4>';
-                            body += '<h5>ราคาสูงสุด : ' + parseFloat(data.ParcelWAHPriceMax).toFixed(2)+ ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelWAHAddrCode + '"  data-chanode="' + data.MaxParcelWAHCHANODE_NO + '"></i></h5>';
-                            body += ' <h5>ราคาต่ำสุด:  ' + parseFloat(data.ParcelWAHPriceMin).toFixed(2) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelWAHAddrCode + '" data-chanode="' + data.MinParcelWAHCHANODE_NO + '"></i></h5>';
-                            body += '<h5>ราคาเฉลี่ย :  ' + parseFloat(data.ParcelWAHPriceAvg).toFixed(2) + ' บาท </h5>';
+                            body += '<h5>ราคาสูงสุด : ' + data.ParcelWAHPriceMax+ ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxParcelWAHAddrCode + '"  data-chanode="' + data.MaxParcelWAHCHANODE_NO + '"></i></h5>';
+                            body += ' <h5>ราคาต่ำสุด:  ' + data.ParcelWAHPriceMin + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinParcelWAHAddrCode + '" data-chanode="' + data.MinParcelWAHCHANODE_NO + '"></i></h5>';
+                            body += '<h5>ราคาเฉลี่ย :  ' + data.ParcelWAHPriceAvg + ' บาท </h5>';
                             body += '<hr class="style1">';
                             body += '<h4>ราคาซื้อขาย</h4>';
-                            body += '<h5>ราคาสูงสุด : ' + parseFloat(data.MarketWAHPriceMax).toFixed(2) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketWAHAddrCode + '" data-chanode="' + data.MaxMarketWAHCHANODE_NO + '"></i></h5>';
-                            body += ' <h5>ราคาต่ำสุด:  ' + parseFloat(data.MarketWAHPriceMin).toFixed(2) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketWAHAddrCode + '" data-chanode="' + data.MinMarketWAHCHANODE_NO + '"></i></h5>';
-                            body += '<h5>ราคาเฉลี่ย :  ' + parseFloat(data.MarketWAHPriceAvg).toFixed(2) + ' บาท </h5>';
+                            body += '<h5>ราคาสูงสุด : ' + data.MarketWAHPriceMax + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketWAHAddrCode + '" data-chanode="' + data.MaxMarketWAHCHANODE_NO + '"></i></h5>';
+                            body += ' <h5>ราคาต่ำสุด:  ' + data.MarketWAHPriceMin + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketWAHAddrCode + '" data-chanode="' + data.MinMarketWAHCHANODE_NO + '"></i></h5>';
+                            body += '<h5>ราคาเฉลี่ย :  ' + data.MarketWAHPriceAvg + ' บาท </h5>';
                         }
                     }
                 } else if (tabSelect == '2') {
-                    body += '<h5>ราคาสูงสุด : ' + parseFloat(data.MarketPriceMax).toFixed(2) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketWAHAddrCode + '" data-chanode="' + data.MaxMarketWAHCHANODE_NO + '"></i></h5>';
-                    body += ' <h5>ราคาต่ำสุด:  ' + parseFloat(data.MarketPriceMin).toFixed(2) + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketWAHAddrCode + '" data-chanode="' + data.MinMarketWAHCHANODE_NO + '"></i></h5>';
-                    body += '<h5>ราคาเฉลี่ย :  ' + parseFloat(data.MarketPriceAvg).toFixed(2) + ' บาท </h5>';
+                    body += '<h5>ราคาสูงสุด : ' + data.MarketPriceMax + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MaxMarketWAHAddrCode + '" data-chanode="' + data.MaxMarketWAHCHANODE_NO + '"></i></h5>';
+                    body += ' <h5>ราคาต่ำสุด:  ' + data.MarketPriceMin + ' บาท <i class="fa fa-chevron-circle-right btnViewChanode" data-province="' + data.MinMarketWAHAddrCode + '" data-chanode="' + data.MinMarketWAHCHANODE_NO + '"></i></h5>';
+                    body += '<h5>ราคาเฉลี่ย :  ' + data.MarketPriceAvg + ' บาท </h5>';
 
                 }
                 body += ' </div>';
@@ -652,9 +674,9 @@ function LoadSection2Construction(data)
                 body += '<td>' + data.DisplayName + '</td>';
                 if (data.Color == '')
                 {
-                    body += '<td>' + parseFloat(data.ParcelPrice).toFixed(2) + '</td>';
+                    body += '<td>' + numeral(data.ParcelPrice).format('0,0.00') + '</td>';
                 } else {
-                    body += '<td><span style="color:' + data.Color + '">' + parseFloat(data.ParcelPrice).toFixed(2) + '</span></td>';
+                    body += '<td><span style="color:' + data.Color + '">' + numeral(data.ParcelPrice).format('0,0.00') + '</span></td>';
                 }
                
                 body += '</tr>';
@@ -666,6 +688,9 @@ function LoadSection2Construction(data)
     $("#divConstruction").append(body);
 
     $("#divConstruction table").DataTable({ searching: false, info: false });
+
+
+    waitingDialog.hide();
 
 }
 function LoadSection2EvalBox1_Graph(data) {
@@ -681,13 +706,21 @@ function LoadSection2EvalBox1_Graph(data) {
             $.each(data, function (index, data) {
                 caption.push(data.DisplayName);
                 if (tabSelect == '1') {
-                    maxValue.push(parseFloat(data.ParcelPriceMax).toFixed(2));
-                    minValue.push(parseFloat(data.ParcelPriceMin).toFixed(2));
-                    avgValue.push(parseFloat(data.ParcelPriceAvg).toFixed(2));
+                    if ($('#ddlType').val() == "1" || $('#ddlType').val() == "0") {
+                        maxValue.push(data.ParcelWAHPriceMax != null ? data.ParcelWAHPriceMax.replaceAll(',', '') : 0);
+                        minValue.push(data.ParcelWAHPriceMin != null ? data.ParcelWAHPriceMin.replaceAll(',', '') : 0);
+                        avgValue.push(data.ParcelWAHPriceAvg != null ? data.ParcelWAHPriceAvg.replaceAll(',', '') : 0);
+                    } else {
+                        maxValue.push(data.MarketWAHPriceMax != null ? data.MarketWAHPriceMax.replaceAll(',', '') : 0);
+                        minValue.push(data.MarketWAHPriceMin != null ? data.MarketWAHPriceMin.replaceAll(',', '') : 0);
+                        avgValue.push(data.MarketWAHPriceAvg != null ? data.MarketWAHPriceAvg.replaceAll(',', '') : 0);
+
+                    }
+                   
                 } else {
-                    maxValue.push(parseFloat(data.MarketPriceMax).toFixed(2));
-                    minValue.push(parseFloat(data.MarketPriceMin).toFixed(2));
-                    avgValue.push(parseFloat(data.MarketPriceAvg).toFixed(2));
+                    maxValue.push(data.MarketPriceMax != null ? data.MarketPriceMax.replaceAll(',', '') : 0);
+                    minValue.push(data.MarketPriceMin != null ? data.MarketPriceMin.replaceAll(',', '') : 0);
+                    avgValue.push(data.MarketPriceAvg != null ? data.MarketPriceAvg.replaceAll(',', '') : 0);
                 }
             });
         }
@@ -732,19 +765,21 @@ function LoadSection2EvalBox1_Graph(data) {
         ],
         series: [
             {
-                name: 'ราคาเฉลี่ย',
+                name: 'สูงสุด',
                 type: 'bar',
-                data: avgValue,
+                data: maxValue,
+
                 itemStyle: {
                     normal: {
-                        color: 'green'
+                        color: 'red'
                     },
                     emphasis: {
-                        color: '#00e600'
+
 
                     }
                 }
             },
+           
      {
          name: 'ราคาต่ำสุด',
          type: 'bar',
@@ -759,22 +794,21 @@ function LoadSection2EvalBox1_Graph(data) {
 
              }
          }
-     },
-     {
-         name: 'สูงสุด',
-         type: 'bar',
-         data: maxValue,
+            }, {
+                name: 'ราคาเฉลี่ย',
+                type: 'bar',
+                data: avgValue,
+                itemStyle: {
+                    normal: {
+                        color: 'green'
+                    },
+                    emphasis: {
+                        color: '#00e600'
 
-         itemStyle: {
-             normal: {
-                 color: 'red'
-             },
-             emphasis: {
-
-
-             }
-         }
-     }
+                    }
+                }
+            }
+    
         ]
     };
 
@@ -835,22 +869,22 @@ function LoadSection2EvalBox1_Table(data) {
 
                     body += '<td>' + data.LAND_Total + ' แปลง</td>';
                   
-                    if ($('#ddlType').val() == "1") {
+                    if ($('#ddlType').val() == "1" || $('#ddlType').val() == "0" ) {
 
                         if (sectionType == "4") {
-                            body += '<td>' + parseFloat(data.ParcelWAHPrice).toFixed(2) + ' บาท</td>';
+                            body += '<td>' + data.ParcelWAHPrice + ' บาท</td>';
                         } else {
-                            body += '<td>' + parseFloat(data.ParcelWAHPriceMax).toFixed(2) + ' บาท</td>';
-                            body += '<td>' + parseFloat(data.ParcelWAHPriceMin).toFixed(2) + ' บาท</td>';
-                            body += '<td>' + parseFloat(data.ParcelWAHPriceAvg).toFixed(2) + ' บาท</td>';
+                            body += '<td>' + data.ParcelWAHPriceMax + ' บาท</td>';
+                            body += '<td>' + data.ParcelWAHPriceMin + ' บาท</td>';
+                            body += '<td>' + data.ParcelWAHPriceAvg + ' บาท</td>';
                         }
                     } else {
                         if (sectionType == "4") {
-                            body += '<td>' + parseFloat(data.MarketWAHPrice) + ' บาท</td>';
+                            body += '<td>' + data.MarketWAHPrice + ' บาท</td>';
                         } else {
-                            body += '<td>' + parseFloat(data.MarketWAHPriceMax) + ' บาท</td>';
-                            body += '<td>' + parseFloat(data.MarketWAHPriceMin) + ' บาท</td>';
-                            body += '<td>' + parseFloat(data.MarketWAHPriceAvg) + ' บาท</td>';
+                            body += '<td>' + data.MarketWAHPriceMax + ' บาท</td>';
+                            body += '<td>' +data.MarketWAHPriceMin + ' บาท</td>';
+                            body += '<td>' +data.MarketWAHPriceAvg+ ' บาท</td>';
                         }
                     }
                 } else if (tabSelect == '2') {
@@ -859,11 +893,11 @@ function LoadSection2EvalBox1_Table(data) {
 
                         body += '<td></td>';
                         body += '<td>0 ชั้น</td>';
-                        body += '<td>' + parseFloat(data.MarketPrice).toFixed(2) + ' บาท </td>';
+                        body += '<td>' + data.MarketPrice + ' บาท </td>';
                     } else {
-                        body += '<td>' + parseFloat(data.MarketPriceMax).toFixed(2) + ' บาท</td>';
-                        body += '<td>' + parseFloat(data.MarketPriceMin).toFixed(2) + ' บาท</td>';
-                        body += '<td>' + parseFloat(data.MarketPriceAvg).toFixed(2) + ' บาท</td>';
+                        body += '<td>' +data.MarketPriceMax + ' บาท</td>';
+                        body += '<td>' + data.MarketPriceMin + ' บาท</td>';
+                        body += '<td>' + data.MarketPriceAvg + ' บาท</td>';
 
                     }
                   
@@ -878,7 +912,7 @@ function LoadSection2EvalBox1_Table(data) {
     body += ' </table>';
 
     $("#EvalBox1Table").append(body);
-    $("#EvalBox1Table table").DataTable({ searching: false, info: false });
+    $("#EvalBox1Table table").DataTable({ searching: false, info: false});
 }
 function GetSectionDisplayText(sectionType) {
     var text = 'ภาค';
@@ -995,7 +1029,7 @@ function LoadSection4() {
                     tableStr += ' </tbody>';
                     tableStr += ' </table>';
                     $(".divInfoSection4").append(tableStr);
-                    //   $(".tblInfoSection4").DataTable({ searching: true, info: false });
+                      $(".tblInfoSection4").DataTable({ searching: true, info: false });
                 }
             }
         }
@@ -1162,6 +1196,7 @@ function LoadSlide() {
         range: true,
         min: minCostLimit,
         max: maxCostLimit,
+        step: 30000,
         values: [minCost, maxCost],
         slide: function (event, ui) {
             $("#MinCostEstimate0").val(ui.values[0]);
@@ -1172,6 +1207,7 @@ function LoadSlide() {
     });
     slider1 = $("#CostEstimateSlider1").slider({
         range: true,
+        step: 10000000,
         min: minCostLimit,
         max: maxCostLimit,
         values: [minCost, maxCost],
@@ -1363,6 +1399,8 @@ function LoadConstructionType() {
                     });
                 }
             }
+
+
         }
     });
 

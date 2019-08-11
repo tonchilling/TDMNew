@@ -23,5 +23,15 @@ namespace TDM.Controllers
         {
             return View();
         }
+
+        public ActionResult BIManager()
+        {
+            return View();
+        }
+
+        public ActionResult BIViewer()
+        {
+            return View();
+        }
     }
 }

@@ -365,6 +365,8 @@ namespace TDM.Repositories
         }
 
 
+      
+
 
 
         public List<DropdownObj> GetConstructionType()
@@ -594,47 +596,48 @@ namespace TDM.Repositories
                         data.TAMBOLCode = reader["TAMBOLCode"].ToString();
                         data.TAMBOLName = reader["TAMBOLName"].ToString();
 
-                        data.MarketPrice = Converting.ToDecimal(reader["MarketPrice"].ToString()).ToString("##,##0.00");
-                        data.MarketPriceMin = Converting.ToDecimal(reader["MarketPriceMin"].ToString()).ToString("##,##0.00");
-                        data.MarketPriceMax = Converting.ToDecimal(reader["MarketPriceMax"].ToString()).ToString("##,##0.00");
-                        data.MarketPriceAvg = Converting.ToDecimal(reader["MarketPriceAvg"].ToString()).ToString("##,##0.00");
-                        data.MaxMarketAddrCode = reader["MaxMarketAddrCode"].ToString();
+                        data.MarketPrice = Converting.ToDecimal(reader["MarketPrice"].ToString()).ToString();
+                        data.MarketPriceMin = Converting.ToDecimal(reader["MarketPriceMin"].ToString()).ToString();
+                        data.MarketPriceMax = Converting.ToDecimal(reader["MarketPriceMax"].ToString()).ToString();
+                        data.MarketPriceAvg = Converting.ToDecimal(reader["MarketPriceAvg"].ToString()).ToString();
+                      /*  data.MaxMarketAddrCode = reader["MaxMarketAddrCode"].ToString();
                         data.MaxMarketCHANODE_NO = reader["MaxMarketCHANODE_NO"].ToString();
                         data.MinMarketAddrCode = reader["MinMarketAddrCode"].ToString();
                         data.MinMarketCHANODE_NO = reader["MinMarketCHANODE_NO"].ToString();
-
-                        data.MarketWAHPrice = Converting.ToDecimal(reader["MarketWAHPrice"].ToString()).ToString("##,##0.00");
-                        data.MarketWAHPriceMin = Converting.ToDecimal(reader["MarketWAHPriceMin"].ToString()).ToString("##,##0.00");
-                        data.MarketWAHPriceMax = Converting.ToDecimal(reader["MarketWAHPriceMax"].ToString()).ToString("##,##0.00");
-                        data.MarketWAHPriceAvg = Converting.ToDecimal(reader["MarketWAHPriceAvg"].ToString()).ToString("##,##0.00");
-                        data.MaxMarketWAHAddrCode = reader["MaxMarketWAHAddrCode"].ToString();
+                        */
+                        data.MarketWAHPrice = Converting.ToDecimal(reader["MarketWAHPrice"].ToString()).ToString();
+                        data.MarketWAHPriceMin = Converting.ToDecimal(reader["MarketWAHPriceMin"].ToString()).ToString();
+                        data.MarketWAHPriceMax = Converting.ToDecimal(reader["MarketWAHPriceMax"].ToString()).ToString();
+                        data.MarketWAHPriceAvg = Converting.ToDecimal(reader["MarketWAHPriceAvg"].ToString()).ToString();
+                       /* data.MaxMarketWAHAddrCode = reader["MaxMarketWAHAddrCode"].ToString();
                         data.MaxMarketWAHCHANODE_NO = reader["MaxMarketWAHCHANODE_NO"].ToString();
                         data.MinMarketWAHAddrCode = reader["MinMarketWAHAddrCode"].ToString();
                         data.MinMarketWAHCHANODE_NO = reader["MinMarketWAHCHANODE_NO"].ToString();
+                        */
 
 
-                        data.ParcelPrice = Converting.ToDecimal(reader["ParcelPrice"].ToString()).ToString("##,##0.00");
-                        data.ParcelPriceMin = Converting.ToDecimal(reader["ParcelPriceMin"].ToString()).ToString("##,##0.00");
-                        data.ParcelPriceMax = Converting.ToDecimal(reader["ParcelPriceMax"].ToString()).ToString("##,##0.00");
-                        data.ParcelPriceAvg = Converting.ToDecimal(reader["ParcelPriceAvg"].ToString()).ToString("##,##0.00");
-                        data.MaxParcelAddrCode = reader["MaxParcelAddrCode"].ToString();
+                        data.ParcelPrice = Converting.ToDecimal(reader["ParcelPrice"].ToString()).ToString();
+                        data.ParcelPriceMin = Converting.ToDecimal(reader["ParcelPriceMin"].ToString()).ToString();
+                        data.ParcelPriceMax = Converting.ToDecimal(reader["ParcelPriceMax"].ToString()).ToString();
+                        data.ParcelPriceAvg = Converting.ToDecimal(reader["ParcelPriceAvg"].ToString()).ToString();
+                       /* data.MaxParcelAddrCode = reader["MaxParcelAddrCode"].ToString();
                         data.MaxParcelCHANODE_NO = reader["MaxParcelCHANODE_NO"].ToString();
                         data.MinParcelAddrCode = reader["MinParcelAddrCode"].ToString();
                         data.MinParcelCHANODE_NO = reader["MinParcelCHANODE_NO"].ToString();
+                        */
 
-
-                        data.ParcelWAHPrice = Converting.ToDecimal(reader["ParcelWAHPrice"].ToString()).ToString("##,##0.00");
-                        data.ParcelWAHPriceMin = Converting.ToDecimal(reader["ParcelWAHPriceMin"].ToString()).ToString("##,##0.00");
-                        data.ParcelWAHPriceMax = Converting.ToDecimal(reader["ParcelWAHPriceMax"].ToString()).ToString("##,##0.00");
-                        data.ParcelWAHPriceAvg = Converting.ToDecimal(reader["ParcelWAHPriceAvg"].ToString()).ToString("##,##0.00");
-                        data.MaxParcelWAHAddrCode = reader["MaxParcelWAHAddrCode"].ToString();
+                        data.ParcelWAHPrice = Converting.ToDecimal(reader["ParcelWAHPrice"].ToString()).ToString();
+                        data.ParcelWAHPriceMin = Converting.ToDecimal(reader["ParcelWAHPriceMin"].ToString()).ToString();
+                        data.ParcelWAHPriceMax = Converting.ToDecimal(reader["ParcelWAHPriceMax"].ToString()).ToString();
+                        data.ParcelWAHPriceAvg = Converting.ToDecimal(reader["ParcelWAHPriceAvg"].ToString()).ToString();
+                      /*  data.MaxParcelWAHAddrCode = reader["MaxParcelWAHAddrCode"].ToString();
                         data.MaxParcelWAHCHANODE_NO = reader["MaxParcelWAHCHANODE_NO"].ToString();
                         data.MinParcelWAHAddrCode = reader["MinParcelWAHAddrCode"].ToString();
                         data.MinParcelWAHCHANODE_NO = reader["MinParcelWAHCHANODE_NO"].ToString();
+                        */
 
-
-                        data.LAND_AREA = reader["LAND_AREA"].ToString();
-                        data.LAND_Total = reader["LAND_Total"].ToString();
+                      //  data.LAND_AREA = reader["LAND_AREA"].ToString();
+                      //  data.LAND_Total = reader["LAND_Total"].ToString();
                         data.MarketColor = reader["MarketColor"].ToString();
                         data.ParcelColor = reader["ParcelColor"].ToString();
                       //  data.Shape = reader["Shape"].ToString();
@@ -686,14 +689,14 @@ namespace TDM.Repositories
                         data.AmphureName = reader["AmphureName"].ToString();
                         data.TAMBOLCode = reader["TAMBOLCode"].ToString();
                         data.TAMBOLName = reader["TAMBOLName"].ToString();
-                        data.MarketPrice = reader["MarketPrice"].ToString();
-                        data.MarketPriceMin = reader["MarketPriceMin"].ToString();
-                        data.MarketPriceMax = reader["MarketPriceMax"].ToString();
-                        data.MarketPriceAvg = reader["MarketPriceAvg"].ToString();
-                        data.ParcelPrice = reader["ParcelPrice"].ToString();
-                        data.ParcelPriceMin = reader["ParcelPriceMin"].ToString();
-                        data.ParcelPriceMax = reader["ParcelPriceMax"].ToString();
-                        data.ParcelPriceAvg = reader["ParcelPriceAvg"].ToString();
+                        data.MarketPrice = Converting.ToDecimal(reader["MarketPrice"].ToString()).ToString("##,##0.00");
+                        data.MarketPriceMin = Converting.ToDecimal(reader["MarketPriceMin"].ToString()).ToString("##,##0.00");
+                        data.MarketPriceMax = Converting.ToDecimal(reader["MarketPriceMax"].ToString()).ToString("##,##0.00");
+                        data.MarketPriceAvg = Converting.ToDecimal(reader["MarketPriceAvg"].ToString()).ToString("##,##0.00");
+                        data.ParcelPrice = Converting.ToDecimal(reader["ParcelPrice"].ToString()).ToString("##,##0.00");
+                        data.ParcelPriceMin = Converting.ToDecimal(reader["ParcelPriceMin"].ToString()).ToString("##,##0.00");
+                        data.ParcelPriceMax = Converting.ToDecimal(reader["ParcelPriceMax"].ToString()).ToString("##,##0.00");
+                        data.ParcelPriceAvg = Converting.ToDecimal(reader["ParcelPriceAvg"].ToString()).ToString("##,##0.00");
                         data.LAND_AREA = reader["LAND_AREA"].ToString();
                         data.LAND_Total = reader["LAND_Total"].ToString();
                         data.MarketColor = reader["MarketColor"].ToString();
@@ -1536,7 +1539,48 @@ namespace TDM.Repositories
         }
 
 
+        public List<int> GetLandRegisterYear()
+        {
 
+            IDataReader reader = null;
+          
+            RegisterLandSummary regSummaryData = null;
+            RegisterLandByMonth regSummarybByMonthData = null;
+            List<RegisterLandByMonth> regSummaryByMonthList = null;
+            List<int> result = new List<int>();
+          
+
+
+
+            try
+            {
+
+             
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    //conn.
+                    reader = conn.ExecuteReader("sp_GetLandRegisterYear", null, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+
+                        result.Add(Converting.ToInt(reader["RegYear"].ToString()));
+                     
+
+                    }
+
+                 
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+     
         /// <summary>
         /// Home>Menu2
         /// </summary>

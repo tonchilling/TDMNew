@@ -337,7 +337,7 @@ function ChartCallBack(param) {
 
     }
 
-    else if (selectLocationLevel <= 4) {
+    else if (selectLocationLevel < 4) {
 
         selectCode = param.data.key;
         ReLoadAddress(selectCode);
@@ -1066,24 +1066,24 @@ function LoadChartLand(ObjData,chartData) {
             if (selectLocationLevel == '4') {
                 html += '<tr>'
                 html += '<td>ราคาประเมิน</td>'
-                html += '<td>' + item.ParcelWAHPriceMax + '</td>'
+                html += '<td>' + formatCurrency(item.ParcelWAHPriceMax) + '</td>'
                
                 html += '</tr>'
                 html += '<tr>'
                 html += '<td>ราคาซื้อขาย</td>'
-                html += '<td>' + item.MarketWAHPriceMax + '</td>'
+                html += '<td>' + formatCurrency(item.MarketWAHPriceMax) + '</td>'
 
                 html += '</tr>'
             } else {
                 html += '<tr>'
                 html += '<td>ราคาประเมิน</td>'
-                html += '<td>' + item.ParcelWAHPriceMax + '</td>'
-                html += '<td>' + item.ParcelWAHPriceMin + '</td>'
+                html += '<td>' + formatCurrency(item.ParcelWAHPriceMax) + '</td>'
+                html += '<td>' + formatCurrency(item.ParcelWAHPriceMin) + '</td>'
                 html += '</tr>'
                 html += '<tr>'
                 html += '<td>ราคาซื้อขาย</td>'
-                html += '<td>' + item.MarketWAHPriceMax + '</td>'
-                html += '<td>' + item.MarketWAHPriceMin + '</td>'
+                html += '<td>' + formatCurrency(item.MarketWAHPriceMax) + '</td>'
+                html += '<td>' + formatCurrency(item.MarketWAHPriceMin) + '</td>'
                 html += '</tr>'
             }
 
@@ -1166,8 +1166,8 @@ function LoadChartLand(ObjData,chartData) {
             html += '<td class="btnAmphure" data="' + item.AmphureCode + '">' + item.AmphureName + '</td>';
             html += '<td class="btnTumbol" data="' + item.TAMBOLCode + '">' + item.TAMBOLName + '</td>';
 
-            html += '<td class="text-right">' + item.ParcelWAHPriceMax + '</td>';
-            html += '<td class="text-right">' + item.MarketWAHPriceMax + '</td>';
+            html += '<td class="text-right">' + formatCurrency(item.ParcelWAHPriceMax) + '</td>';
+            html += '<td class="text-right">' + formatCurrency(item.MarketWAHPriceMax) + '</td>';
 
            
           
@@ -2567,15 +2567,14 @@ $(document).on("click", ".btnAmphure", function () {
 });
 
 
+/*
 $(document).on("click", ".btnTumbol", function () {
-  //  $('body').pleaseWait();
     selectLocationLevel = 4;
     selectCode = $(this).attr('data');
     $("#ddlSubdistrict").val($(this).attr('data'))
     ReLoadAddress(selectCode);
-  //  $("#ddlSubdistrict").trigger("change");
     LoadData(selectLocationLevel, $(this).attr('data'));
-});
+});*/
 
 
 var regionId = '';
