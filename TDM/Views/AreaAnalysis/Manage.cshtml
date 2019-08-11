@@ -28,7 +28,7 @@
     }
 
     <link href="~/assets/fonts/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="~/assets/css/bootstrap-select.min.css" type="text/css">
     <link rel="stylesheet" href="~/assets/css/owl.carousel.css" type="text/css">
@@ -108,11 +108,14 @@
             background: #5cb85c;
             border: 1px solid #4cae4c;
         }
+        .modal .modal-dialog {
+	        width: 90%; 
+            margin: 0px auto;
+        }
 
-
-      input, select, textarea {
-    max-width: none;
-}
+         input, select, textarea {
+            max-width: none;
+        }
     </style>
     <!-- OG TAGS -->
     <meta property="og:title" content="Treasury Map" />
@@ -247,7 +250,7 @@
 
                     @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
 
-                    <div class="modal fade modal-manage" id="myModal1">
+                    <div class="modal fade modal-manage" id="myModal1" >
                         <div class="modal-dialog">
                             <div class="modal-content" style="background-color: #f4f4f2;">
                                 <div class="modal-header">
