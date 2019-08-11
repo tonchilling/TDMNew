@@ -17,5 +17,5 @@ http.get = function (url, params, callback) {
 http.url = function (url) {
     console.log('HTTP.URL==>', url);
     
-    return config.root + url;
+    return rootUrl + url;
 }
