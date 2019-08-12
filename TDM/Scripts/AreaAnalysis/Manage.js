@@ -301,7 +301,7 @@ function AddProject(projectId, statusId) {
     try {
         
         
-        var url = http.url("/AreaAnalysis/AddEditProject?projectId=" + projectId + "&statusId=" + statusId);
+        var url = http.url("/AreaAnalysis/AddEditProject?projectId=" + projectId + "&statusId=" + 0);
 
         $("#myModalBodyDiv1").load(url, function (response, status, xhr) {
             if (status == "error") {
