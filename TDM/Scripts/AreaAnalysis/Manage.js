@@ -295,7 +295,7 @@ function uploadShapeData(formData) {
 
 
  
-
+var _gisIframeWindow = null;
 function AddProject(projectId, statusId) {
 
     try {
@@ -307,12 +307,61 @@ function AddProject(projectId, statusId) {
             if (status == "error") {
             } else {
                 $("#myModal1").modal("show");
+                
                 $("#myModal1").appendTo("body");
                 //$('#btnSubmit').click(uploadShapeData);
+
+                var iframeElement = document.getElementById('tdmap');
+                    iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
+                var gisIframeWindow = null;
+                iframeElement.onload = function () {
+                    gisIframeWindow = iframeElement.contentWindow;
+                    
+
+                    gisIframeWindow.SYSTEM_READY(function (evt) {
+                        console.log("SYSTEM_READY >>> ", evt);
+                    });
+                    
+                    _gisIframeWindow = gisIframeWindow;
+                    //activateDraw(gisIframeWindow);
+                }
+
+                
 
             }
         });
 
+    } catch (e) {
+        alert(e.message);
+    }
+    
+}
+
+function activateDraw(gisIframeWindow) {
+    alert('ActiveDraw work!!!');
+    // Input
+    var toolType = 'polygon',
+      clearGraphicWhenComplete = true;
+
+    try {
+        // Call method
+        gisIframeWindow.GIS.activateDraw(toolType, clearGraphicWhenComplete, function (drawEvent) {
+            console.log(drawEvent);
+            // var shape = 'POINT(11295346.5239 1477904.2036)',
+            var shape = drawEvent.shape,
+              sridIn = drawEvent.srid,
+              sridOut = [24047, 24048];
+
+            // Call method
+            console.log(gisIframeWindow.GIS.transform(shape, sridIn, sridOut));
+            var result = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+            var txt = "";
+            result.forEach(function (item) {
+                txt = txt + JSON.stringify(item);
+            });
+            //document.getElementById("activateDrawResult").innerHTML = txt;
+
+        });
     } catch (e) {
         alert(e.message);
     }
