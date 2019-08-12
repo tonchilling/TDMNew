@@ -235,15 +235,74 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>common.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetAMPHOE_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetCluster_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetConstructionType_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetMenu1_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetTAMBOL1_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetTAMBOL_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Land_MARKET_PRICE_L_Province.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Land_MARKET_PRICE_L_Region.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Log.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PARCEL_47_10.cs">
       <DependentUpon>TDASSET.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PROJECT_IMPACT_GEOMETRY.cs" />
+    <Compile Include="Models\PROJECT_IMPACT_GEOMETRY.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PROJECT_PARCEL_47.cs">
       <DependentUpon>TDASSET.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PROJECT_PARCEL_48.cs">
       <DependentUpon>TDASSET.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_construction_dropdownlist_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetGraphList_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_land_dropdownlist1_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_land_dropdownlist_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_PROJECT_IMPACT_FindByColumn1_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_PROJECT_IMPACT_FindByColumn_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_Section1_EstimateList1_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_Section1_EstimateList_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_TemplateHeader_dropdownlist1_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_TemplateHeader_dropdownlist_Result.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TAMBOL.cs">
       <DependentUpon>TDASSET.tt</DependentUpon>
@@ -259,6 +318,12 @@
     </Compile>
     <Compile Include="Models\TB_MAS_TAMBOL.cs">
       <DependentUpon>common.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TemplateDetail.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TemplateHeader.cs">
+      <DependentUpon>TDManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TraceProgress.Context.cs">
       <AutoGen>True</AutoGen>
@@ -1716,6 +1781,8 @@
     <Content Include="Views\Home\Menu3_bk.cshtml" />
     <Content Include="Views\BI\BIManager.cshtml" />
     <Content Include="Views\BI\BIViewer.cshtml" />
+    <Content Include="Views\AreaAnalysis\TestMap.cshtml" />
+    <Content Include="Views\AreaAnalysis\AddEditProjectVII.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
