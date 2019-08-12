@@ -48,13 +48,9 @@
 
                     </div>
 
-
-
-
-
                 </div>
 
-                <div class="row" style="padding-top: 10px;">
+                <div class="row" style="padding-top: 10px;display:none">
                     <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
                         <div>ประเภทไฟล์</div>
                         <select class="form-control" id="ddlShapeFile">
@@ -73,16 +69,11 @@
                             <option value="4">WGS 1984 UTM Zone48</option>
                             <option value="5">Web Mercator</option>
 
-
-
-
-
-
                         </select>
                     </div>
                 </div>
 
-                <div class="row" style="padding-top: 10px;">
+                <div class="row" style="padding-top: 10px;display:none" >
                     <div class="col-md-12 col-sm-12 co-xs-12" style="padding-left: 0px;">
                         <div>ไฟล์ข้อมูล</div>
                         <div class="form-group">
@@ -104,11 +95,35 @@
                         @Html.TextAreaFor(model => model.Shape, new { @id = "Shape", @class = "col-md-12 col-sm-12 co-xs-12 form-control input__screen-full", @placeholder = "Shape" })
                     </div>
                 </div>
+                <div class="row" style="padding-top: 10px; visibility:hidden;position:absolute;">
+                    <div class="col-md-12 col-sm-12 co-xs-12">
+                        <button type="button" class="btn btn-default"  onclick="activateDraw(_gisIframeWindow)">วาดพื้นที่มีผลกระทบ</button>
+                    </div>
+                </div>
 
+                
                 <div class="row" style="padding-top: 10px; position:absolute;">
                     <div class="col-md-12 col-sm-12 co-xs-12">
-                        <input type="text" id="activateDrawResult" value="" width="100%" />
-                        <input type="button" value="Draw" onclick="activateDraw(_gisIframeWindow)" />
+                        
+                        <div class="clearfix">
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <button type="button" id="btnSubmit" class="btn btn-default" style="width: 150px;" onclick="activateDraw(_gisIframeWindow)">วาดพื้นที่ที่มีผลกระทบ</button>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
+                                <button type="button" id="btnSubmit" class="btn btn-default" style="width: 150px;" onclick="btnSubmitV2(@Model.ID)">
+                                    <i class="fa fa-save"></i>
+                                    @if (Model.ID > 0)
+                                    {<span>แก้ไข</span> }
+                                    else
+                                    { <span>บันทึก</span>}
+                                </button>
+                            </div>
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <button type="button" data-dismiss="modal" class="btn btn-grey-dark" style="width: 150px;"><i class="fa fa-refresh"></i> ยกเลิก</button>
+                            </div>
+                        </div>
                         
                     </div>
                 </div>
@@ -117,7 +132,9 @@
             </div>
             <div class="col-md-8 col-sm-8 co-xs-8" style="padding-left: 5px;">
                 <div class="divLand">
-                    <iframe id="gisIframe" frameborder="0" src="https://p-staging.treasury.go.th/TD2"></iframe>
+                    
+                    <iframe class="map-height" id="tdmap" src="https://p-staging.treasury.go.th/TD2" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
+
                 </div>
             </div>
         </div>
@@ -143,21 +160,9 @@
         @Html.HiddenFor(model => model.UPDATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่แก้ไข", @Value = System.DateTime.Now })
         @Html.HiddenFor(model => model.IS_DELETED, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @Value = "false" })
         @Html.HiddenFor(model => model.STATUS_ID, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @id = "StatusID" })
+        @Html.HiddenFor(model => model.Shape, new { @class = "form-control input__screen-full", @placeholder = "", @id = "hddShape" })
     </form>
-    <div class="clearfix">
-        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
-            <button type="button" id="btnSubmit" class="btn btn-default" style="width: 150px;" onclick="btnSubmit(@Model.ID)">
-                <i class="fa fa-save"></i>
-                @if (Model.ID > 0)
-                {<span>แก้ไข</span> }
-                else
-                { <span>บันทึก</span>}
-            </button>
-        </div>
-        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <button type="button" data-dismiss="modal" class="btn btn-grey-dark" style="width: 150px;"><i class="fa fa-refresh"></i> ยกเลิก</button>
-        </div>
-    </div>
+    
     @if (Model.ID > 0)
     {
         <div class="clearfix" style="font-size: 10px; margin-top:20px;">
@@ -168,6 +173,8 @@
         </div>
     }
 </div>
+
+
 <script>
 
 
@@ -297,48 +304,7 @@
         }
     }
 
-    function btnSubmit(id) {
-
-        try {
-            var formData = $('#myForm').serializeObject();
-            if (formData.PUBLISH_DATE == '00/00/0000 00:00') {
-                formData.PUBLISH_DATE = formData.CREATE_DATE;
-            }
-
-            var myFormData = JSON.stringify(formData);
-
-            /*mode save data*/
-            if (id <= 0) {
-                uploadShapeData(myFormData);
-
-
-            } else {
-                ImportShape.ShapeFile($('input[type=file]')[0].files);
-                url = rootUrl + "/api/AreaAnalysis/UpdateProject";
-                url = http.url(url);
-
-                $.ajax({
-                    url,
-                        type: "POST",
-                    data: myFormData,
-                    dataType: "json",
-                    contentType: 'application/json',
-                    success: function (response) {
-                        $("#myModal").modal("hide");
-                        window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
-                    }
-                });
-            }
-        } catch (e) {
-            alert(e.message);
-        }
-
-        
-
-
-
-        
-    }
+   
 
     $.fn.serializeObject = function () {
         var o = Object.create(null),
