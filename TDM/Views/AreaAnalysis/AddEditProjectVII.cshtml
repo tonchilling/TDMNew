@@ -1,4 +1,6 @@
-﻿@model TDM.Models.PROJECT_IMPACT
+﻿
+@model TDM.Models.PROJECT_IMPACT_ViewModel
+
 
 @{
     ViewBag.Title = "วิเคราะห์พื้นที่";
@@ -75,7 +77,7 @@
     <script src="~/assets/js/datatables/dataTables.responsive.min.js"></script>
     <script src="~/assets/js/datatables/responsive.bootstrap.js"></script>
     <script src="~/assets/js/datatables/dataTables.scroller.min.js"></script>
- 
+
     <script src="~/assets/js/datatables/pdfmake.min.js"></script>
     <script src="~/assets/js/datatables/vfs_fonts.js"></script>
     <script src="https://js.arcgis.com/4.10/"></script>
@@ -108,12 +110,13 @@
             background: #5cb85c;
             border: 1px solid #4cae4c;
         }
+
         .modal .modal-dialog {
-	        width: 90%; 
+            width: 90%;
             margin: 0px auto;
         }
 
-         input, select, textarea {
+        input, select, textarea {
             max-width: none;
         }
     </style>
@@ -127,7 +130,7 @@
     <div id="outer-wrapper">
         <!-- Inner Wrapper -->
         <div id="inner-wrapper">
-           
+
             <!-- Page Canvas-->
             <div id="page-canvas">
                 <!--Off Canvas Navigation-->
@@ -152,105 +155,19 @@
                         <form class="main-search" id="formSearch" role="form" method="post" action="">
                             <div class="container body">
                                 <div class="main_container">
-
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="x_panel tile  ">
-                                                <div class="x_title">
-                                                    <div class="col-md-10 col-sm-8 col-xs-9">
-                                                        <label class="Label__Header">ราคาซื้อขาย ราคาประเมิน (ที่ดิน)</label>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-4 col-xs-3">
-                                                        <ul class="nav navbar-right panel_toolbox">
-                                                            <li>
-                                                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                            </li>
-                                                            <li class="dropdown">
-                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                                <ul class="dropdown-menu" role="menu">
-                                                                    <li>
-                                                                        <a href="#">Settings 1</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">Settings 2</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a class="close-link"><i class="fa fa-close"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <div class="x_content">
-
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: #4367b0; color: #fff; padding-top:10px; padding-bottom: 10px;">
-                                                            เงื่อนไขการค้นหา
-                                                        </div>
-
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:solid 1px #d2d2d2; padding:20px 40px;">
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div>รหัสโครงการ</div>
-                                                                <input type="text" name="ProjectID" class="form-control input__screen-full" placeholder="รหัสโครงการ">
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div>ชื่อโครงการ</div>
-                                                                <input type="text" name="ProjectName" class="form-control input__screen-full" placeholder="ชื่อโครงการ">
-                                                            </div>
-
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 input__screen-full">
-                                                                <div>พื้นที่ที่กระทบกับโครงการ</div>
-                                                                <select name="ProvName" title="พื้นที่ที่กระทบกับโครงการ" data-live-search="true" id="allProvince"></select>
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div>วันที่เผยแพร่ข้อมูล</div>
-                                                                <input type="text" name="PublishDate" class="form-control input__screen-full" id='datetimepicker4' placeholder="วันที่เผยแพร่ข้อมูล">
-                                                            </div>
-
-                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
-                                                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
-                                                                    <button type="button" onclick="onSearchProjectClick('Submit')" class="btn btn-default"><i class="fa fa-search"></i> ค้นหา</button>
-                                                                </div>
-                                                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                                                    <button type="reset" onclick="onSearchProjectClick('Reset')" class="btn btn-grey-dark"><i class="fa fa-refresh"></i> ยกเลิก</button>
-                                                                </div>
-                                                                <!-- /.form-group -->
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:15px 0 0 0;">
-                                                            <a href="#" class="btn btn-default" onclick="AddProject(0)"><i class="fa fa-plus"></i> เพิ่มโครงการ</a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                            <div id="results-detail" class="scroller__track col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
-                                                                <table id="tdProjectImpactList" class="table table-bordered table-striped tblInfo"></table>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 
                                 </div>
                             </div>
-                            <input type="file" />
-                            <!--<iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:0px" allowfullscreen></iframe>-->
+                            
+                            <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:0px" allowfullscreen></iframe>
                         </form>
 
                     </div>
 
                     @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
 
-                    <div class="modal fade modal-manage" id="myModal1" >
+                    <div class="modal fade modal-manage" id="myModal1">
                         <div class="modal-dialog">
                             <div class="modal-content" style="background-color: #f4f4f2;">
                                 <div class="modal-header">
@@ -280,7 +197,7 @@
     <script src="~/Scripts/Shared/helper.js"></script>
 
     <script src="~/Scripts/Shared/config.js"></script>
-    <script src="~/Scripts/Shared/http.js?v=1"></script>
+    <script src="~/Scripts/Shared/http.js"></script>
     <script src="~/assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="~/assets/js/moment-with-locales.min.js"></script>
     <script src="~/assets/js/before.load.js"></script>
@@ -313,23 +230,23 @@
     <script src="~/Scripts/respond.js"></script>
 
 
-  
+
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
     <script src="~/assets/js/JSZip/jszip.js"></script>
-  
-   
+
+
 
     <script src="~/assets/js/ArcgisToGeojsonUtils/ArcgisToGeojsonUtils.js"></script>
-   
-   
+
+
     <script src="~/assets/js/ReadShapeFile/dbf.js?33e343"></script>
     <script src="~/assets/js/ReadShapeFile/shapefile.js?33e343"></script>
     <script src="~/assets/js/ReadShapeFile/stream.js"></script>
     <script src="~/assets/js/togeojson/togeojson.js"></script>
-    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4e964"></script>
+    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4ee974064"></script>
     <script>
-      
+
       /*  var iframeElement = document.getElementById('tdmap');
         iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
        var  gisIframeWindow = null;

@@ -311,20 +311,29 @@ function AddProject(projectId, statusId) {
                 $("#myModal1").appendTo("body");
                 //$('#btnSubmit').click(uploadShapeData);
 
-                var iframeElement = document.getElementById('tdmap');
+                try {
+                    var iframeElement = document.getElementById('tdmap');
                     iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
-                var gisIframeWindow = null;
-                iframeElement.onload = function () {
-                    gisIframeWindow = iframeElement.contentWindow;
-                    
+                    var gisIframeWindow = null;
+                    iframeElement.onload = function () {
+                        gisIframeWindow = iframeElement.contentWindow;
 
-                    gisIframeWindow.SYSTEM_READY(function (evt) {
-                        console.log("SYSTEM_READY >>> ", evt);
-                    });
-                    
-                    _gisIframeWindow = gisIframeWindow;
-                    //activateDraw(gisIframeWindow);
+                        _gisIframeWindow = gisIframeWindow;
+                        gisIframeWindow.SYSTEM_READY(function (evt) {
+                            console.log("SYSTEM_READY >>> ", evt);
+
+                            
+                            //activateDraw(gisIframeWindow);
+                        });
+
+                        
+                        
+                         
+                    }
+                } catch (e) {
+                    alert(e.message);
                 }
+                
 
                 
 
@@ -338,7 +347,7 @@ function AddProject(projectId, statusId) {
 }
 
 function activateDraw(gisIframeWindow) {
-    alert('ActiveDraw work!!!');
+    
     // Input
     var toolType = 'polygon',
       clearGraphicWhenComplete = true;
@@ -356,17 +365,31 @@ function activateDraw(gisIframeWindow) {
             console.log(gisIframeWindow.GIS.transform(shape, sridIn, sridOut));
             var result = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
             var txt = "";
-            result.forEach(function (item) {
-                txt = txt + JSON.stringify(item);
-            });
-            //document.getElementById("activateDrawResult").innerHTML = txt;
+            var i = 0;
 
+            if (result.length > 0) {
+                txt = JSON.stringify(result[0]);
+            }
+            document.getElementById("hddShape").value = txt;
+            //alert(document.getElementById("hddShape").value);
+            /*
+            result.forEach(function (item) {
+
+                txt = txt +JSON.stringify(item) + (i==0)?',':'';
+                i++;
+            });
+            
+            document.getElementById("hddShape").value = '['+txt+']';
+
+            alert(JSON.parse(document.getElementById("hddShape").value).length);
+            */
         });
     } catch (e) {
         alert(e.message);
     }
     
 }
+
 
 function DelProvImpact(projectId, projectName) {
     bootbox.confirm({
@@ -414,6 +437,61 @@ function DelSuccess(projectName) {
     });
 }
 
+function btnSubmitV2(id) {
+
+    try
+    {
+        var formData = $('#myForm').serializeObject();
+        if (formData.PUBLISH_DATE == '00/00/0000 00:00') {
+            formData.PUBLISH_DATE = formData.CREATE_DATE;
+        }
+
+        var shape = eval("(" + formData.Shape[1] + ')');
+
+        formData.Shape = shape.shape;
+
+        if (formData.Shape == null || formData.Shape == "") {
+            alert('กรุณาวาดแผนที่ ที่ได้รับผลกระทบ');
+            return;
+        }
+
+        var myFormData = JSON.stringify(formData);
+
+        /*mode save data*/
+        if (id <= 0 && false) {
+            alert('2');
+            uploadShapeData(myFormData);
+
+
+        } else {
+
+            //ImportShape.ShapeFile($('input[type=file]')[0].files);
+            //url = rootUrl + "/api/AreaAnalysis/UpdateProject";
+            url = "/api/AreaAnalysis/AddProject";
+            url = http.url(url);
+            
+            $.ajax({
+                url,
+                    type: "POST",
+                    data: myFormData,
+                    dataType: "json",
+                    contentType: 'application/json',
+                    success: function (response) {
+                        $("#myModal").modal("hide");
+                        window.location.href = http.url("/AreaAnalysis/Manage");
+                    }
+                });
+         }
+       } catch (e) {
+           alert(e.message);
+       }
+
+
+
+
+
+
+                }
 
 
 var ImportShape = {

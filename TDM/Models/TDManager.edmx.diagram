@@ -5,6 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="845f128463e24f4e8c5a81f2339defc5" Name="Diagram1" >
+
         <EntityTypeShape EntityType="TDManagementModel.PROV_IMPACT" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="TDManagementModel.STATUS_IMPACT" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="TDManagementModel.PROJECT_IMPACT" Width="1.5" PointX="7.75" PointY="2" />
@@ -18,6 +19,7 @@
         <EntityTypeShape EntityType="TDManagementModel.TemplateHeader" Width="1.5" PointX="10.75" PointY="5.75" />
         <EntityTypeShape EntityType="TDManagementModel.Land_MARKET_PRICE_L_Province" Width="1.5" PointX="6.75" PointY="10.75" />
         <EntityTypeShape EntityType="TDManagementModel.Log" Width="1.5" PointX="8.75" PointY="10.75" />
+
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

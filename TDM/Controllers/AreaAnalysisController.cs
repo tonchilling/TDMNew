@@ -28,7 +28,7 @@ namespace TDM.Controllers
         public ActionResult AddEditProject(int projectId, int statusId = 0)
         {
             PROJECT_IMPACT_ViewModel model = new PROJECT_IMPACT_ViewModel();
-            tdaEntities.Configuration.ProxyCreationEnabled = false;/*
+            tdaEntities.Configuration.ProxyCreationEnabled = false;/**/
             if (projectId > 0)
             {
                 PROJECT_IMPACT project = db.PROJECT_IMPACT.SingleOrDefault(x => x.ID == projectId && x.IS_DELETED == false);
@@ -81,19 +81,28 @@ namespace TDM.Controllers
             }
             catch(Exception ex) {
                 return Json(ex);
-            }*/
-           /*
+            }
+                                                          var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(model);
 
-
-
-                                                                               var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(model);*/
-
-               
             var json = System.IO.File.ReadAllText(@"C:\inetpub\wwwroot\GitHub\TDMNew\3Parties\json.txt");
 
             model = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<PROJECT_IMPACT_ViewModel>(json);
-
             return PartialView("Manage_Modal", model);
         }
+
+
+        public ActionResult AddEditProjectVII()
+        {
+            var json = System.IO.File.ReadAllText(@"C:\inetpub\wwwroot\GitHub\TDMNew\3Parties\json.txt");
+
+            var model = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<PROJECT_IMPACT_ViewModel>(json);
+            return View("AddEditProjectVII", model);
+        }
+
+        public ActionResult TestMap()
+        {
+            return View("TestMap");
+        }
+            
     }
 }
