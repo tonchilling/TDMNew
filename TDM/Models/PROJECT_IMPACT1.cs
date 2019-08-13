@@ -15,7 +15,7 @@ namespace TDM.Models
 using System;
     using System.Collections.Generic;
     
-public partial class PROJECT_IMPACT
+public partial class PROJECT_IMPACT1
 {
 
     public int ID { get; set; }
@@ -23,6 +23,16 @@ public partial class PROJECT_IMPACT
     public string SUBJECT_ID { get; set; }
 
     public string SUBJECT_NAME { get; set; }
+
+    public string PROVINCE_ID { get; set; }
+
+    public string AMPHOE_ID { get; set; }
+
+    public string TAMBOL_ID { get; set; }
+
+    public string Area { get; set; }
+
+    public string Shape { get; set; }
 
     public System.DateTime CREATE_DATE { get; set; }
 
@@ -38,17 +48,7 @@ public partial class PROJECT_IMPACT
 
     public bool IS_DELETED { get; set; }
 
-    public string PROVINCE_ID { get; set; }
-
     public string Description { get; set; }
-
-    public string Shape { get; set; }
-
-    public string AMPHOE_ID { get; set; }
-
-    public string TAMBOL_ID { get; set; }
-
-    public string Area { get; set; }
 
 }
 

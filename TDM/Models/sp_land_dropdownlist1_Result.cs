@@ -13,14 +13,13 @@ namespace TDM.Models
 {
 
 using System;
-    using System.Collections.Generic;
     
-public partial class STATUS_IMPACT
+public partial class sp_land_dropdownlist1_Result
 {
 
-    public int ID { get; set; }
+    public Nullable<int> Name { get; set; }
 
-    public string STATUS_NAME { get; set; }
+    public Nullable<int> Value { get; set; }
 
 }
 

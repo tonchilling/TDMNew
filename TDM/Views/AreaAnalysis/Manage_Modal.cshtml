@@ -305,11 +305,26 @@
                 formData.PUBLISH_DATE = formData.CREATE_DATE;
             }
 
+           
             var myFormData = JSON.stringify(formData);
 
             /*mode save data*/
             if (id <= 0) {
-                uploadShapeData(myFormData);
+               /// ImportShape.ShapeFile($('input[type=file]')[0].files);
+                url = rootUrl + "/api/AreaAnalysis/AddProject";
+                url = http.url(url);
+
+                $.ajax({
+                    url,
+                    type: "POST",
+                    data: myFormData,
+                    dataType: "json",
+                    contentType: 'application/json',
+                    success: function (response) {
+                        $("#myModal").modal("hide");
+                        window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
+                    }
+                });
 
 
             } else {

@@ -87,6 +87,8 @@ namespace TDM.Controllers
 
 
                                                                                var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(model);*/
+
+               
             var json = System.IO.File.ReadAllText(@"C:\inetpub\wwwroot\GitHub\TDMNew\3Parties\json.txt");
 
             model = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<PROJECT_IMPACT_ViewModel>(json);

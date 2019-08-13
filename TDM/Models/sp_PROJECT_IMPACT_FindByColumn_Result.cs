@@ -13,9 +13,8 @@ namespace TDM.Models
 {
 
 using System;
-    using System.Collections.Generic;
     
-public partial class PROJECT_IMPACT
+public partial class sp_PROJECT_IMPACT_FindByColumn_Result
 {
 
     public int ID { get; set; }
@@ -40,15 +39,19 @@ public partial class PROJECT_IMPACT
 
     public string PROVINCE_ID { get; set; }
 
+    public string ProvinceName { get; set; }
+
     public string Description { get; set; }
 
-    public string Shape { get; set; }
+    public string ShapeText { get; set; }
 
     public string AMPHOE_ID { get; set; }
 
+    public string AmphoeName { get; set; }
+
     public string TAMBOL_ID { get; set; }
 
-    public string Area { get; set; }
+    public string TambolName { get; set; }
 
 }
 

@@ -13,14 +13,13 @@ namespace TDM.Models
 {
 
 using System;
-    using System.Collections.Generic;
     
-public partial class STATUS_IMPACT
+public partial class GetMenu1_Result
 {
 
-    public int ID { get; set; }
+    public int NewParcel { get; set; }
 
-    public string STATUS_NAME { get; set; }
+    public int AllParcel { get; set; }
 
 }
 

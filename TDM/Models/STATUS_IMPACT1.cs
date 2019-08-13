@@ -15,7 +15,7 @@ namespace TDM.Models
 using System;
     using System.Collections.Generic;
     
-public partial class STATUS_IMPACT
+public partial class STATUS_IMPACT1
 {
 
     public int ID { get; set; }

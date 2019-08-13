@@ -15,12 +15,14 @@ namespace TDM.Models
 using System;
     using System.Collections.Generic;
     
-public partial class STATUS_IMPACT
+public partial class PROV_IMPACT1
 {
 
     public int ID { get; set; }
 
-    public string STATUS_NAME { get; set; }
+    public int PROJECT_ID { get; set; }
+
+    public string PROV_CODE { get; set; }
 
 }
 

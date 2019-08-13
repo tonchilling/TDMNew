@@ -13,14 +13,13 @@ namespace TDM.Models
 {
 
 using System;
-    using System.Collections.Generic;
     
-public partial class STATUS_IMPACT
+public partial class sp_Section1_EstimateList_Result
 {
 
-    public int ID { get; set; }
+    public string Code { get; set; }
 
-    public string STATUS_NAME { get; set; }
+    public string Name { get; set; }
 
 }
 
