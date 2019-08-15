@@ -392,26 +392,23 @@ function activateDraw(gisIframeWindow) {
 
 
 function DelProvImpact(projectId, projectName) {
-    bootbox.confirm({
-        title: "ยืนยันการลบข้อมูล",
-        message: `ยืนยันการลบข้อมูล ${projectName} หรือไม่`,
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> ยกเลิก',
-                className: 'btn-default'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> ยืนยัน',
-                className: 'btn-primary'
-            }
-        },
-        callback: function (result) {
-            if (result) {
+
+
+    swal({
+        title: "Delete",
+        text: "Do you want to delete?",
+type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+
                 var data = {
                     ID: projectId,
                     IS_DELETED: true
                 };
-
                 $.ajax({
                     url: http.url(rootUrl + "/api/AreaAnalysis/DeleteProject"),
                     type: "POST",
@@ -420,21 +417,29 @@ function DelProvImpact(projectId, projectName) {
                     contentType: 'application/json',
                     success: function () {
                         DelSuccess(projectName);
+                      
                     }
                 });
+
             }
-        }
-    });
+        });
+
+
+   
+
+  
 }
 
 function DelSuccess(projectName) {
-    bootbox.alert({
-        title: "ยืนยันการลบข้อมูล",
-        message: `ยืนยันการลบข้อมูล ${projectName} เรียบร้อยแล้ว`,
-        callback: function () {
-            window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
-        }
+
+    swal("ลบข้อมูลเรียบร้อย", {
+        icon: "success",
     });
+
+    window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
+
+
+   
 }
 
 function btnSubmitV2(id) {
@@ -445,15 +450,16 @@ function btnSubmitV2(id) {
         if (formData.PUBLISH_DATE == '00/00/0000 00:00') {
             formData.PUBLISH_DATE = formData.CREATE_DATE;
         }
+        if (formData.Shape == null || formData.Shape[1] == "") {
+            alert('กรุณาวาดแผนที่ ที่ได้รับผลกระทบ');
+            return;
+        }
 
         var shape = eval("(" + formData.Shape[1] + ')');
 
         formData.Shape = shape.shape;
 
-        if (formData.Shape == null || formData.Shape == "") {
-            alert('กรุณาวาดแผนที่ ที่ได้รับผลกระทบ');
-            return;
-        }
+      
 
         var myFormData = JSON.stringify(formData);
 
@@ -465,8 +471,18 @@ function btnSubmitV2(id) {
 
         } else {
 
-            //ImportShape.ShapeFile($('input[type=file]')[0].files);
-            //url = rootUrl + "/api/AreaAnalysis/UpdateProject";
+
+            swal({
+                title: "Save",
+                text: "Do you want to save?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                   //     waitingDialog.show('Waiting for saving', { dialogSize: 'md', progressType: 'success' });
             url = "/api/AreaAnalysis/AddProject";
             url = http.url(url);
             
@@ -476,9 +492,20 @@ function btnSubmitV2(id) {
                     data: myFormData,
                     dataType: "json",
                     contentType: 'application/json',
-                    success: function (response) {
+                success: function (response) {
+
+                    setTimeout(function () {
+
+                     //   waitingDialog.hide()
                         $("#myModal").modal("hide");
                         window.location.href = http.url("/AreaAnalysis/Manage");
+                    }, 1000);
+
+
+                      
+                    }
+                        });
+
                     }
                 });
          }

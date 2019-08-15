@@ -119,11 +119,15 @@ namespace TDM.Controllers.api
         [HttpPost]
         public IHttpActionResult AddProject(PROJECT_IMPACT project)
         {
+            var repos = new TDAssetRespository();
             try
             {
                 project.ID = 0;
                 PROJECT_IMPACT saveProject = tdmEntities.PROJECT_IMPACT.Add(project);
                 tdmEntities.SaveChanges();
+
+                repos.AddPROJECT_IMPACT_GEOMETRY(saveProject);
+
                 return Json(saveProject, jsonSetting);
             }
             catch (Exception ex)
@@ -710,7 +714,7 @@ namespace TDM.Controllers.api
                     /*save data*/
 
                     importInfo.ID = 0;
-                    importInfo.Area = geometries.Sum(g => g.AREA).ToString();
+                    importInfo.Area = geometries.Sum(g => g.AREA);
                     PROJECT_IMPACT saveProject = tdmEntities.PROJECT_IMPACT.Add(importInfo);
                     tdmEntities.SaveChanges();
 
@@ -755,34 +759,50 @@ namespace TDM.Controllers.api
         public IHttpActionResult GetImpackShapes(ProjectImpactShapeSearch data)
         {
             List<PROJECT_IMPACT_GEOMETRY> results = null;
-            int numberPerPage = 500;
-            bool requireOtherPage = false;
-            var count = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == data.ImportID).Select(s => s.ProjectImpactID).Count();
-            
-            if(count > 0)
-            {
-                results = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == data.ImportID)
-                    .OrderBy(o => o.ShapeID)
-                    .Skip(numberPerPage * data.PageNo)
-                    .Take(numberPerPage).ToList();
 
-                requireOtherPage = (((numberPerPage * data.PageNo) + numberPerPage) < count);
-               
-                return Json(new
-                {
-                    ProjectImpactImportedID = data.ImportID,
-                    RequireOtherPage = requireOtherPage,
-                    PageNo = data.PageNo,
-                    Shapes = results.Select(r => r.Shape.WellKnownValue).ToList(),
-                    
-            }, jsonSetting);
-            }
-            else
-            {
-                return Json(results, jsonSetting);
-            }
+            //  results = tdmEntities.PROJECT_IMPACT.Where(p => p.ID == data.ImportID).ToList();
+            results = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == data.ImportID).ToList();
 
-            
+            return Json(new
+            {
+                ProjectImpactImportedID = data.ImportID,
+                RequireOtherPage = 0,
+                Detail = results.Select(r=> new { Chanode=r.Chanode,Area=r.Area,Shape = r.Shape.WellKnownValue }).ToList(),
+                     PageNo = data.PageNo,
+                     Shapes = results.Select(r => r.Shape.WellKnownValue).ToList(),
+
+                 }, jsonSetting);
+
+          //  return Json(results, jsonSetting);
+            /*  List<PROJECT_IMPACT_GEOMETRY> results = null;
+              int numberPerPage = 500;
+              bool requireOtherPage = false;
+              var count = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == data.ImportID).Select(s => s.ProjectImpactID).Count();
+
+              if(count > 0)
+              {
+                  results = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == data.ImportID)
+                      .OrderBy(o => o.ShapeID)
+                      .Skip(numberPerPage * data.PageNo)
+                      .Take(numberPerPage).ToList();
+
+                  requireOtherPage = (((numberPerPage * data.PageNo) + numberPerPage) < count);
+
+                  return Json(new
+                  {
+                      ProjectImpactImportedID = data.ImportID,
+                      RequireOtherPage = requireOtherPage,
+                      PageNo = data.PageNo,
+                      Shapes = results.Select(r => r.Shape.WellKnownValue).ToList(),
+
+              }, jsonSetting);
+              }
+              else
+              {
+                  return Json(results, jsonSetting);
+              }*/
+
+
         }
 
 

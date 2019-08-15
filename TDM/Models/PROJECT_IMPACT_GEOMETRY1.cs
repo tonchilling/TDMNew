@@ -13,27 +13,26 @@ namespace TDM.Models
 {
 
 using System;
+    using System.Collections.Generic;
     
-public partial class GetTAMBOL_Result
+public partial class PROJECT_IMPACT_GEOMETRY1
 {
 
-    public string pro_c { get; set; }
+    public long ProjectImpactID { get; set; }
 
-    public string on_pro_tha { get; set; }
+    public long ShapeID { get; set; }
 
-    public string NAME_T { get; set; }
+    public decimal Area { get; set; }
 
-    public string dis_c { get; set; }
+    public string OriginX { get; set; }
 
-    public string SUB_C { get; set; }
+    public string OriginY { get; set; }
 
-    public string ON_DIS_THA { get; set; }
+    public System.Data.Entity.Spatial.DbGeometry Shape { get; set; }
 
-    public string ON_DIS_ENG { get; set; }
+    public System.DateTime UpdateDate { get; set; }
 
-    public string ON_SUB_THA { get; set; }
-
-    public string ON_SUB_ENG { get; set; }
+    public System.DateTime CreateDate { get; set; }
 
 }
 

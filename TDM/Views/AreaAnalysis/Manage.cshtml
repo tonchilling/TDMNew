@@ -13,11 +13,10 @@
         /**/
         //var root = ~/;
         /**/
-        var currentUrl="";
+        var currentUrl = "";
 
-        switch (document.location.hostname)
-        {
-            case 'localhost': currentUrl = "http://"+document.location.hostname + ":" + document.location.port; break;
+        switch (document.location.hostname) {
+            case 'localhost': currentUrl = "http://" + document.location.hostname + ":" + document.location.port; break;
             default: currentUrl = "https://" + document.location.hostname + "/TDManagement"; break;
         }
     </script>
@@ -37,7 +36,7 @@
     <link rel="stylesheet" href="~/assets/css/jquery.mCustomScrollbar.css" type="text/css">
     <link rel="stylesheet" href="~/assets/css/colors/green.css" type="text/css">
     <link rel="stylesheet" href="~/assets/css/user.style.css" type="text/css">
-
+    <link href="~/assets/css/sweetalert.css" rel="stylesheet" />
 
     <title>Treasury Map</title>
 
@@ -75,7 +74,7 @@
     <script src="~/assets/js/datatables/dataTables.responsive.min.js"></script>
     <script src="~/assets/js/datatables/responsive.bootstrap.js"></script>
     <script src="~/assets/js/datatables/dataTables.scroller.min.js"></script>
- 
+    <script src="~/Scripts/waiting.js?ver=1.0220"></script>
     <script src="~/assets/js/datatables/pdfmake.min.js"></script>
     <script src="~/assets/js/datatables/vfs_fonts.js"></script>
     <script src="https://js.arcgis.com/4.10/"></script>
@@ -108,12 +107,13 @@
             background: #5cb85c;
             border: 1px solid #4cae4c;
         }
+
         .modal .modal-dialog {
-	        width: 90%; 
+            width: 90%;
             margin: 0px auto;
         }
 
-         input, select, textarea {
+        input, select, textarea {
             max-width: none;
         }
     </style>
@@ -127,7 +127,7 @@
     <div id="outer-wrapper">
         <!-- Inner Wrapper -->
         <div id="inner-wrapper">
-           
+
             <!-- Page Canvas-->
             <div id="page-canvas">
                 <!--Off Canvas Navigation-->
@@ -242,15 +242,16 @@
 
                                 </div>
                             </div>
-                            <input type="file" />
-                            <!--<iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:0px" allowfullscreen></iframe>-->
+                           
+                           
+                            
                         </form>
 
                     </div>
 
                     @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
 
-                    <div class="modal fade modal-manage" id="myModal1" >
+                    <div class="modal fade modal-manage" id="myModal1">
                         <div class="modal-dialog">
                             <div class="modal-content" style="background-color: #f4f4f2;">
                                 <div class="modal-header">
@@ -306,41 +307,44 @@
     <script src="~/assets/js/charts-google.min.js"></script>
     <script src="~/assets/js/Chart.js"></script>
     <script src="~/assets/js/Chart/echarts.min.js"></script>
-    <script src="~/assets/js/bootbox.min.js"></script>
+
     <script src="~/assets/js/jquery.multi-select.js"></script>
     <script src="~/assets/js/jquery.quicksearch.js"></script>
 
     <script src="~/Scripts/respond.js"></script>
 
 
-  
+
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
     <script src="~/assets/js/JSZip/jszip.js"></script>
-  
-   
+
+
 
     <script src="~/assets/js/ArcgisToGeojsonUtils/ArcgisToGeojsonUtils.js"></script>
-   
-   
+
+
     <script src="~/assets/js/ReadShapeFile/dbf.js?33e343"></script>
     <script src="~/assets/js/ReadShapeFile/shapefile.js?33e343"></script>
     <script src="~/assets/js/ReadShapeFile/stream.js"></script>
     <script src="~/assets/js/togeojson/togeojson.js"></script>
-    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4e964"></script>
-    <script>
-      
-      /*  var iframeElement = document.getElementById('tdmap');
-        iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
-       var  gisIframeWindow = null;
-        iframeElement.onload = function () {
-            gisIframeWindow = iframeElement.contentWindow;
-        }*/
+    <script src="~/assets/js/sweetalert.js?"></script>
 
-       // var root= "<%= ResolveUrl("~/ASHX/PageControlHandler.ashx")%>";
-        /**/
-        //var root = ~/;
-        /**/
+    <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4334"></script>
+
+    <script>
+
+                      /*  var iframeElement = document.getElementById('tdmap');
+                        iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
+                       var  gisIframeWindow = null;
+                        iframeElement.onload = function () {
+                            gisIframeWindow = iframeElement.contentWindow;
+                        }*/
+
+                       // var root= "<%= ResolveUrl("~/ASHX/PageControlHandler.ashx")%>";
+                        /**/
+                        //var root = ~/;
+                        /**/
     </script>
     <style type="text/css">
     </style>

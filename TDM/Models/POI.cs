@@ -132,6 +132,7 @@ namespace TDM.Models
         public string Shape { get; set; }
         public string Area { get; set; }
         public string ParcelTotal { get; set; }
+        public string Buffer { get; set; }
     }
 
     public partial class POI

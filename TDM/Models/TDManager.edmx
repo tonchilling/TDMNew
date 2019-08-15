@@ -351,7 +351,8 @@ warning 6013: The table/view 'TDManagement.dbo.PARCEL_VAL_TUMBOL' does not have 
           <Property Name="PROVINCE_ID" Type="nvarchar" MaxLength="50" />
           <Property Name="AMPHOE_ID" Type="nvarchar" MaxLength="10" />
           <Property Name="TAMBOL_ID" Type="nvarchar" MaxLength="10" />
-          <Property Name="Area" Type="nvarchar" MaxLength="100" />
+          <Property Name="Area" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ParcelTotal" Type="int" />
           <Property Name="Shape" Type="varchar" MaxLength="8000" />
           <Property Name="CREATE_DATE" Type="datetime" Nullable="false" />
           <Property Name="CREATE_BY" Type="nvarchar" MaxLength="50" />
@@ -369,7 +370,11 @@ warning 6013: The table/view 'TDManagement.dbo.PARCEL_VAL_TUMBOL' does not have 
           </Key>
           <Property Name="ProjectImpactID" Type="bigint" Nullable="false" />
           <Property Name="ShapeID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Area" Type="decimal" Precision="18" Scale="10" Nullable="false" />
+          <Property Name="PROVINCE_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="AMPHOE_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="TAMBOL_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Chanode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Area" Type="decimal" Precision="18" Scale="2" />
           <Property Name="OriginX" Type="nvarchar" MaxLength="50" />
           <Property Name="OriginY" Type="nvarchar" MaxLength="50" />
           <Property Name="Shape" Type="geometry" />
@@ -1568,6 +1573,10 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
           <Parameter Name="AMPHOE_ID" Type="nvarchar" Mode="In" />
           <Parameter Name="TAMBOL_ID" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_PROJECT_IMPACT_GEOMETRY_Import" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProjectImpactID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Buffer" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Section1_EstimateList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SelectType" Type="nvarchar" Mode="In" />
           <Parameter Name="Code" Type="nvarchar" Mode="In" />
@@ -1946,208 +1955,10 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
           <EntitySet Name="PROJECT_IMPACT_GEOMETRY" EntityType="TDManagementModel.PROJECT_IMPACT_GEOMETRY" />
           <EntitySet Name="PROV_IMPACT" EntityType="TDManagementModel.PROV_IMPACT" />
           <EntitySet Name="STATUS_IMPACT" EntityType="TDManagementModel.STATUS_IMPACT" />
-          <EntitySet Name="PROJECT_IMPACT_GEOMETRY" EntityType="TDManagementModel.PROJECT_IMPACT_GEOMETRY" />
-          <EntitySet Name="Land_MARKET_PRICE_L_Region" EntityType="TDManagementModel.Land_MARKET_PRICE_L_Region" />
-          <EntitySet Name="PROJECT_IMPACT1" EntityType="TDManagementModel.PROJECT_IMPACT1" />
-          <EntitySet Name="PROJECT_IMPACT_GEOMETRY1" EntityType="TDManagementModel.PROJECT_IMPACT_GEOMETRY1" />
-          <EntitySet Name="PROV_IMPACT1" EntityType="TDManagementModel.PROV_IMPACT1" />
-          <EntitySet Name="STATUS_IMPACT1" EntityType="TDManagementModel.STATUS_IMPACT1" />
-
-          <FunctionImport Name="GetAllDatabase" />
-          <FunctionImport Name="GetAMPHOE" ReturnType="Collection(TDManagementModel.GetAMPHOE_Result)">
-            <Parameter Name="LocationType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetCluster" ReturnType="Collection(TDManagementModel.GetCluster_Result)" />
-          <FunctionImport Name="GetCondoRegisterMenu2">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="FromYYMM" Mode="In" Type="String" />
-            <Parameter Name="ToYYMM" Mode="In" Type="String" />
-            <Parameter Name="CondoName" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetConstructionType" ReturnType="Collection(TDManagementModel.GetConstructionType_Result)" />
-          <FunctionImport Name="GetConsturctionPrice">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="ConStructionType" Mode="In" Type="String" />
-            <Parameter Name="ProvinceCodeCompare1" Mode="In" Type="String" />
-            <Parameter Name="ProvinceCodeCompare2" Mode="In" Type="String" />
-            <Parameter Name="PercentCompare" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetConsturctionPriceBI">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="ConStructionType" Mode="In" Type="String" />
-            <Parameter Name="ProvinceCodeCompare1" Mode="In" Type="String" />
-            <Parameter Name="ProvinceCodeCompare2" Mode="In" Type="String" />
-            <Parameter Name="PercentCompare" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetLandPriceCompareMenu3">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="LocationType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="Year" Mode="In" Type="String" />
-            <Parameter Name="ProvinceCodeCompare1" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetLandRegisterMenu1">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="Month" Mode="In" Type="String" />
-            <Parameter Name="Year" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetMenu1" ReturnType="Collection(TDManagementModel.GetMenu1_Result)">
-            <Parameter Name="Year" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetPrice">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="ChanodeNo" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetPrice_Condo">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetPrice_CondoBI">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="LocationType" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetPrice_Parcel">
-            <Parameter Name="RegionCode" Mode="In" Type="String" />
-            <Parameter Name="ProvinceCode" Mode="In" Type="String" />
-            <Parameter Name="AmphureCode" Mode="In" Type="String" />
-            <Parameter Name="TumbolCode" Mode="In" Type="String" />
-            <Parameter Name="ChanodeNo" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetPrice_ParcelBI">
-            <Parameter Name="RegionCode" Mode="In" Type="String" />
-            <Parameter Name="ProvinceCode" Mode="In" Type="String" />
-            <Parameter Name="AmphureCode" Mode="In" Type="String" />
-            <Parameter Name="TumbolCode" Mode="In" Type="String" />
-            <Parameter Name="ChanodeNo" Mode="In" Type="String" />
-            <Parameter Name="LoactionType" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetPriceBI">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="ChanodeNo" Mode="In" Type="String" />
-            <Parameter Name="LocationType" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetPriceBI_bk">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="ChanodeNo" Mode="In" Type="String" />
-            <Parameter Name="LocationType" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetPriceByZone">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetPriceRVAL_Land">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-            <Parameter Name="ChanodeNo" Mode="In" Type="String" />
-            <Parameter Name="LocationType" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetProvince">
-            <Parameter Name="LocationType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetTAMBOL" ReturnType="Collection(TDManagementModel.GetTAMBOL_Result)">
-            <Parameter Name="LocationType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_CheckRealPrice">
-            <Parameter Name="TumbolCode" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_construction_dropdownlist" ReturnType="Collection(TDManagementModel.sp_construction_dropdownlist_Result)" />
-          <FunctionImport Name="sp_GetAddressList" />
-          <FunctionImport Name="sp_GetGraphList" ReturnType="Collection(TDManagementModel.sp_GetGraphList_Result)">
-            <Parameter Name="TemplateID" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_GetLandRatio">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_GetLandRegisterYear" ReturnType="Collection(Int32)" />
-          <FunctionImport Name="sp_Import_Parcel" />
-          <FunctionImport Name="sp_ImportGeneratePriceByTumbol" />
-          <FunctionImport Name="sp_land_dropdownlist" ReturnType="Collection(TDManagementModel.sp_land_dropdownlist_Result)" />
-          <FunctionImport Name="sp_PROJECT_IMPACT_FindByColumn" ReturnType="Collection(TDManagementModel.sp_PROJECT_IMPACT_FindByColumn_Result)">
-            <Parameter Name="SUBJECT_NAME" Mode="In" Type="String" />
-            <Parameter Name="PROVINCE_ID" Mode="In" Type="String" />
-            <Parameter Name="AMPHOE_ID" Mode="In" Type="String" />
-            <Parameter Name="TAMBOL_ID" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Section1_EstimateList" ReturnType="Collection(TDManagementModel.sp_Section1_EstimateList_Result)">
-            <Parameter Name="SelectType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_TemplateDetail_Insert">
-            <Parameter Name="TemplateID" Mode="In" Type="String" />
-            <Parameter Name="No" Mode="In" Type="String" />
-            <Parameter Name="GraphID" Mode="In" Type="String" />
-            <Parameter Name="Title" Mode="In" Type="String" />
-            <Parameter Name="Width" Mode="In" Type="String" />
-            <Parameter Name="Color" Mode="In" Type="String" />
-            <Parameter Name="x" Mode="In" Type="String" />
-            <Parameter Name="y" Mode="In" Type="String" />
-            <Parameter Name="Desc" Mode="In" Type="String" />
-            <Parameter Name="xAxisData" Mode="In" Type="String" />
-            <Parameter Name="yAxisData" Mode="In" Type="String" />
-            <Parameter Name="Connection" Mode="In" Type="String" />
-            <Parameter Name="Chart" Mode="In" Type="String" />
-            <Parameter Name="SortNo" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_TemplateHeader_dropdownlist" ReturnType="Collection(TDManagementModel.sp_TemplateHeader_dropdownlist_Result)" />
-          <FunctionImport Name="sp_TemplateHeader_Insert">
-            <Parameter Name="TemplateID" Mode="InOut" Type="String" />
-            <Parameter Name="Name" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="GetTAMBOL1" ReturnType="Collection(TDManagementModel.GetTAMBOL1_Result)">
-            <Parameter Name="LocationType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_GetLandRatio1">
-            <Parameter Name="SectionType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_GetLandRegisterYear1" ReturnType="Collection(Int32)" />
-          <FunctionImport Name="sp_Import_LandPrice" />
-          <FunctionImport Name="sp_land_dropdownlist1" ReturnType="Collection(TDManagementModel.sp_land_dropdownlist1_Result)" />
-          <FunctionImport Name="sp_PROJECT_IMPACT_FindByColumn1" ReturnType="Collection(TDManagementModel.sp_PROJECT_IMPACT_FindByColumn1_Result)">
-            <Parameter Name="SUBJECT_NAME" Mode="In" Type="String" />
-            <Parameter Name="PROVINCE_ID" Mode="In" Type="String" />
-            <Parameter Name="AMPHOE_ID" Mode="In" Type="String" />
-            <Parameter Name="TAMBOL_ID" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Section1_EstimateList1" ReturnType="Collection(TDManagementModel.sp_Section1_EstimateList1_Result)">
-            <Parameter Name="SelectType" Mode="In" Type="String" />
-            <Parameter Name="Code" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_TemplateDetail_Insert1">
-            <Parameter Name="TemplateID" Mode="In" Type="String" />
-            <Parameter Name="No" Mode="In" Type="String" />
-            <Parameter Name="GraphID" Mode="In" Type="String" />
-            <Parameter Name="Title" Mode="In" Type="String" />
-            <Parameter Name="Width" Mode="In" Type="String" />
-            <Parameter Name="Color" Mode="In" Type="String" />
-            <Parameter Name="x" Mode="In" Type="String" />
-            <Parameter Name="y" Mode="In" Type="String" />
-            <Parameter Name="Desc" Mode="In" Type="String" />
-            <Parameter Name="xAxisData" Mode="In" Type="String" />
-            <Parameter Name="yAxisData" Mode="In" Type="String" />
-            <Parameter Name="Connection" Mode="In" Type="String" />
-            <Parameter Name="Chart" Mode="In" Type="String" />
-            <Parameter Name="SortNo" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_TemplateHeader_dropdownlist1" ReturnType="Collection(TDManagementModel.sp_TemplateHeader_dropdownlist1_Result)" />
-          <FunctionImport Name="sp_TemplateHeader_Insert1">
-            <Parameter Name="TemplateID" Mode="InOut" Type="String" />
-            <Parameter Name="Name" Mode="In" Type="String" />
-          </FunctionImport>
-
+          <EntitySet Name="TemplateDetails" EntityType="TDManagementModel.TemplateDetail" />
+          <EntitySet Name="TemplateHeaders" EntityType="TDManagementModel.TemplateHeader" />
+          <EntitySet Name="Land_MARKET_PRICE_L_Province" EntityType="TDManagementModel.Land_MARKET_PRICE_L_Province" />
+          <EntitySet Name="Logs" EntityType="TDManagementModel.Log" />
         </EntityContainer>
         <ComplexType Name="GetAMPHOE_Result">
           <Property Type="String" Name="pro_c" Nullable="true" MaxLength="8" />
@@ -2351,7 +2162,8 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
           <Property Name="PROVINCE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AMPHOE_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="TAMBOL_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Area" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ParcelTotal" Type="Int32" />
           <Property Name="Shape" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="CREATE_DATE" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CREATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2369,7 +2181,11 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
           </Key>
           <Property Name="ProjectImpactID" Type="Int64" Nullable="false" />
           <Property Name="ShapeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Area" Type="Decimal" Nullable="false" Precision="18" Scale="10" />
+          <Property Name="PROVINCE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AMPHOE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TAMBOL_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Chanode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="OriginX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OriginY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Shape" Type="Geometry" />
@@ -2512,376 +2328,12 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Land_MARKET_PRICE_L_Region">
-          <Key>
-            <PropertyRef Name="MPL_ID" />
-          </Key>
-          <Property Name="MPL_ID" Type="Int32" Nullable="false" />
-          <Property Name="DATE_SV" Type="DateTime" Precision="0" />
-          <Property Name="LAND_ID" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="REG_DATE" Type="DateTime" Precision="0" />
-          <Property Name="REG_MI_CONSTR" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="REG_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="REG_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="RVAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="RVAL_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="RUSE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="RS_VAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QREG_MI_CONSTR" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QREG_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QREG_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QUSE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="QS_VAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="OREG_MI_CONSTR" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="OREG_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="OREG_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QODDS" Type="Decimal" Precision="2" Scale="0" />
-          <Property Name="OUSE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="OS_VAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="OINFORMATION" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="LREG_MI_CONSTR" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="LREG_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="LREG_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="LLEASE_P_MONTH" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="LEXPENSE" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="YIELD" Type="Decimal" Precision="7" Scale="4" />
-          <Property Name="LUSE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="LS_VAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="LINFORMATION" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="CREATE_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CREATE_DATE" Type="DateTime" Precision="0" />
-          <Property Name="UPDATE_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
-          <Property Name="USE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="CHANGWAT_CODE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="BRANCH_CODE" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="AMPHUR_CODE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="TUMBON_CODE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="UTM_CODE" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
-          <Property Name="UTM_NO_P" Type="Decimal" Precision="6" Scale="0" />
-          <Property Name="UTM_NO" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="UTM_PAGE" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="UTM_RATIO" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="UTM_LANDNO" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="CHANODE_NO" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="SURVEY_NO" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="NS3A_NO" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ORDER_ID" Type="Int32" />
-          <Property Name="REG_CODE" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="DOC_TYPE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="NRAI" Type="Int32" />
-          <Property Name="NNHAN" Type="Int32" />
-          <Property Name="NWAH" Type="Int32" />
-          <Property Name="DREMAIN" Type="Decimal" Precision="6" Scale="2" />
-          <Property Name="NUM_REG" Type="Int32" />
-          <Property Name="CONSTR_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="AS_RATIO" Type="Decimal" Precision="7" Scale="4" />
-          <Property Name="CONSTR_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="CONSTR_CODE_ALL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CONSTR_YEAR_ALL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CONSTR_AREA_ALL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RP1_ORDER_ID" Type="Int32" />
-          <Property Name="PARCEL_RN" Type="Int32" />
-          <Property Name="NS3K_RN" Type="Int32" />
-          <Property Name="MAPZONE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-        </EntityType>
-        <EntityType Name="PROJECT_IMPACT1">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SUBJECT_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SUBJECT_NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PROVINCE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AMPHOE_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="TAMBOL_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Area" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Shape" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
-          <Property Name="CREATE_DATE" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CREATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UPDATE_DATE" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UPDATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PUBLISH_DATE" Type="DateTime" Precision="3" />
-          <Property Name="IS_PUBLISHED" Type="Boolean" Nullable="false" />
-          <Property Name="IS_DELETED" Type="Boolean" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="PROJECT_IMPACT_GEOMETRY1">
-          <Key>
-            <PropertyRef Name="ProjectImpactID" />
-            <PropertyRef Name="ShapeID" />
-          </Key>
-          <Property Name="ProjectImpactID" Type="Int64" Nullable="false" />
-          <Property Name="ShapeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Area" Type="Decimal" Nullable="false" Precision="18" Scale="10" />
-          <Property Name="OriginX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OriginY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Shape" Type="Geometry" />
-          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="PROV_IMPACT1">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PROJECT_ID" Type="Int32" Nullable="false" />
-          <Property Name="PROV_CODE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="STATUS_IMPACT1">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="STATUS_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="TemplateDetail">
-          <Key>
-            <PropertyRef Name="TemplateID" />
-            <PropertyRef Name="No" />
-          </Key>
-          <Property Name="TemplateID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="No" Type="Int32" Nullable="false" />
-          <Property Name="GraphID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Width" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Color" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="x" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="y" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Desc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Connection" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Chart" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="xAxisData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="yAxisData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SortNo" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Row_State" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="TemplateHeader">
-          <Key>
-            <PropertyRef Name="TemplateID" />
-          </Key>
-          <Property Name="TemplateID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Row_State" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Land_MARKET_PRICE_L_Province">
-          <Key>
-            <PropertyRef Name="MPL_ID" />
-          </Key>
-          <Property Name="MPL_ID" Type="Int32" Nullable="false" />
-          <Property Name="DATE_SV" Type="DateTime" Precision="0" />
-          <Property Name="LAND_ID" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="REG_DATE" Type="DateTime" Precision="0" />
-          <Property Name="REG_MI_CONSTR" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="REG_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="REG_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="RVAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="RVAL_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="RUSE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="RS_VAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QREG_MI_CONSTR" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QREG_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QREG_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QUSE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="QS_VAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="OREG_MI_CONSTR" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="OREG_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="OREG_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="QODDS" Type="Decimal" Precision="2" Scale="0" />
-          <Property Name="OUSE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="OS_VAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="OINFORMATION" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="LREG_MI_CONSTR" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="LREG_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="LREG_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="LLEASE_P_MONTH" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="LEXPENSE" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="YIELD" Type="Decimal" Precision="7" Scale="4" />
-          <Property Name="LUSE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="LS_VAL_P_WAH" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="LINFORMATION" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="CREATE_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CREATE_DATE" Type="DateTime" Precision="0" />
-          <Property Name="UPDATE_BY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
-          <Property Name="USE_FLAG" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="CHANGWAT_CODE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="BRANCH_CODE" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
-          <Property Name="AMPHUR_CODE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="TUMBON_CODE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="UTM_CODE" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
-          <Property Name="UTM_NO_P" Type="Decimal" Precision="6" Scale="0" />
-          <Property Name="UTM_NO" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="UTM_PAGE" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="UTM_RATIO" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="UTM_LANDNO" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="CHANODE_NO" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="SURVEY_NO" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="NS3A_NO" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ORDER_ID" Type="Int32" />
-          <Property Name="REG_CODE" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="DOC_TYPE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="NRAI" Type="Int32" />
-          <Property Name="NNHAN" Type="Int32" />
-          <Property Name="NWAH" Type="Int32" />
-          <Property Name="DREMAIN" Type="Decimal" Precision="6" Scale="2" />
-          <Property Name="NUM_REG" Type="Int32" />
-          <Property Name="CONSTR_FLAG" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="AS_RATIO" Type="Decimal" Precision="7" Scale="4" />
-          <Property Name="CONSTR_AMT" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="CONSTR_CODE_ALL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CONSTR_YEAR_ALL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CONSTR_AREA_ALL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RP1_ORDER_ID" Type="Int32" />
-          <Property Name="PARCEL_RN" Type="Int32" />
-          <Property Name="NS3K_RN" Type="Int32" />
-          <Property Name="MAPZONE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Desc" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
-          <Property Name="Level" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <ComplexType Name="GetAMPHOE_Result">
-          <Property Type="String" Name="pro_c" Nullable="true" MaxLength="8" />
-          <Property Type="String" Name="on_pro_tha" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="NAME_T" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="dis_c" Nullable="true" MaxLength="8" />
-          <Property Type="String" Name="ON_DIS_THA" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="ON_DIS_ENG" Nullable="true" MaxLength="254" />
-        </ComplexType>
-        <ComplexType Name="GetCluster_Result">
-          <Property Type="Int32" Name="Value" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
-        </ComplexType>
-        <ComplexType Name="GetConstructionType_Result">
-          <Property Type="String" Name="Value" Nullable="false" MaxLength="150" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="150" />
-        </ComplexType>
-        <ComplexType Name="GetMenu1_Result">
-          <Property Type="Int32" Name="NewParcel" Nullable="false" />
-          <Property Type="Int32" Name="AllParcel" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="GetTAMBOL_Result">
-          <Property Type="String" Name="pro_c" Nullable="true" MaxLength="8" />
-          <Property Type="String" Name="on_pro_tha" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="NAME_T" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="dis_c" Nullable="true" MaxLength="8" />
-          <Property Type="String" Name="SUB_C" Nullable="true" MaxLength="8" />
-          <Property Type="String" Name="ON_DIS_THA" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="ON_DIS_ENG" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="ON_SUB_THA" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="ON_SUB_ENG" Nullable="true" MaxLength="254" />
-        </ComplexType>
-        <ComplexType Name="sp_construction_dropdownlist_Result">
-          <Property Type="Int32" Name="Name" Nullable="true" />
-          <Property Type="Int32" Name="Value" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_GetGraphList_Result">
-          <Property Type="String" Name="TemplateID" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="CreateBy" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Row_State" Nullable="true" MaxLength="2" />
-        </ComplexType>
-        <ComplexType Name="sp_land_dropdownlist_Result">
-          <Property Type="Int32" Name="Name" Nullable="true" />
-          <Property Type="Int32" Name="Value" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_PROJECT_IMPACT_FindByColumn_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="SUBJECT_ID" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="SUBJECT_NAME" Nullable="false" MaxLength="100" />
-          <Property Type="DateTime" Name="CREATE_DATE" Nullable="false" Precision="23" />
-          <Property Type="String" Name="CREATE_BY" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="UPDATE_DATE" Nullable="false" Precision="23" />
-          <Property Type="String" Name="UPDATE_BY" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="PUBLISH_DATE" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="IS_PUBLISHED" Nullable="false" />
-          <Property Type="Boolean" Name="IS_DELETED" Nullable="false" />
-          <Property Type="String" Name="PROVINCE_ID" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ProvinceName" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ShapeText" Nullable="true" MaxLength="8000" />
-          <Property Type="String" Name="AMPHOE_ID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="AmphoeName" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="TAMBOL_ID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="TambolName" Nullable="true" MaxLength="254" />
-        </ComplexType>
-        <ComplexType Name="sp_Section1_EstimateList_Result">
-          <Property Type="String" Name="Code" Nullable="false" MaxLength="60" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="120" />
-        </ComplexType>
-        <ComplexType Name="sp_TemplateHeader_dropdownlist_Result">
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="Value" Nullable="false" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="GetTAMBOL1_Result">
-          <Property Type="String" Name="pro_c" Nullable="true" MaxLength="8" />
-          <Property Type="String" Name="on_pro_tha" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="NAME_T" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="dis_c" Nullable="true" MaxLength="8" />
-          <Property Type="String" Name="SUB_C" Nullable="true" MaxLength="8" />
-          <Property Type="String" Name="ON_DIS_THA" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="ON_DIS_ENG" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="ON_SUB_THA" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="ON_SUB_ENG" Nullable="true" MaxLength="254" />
-        </ComplexType>
-        <ComplexType Name="sp_land_dropdownlist1_Result">
-          <Property Type="Int32" Name="Name" Nullable="true" />
-          <Property Type="Int32" Name="Value" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_PROJECT_IMPACT_FindByColumn1_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="SUBJECT_ID" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="SUBJECT_NAME" Nullable="false" MaxLength="100" />
-          <Property Type="DateTime" Name="CREATE_DATE" Nullable="false" Precision="23" />
-          <Property Type="String" Name="CREATE_BY" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="UPDATE_DATE" Nullable="false" Precision="23" />
-          <Property Type="String" Name="UPDATE_BY" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="PUBLISH_DATE" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="IS_PUBLISHED" Nullable="false" />
-          <Property Type="Boolean" Name="IS_DELETED" Nullable="false" />
-          <Property Type="String" Name="PROVINCE_ID" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ProvinceName" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ShapeText" Nullable="true" MaxLength="8000" />
-          <Property Type="String" Name="AMPHOE_ID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="AmphoeName" Nullable="true" MaxLength="254" />
-          <Property Type="String" Name="TAMBOL_ID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="TambolName" Nullable="true" MaxLength="254" />
-        </ComplexType>
-        <ComplexType Name="sp_Section1_EstimateList1_Result">
-          <Property Type="String" Name="Code" Nullable="false" MaxLength="60" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="120" />
-        </ComplexType>
-        <ComplexType Name="sp_TemplateHeader_dropdownlist1_Result">
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="Value" Nullable="false" MaxLength="50" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TDManagementModelStoreContainer" CdmEntityContainer="TDManagementEntities" >
-
           <FunctionImportMapping FunctionImportName="GetAllDatabase" FunctionName="TDManagementModel.Store.GetAllDatabase" />
           <FunctionImportMapping FunctionImportName="GetAMPHOE" FunctionName="TDManagementModel.Store.GetAMPHOE">
             <ResultMapping>
@@ -3094,13 +2546,173 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_TemplateHeader_Insert1" FunctionName="TDManagementModel.Store.sp_TemplateHeader_Insert1" />
-
-          <EntitySetMapping Name="PROJECT_IMPACT1">
-            <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT1">
-
+          <EntitySetMapping Name="Land_MARKET_PRICE_L_Region">
+            <EntityTypeMapping TypeName="TDManagementModel.Land_MARKET_PRICE_L_Region">
+              <MappingFragment StoreEntitySet="Land_MARKET_PRICE_L_Region">
+                <ScalarProperty Name="MAPZONE" ColumnName="MAPZONE" />
+                <ScalarProperty Name="NS3K_RN" ColumnName="NS3K_RN" />
+                <ScalarProperty Name="PARCEL_RN" ColumnName="PARCEL_RN" />
+                <ScalarProperty Name="RP1_ORDER_ID" ColumnName="RP1_ORDER_ID" />
+                <ScalarProperty Name="CONSTR_AREA_ALL" ColumnName="CONSTR_AREA_ALL" />
+                <ScalarProperty Name="CONSTR_YEAR_ALL" ColumnName="CONSTR_YEAR_ALL" />
+                <ScalarProperty Name="CONSTR_CODE_ALL" ColumnName="CONSTR_CODE_ALL" />
+                <ScalarProperty Name="CONSTR_AMT" ColumnName="CONSTR_AMT" />
+                <ScalarProperty Name="AS_RATIO" ColumnName="AS_RATIO" />
+                <ScalarProperty Name="CONSTR_FLAG" ColumnName="CONSTR_FLAG" />
+                <ScalarProperty Name="NUM_REG" ColumnName="NUM_REG" />
+                <ScalarProperty Name="DREMAIN" ColumnName="DREMAIN" />
+                <ScalarProperty Name="NWAH" ColumnName="NWAH" />
+                <ScalarProperty Name="NNHAN" ColumnName="NNHAN" />
+                <ScalarProperty Name="NRAI" ColumnName="NRAI" />
+                <ScalarProperty Name="DOC_TYPE" ColumnName="DOC_TYPE" />
+                <ScalarProperty Name="REG_CODE" ColumnName="REG_CODE" />
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+                <ScalarProperty Name="NS3A_NO" ColumnName="NS3A_NO" />
+                <ScalarProperty Name="SURVEY_NO" ColumnName="SURVEY_NO" />
+                <ScalarProperty Name="CHANODE_NO" ColumnName="CHANODE_NO" />
+                <ScalarProperty Name="UTM_LANDNO" ColumnName="UTM_LANDNO" />
+                <ScalarProperty Name="UTM_RATIO" ColumnName="UTM_RATIO" />
+                <ScalarProperty Name="UTM_PAGE" ColumnName="UTM_PAGE" />
+                <ScalarProperty Name="UTM_NO" ColumnName="UTM_NO" />
+                <ScalarProperty Name="UTM_NO_P" ColumnName="UTM_NO_P" />
+                <ScalarProperty Name="UTM_CODE" ColumnName="UTM_CODE" />
+                <ScalarProperty Name="TUMBON_CODE" ColumnName="TUMBON_CODE" />
+                <ScalarProperty Name="AMPHUR_CODE" ColumnName="AMPHUR_CODE" />
+                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
+                <ScalarProperty Name="CHANGWAT_CODE" ColumnName="CHANGWAT_CODE" />
+                <ScalarProperty Name="USE_FLAG" ColumnName="USE_FLAG" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="LINFORMATION" ColumnName="LINFORMATION" />
+                <ScalarProperty Name="LS_VAL_P_WAH" ColumnName="LS_VAL_P_WAH" />
+                <ScalarProperty Name="LUSE_FLAG" ColumnName="LUSE_FLAG" />
+                <ScalarProperty Name="YIELD" ColumnName="YIELD" />
+                <ScalarProperty Name="LEXPENSE" ColumnName="LEXPENSE" />
+                <ScalarProperty Name="LLEASE_P_MONTH" ColumnName="LLEASE_P_MONTH" />
+                <ScalarProperty Name="LREG_P_WAH" ColumnName="LREG_P_WAH" />
+                <ScalarProperty Name="LREG_AMT" ColumnName="LREG_AMT" />
+                <ScalarProperty Name="LREG_MI_CONSTR" ColumnName="LREG_MI_CONSTR" />
+                <ScalarProperty Name="OINFORMATION" ColumnName="OINFORMATION" />
+                <ScalarProperty Name="OS_VAL_P_WAH" ColumnName="OS_VAL_P_WAH" />
+                <ScalarProperty Name="OUSE_FLAG" ColumnName="OUSE_FLAG" />
+                <ScalarProperty Name="QODDS" ColumnName="QODDS" />
+                <ScalarProperty Name="OREG_P_WAH" ColumnName="OREG_P_WAH" />
+                <ScalarProperty Name="OREG_AMT" ColumnName="OREG_AMT" />
+                <ScalarProperty Name="OREG_MI_CONSTR" ColumnName="OREG_MI_CONSTR" />
+                <ScalarProperty Name="QS_VAL_P_WAH" ColumnName="QS_VAL_P_WAH" />
+                <ScalarProperty Name="QUSE_FLAG" ColumnName="QUSE_FLAG" />
+                <ScalarProperty Name="QREG_P_WAH" ColumnName="QREG_P_WAH" />
+                <ScalarProperty Name="QREG_AMT" ColumnName="QREG_AMT" />
+                <ScalarProperty Name="QREG_MI_CONSTR" ColumnName="QREG_MI_CONSTR" />
+                <ScalarProperty Name="RS_VAL_P_WAH" ColumnName="RS_VAL_P_WAH" />
+                <ScalarProperty Name="RUSE_FLAG" ColumnName="RUSE_FLAG" />
+                <ScalarProperty Name="RVAL_AMT" ColumnName="RVAL_AMT" />
+                <ScalarProperty Name="RVAL_P_WAH" ColumnName="RVAL_P_WAH" />
+                <ScalarProperty Name="REG_P_WAH" ColumnName="REG_P_WAH" />
+                <ScalarProperty Name="REG_AMT" ColumnName="REG_AMT" />
+                <ScalarProperty Name="REG_MI_CONSTR" ColumnName="REG_MI_CONSTR" />
+                <ScalarProperty Name="REG_DATE" ColumnName="REG_DATE" />
+                <ScalarProperty Name="LAND_ID" ColumnName="LAND_ID" />
+                <ScalarProperty Name="DATE_SV" ColumnName="DATE_SV" />
+                <ScalarProperty Name="MPL_ID" ColumnName="MPL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PROJECT_IMPACT">
             <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT">
-
+              <MappingFragment StoreEntitySet="PROJECT_IMPACT">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="IS_PUBLISHED" ColumnName="IS_PUBLISHED" />
+                <ScalarProperty Name="PUBLISH_DATE" ColumnName="PUBLISH_DATE" />
+                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+                <ScalarProperty Name="Shape" ColumnName="Shape" />
+                <ScalarProperty Name="ParcelTotal" ColumnName="ParcelTotal" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
+                <ScalarProperty Name="AMPHOE_ID" ColumnName="AMPHOE_ID" />
+                <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+                <ScalarProperty Name="SUBJECT_NAME" ColumnName="SUBJECT_NAME" />
+                <ScalarProperty Name="SUBJECT_ID" ColumnName="SUBJECT_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROJECT_IMPACT_GEOMETRY">
+            <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT_GEOMETRY">
+              <MappingFragment StoreEntitySet="PROJECT_IMPACT_GEOMETRY">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Shape" ColumnName="Shape" />
+                <ScalarProperty Name="OriginY" ColumnName="OriginY" />
+                <ScalarProperty Name="OriginX" ColumnName="OriginX" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Chanode" ColumnName="Chanode" />
+                <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
+                <ScalarProperty Name="AMPHOE_ID" ColumnName="AMPHOE_ID" />
+                <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
+                <ScalarProperty Name="ShapeID" ColumnName="ShapeID" />
+                <ScalarProperty Name="ProjectImpactID" ColumnName="ProjectImpactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROV_IMPACT">
+            <EntityTypeMapping TypeName="TDManagementModel.PROV_IMPACT">
+              <MappingFragment StoreEntitySet="PROV_IMPACT">
+                <ScalarProperty Name="PROV_CODE" ColumnName="PROV_CODE" />
+                <ScalarProperty Name="PROJECT_ID" ColumnName="PROJECT_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATUS_IMPACT">
+            <EntityTypeMapping TypeName="TDManagementModel.STATUS_IMPACT">
+              <MappingFragment StoreEntitySet="STATUS_IMPACT">
+                <ScalarProperty Name="STATUS_NAME" ColumnName="STATUS_NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateDetails">
+            <EntityTypeMapping TypeName="TDManagementModel.TemplateDetail">
+              <MappingFragment StoreEntitySet="TemplateDetail">
+                <ScalarProperty Name="Row_State" ColumnName="Row_State" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="SortNo" ColumnName="SortNo" />
+                <ScalarProperty Name="yAxisData" ColumnName="yAxisData" />
+                <ScalarProperty Name="xAxisData" ColumnName="xAxisData" />
+                <ScalarProperty Name="Chart" ColumnName="Chart" />
+                <ScalarProperty Name="Connection" ColumnName="Connection" />
+                <ScalarProperty Name="Desc" ColumnName="Desc" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="GraphID" ColumnName="GraphID" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemplateHeaders">
+            <EntityTypeMapping TypeName="TDManagementModel.TemplateHeader">
+              <MappingFragment StoreEntitySet="TemplateHeader">
+                <ScalarProperty Name="Row_State" ColumnName="Row_State" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3190,218 +2802,6 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAllDatabase" FunctionName="TDManagementModel.Store.GetAllDatabase" />
-          <FunctionImportMapping FunctionImportName="GetAMPHOE" FunctionName="TDManagementModel.Store.GetAMPHOE">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.GetAMPHOE_Result">
-                <ScalarProperty Name="pro_c" ColumnName="pro_c" />
-                <ScalarProperty Name="on_pro_tha" ColumnName="on_pro_tha" />
-                <ScalarProperty Name="NAME_T" ColumnName="NAME_T" />
-                <ScalarProperty Name="dis_c" ColumnName="dis_c" />
-                <ScalarProperty Name="ON_DIS_THA" ColumnName="ON_DIS_THA" />
-                <ScalarProperty Name="ON_DIS_ENG" ColumnName="ON_DIS_ENG" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetCluster" FunctionName="TDManagementModel.Store.GetCluster">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.GetCluster_Result">
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetCondoRegisterMenu2" FunctionName="TDManagementModel.Store.GetCondoRegisterMenu2" />
-          <FunctionImportMapping FunctionImportName="GetConstructionType" FunctionName="TDManagementModel.Store.GetConstructionType">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.GetConstructionType_Result">
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetConsturctionPrice" FunctionName="TDManagementModel.Store.GetConsturctionPrice" />
-          <FunctionImportMapping FunctionImportName="GetConsturctionPriceBI" FunctionName="TDManagementModel.Store.GetConsturctionPriceBI" />
-          <FunctionImportMapping FunctionImportName="GetLandPriceCompareMenu3" FunctionName="TDManagementModel.Store.GetLandPriceCompareMenu3" />
-          <FunctionImportMapping FunctionImportName="GetLandRegisterMenu1" FunctionName="TDManagementModel.Store.GetLandRegisterMenu1" />
-          <FunctionImportMapping FunctionImportName="GetMenu1" FunctionName="TDManagementModel.Store.GetMenu1">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.GetMenu1_Result">
-                <ScalarProperty Name="NewParcel" ColumnName="NewParcel" />
-                <ScalarProperty Name="AllParcel" ColumnName="AllParcel" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetPrice" FunctionName="TDManagementModel.Store.GetPrice" />
-          <FunctionImportMapping FunctionImportName="GetPrice_Condo" FunctionName="TDManagementModel.Store.GetPrice_Condo" />
-          <FunctionImportMapping FunctionImportName="GetPrice_CondoBI" FunctionName="TDManagementModel.Store.GetPrice_CondoBI" />
-          <FunctionImportMapping FunctionImportName="GetPrice_Parcel" FunctionName="TDManagementModel.Store.GetPrice_Parcel" />
-          <FunctionImportMapping FunctionImportName="GetPrice_ParcelBI" FunctionName="TDManagementModel.Store.GetPrice_ParcelBI" />
-          <FunctionImportMapping FunctionImportName="GetPriceBI" FunctionName="TDManagementModel.Store.GetPriceBI" />
-          <FunctionImportMapping FunctionImportName="GetPriceBI_bk" FunctionName="TDManagementModel.Store.GetPriceBI_bk" />
-          <FunctionImportMapping FunctionImportName="GetPriceByZone" FunctionName="TDManagementModel.Store.GetPriceByZone" />
-          <FunctionImportMapping FunctionImportName="GetPriceRVAL_Land" FunctionName="TDManagementModel.Store.GetPriceRVAL_Land" />
-          <FunctionImportMapping FunctionImportName="GetProvince" FunctionName="TDManagementModel.Store.GetProvince" />
-          <FunctionImportMapping FunctionImportName="GetTAMBOL" FunctionName="TDManagementModel.Store.GetTAMBOL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.GetTAMBOL_Result">
-                <ScalarProperty Name="pro_c" ColumnName="pro_c" />
-                <ScalarProperty Name="on_pro_tha" ColumnName="on_pro_tha" />
-                <ScalarProperty Name="NAME_T" ColumnName="NAME_T" />
-                <ScalarProperty Name="dis_c" ColumnName="dis_c" />
-                <ScalarProperty Name="SUB_C" ColumnName="SUB_C" />
-                <ScalarProperty Name="ON_DIS_THA" ColumnName="ON_DIS_THA" />
-                <ScalarProperty Name="ON_DIS_ENG" ColumnName="ON_DIS_ENG" />
-                <ScalarProperty Name="ON_SUB_THA" ColumnName="ON_SUB_THA" />
-                <ScalarProperty Name="ON_SUB_ENG" ColumnName="ON_SUB_ENG" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CheckRealPrice" FunctionName="TDManagementModel.Store.sp_CheckRealPrice" />
-          <FunctionImportMapping FunctionImportName="sp_construction_dropdownlist" FunctionName="TDManagementModel.Store.sp_construction_dropdownlist">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_construction_dropdownlist_Result">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetAddressList" FunctionName="TDManagementModel.Store.sp_GetAddressList" />
-          <FunctionImportMapping FunctionImportName="sp_GetGraphList" FunctionName="TDManagementModel.Store.sp_GetGraphList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_GetGraphList_Result">
-                <ScalarProperty Name="TemplateID" ColumnName="TemplateID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-                <ScalarProperty Name="Row_State" ColumnName="Row_State" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetLandRatio" FunctionName="TDManagementModel.Store.sp_GetLandRatio" />
-          <FunctionImportMapping FunctionImportName="sp_GetLandRegisterYear" FunctionName="TDManagementModel.Store.sp_GetLandRegisterYear" />
-          <FunctionImportMapping FunctionImportName="sp_Import_Parcel" FunctionName="TDManagementModel.Store.sp_Import_Parcel" />
-          <FunctionImportMapping FunctionImportName="sp_ImportGeneratePriceByTumbol" FunctionName="TDManagementModel.Store.sp_ImportGeneratePriceByTumbol" />
-          <FunctionImportMapping FunctionImportName="sp_land_dropdownlist" FunctionName="TDManagementModel.Store.sp_land_dropdownlist">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_land_dropdownlist_Result">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_PROJECT_IMPACT_FindByColumn" FunctionName="TDManagementModel.Store.sp_PROJECT_IMPACT_FindByColumn">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_PROJECT_IMPACT_FindByColumn_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SUBJECT_ID" ColumnName="SUBJECT_ID" />
-                <ScalarProperty Name="SUBJECT_NAME" ColumnName="SUBJECT_NAME" />
-                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
-                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
-                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
-                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
-                <ScalarProperty Name="PUBLISH_DATE" ColumnName="PUBLISH_DATE" />
-                <ScalarProperty Name="IS_PUBLISHED" ColumnName="IS_PUBLISHED" />
-                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
-                <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
-                <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ShapeText" ColumnName="ShapeText" />
-                <ScalarProperty Name="AMPHOE_ID" ColumnName="AMPHOE_ID" />
-                <ScalarProperty Name="AmphoeName" ColumnName="AmphoeName" />
-                <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
-                <ScalarProperty Name="TambolName" ColumnName="TambolName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Section1_EstimateList" FunctionName="TDManagementModel.Store.sp_Section1_EstimateList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_Section1_EstimateList_Result">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_TemplateDetail_Insert" FunctionName="TDManagementModel.Store.sp_TemplateDetail_Insert" />
-          <FunctionImportMapping FunctionImportName="sp_TemplateHeader_dropdownlist" FunctionName="TDManagementModel.Store.sp_TemplateHeader_dropdownlist">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_TemplateHeader_dropdownlist_Result">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_TemplateHeader_Insert" FunctionName="TDManagementModel.Store.sp_TemplateHeader_Insert" />
-          <FunctionImportMapping FunctionImportName="GetTAMBOL1" FunctionName="TDManagementModel.Store.GetTAMBOL1">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.GetTAMBOL1_Result">
-                <ScalarProperty Name="pro_c" ColumnName="pro_c" />
-                <ScalarProperty Name="on_pro_tha" ColumnName="on_pro_tha" />
-                <ScalarProperty Name="NAME_T" ColumnName="NAME_T" />
-                <ScalarProperty Name="dis_c" ColumnName="dis_c" />
-                <ScalarProperty Name="SUB_C" ColumnName="SUB_C" />
-                <ScalarProperty Name="ON_DIS_THA" ColumnName="ON_DIS_THA" />
-                <ScalarProperty Name="ON_DIS_ENG" ColumnName="ON_DIS_ENG" />
-                <ScalarProperty Name="ON_SUB_THA" ColumnName="ON_SUB_THA" />
-                <ScalarProperty Name="ON_SUB_ENG" ColumnName="ON_SUB_ENG" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetLandRatio1" FunctionName="TDManagementModel.Store.sp_GetLandRatio1" />
-          <FunctionImportMapping FunctionImportName="sp_GetLandRegisterYear1" FunctionName="TDManagementModel.Store.sp_GetLandRegisterYear1" />
-          <FunctionImportMapping FunctionImportName="sp_Import_LandPrice" FunctionName="TDManagementModel.Store.sp_Import_LandPrice" />
-          <FunctionImportMapping FunctionImportName="sp_land_dropdownlist1" FunctionName="TDManagementModel.Store.sp_land_dropdownlist1">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_land_dropdownlist1_Result">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_PROJECT_IMPACT_FindByColumn1" FunctionName="TDManagementModel.Store.sp_PROJECT_IMPACT_FindByColumn1">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_PROJECT_IMPACT_FindByColumn1_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SUBJECT_ID" ColumnName="SUBJECT_ID" />
-                <ScalarProperty Name="SUBJECT_NAME" ColumnName="SUBJECT_NAME" />
-                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
-                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
-                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
-                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
-                <ScalarProperty Name="PUBLISH_DATE" ColumnName="PUBLISH_DATE" />
-                <ScalarProperty Name="IS_PUBLISHED" ColumnName="IS_PUBLISHED" />
-                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
-                <ScalarProperty Name="PROVINCE_ID" ColumnName="PROVINCE_ID" />
-                <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ShapeText" ColumnName="ShapeText" />
-                <ScalarProperty Name="AMPHOE_ID" ColumnName="AMPHOE_ID" />
-                <ScalarProperty Name="AmphoeName" ColumnName="AmphoeName" />
-                <ScalarProperty Name="TAMBOL_ID" ColumnName="TAMBOL_ID" />
-                <ScalarProperty Name="TambolName" ColumnName="TambolName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Section1_EstimateList1" FunctionName="TDManagementModel.Store.sp_Section1_EstimateList1">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_Section1_EstimateList1_Result">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_TemplateDetail_Insert1" FunctionName="TDManagementModel.Store.sp_TemplateDetail_Insert1" />
-          <FunctionImportMapping FunctionImportName="sp_TemplateHeader_dropdownlist1" FunctionName="TDManagementModel.Store.sp_TemplateHeader_dropdownlist1">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="TDManagementModel.sp_TemplateHeader_dropdownlist1_Result">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_TemplateHeader_Insert1" FunctionName="TDManagementModel.Store.sp_TemplateHeader_Insert1" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

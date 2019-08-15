@@ -22,7 +22,15 @@ public partial class PROJECT_IMPACT_GEOMETRY
 
     public long ShapeID { get; set; }
 
-    public decimal Area { get; set; }
+    public string PROVINCE_ID { get; set; }
+
+    public string AMPHOE_ID { get; set; }
+
+    public string TAMBOL_ID { get; set; }
+
+    public string Chanode { get; set; }
+
+    public decimal? Area { get; set; }
 
     public string OriginX { get; set; }
 

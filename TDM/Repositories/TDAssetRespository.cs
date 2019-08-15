@@ -973,12 +973,29 @@ namespace TDM.Repositories
 
             return result;
         }
-        /// <summary>
-        /// Section 4
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        public List<PROJECT_IMPACTDto> GetPROJECT_IMPACT(PROJECT_IMPACTDto search)
+
+        public bool AddPROJECT_IMPACT_GEOMETRY(PROJECT_IMPACT search)
+        {
+            IDataReader reader = null;
+            int result = 0;
+            var p = new DynamicParameters();
+            p.Add("@ProjectImpactID", search.ID);
+            p.Add("@Buffer", search.Buffer);
+
+            using (IDbConnection conn = CreateConnectionManage())
+            {
+                result = conn.Execute("sp_PROJECT_IMPACT_GEOMETRY_Import", p, commandType: CommandType.StoredProcedure);
+            }
+
+            return result > 0;
+
+        }
+            /// <summary>
+            /// Section 4
+            /// </summary>
+            /// <param name="search"></param>
+            /// <returns></returns>
+            public List<PROJECT_IMPACTDto> GetPROJECT_IMPACT(PROJECT_IMPACTDto search)
         {
             IDataReader reader = null;
             List<PROJECT_IMPACTDto> result = null;
@@ -1020,8 +1037,8 @@ namespace TDM.Repositories
                         data.TambolName = reader["TambolName"].ToString();
                         data.Shape = reader["Shape"].ToString();
 
-                        data.ParcelTotal = reader.GetInt32(reader.GetOrdinal("ParcelTotal")).ToString("#,##0");
-                        data.Area = Convert.ToDecimal( reader.GetString(reader.GetOrdinal("Area"))).ToString("#,##0.00");
+                       data.ParcelTotal = reader["ParcelTotal"].ToString();
+                        data.Area = reader["Area"].ToString();
 
 
                         result.Add(data);
