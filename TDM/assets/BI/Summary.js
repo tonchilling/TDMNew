@@ -92,6 +92,7 @@ var map = {
             "style": "esriSLSSolid",
             "color": [0, 0, 0, 255],
             "width": 1
+            , "text": "<client-side graphic text>" 
         }
 
         return gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
@@ -631,7 +632,34 @@ var TDMap = {
             }
         };
     },
-        
+
+    getRedTextSymbol: function (text) {
+        return {
+            "type": "esriTS",
+            "color": [78, 78, 78, 255],
+            "backgroundColor": [0, 0, 0, 0],
+            "borderLineSize": 2,
+            "borderLineColor": [255, 0, 255, 255],
+            "haloSize": 2,
+            "haloColor": [0, 255, 0, 255],
+            "verticalAlignment": "bottom",
+            "horizontalAlignment": "left",
+            "rightToLeft": false,
+            "angle": 0,
+            "xoffset": 0,
+            "yoffset": 0,
+            "kerning": true,
+            "font": {
+                "family": "Arial",
+                "size": 12,
+                "style": "normal",
+                "weight": "bold",
+                "decoration": "none"
+            },
+               "text": text
+        };
+    }   ,
+                                                              
     getRedSymbol: function () {
         return {
             "type": "esriSFS",

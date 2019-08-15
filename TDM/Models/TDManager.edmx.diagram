@@ -4,22 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="845f128463e24f4e8c5a81f2339defc5" Name="Diagram1" >
-
-        <EntityTypeShape EntityType="TDManagementModel.PROV_IMPACT" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="TDManagementModel.STATUS_IMPACT" Width="1.5" PointX="2.75" PointY="3.75" />
-        <EntityTypeShape EntityType="TDManagementModel.PROJECT_IMPACT" Width="1.5" PointX="7.75" PointY="2" />
-        <EntityTypeShape EntityType="TDManagementModel.PROJECT_IMPACT_GEOMETRY" Width="1.5" PointX="9.5" PointY="2" />
-        <EntityTypeShape EntityType="TDManagementModel.Land_MARKET_PRICE_L_Region" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="TDManagementModel.PROJECT_IMPACT1" Width="1.5" PointX="2.75" PointY="6.75" />
-        <EntityTypeShape EntityType="TDManagementModel.PROJECT_IMPACT_GEOMETRY1" Width="1.5" PointX="4.75" PointY="6.75" />
-        <EntityTypeShape EntityType="TDManagementModel.PROV_IMPACT1" Width="1.5" PointX="6.75" PointY="7.75" />
-        <EntityTypeShape EntityType="TDManagementModel.STATUS_IMPACT1" Width="1.5" PointX="8.75" PointY="7.75" />
-        <EntityTypeShape EntityType="TDManagementModel.TemplateDetail" Width="1.5" PointX="4.75" PointY="10.75" />
-        <EntityTypeShape EntityType="TDManagementModel.TemplateHeader" Width="1.5" PointX="10.75" PointY="5.75" />
-        <EntityTypeShape EntityType="TDManagementModel.Land_MARKET_PRICE_L_Province" Width="1.5" PointX="6.75" PointY="10.75" />
-        <EntityTypeShape EntityType="TDManagementModel.Log" Width="1.5" PointX="8.75" PointY="10.75" />
-
+      <Diagram DiagramId="845f128463e24f4e8c5a81f2339defc5" Name="Diagram1" ZoomLevel="83" >
+        <EntityTypeShape EntityType="TDManagementModel.Land_MARKET_PRICE_L_Region" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TDManagementModel.PROJECT_IMPACT" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TDManagementModel.PROJECT_IMPACT_GEOMETRY" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TDManagementModel.PROV_IMPACT" Width="1.5" PointX="4.75" PointY="5.75" />
+        <EntityTypeShape EntityType="TDManagementModel.STATUS_IMPACT" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TDManagementModel.TemplateDetail" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TDManagementModel.TemplateHeader" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TDManagementModel.Land_MARKET_PRICE_L_Province" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="TDManagementModel.Log" Width="1.5" PointX="8.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

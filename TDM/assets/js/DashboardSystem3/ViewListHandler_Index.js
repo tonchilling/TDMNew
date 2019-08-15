@@ -965,6 +965,7 @@ function LoadSection4() {
         tableStr += '<table id="datatable4" class="table   table-bordered table-striped  tblInfoSection4">';
     tableStr += '<thead>';
     tableStr += '<tr class="bg-info">';
+    tableStr += '<th class="th__center"></th>';
     tableStr += '<th class="th__center">ชื่อโครงการ</th>';
     tableStr += '<th class="th__center">พื้นที่</th>';
     tableStr += '<th class="th__center">จำนวนแปลงที่ดินที่กระทบ</th>';
@@ -985,7 +986,8 @@ function LoadSection4() {
                 if (data != null && data.length > 0) {
                     $.each(data, function (index, item) {
 
-                        tableStr += '<tr data-toggle="collapse" data-target="#accordion" class="clickable" onclick="loadImpactShapes(this,' + item.ID + ',0)">';
+                        tableStr += '<tr data-toggle="collapse" class="clickable"   data="' + item.ID+'">';
+                        tableStr += '<td class="td__Center"><a class="fa fa-2x glyphicon glyphicon-zoom-in btnViewImpact icon-danger" data-html="true"  data-toggle="popover" title="Popover Header" data-content="Some content inside the popover"></a></td>';
                         tableStr += ' <td class="td__Center">' + item.SUBJECT_NAME + '</td>';
                         tableStr += '<td class="td__Center">' + item.ProvinceName + '</td>';
                         tableStr += '<td class="td__Center" align="center">' + item.ParcelTotal + '</td>';

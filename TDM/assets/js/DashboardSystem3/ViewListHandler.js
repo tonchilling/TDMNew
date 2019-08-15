@@ -419,6 +419,32 @@ var TDMap = {
             }
         };
     },
+    getRedTextSymbol: function (text) {
+        return {
+            "type": "esriTS",
+            "color": [78, 78, 78, 255],
+            "backgroundColor": [0, 0, 0, 0],
+            "borderLineSize": 1,
+            "borderLineColor": [255, 0, 255, 255],
+            "haloSize": 2,
+            "haloColor": [0, 255, 0, 255],
+            "verticalAlignment": "bottom",
+            "horizontalAlignment": "center",
+            "rightToLeft": false,
+            "angle": 0,
+            "xoffset": 0,
+            "yoffset": 0,
+            "kerning": true,
+            "font": {
+                "family": "Arial",
+                "size": 10,
+                "style": "normal",
+                "weight": "bold",
+                "decoration": "none"
+            },
+            "text": text
+        };
+    },
     getRedSymbol: function () {
         return {
             "type": "esriSFS",
@@ -651,13 +677,106 @@ function switchTabExten(id) {
     
 }
 
+
+
+$(document).on("click", ".btnViewImpact", function () {
+
+    var projectImpactImportedID = $(this).closest('tr').attr('data');
+    var selectDay = $(this);
+    var data = {
+        ImportID: projectImpactImportedID,
+        PageNo: 1
+    };
+
+    $.ajax({
+        url: rootUrl + "/api/AreaAnalysis/GetImpackShapes",
+        type: "POST",
+        data: JSON.stringify(data),
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (data) {
+           
+
+            var tableStr = '';
+            tableStr += '           <table class="table table-hover table-bordered tblDetail">';
+            tableStr += '               <thead style="visibility:hidden;position:absolute">';
+            tableStr += '               <tr>';
+            tableStr += '                   <th class="">';
+            tableStr += '                   </th>';
+            tableStr += '               </thead>';
+            tableStr += '               <tbody>';
+            $.each(data.Detail, function (index, item) {
+
+                tableStr += '               <tr>';
+                tableStr += '                   <td>';
+                tableStr += '                       <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : ' + item.Area + ' โฉนดเลขที่ : ' + item.Chanode +'</p>';
+       
+                tableStr += '                   </td>';
+                tableStr += '               </tr>';
+            });
+          
+            tableStr += '               </tbody>';
+            tableStr += '           </table>';
+            tableStr += '</table>';
+
+            
+            selectDay.attr("data-html", "true")
+            selectDay.attr("data-content", tableStr)
+
+            
+            selectDay.attr("title", "<h4>จำนวนพื้นที่ที่มีผลกระทบทั้งหมด "+data.Detail.length+" แปลง</h4>")
+            selectDay.popover({ container: 'body' });
+            selectDay.popover('show');
+
+
+
+        
+
+            map.clear();
+
+            $.each(data.Detail, function (index, data) {
+                var sridIn = 32647;
+                var sridOut = [102100];
+                try {
+
+                    map.addGraphic(data.Shape.WellKnownText, TDMap.getRedSymbol());
+
+                    map.addGraphic(data.Shape.WellKnownText, TDMap.getRedTextSymbol(data.Chanode));
+
+                } catch (e) {
+                    alert(e.message);
+                }
+
+            });
+            /*CoordinateSystemId*/
+
+
+            /* if (data.RequireOtherPage) {
+                 loadImpactShapes(ele, data.ProjectImpactImportedID, data.PageNo + 1);
+             }*/
+            /*
+            ProjectImpactImportedID 
+            PageNo: 0
+            RequireOtherPage: true
+            Shapes*/
+        }
+    });
+
+
+
+
+});
+
 function loadImpactShapes(ele,projectImpactImportedID, pageNo) {
 
     /**/
     try {
 
+     
         $($(ele).parent()).find("tr").css('background-color', '#FFFFFF');
         $(ele).css('background-color', '#CEC9CB');
+        $('[data-toggle="popover"]').popover(); 
+        $(ele).popover(); 
         var data = {
             ImportID: projectImpactImportedID,
             PageNo: pageNo
@@ -672,6 +791,52 @@ function loadImpactShapes(ele,projectImpactImportedID, pageNo) {
                 if (data.PageNo == 0 || data.Shapes.length == 0) {
                     map.clear();
                 }
+
+                var tableStr = '<table>';
+                tableStr += ' <tr class="tdDetail">';
+                tableStr += '   <td colspan="5" class="td__Center">';
+                tableStr += '       <div id="accordion" class="collapse">';
+                tableStr += '           <div class="panel ">';
+                tableStr += '               <div class="panel-heading">';
+                tableStr += '                   <label> จำนวนแปลงที่ดิน 31 แปลง</label>';
+                tableStr += '                   <label class="pull-right clickable" data-toggle="collapse" data-target="#accordion"><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>';
+                tableStr += '               </div>';
+                tableStr += '           <div class="panel-body">';
+                tableStr += '           <table class="table table-hover table-bordered tblDetail">';
+                tableStr += '               <thead style="visibility:hidden;position:absolute">';
+                tableStr += '               <tr>';
+                tableStr += '                   <th class="th__center">';
+                tableStr += '                   </th>';
+                tableStr += '               </thead>';
+                tableStr += '               <tbody>';
+                tableStr += '               <tr>';
+                tableStr += '                   <td>';
+                tableStr += '                       <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>';
+                tableStr += '                       <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>';
+                //tableStr += '                       <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>';
+                tableStr += '                   </td>';
+                tableStr += '               </tr>';
+                tableStr += '               </tbody>';
+                tableStr += '           </table>';
+                tableStr += '           </div>';
+                tableStr += '           </div>';
+                tableStr += '       </div>';
+                tableStr += ' </td>';
+                tableStr += '</tr>';
+                tableStr += '</table>';
+
+                selectDay.attr("data-content", tableStr)
+                selectDay.attr("title", "รายการใบสั่งขาย/ใบสั่งงาน")
+                $("[data-toggle=popover]").popover({ container: 'body' });
+                selectDay.popover('show');
+
+
+
+             //   newRow.insertBefore($('.divInfoSection4 table tbody tr:nth(' + 1 + ')'));
+               // $(ele).append(tableStr);
+              /*  $.each(data, function (index, shape) {
+
+                });*/
 
                 $.each(data.Shapes, function (index, shape) {
                     var sridIn = 32647;
@@ -696,9 +861,9 @@ function loadImpactShapes(ele,projectImpactImportedID, pageNo) {
                 /*CoordinateSystemId*/
                 
 
-                if (data.RequireOtherPage) {
+               /* if (data.RequireOtherPage) {
                     loadImpactShapes(ele, data.ProjectImpactImportedID, data.PageNo + 1);
-                }
+                }*/
                 /*
                 ProjectImpactImportedID 
                 PageNo: 0
