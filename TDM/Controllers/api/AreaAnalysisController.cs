@@ -119,7 +119,7 @@ namespace TDM.Controllers.api
         [HttpPost]
         public IHttpActionResult AddProject(PROJECT_IMPACT project)
         {
-            var repos = new TDAssetRespository();
+            var repos = new TDAssetRespository(); 
             try
             {
                 project.ID = 0;

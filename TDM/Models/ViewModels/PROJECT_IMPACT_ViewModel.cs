@@ -13,6 +13,8 @@ namespace TDM.Models
         public string TAMBOL_ID { get; set; }
         public string SUBJECT_ID { get; set; }
         public string SUBJECT_NAME { get; set; }
+
+
         public Nullable<System.DateTime> PUBLISH_DATE { get; set; }
         public System.DateTime CREATE_DATE { get; set; }
         public string CREATE_BY { get; set; }
@@ -25,5 +27,6 @@ namespace TDM.Models
         public virtual ICollection<PROVINCE_ViewModel> PROVINCE { get; set; }
         public virtual ICollection<AMPHOE_ViewModel> AMPHOE { get; set; }
         public virtual ICollection<TAMBOL_ViewModel> TAMBOL { get; set; }
+        public string Buffer { get; set; }
     }
 }

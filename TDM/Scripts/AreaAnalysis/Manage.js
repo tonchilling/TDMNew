@@ -450,11 +450,33 @@ function btnSubmitV2(id) {
         if (formData.PUBLISH_DATE == '00/00/0000 00:00') {
             formData.PUBLISH_DATE = formData.CREATE_DATE;
         }
-        if (formData.Shape == null || formData.Shape[1] == "") {
+
+        if (formData.SUBJECT_ID == '') {
+            alert('กรุณาระบุรหัสโครงการ');
+            return;
+        } else if (formData.SUBJECT_NAME == '') {
+            alert('กรุณาระบุชื่อโครงการ');
+            return;
+        } else if (formData.PROVINCE_ID == '') {
+            alert('กรุณาระบุจังหวัด');
+            return;
+        } else if (formData.AMPHOE_ID == '') {
+            alert('กรุณาระบุอำเภอ');
+            return;
+        } else if (formData.TAMBOL_ID == '') {
+            alert('กรุณาระบุตำบล');
+            return;
+        } else if (formData.Buffer == '') {
+            alert('กรุณาระบุบัฟเฟอร์ (Buffer)');
+            return;
+        } else if (formData.Shape == null || formData.Shape[1] == "") {
             alert('กรุณาวาดแผนที่ ที่ได้รับผลกระทบ');
             return;
         }
 
+        if (formData.Shape[1] == '') {
+            formData.Shape[1] = '{}';
+        }
         var shape = eval("(" + formData.Shape[1] + ')');
 
         formData.Shape = shape.shape;
