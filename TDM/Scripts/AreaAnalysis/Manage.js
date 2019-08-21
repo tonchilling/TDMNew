@@ -479,9 +479,12 @@ function btnSubmitV2(id) {
         }
         var shape = eval("(" + formData.Shape[1] + ')');
 
-        formData.Shape = shape.shape;
+        //formData.Shape = shape.shape;
 
-      
+        var sridIn = shape.srid;
+        var sridOut = [32647];
+
+        formData.Shape = (gisIframeWindow.GIS.transform(shape.shape, sridIn, sridOut)[0]).shape;
 
         var myFormData = JSON.stringify(formData);
 
