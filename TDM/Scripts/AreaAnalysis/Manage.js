@@ -505,7 +505,17 @@ function btnSubmitV2(id) {
             shape = eval("(" + formData.Shape[1] + ')');
         } else {
 
-            shape = eval("(" + document.getElementById("hddShape").value + ')');
+            var hddVal = document.getElementById("hddShape").value;
+            if (hddVal.startsWith("POLYGON")) {
+                shape = {
+                    srid: 24047,
+                    shape: hddVal
+                };
+            } else {
+                shape = eval("(" + hddVal + ')');
+            }
+           
+            
             
         }
         
