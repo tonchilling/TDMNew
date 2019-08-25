@@ -323,6 +323,25 @@ function AddProject(projectId, statusId) {
                             console.log("SYSTEM_READY >>> ", evt);
 
 
+                            var sridIn = 24047;
+                            var sridOut = [102100];
+                            var trans = gisIframeWindow.GIS.transform(modalModel.Shape, sridIn, sridOut);
+
+                            symbol = {
+                                "type": "esriSFS",
+                                "style": "esriSFSSolid",
+                                "color": [255, 0, 0],
+                                "outline": {
+                                    "type": "esriSLS",
+                                    "style": "esriSLSSolid",
+                                    "color": [0, 255, 0, 0],
+                                    "width": 2
+                                }
+                            };
+
+                            return gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
+
+
                             //activateDraw(gisIframeWindow);
                         });
 
@@ -353,6 +372,8 @@ function activateDraw(gisIframeWindow) {
         clearGraphicWhenComplete = true;
 
     try {
+
+        gisIframeWindow.GIS.removeGraphic();
         // Call method
         gisIframeWindow.GIS.activateDraw(toolType, clearGraphicWhenComplete, function (drawEvent) {
             console.log(drawEvent);
@@ -444,7 +465,12 @@ function DelSuccess(projectName) {
 
 function btnSubmitV2(id) {
 
-    try {
+
+    try
+    {
+        var mode = (id == 0) ? 'SAVE' : 'EDIT';
+
+
         var formData = $('#myForm').serializeObject();
         if (formData.PUBLISH_DATE == '00/00/0000 00:00') {
             formData.PUBLISH_DATE = formData.CREATE_DATE;
@@ -473,10 +499,20 @@ function btnSubmitV2(id) {
             return;
         }
 
-        if (formData.Shape[1] == '') {
-            formData.Shape[1] = '{}';
+        var shape = {};
+        if (mode == 'SAVE') {
+            if (formData.Shape[1] == '') {
+                formData.Shape[1] = '{}';
+            }
+
+            shape = eval("(" + formData.Shape[1] + ')');
+        } else {
+
+            shape = eval("(" + document.getElementById("hddShape").value + ')');
+            
         }
-        var shape = eval("(" + formData.Shape[1] + ')');
+        
+        
 
         //formData.Shape = shape.shape;
 
@@ -485,13 +521,52 @@ function btnSubmitV2(id) {
 
 
         formData.Shape = (gisIframeWindow.GIS.transform(shape.shape, sridIn, sridOut)[0]).shape;
-
+        //formData.Shape = modalModel.Shape;
         var myFormData = JSON.stringify(formData);
 
         /*mode save data*/
-        if (id <= 0 && false) {
-            alert('2');
-            uploadShapeData(myFormData);
+        if (id > 0) {
+            /*update*/
+
+
+            //uploadShapeData(myFormData);
+
+            
+
+            swal({
+                title: "Save",
+                text: "Do you want to save?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        //     waitingDialog.show('Waiting for saving', { dialogSize: 'md', progressType: 'success' });
+                        url = "/api/AreaAnalysis/UpdateProject";
+                        url = http.url(url);
+
+                        $.ajax({
+                            url,
+                                type: "POST",
+                                data: myFormData,
+                                dataType: "json",
+                                contentType: 'application/json',
+                                success: function (response) {
+
+                                setTimeout(function () {
+
+                                 //   waitingDialog.hide()
+                                    $("#myModal").modal("hide");
+                                    window.location.href = http.url("/AreaAnalysis/Manage");
+                            }, 1000);
+
+                            }
+                            });
+
+                    }
+           });
 
 
         } else {
