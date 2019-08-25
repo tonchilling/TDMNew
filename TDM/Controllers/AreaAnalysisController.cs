@@ -47,6 +47,7 @@ namespace TDM.Controllers
                 model.AMPHOE_ID = project.AMPHOE_ID;
                 model.TAMBOL_ID = project.TAMBOL_ID;
                 model.Shape = project.Shape != null ? project.Shape.ToString() : "" ;
+                model.Buffer = project.Buffer != null ? project.Buffer.ToString() : "0";
             }
             try
             {

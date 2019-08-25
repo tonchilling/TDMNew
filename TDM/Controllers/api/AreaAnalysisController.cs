@@ -91,6 +91,8 @@ namespace TDM.Controllers.api
         {
             try
             {
+                var repos = new TDAssetRespository();
+
                 PROJECT_IMPACT updateProject = tdmEntities.PROJECT_IMPACT.First(x => x.ID == project.ID);
 
                 updateProject.IS_DELETED = project.IS_DELETED;
@@ -107,6 +109,8 @@ namespace TDM.Controllers.api
                 updateProject.TAMBOL_ID = project.TAMBOL_ID;
                 updateProject.Shape = project.Shape!=null ? project.Shape:null;
                 tdmEntities.SaveChanges();
+
+                repos.AddPROJECT_IMPACT_GEOMETRY(updateProject);
 
                 return Json(project, jsonSetting);
             }
@@ -146,6 +150,12 @@ namespace TDM.Controllers.api
                 PROJECT_IMPACT deleteProject = tdmEntities.PROJECT_IMPACT.First(x => x.ID == project.ID);
                 deleteProject.ID = project.ID;
                 deleteProject.IS_DELETED = project.IS_DELETED;
+
+                tdmEntities.PROJECT_IMPACT.Remove(deleteProject);
+
+                var targetDelete = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == project.ID);
+                tdmEntities.PROJECT_IMPACT_GEOMETRY.RemoveRange(targetDelete);
+
 
                 tdmEntities.SaveChanges();
                 return Json(project, jsonSetting);
