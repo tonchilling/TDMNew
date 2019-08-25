@@ -10,6 +10,7 @@ namespace TDM.Controllers
 {
     public class AreaAnalysisController : Controller
     {
+       
         public  TDManagementEntities db = new TDManagementEntities();
         public TDASSETEntities tdaEntities = new TDASSETEntities();
         public IEnumerable<SelectListItem> ProvinceList { get; set; }
