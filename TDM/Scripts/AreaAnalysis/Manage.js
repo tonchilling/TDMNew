@@ -483,6 +483,7 @@ function btnSubmitV2(id) {
         var sridIn = shape.srid;
         var sridOut = [24047];
 
+
         formData.Shape = (gisIframeWindow.GIS.transform(shape.shape, sridIn, sridOut)[0]).shape;
 
         var myFormData = JSON.stringify(formData);
