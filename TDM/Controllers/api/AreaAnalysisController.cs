@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using DotSpatial.Data;
 using DotSpatial.Projections;
 using Microsoft.SqlServer.Types;
@@ -151,10 +151,12 @@ namespace TDM.Controllers.api
                 deleteProject.ID = project.ID;
                 deleteProject.IS_DELETED = project.IS_DELETED;
 
+
                 tdmEntities.PROJECT_IMPACT.Remove(deleteProject);
 
                 var targetDelete = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == project.ID);
                 tdmEntities.PROJECT_IMPACT_GEOMETRY.RemoveRange(targetDelete);
+
 
 
                 tdmEntities.SaveChanges();
@@ -770,14 +772,29 @@ namespace TDM.Controllers.api
         {
             List<PROJECT_IMPACT_GEOMETRY> results = null;
 
-            //  results = tdmEntities.PROJECT_IMPACT.Where(p => p.ID == data.ImportID).ToList();
+            var project = tdmEntities.PROJECT_IMPACT.Where(p => p.ID == data.ImportID).FirstOrDefault();
             results = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == data.ImportID).ToList();
 
             return Json(new
             {
                 ProjectImpactImportedID = data.ImportID,
                 RequireOtherPage = 0,
-                Detail = results.Select(r=> new { Chanode=r.Chanode,Area=r.Area,Shape = r.Shape.WellKnownValue }).ToList(),
+               Project= project,
+                Detail = results.Select(r=> new { Chanode=r.Chanode,
+                    Area =r.Area,
+                    Shape = r.Shape.WellKnownValue,
+                    REG_P_WAH=r.REG_P_WAH,
+                    REG_AMT=r.REG_AMT,
+                    RVAL_P_WAH =r.RVAL_P_WAH,
+                    RVAL_AMT=r.RVAL_AMT,
+                    PROVINCE_ID= r.PROVINCE_ID,
+                    ProvinceName= r.PROVINCE_ID.Trim() != "" ? tdaEntities.PROVINCEs.Where(p=>p.PRO_C == r.PROVINCE_ID).FirstOrDefault().NAME_T:"",
+                    AMPHOE_ID =r.AMPHOE_ID,
+                    AmphoeName = r.AMPHOE_ID.Trim()!="" ? tdaEntities.AMPHOEs.Where(p => p.DIS_C == r.PROVINCE_ID+r.AMPHOE_ID).FirstOrDefault().NAME_T : "",
+                    TAMBOL_ID =r.TAMBOL_ID,
+                    TambolName = r.TAMBOL_ID.Trim() != "" ? tdaEntities.TAMBOLs.Where(p => p.SUB_C == r.PROVINCE_ID + r.AMPHOE_ID+r.AMPHOE_ID).FirstOrDefault().NAME_T :""
+
+                }).ToList(),
                      PageNo = data.PageNo,
                      Shapes = results.Select(r => r.Shape.WellKnownValue).ToList(),
 
