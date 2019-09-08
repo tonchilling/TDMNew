@@ -368,9 +368,14 @@ function AddProject(projectId, statusId) {
 function activateDraw(gisIframeWindow) {
 
     // Input
-    var toolType = 'polygon',
+    var toolType = document.getElementById('ddlDrawToolsType').value,
         clearGraphicWhenComplete = true;
 
+    if (toolType == '') {
+        alert('กรุณาระบุ ประเภทเครื่องมือในการวาด');
+        return;
+    }
+    //alert(toolType);
     try {
 
         gisIframeWindow.GIS.removeGraphic();
