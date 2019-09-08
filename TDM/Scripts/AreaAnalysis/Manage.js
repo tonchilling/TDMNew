@@ -274,7 +274,7 @@ function uploadShapeData(formData) {
     /*Make Ajax request with the contentType = false, and procesDate = false*/
     var ajaxRequest = $.ajax({
         type: "POST",
-        url: http.url(rootUrl + "/api/AreaAnalysis/UploadMapShape"),
+        url: http.url("/api/AreaAnalysis/UploadMapShape"),
         contentType: false,
         processData: false,
         data: data
@@ -431,7 +431,7 @@ function DelProvImpact(projectId, projectName) {
                     IS_DELETED: true
                 };
                 $.ajax({
-                    url: http.url(rootUrl + "/api/AreaAnalysis/DeleteProject"),
+                    url: http.url("/api/AreaAnalysis/DeleteProject"),
                     type: "POST",
                     data: JSON.stringify(data),
                     dataType: "json",
@@ -457,7 +457,7 @@ function DelSuccess(projectName) {
         icon: "success",
     });
 
-    window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
+    window.location.href = http.url( "/AreaAnalysis/Manage");
 
 
 
