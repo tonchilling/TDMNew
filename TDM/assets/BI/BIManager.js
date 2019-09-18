@@ -52,7 +52,17 @@ var DbManager = {
         $.post(mapApi.getServerPath() +currentUrl + "/GetDatabaseList", data, function (data) {
             callback(data);
         }).fail(function (error) {
-            alert("Error > " + error);
+            alert("Error > " + error.responseJSON.ExceptionMessage);
+
+            waitingDialog.hide();
+        });;
+    },
+    GetDBPermission: function (callback) {
+        var data = {};
+        $.post(mapApi.getServerPath() + currentUrl + "/GetDatabaseList", data, function (data) {
+            callback(data);
+        }).fail(function (error) {
+            alert("Error > " + error.responseJSON.ExceptionMessage);
 
             waitingDialog.hide();
         });;
@@ -66,7 +76,7 @@ var DbManager = {
         $.post(mapApi.getServerPath() +currentUrl + "/QueryData", data, function (data) {
             callback(data);
         }).fail(function (error) {
-            alert("Error > "+error);
+            alert("Error > " + error.responseJSON.ExceptionMessage);
 
             waitingDialog.hide();
         });
@@ -106,43 +116,15 @@ $(document).ready(function () {
 
 function SortedTable() {
     // Sortable rows
-    $('.sorted_table').sortable({
-        containerSelector: 'table',
+    $('.sorted_table tbody').sortable({
         itemPath: '> tbody',
         itemSelector: 'tr',
-        placeholder: '<tr class="placeholder"/>'
-    });
+        handle: '',
+        cancel: '',
 
-    // Sortable column heads
-    var oldIndex;
-    $('.sorted_head tr').sortable({
-        containerSelector: 'tr',
-        itemSelector: 'th',
-        placeholder: '<th class="placeholder"/>',
-        vertical: false,
-        onDragStart: function ($item, container, _super) {
-            oldIndex = $item.index();
-            $item.appendTo($item.parent());
-            _super($item, container);
-        },
-        onDrop: function ($item, container, _super) {
-            var field,
-                newIndex = $item.index();
+    }).disableSelection();
 
-            if (newIndex != oldIndex) {
-                $item.closest('table').find('tbody tr').each(function (i, row) {
-                    row = $(row);
-                    if (newIndex < oldIndex) {
-                        row.children().eq(newIndex).before(row.children()[oldIndex]);
-                    } else if (newIndex > oldIndex) {
-                        row.children().eq(newIndex).after(row.children()[oldIndex]);
-                    }
-                });
-            }
-
-            _super($item, container);
-        }
-    });
+  
 
 }
 
@@ -251,9 +233,9 @@ $(document).on("change", "#ddlSelectGraph", function () {
 
 $(document).on("click", ".btnQuery", function (e) {
     waitingDialog.show('Waiting for query', { dialogSize: 'md', progressType: 'success' });
-    DbManager.GetQuery($('.txtServer').val(),
-                    $('.txtUserName').val(),
-                 $('.txtPassword').val(),
+    DbManager.GetQuery("",
+        "",
+        "",
                  $('.txtQuery').val(),function (data) {
 
                      DataResult = data;
@@ -407,7 +389,7 @@ $(document).on("click", ".btnSave", function (e) {
                 x: $("#ddlxAxis option:selected").val(),
                 y: $("#ddlyAxis option:selected").val(),
                 Desc: $("#ddlSelectGraph option:selected").text(),
-                Connection: JSON.stringify({ Server: $("#txtServer").val(), User: $("#txtUserName").val(), Password: $("#txtPassword").val(), Query: $("#txtQuery").val() }),
+                Connection: JSON.stringify({ Server: "", User: "", Password: "", Query: $("#txtQuery").val() }),
                 ChartOptions: JSON.stringify(keepChart),
                 xAxisData: JSON.stringify(keepChart.xAxisData),
                 yAxisData: JSON.stringify(keepChart.yAxisData)
@@ -423,7 +405,7 @@ $(document).on("click", ".btnSave", function (e) {
                     data.x = $("#ddlxAxis option:selected").val();
                     data.y = $("#ddlyAxis option:selected").val();
                     data.Desc = $("#ddlSelectGraph option:selected").text();
-                    data.Connection = JSON.stringify({ Server: $("#txtServer").val(), User: $("#txtUserName").val(), Password: $("#txtPassword").val(), Query: $("#txtQuery").val() });
+                    data.Connection = JSON.stringify({ Server: "", User: "", Password: "", Query: $("#txtQuery").val() });
                     // data.Connection = { Server: $("#txtServer").val(), User: $("#txtUserName").val(), Password: $("#txtPassword").val(), Query: $("#txtQuery").val() };
                     data.ChartOptions = JSON.stringify(keepChart);
                     data.xAxisData = JSON.stringify(keepChart.xAxisData);
@@ -783,7 +765,7 @@ function DisplayList(chartList) {
     var body = '';
     $(".divList").empty();
 
-    body += '<table class="table table-bordered sorted_table table-striped tblResult">';
+    body += '<table class="table table-bordered sorted_table  table-striped tblResult">';
     body += '<thead>';
     body += '<tr class="bg-success" >';
     body += '<th scope="col">No</th>';
@@ -802,7 +784,7 @@ function DisplayList(chartList) {
                 body += '<td><span>' + data.Title + '</span></td>';
                 body += '<td><span>' + data.Desc + '</span></td>';
 
-                body += '<td class="text-center"><span><a data="' + data.No +'" class="btn btn-info btnPreviewGraph"><i class="fa text-mute fa-bar-chart"></a></span></td>';
+                body += '<td class="text-center"><span><button data="' + data.No +'" class="btn btn-info btnPreviewGraph"><i class="fa text-mute fa-bar-chart"></button></span></td>';
 
 
 
@@ -813,6 +795,9 @@ function DisplayList(chartList) {
     body += '</tbody>';
     body += '</table>';
     $(".divList").append(body);
+
+ 
+
 
    // $(".divList table").DataTable({ searching: false, info: false });
 

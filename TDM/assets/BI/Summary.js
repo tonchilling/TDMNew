@@ -69,7 +69,7 @@ $(document).on("change", "#ddlProvince", function () {
 var map = {
 
     addGraphic: function (shape, symbol) {
-        var sridIn = 32647;
+        var sridIn = 32648;
         var sridOut = [102100];
         var trans;
 

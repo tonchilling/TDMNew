@@ -21,7 +21,10 @@ var viewListManager = {
 */
 var _mapCurrModule = 1;
 
-
+function formatCurrency(data) {
+    data = parseFloat(data);
+    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 var searchForm = {
 
     initComp: function (eleName) {
@@ -419,6 +422,22 @@ var TDMap = {
             }
         };
     },
+
+    getWhiteSymbol: function () {
+        return {
+            "type": "esriSFS",
+            "style": "esriSFSSolid",
+            "color": [255, 255, 255],
+            "outline": {
+                "type": "esriSLS",
+                "style": "esriSLSSolid",
+                "color": [0, 0, 0, 255],
+                "width": 1
+            }
+        };
+    },
+
+
     getRedTextSymbol: function (text) {
         return {
             "type": "esriTS",
@@ -677,17 +696,31 @@ function switchTabExten(id) {
     
 }
 
+function LoadImpactInfo(tr) {
 
+  
+    $('.lbProectName').text(tr.find("td:eq(1)").text());
+    $('.lbProvince').text(tr.find("td:eq(2)").text());
+    $('.lbParcelImpact').text(tr.find("td:eq(3)").text());
+    $('.lbArea').text(tr.find("td:eq(4)").text());
+    $('.lbWarning').text("");
 
+}
+var projectImpactImportedID ="";
 $(document).on("click", ".btnViewImpact", function () {
 
-    var projectImpactImportedID = $(this).closest('tr').attr('data');
+    projectImpactImportedID = $(this).closest('tr').attr('data');
+
+    setTimeout(LoadImpactInfo($(this).closest('tr')),1000)
     var selectDay = $(this);
     var data = {
-        ImportID: projectImpactImportedID,
+        ProjectImpactID: projectImpactImportedID,
         PageNo: 1
     };
 
+
+
+    waitingDialog.show('Waiting for Searching', { dialogSize: 'md', progressType: 'success' });
     $.ajax({
         url: rootUrl + "/api/AreaAnalysis/GetImpackShapes",
         type: "POST",
@@ -698,41 +731,52 @@ $(document).on("click", ".btnViewImpact", function () {
            
 
             var tableStr = '';
-            tableStr += '           <table class="table table-hover table-bordered tblDetail">';
-            tableStr += '               <thead style="visibility:hidden;position:absolute">';
-            tableStr += '               <tr>';
-            tableStr += '                   <th class="">';
-            tableStr += '                   </th>';
-            tableStr += '               </thead>';
-            tableStr += '               <tbody>';
+            tableStr = '<table id="datatable4" class="table tblInfo   datatable4 tblInfoSection4Detail">';
+
+            tableStr += '<thead>';
+            tableStr += '<tr>';
+            tableStr += '<th class="th__center">เลขที่ฉโนด</th>';
+            tableStr += '<th class="th__center">จังหวัด</th>';
+            tableStr += '<th class="th__center">อำเภอ</th>';
+            tableStr += '<th class="th__center">ตำบล</th>';
+            tableStr += '<th class="th__center">ราคาประเมิน</th>';
+            tableStr += '<th class="th__center">เนื้อที่รวม</th>';
+
+
+            tableStr += '</tr>';
+            tableStr += '</thead>';
+            tableStr += '<tbody>';
             $.each(data.Detail, function (index, item) {
 
-                tableStr += '               <tr>';
-                tableStr += '                   <td>';
-                tableStr += '                       <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : ' + item.Area + ' โฉนดเลขที่ : ' + item.Chanode +'</p>';
-       
-                tableStr += '                   </td>';
-                tableStr += '               </tr>';
+                tableStr += '<tr>';
+
+                tableStr += '<td>' + item.Chanode + '</td>';
+                tableStr += '<td>' + item.ProvinceName + '</td>';
+                tableStr += '<td>' + item.AmphoeName + '</td>';
+                tableStr += '<td>' + item.TambolName + '</td>';
+                tableStr += '<td>' + formatCurrency(item.RVAL_P_WAH) + '</td>';
+                tableStr += '<td>' + formatCurrency(item.Area) + '</td>';
+                tableStr += '</tr>';
             });
-          
-            tableStr += '               </tbody>';
-            tableStr += '           </table>';
+            tableStr += '</tbody>';
             tableStr += '</table>';
+          
+           // tableStr += '               </tbody>';
+            $('.divInfoSection4Detail').empty();
+
+            $('.divInfoSection4Detail').append(tableStr);
+            $(".divInfoSection4Detail table").DataTable();
 
             
-            selectDay.attr("data-html", "true")
-            selectDay.attr("data-content", tableStr)
-
-            
-            selectDay.attr("title", "<h4>จำนวนพื้นที่ที่มีผลกระทบทั้งหมด "+data.Detail.length+" แปลง</h4>")
-            selectDay.popover({ container: 'body' });
-            selectDay.popover('show');
+           
 
 
 
         
 
             map.clear();
+
+            map.addGraphic(data.Project.Shape, TDMap.getYellowSymbol());
 
             $.each(data.Detail, function (index, data) {
                 var sridIn = 32647;
@@ -748,6 +792,129 @@ $(document).on("click", ".btnViewImpact", function () {
                 }
 
             });
+
+            setTimeout(
+                waitingDialog.hide(), 1000
+            );
+
+            /*CoordinateSystemId*/
+
+
+            /* if (data.RequireOtherPage) {
+                 loadImpactShapes(ele, data.ProjectImpactImportedID, data.PageNo + 1);
+             }*/
+            /*
+            ProjectImpactImportedID 
+            PageNo: 0
+            RequireOtherPage: true
+            Shapes*/
+        }
+    });
+
+
+
+
+});
+
+
+$(document).on("click", ".btnSearchImpact", function () {
+
+    //  var projectImpactImportedID = $(this).closest('tr').attr('data');
+    var selectDay = $(this);
+    var data = {
+        ProjectImpactID: projectImpactImportedID,
+        Buffer: $(".txtBuffer").val()
+    };
+
+    if (projectImpactImportedID == "") {
+
+        $('.lbWarning').text(" **กรุณาเลือกโครงการ");
+        return false;
+    } else {
+        $('.lbWarning').text("");
+    }
+    //setTimeout(LoadImpactInfo($(this).closest('tr')), 1000)
+    waitingDialog.show('Waiting for Searching', { dialogSize: 'md', progressType: 'success' });
+
+    $.ajax({
+        url: rootUrl + "/api/AreaAnalysis/SearchImpackShapes",
+        type: "POST",
+        data: JSON.stringify(data),
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (data) {
+
+            var areaTotal = 0;
+            var tableStr = '';
+            tableStr = '<table id="datatable4" class="table tblInfo   datatable4 tblInfoSection4Detail">';
+
+            tableStr += '<thead>';
+            tableStr += '<tr>';
+            tableStr += '<th class="th__center">เลขที่ฉโนด</th>';
+            tableStr += '<th class="th__center">จังหวัด</th>';
+            tableStr += '<th class="th__center">อำเภอ</th>';
+            tableStr += '<th class="th__center">ตำบล</th>';
+            tableStr += '<th class="th__center">ราคาประเมิน</th>';
+            tableStr += '<th class="th__center">เนื้อที่รวม</th>';
+
+
+            tableStr += '</tr>';
+            tableStr += '</thead>';
+            tableStr += '<tbody>';
+            $.each(data.Detail, function (index, item) {
+
+                tableStr += '<tr>';
+
+                tableStr += '<td>' + item.Chanode + '</td>';
+                tableStr += '<td>' + item.ProvinceName + '</td>';
+                tableStr += '<td>' + item.AmphoeName + '</td>';
+                tableStr += '<td>' + item.TambolName + '</td>';
+                tableStr += '<td>' + formatCurrency(item.RVAL_P_WAH) + '</td>';
+                tableStr += '<td>' + formatCurrency(item.Area) + '</td>';
+
+                areaTotal += item.Area;
+                tableStr += '</tr>';
+            });
+            tableStr += '</tbody>';
+            tableStr += '</table>';
+
+            // tableStr += '               </tbody>';
+            $('.divInfoSection4Detail').empty();
+
+            $('.divInfoSection4Detail').append(tableStr);
+            $(".divInfoSection4Detail table").DataTable();
+
+
+
+
+
+            $('.lbParcelImpact').text(formatCurrency(data.Detail.length));
+            $('.lbArea').text(formatCurrency(parseFloat(areaTotal).toFixed(2)) );
+
+
+            map.clear();
+
+            map.addGraphic(data.Project.Shape, TDMap.getYellowSymbol());
+
+            $.each(data.Detail, function (index, data) {
+                var sridIn = 32647;
+                var sridOut = [102100];
+                try {
+
+                    map.addGraphic(data.Shape.WellKnownText, TDMap.getRedSymbol());
+
+                    map.addGraphic(data.Shape.WellKnownText, TDMap.getRedTextSymbol(data.Chanode));
+
+                } catch (e) {
+                    alert(e.message);
+                }
+
+            });
+
+            setTimeout(
+                waitingDialog.hide(),1000
+            );
+            
             /*CoordinateSystemId*/
 
 

@@ -15,6 +15,10 @@
             line-height: 0px;
             height: 0px;
         }
+
+        .box400 {
+        width:300px;
+        }
     </style>
     @section Scripts {
         @Scripts.Render("~/assets/css/customize.css?v113")
@@ -38,10 +42,10 @@
     <link href="~/assets/css/BI/animate.min.css" rel="stylesheet" />
     <link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
     <link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
-    <link href="~/assets/css/customize.css" rel="stylesheet" />
+
     <link href="~/assets/css/custom_pera/custom.min.css" rel="stylesheet" />
     <link href="~/assets/css/Kim_Style.css?ver1.3ddd3" rel="stylesheet" />
-    <link href="~/assets/css/BI/Style.css?ver1.333dd3" rel="stylesheet" />
+    <link href="~/assets/css/BI/Style.css?ver1.33dd3d3" rel="stylesheet" />
 
     <!-- CORE CSS TEMPLATE - END -->
     <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
@@ -74,6 +78,33 @@
             font-size: 20px;
             font-weight: 500;
         }
+
+        .popover-inner {
+            width: 400px;
+        }
+
+
+        .popover {
+            background-color: transparent;
+        }
+
+        .popover-content, .popover-title {
+            width: 400px;
+        }
+
+        .popover-content {
+            background-color: #ffffff;
+        }
+
+        .r4_counter .fa, .glyphicon {
+            margin-right: 0px;
+            text-align: center;
+            margin-top: 0px;
+        }
+        .slimScrollDiv {
+        
+        margin-top:65px;
+        }
     </style>
     <!-- Bootstrap -->
 
@@ -82,146 +113,8 @@
 </head>
 <body class="nav-md">
     <div id="wait"></div>
-    <div class="page-topbar">
-        <div class="logo-area">
-
-        </div>
-
-        <div class="quick-area">
-            <div class="pull-left">
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="sidebar-toggle-wrap">
-                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
-
-
-
-                </ul>
-            </div>
-            <div class="profile_details">
-                <ul>
-                    <li class="dropdown profile_details_drop">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <div class="profile_img">
-                                <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
-                                <div class="user-name">
-                                    <p>User</p>
-                                    <span>Administrator</span>
-                                </div>
-
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu drp-mnu">
-                            <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                            <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-                            <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-    <div class="page-sidebar pagescroll expandit">
-
-        <!-- MAIN MENU - START -->
-        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-
-
-
-
-            <div class="page-sidebar navbar-collapse collapse">
-                <!-- BEGIN SIDEBAR MENU -->
-                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; margin-top:60px; height: 934px;">
-                    <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true"
-                        data-slide-speed="200" data-height="934" data-initialized="1" style="overflow: hidden; width: auto;height: 934px;">
-                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                        <li class="sidebar-toggler-wrapper hide">
-                            <div class="sidebar-toggler">
-                                <span></span>
-                            </div>
-                        </li>
-                        <!-- END SIDEBAR TOGGLER BUTTON -->
-                        <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/Index" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-home" style="color:red"></i>
-                                <span class="title">หน้าหลัก</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIViewer" class="nav-link nav-toggle">
-                                <i class="fa fa-area-chart" style="color:green"></i>
-                                <span class="title">รายงาน BI</span>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item   ">
-                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
-                                <span class="title">เรียกดูแผนที่/ราคา</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu2" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu3" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-random" style="color:red"></i>
-                                <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/System_3_with_Layout?Menu=5" class="nav-link nav-toggle">
-                                <i class="fa fa-users" style="color:purple"></i>
-                                <span class="title">ปริมาณการเข้าใช้ระบบ</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIManager" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:#ffd800"></i>
-                                <span class="title">สร้างรายงานด้วย BI</span>
-                            </a>
-                        </li>
-                        <!-- <li class="btnLogout" onclick="logout()">
-        <a href="https://p-staging.treasury.go.th/pvalue/logout">
-
-            <i class="icon-key"></i> ออกจากระบบ
-        </a>
-    </li>-->
-
-
-                    </ul>
-                    <div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
-                </div>
-                <!-- END SIDEBAR MENU -->
-            </div>
-
-
-
-        </div>
-        <!-- MAIN MENU - END -->
-
-
-
-    </div>
+    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
+    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
 
 
 
@@ -234,7 +127,7 @@
                         <!-- Header -->
                         <div class="row ">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <h2 class=" text-center  text-info"><i class="fa fa-bar-chart" aria-hidden="true"> ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</i></h2>
+                                <h2 class=" text-center  text-info">เรียกดูแผนที่/ราคา</i></h2>
                             </div>
                         </div>
                     </div>
@@ -267,7 +160,7 @@
                 <!-- top navigation -->
                 <!-- /top navigation -->
                 <!-- page content -->
-              
+
                 <div role="main" class="container-fluid">
 
                     <!-- Header -->
@@ -415,21 +308,19 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2 col-xs-12 divTab1">
-                                                            <p>
-                                                                <h4 id="lbHeader">
-                                                                    ราคาประเมิน/ซื้อขาย
-                                                                </h4>
-                                                            </p>
-                                                            <div id="container1">
-                                                                <div id="EvalBox1" style="overflow-y: scroll; height:1100px;">
-                                                                    <!-- Add ราคาประเมิน รายภาค -->
-                                                                    <!-- Add ราคาประเมิน รายภาค -->
-                                                                </div>
+                                                  
+                                                    <div class="row" style="text-align:center; overflow-x:auto">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div id="EvalBox1" style="overflow-x: scroll;">
+                                                                <!-- Add ราคาประเมิน รายภาค -->
+                                                                <!-- Add ราคาประเมิน รายภาค -->
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-10 col-sm-10 col-xs-12 divTab2">
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 divTab2">
                                                             <div class="row">
                                                                 <!-- Search map section1 part 1(Search) -->
                                                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -529,25 +420,25 @@
                                                                                                     <div class="col-sm-6 col-xs-12" style="height:22px">
 
                                                                                                     </div>
-                                                                                                    </div>
-                                                                                                    <div class="row  funkyradio">
-                                                                                                        <div class="col-sm-6 col-xs-12">
+                                                                                                </div>
+                                                                                                <div class="row  funkyradio">
+                                                                                                    <div class="col-sm-6 col-xs-12">
 
-                                                                                                            <div class="funkyradio-success">
+                                                                                                        <div class="funkyradio-success">
 
-                                                                                                                <input type="radio" name="rdType1" id="rdType1" checked />
-                                                                                                                <label class="lbType1" for="rdType1">ราคาประเมิน/ตรว.</label>
-                                                                                                            </div>
+                                                                                                            <input type="radio" name="rdType1" id="rdType1" checked />
+                                                                                                            <label class="lbType1" for="rdType1">ราคาประเมิน/ตรว.</label>
                                                                                                         </div>
-                                                                                                        <div class="col-sm-6 col-xs-12 divTab1">
-                                                                                                            <div class="funkyradio-primary">
+                                                                                                    </div>
+                                                                                                    <div class="col-sm-6 col-xs-12 divTab1">
+                                                                                                        <div class="funkyradio-primary">
 
-                                                                                                                <input type="radio" name="rdType1" id="rdType2" />
-                                                                                                                <label class="lbType2" for="rdType2">ราคาประเมิน/แปลง</label>
-                                                                                                            </div>
+                                                                                                            <input type="radio" name="rdType1" id="rdType2" />
+                                                                                                            <label class="lbType2" for="rdType2">ราคาประเมิน/แปลง</label>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
+                                                                                            </div>
 
 
 
@@ -563,15 +454,15 @@
                                                                                                             <div class='input-group date' id='txtSFromDate'>
 
                                                                                                                 <input class="form-control txtSFromDate" autocomplete="off" id="txtSearchStartDate" placeholder="จากวันที่" />
-                                                                                                                <span class="input-group-addon  bg-primary"> 
+                                                                                                                <span class="input-group-addon  bg-primary">
                                                                                                                     <span class="glyphicon glyphicon-calendar " style="color:#ffffff"></span>
                                                                                                                 </span>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    </div>
-                                                                                                       
-                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
                                                                                             <div class="col-sm-3 col-xs-12 divTab1 divSection22 invisible">
 
                                                                                                 <div class="row  ">
@@ -590,93 +481,93 @@
                                                                                                             </div>
                                                                                                         </div>
 
-                                                                                                         </div>
-                                                                                                    </div>
-                                                                                                    </div>
-
-                                                                                                </div>
-
-                                                                                                <div class="row divSection2Building  invisible" style="padding-bottom:10px">
-
-                                                                                                    <div class="col-xs-6 ">
-                                                                                                        <select class="form-control form-control-lg" name="ddlConstructionType" id="ddlConstructionType" placeholder="สิ่งปลูกสร้าง">
-                                                                                                            <option value="">ประเภทสิ่งปลูกสร้าง</option>
-                                                                                                            <option value="1">โรงเรียน</option>
-                                                                                                            <option value="2">บ้้าน</option>
-                                                                                                        </select>
-                                                                                                    </div>
-                                                                                                    <div class="col-xs-6">
-                                                                                                        <div class="panel panel-primary" style="margin-top:-150px">
-                                                                                                            <div class="panel-heading">
-                                                                                                                <h4 class="headerwhite">เลือกเปรียบเทียบรายจังหวัด</h4>
-                                                                                                            </div>
-
-                                                                                                            <div class="panel-body">
-                                                                                                                <div class="row">
-                                                                                                                    <div class="col-sm-12 col-xs-12">
-                                                                                                                        <select class="form-control form-control-lg"
-                                                                                                                                id="ddlProvince1"
-                                                                                                                                title="จังหวัด"
-                                                                                                                                placeholder="จังหวัด" multiple></select>
-
-                                                                                                                    </div>
-
-                                                                                                                </div>
-
-                                                                                                                <div class="row" style="padding-top:10px">
-                                                                                                                    <div class="col-sm-6 col-xs-12">
-
-                                                                                                                        <div class="form-group">
-                                                                                                                            <div class='input-group'>
-                                                                                                                                <input class="form-control txtPercent" id="txtPercent" value="10" placeholder="% ความต่าง" />
-                                                                                                                                <span class="input-group-addon">
-                                                                                                                                    <span>%</span>
-                                                                                                                                </span>
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                </div>
-
-                                                                                                            </div>
-                                                                                                        </div>
-
                                                                                                     </div>
                                                                                                 </div>
-                                                                                                <div class="row divTab1 ">
-                                                                                                    <div class="col-md-2 col-xs-12">
-                                                                                                        <div class="form-group">
-                                                                                                            <input class="form-control MinCostEstimate" id="MinCostEstimate0" value="0" placeholder="ราคาต่ำสุด" />
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-8 col-xs-12">
-                                                                                                        <div class="row">
-                                                                                                            <div class="col-md-12">
-                                                                                                                <div id="CostEstimateSlider0"></div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                        <div class="row">
-                                                                                                            <div class="col-md-1 minDiv" id="minDiv0"></div>
-                                                                                                            <div class="col-md-1 offset-md-10 maxDiv" id="maxDiv0"></div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-md-2 col-xs-12">
-                                                                                                        <div class="form-group">
-                                                                                                            <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="100000000" placeholder="ราคาสูงสุด" />
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-
-                                                                                                <div class="row">
-
-                                                                                                    <div class="col-sm-2 col-xs-6 col-sm-offset-4">
-                                                                                                        <button class="form-control  btn btn-primary  btn-large btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
-                                                                                                    </div>
-                                                                                                    <div class="col-sm-2 col-xs-6">
-                                                                                                        <button class="form-control  btn btn-default  btn-large btnCancel" id="btnCancel" name="btnCancel"><i class="fa fa-refresh"></i> ยกเลิก </button>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
                                                                                             </div>
+
+                                                                                        </div>
+
+                                                                                        <div class="row divSection2Building  invisible" style="padding-bottom:10px">
+
+                                                                                            <div class="col-xs-6 ">
+                                                                                                <select class="form-control form-control-lg" name="ddlConstructionType" id="ddlConstructionType" placeholder="สิ่งปลูกสร้าง">
+                                                                                                    <option value="">ประเภทสิ่งปลูกสร้าง</option>
+                                                                                                    <option value="1">โรงเรียน</option>
+                                                                                                    <option value="2">บ้้าน</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="col-xs-6">
+                                                                                                <div class="panel panel-primary" style="margin-top:-150px">
+                                                                                                    <div class="panel-heading">
+                                                                                                        <h4 class="headerwhite">เลือกเปรียบเทียบรายจังหวัด</h4>
+                                                                                                    </div>
+
+                                                                                                    <div class="panel-body">
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-sm-12 col-xs-12">
+                                                                                                                <select class="form-control form-control-lg"
+                                                                                                                        id="ddlProvince1"
+                                                                                                                        title="จังหวัด"
+                                                                                                                        placeholder="จังหวัด" multiple></select>
+
+                                                                                                            </div>
+
+                                                                                                        </div>
+
+                                                                                                        <div class="row" style="padding-top:10px">
+                                                                                                            <div class="col-sm-6 col-xs-12">
+
+                                                                                                                <div class="form-group">
+                                                                                                                    <div class='input-group'>
+                                                                                                                        <input class="form-control txtPercent" id="txtPercent" value="10" placeholder="% ความต่าง" />
+                                                                                                                        <span class="input-group-addon">
+                                                                                                                            <span>%</span>
+                                                                                                                        </span>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row divTab1 ">
+                                                                                            <div class="col-md-2 col-xs-12">
+                                                                                                <div class="form-group">
+                                                                                                    <input class="form-control MinCostEstimate" id="MinCostEstimate0" value="0" placeholder="ราคาต่ำสุด" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-8 col-xs-12">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <div id="CostEstimateSlider0"></div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-1 minDiv" id="minDiv0"></div>
+                                                                                                    <div class="col-md-1 offset-md-10 maxDiv" id="maxDiv0"></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-2 col-xs-12">
+                                                                                                <div class="form-group">
+                                                                                                    <input class="form-control MaxCostEstimate" id="MaxCostEstimate0" value="100000000" placeholder="ราคาสูงสุด" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-sm-2 col-xs-6 col-sm-offset-4">
+                                                                                                <button class="form-control  btn btn-primary  btn-large btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
+                                                                                            </div>
+                                                                                            <div class="col-sm-2 col-xs-6">
+                                                                                                <button class="form-control  btn btn-default  btn-large btnCancel" id="btnCancel" name="btnCancel"><i class="fa fa-refresh"></i> ยกเลิก </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -712,8 +603,9 @@
                                         <!-- row 3 -->
                                         <div class="row Tab3">
                                             <!-- Display none -->
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="x_panel tile fixed_height_750 overflow_hidden" style="border:1px solid #E6E9ED;padding:10px 17px">
+
+                                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                                <div class="x_panel tile  overflow_hidden" style="border:1px solid #E6E9ED;padding:10px 17px">
                                                     <div class="x_title">
                                                         <div class="col-md-8 col-sm-8 col-xs-9">
                                                             <label class="Label__Header">พื้นที่ที่มีการพัฒนาโครงการรัฐ</label>
@@ -721,7 +613,7 @@
                                                         <div class="col-md-4 col-sm-4 col-xs-3">
 
                                                             <a href="~/AreaAnalysis/Manage" class="pull-right form-control  btn btn-success  btn-large btnManage">
-                                                                <i class="fa fa-plus"></i>  เพิ่ม
+                                                                เพิ่มโครงการใหม่
                                                             </a>
                                                         </div>
                                                         <div class="clearfix"></div>
@@ -739,162 +631,72 @@
 
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody>
-                                                                    <tr data-toggle="collapse" data-target="#accordion" class="clickable">
-                                                                        <td class="td__Center">โครงการพื้นที่ 4</td>
-                                                                        <td class="td__Center">นครราชสีมา</td>
-                                                                        <td class="td__Center">31</td>
-                                                                        <td class="td__Center">1,000,000</td>
-                                                                        <td class="td__Center">ไม่พบ</td>
-
-                                                                    </tr>
-                                                                    <tr class="tdDetail">
-                                                                        <td colspan="5" class="td__Center">
-                                                                            <div id="accordion" class="collapse">
-
-                                                                                <div class="panel ">
-                                                                                    <div class="panel-heading">
-                                                                                        <label> จำนวนแปลงที่ดิน 31 แปลง</label>
-                                                                                        <label class="pull-right clickable" data-toggle="collapse" data-target="#accordion"><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
-                                                                                    </div>
-                                                                                    <div class="panel-body">
-                                                                                        <table class="table table-hover table-bordered tblDetail">
-                                                                                            <thead style="visibility:hidden;position:absolute">
-                                                                                                <tr>
-                                                                                                    <th class="th__center">
-
-
-                                                                                                    </th>
-
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                    </td>
-
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                    </td>
-
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                    </td>
-
-                                                                                                </tr>
-
-                                                                                            </tbody>
-
-                                                                                        </table>
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-
-                                                                    </tr>
-                                                                    <tr data-toggle="collapse" data-target="#accordion2" class="clickable">
-                                                                        <td class="td__Center">โครงการพื้นที่ 3</td>
-                                                                        <td class="td__Center">นครราชสีมา</td>
-                                                                        <td class="td__Center">37</td>
-                                                                        <td class="td__Center">2,000,000</td>
-                                                                        <td class="td__Center">ไม่พบ</td>
-                                                                    </tr>
-                                                                    <tr class="tdDetail">
-                                                                        <td colspan="5" class="td__Center">
-                                                                            <div id="accordion2" class="collapse">
-
-                                                                                <div class="panel ">
-                                                                                    <div class="panel-heading">
-                                                                                        <label> จำนวนแปลงที่ดิน 31 แปลง</label>
-                                                                                        <label class="pull-right clickable" data-toggle="collapse" data-target="#accordion2"><i class="glyphicon glyphicon-circle-arrow-left"> Back</i></label>
-                                                                                    </div>
-                                                                                    <div class="panel-body">
-                                                                                        <table class="table table-hover table-bordered tblDetail">
-                                                                                            <thead style="visibility:hidden;position:absolute">
-                                                                                                <tr>
-                                                                                                    <th class="th__center">
-
-
-                                                                                                    </th>
-
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                    </td>
-
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                    </td>
-
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <p> รูปแปลงที่ดิน โฉนด พาดผ่าน : 100</p>
-                                                                                                        <p> โฉนดเลขที่ : 232  เลขที่ดิน: 12</p>
-                                                                                                        <p> ราคาประเมิน(บาท/ตร.ว) : 39,000</p>
-                                                                                                    </td>
-
-                                                                                                </tr>
-
-                                                                                            </tbody>
-
-                                                                                        </table>
-
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-
-                                                                    </tr>
-
-                                                                </tbody>
+                                                                <tbody></tbody>
                                                             </table>
                                                         </div>
 
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-8 col-sm-8 col-xs-12">
-                                                <div class="x_panel tile fixed_height_750 overflow_hidden">
-                                                    <div class="x_title">
-                                                        <div class="col-md-10 col-sm-8 col-xs-9">
-                                                            <label class="Label__Header">พื้นที่ที่มีการพัฒนาโครงการรัฐ</label>
-                                                        </div>
-                                                        <div class="col-md-2 col-sm-4 col-xs-3">
-
-                                                        </div>
-                                                        <div class="clearfix"></div>
+                                            <div class="col-md-7 col-sm-7 col-xs-12 ">
+                                                <div class="x_title">
+                                                    <div class="col-md-8 col-sm-8 col-xs-9">
+                                                        <label class="Label__Header">Buffer</label>
+                                                        <label class="lbWarning text-danger"></label>
+                                                        <input type="text" class="form-control txtBuffer" />
                                                     </div>
-                                                    <div class="x_content tdmapSec4">
-
+                                                    <div class="col-md-4 col-sm-4 col-xs-3 " style="padding-top:24px;">
+                                                        <button class="form-control  btn btn-primary  btn-large btnSearchImpact" id="btnSearchImpact" name="btnSearchImpact"><i class="fa fa-search"></i>  ค้นหา </button>
+                                                      
                                                     </div>
-
+                                                    <div class="clearfix"></div>
                                                 </div>
-                                            </div>
+                                                <div class="x_content">
+                                                    <div class="row">
+                                                        <div class="col-md-4"> <label class="Label__Header">ชื่อโครงการ:</label> <label class="lbProectName text-success"></label></div>
+                                                        <div class="col-md-2"> <label class="Label__Header">พื้นที่ :</label> <label class="lbProvince text-success""></label></div>
+                                                        <div class="col-md-4"> <label class="Label__Header">จำนวนแปลงที่ดินที่กระทบ : </label> <label class="lbParcelImpact text-success""></label></div>
+                                                        <div class="col-md-2"> <label class="Label__Header">เนื้อที่รวม :</label><label class="lbArea text-success""></label></div>
+                                                      
+                                                    </div>
+                                                    <div class="divInfoSection4Detail">
+                                                        <table id="datatable4" class="table tblInfo   datatable4 tblInfoSection4Detail">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="th__center">เลขที่ฉโนด</th>
+                                                                    <th class="th__center">จังหวัด</th>
+                                                                    <th class="th__center">อำเภอ</th>
+                                                                    <th class="th__center">ตำบล</th>
+                                                                    <th class="th__center">ราคาประเมิน</th>
+                                                                    <th class="th__center">เนื้อที่รวม</th>
 
-                                        </div>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="x_panel tile fixed_height_750 overflow_hidden">
+                                                        <div class="x_title">
+                                                            <div class="col-md-10 col-sm-8 col-xs-9">
+                                                                <label class="Label__Header">แผนที่แสดงพื้นที่ที่มีการพัฒนาโครงการรัฐ</label>
+                                                            </div>
+                                                            <div class="col-md-2 col-sm-4 col-xs-3">
+
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                        <div class="x_content tdmapSec4">
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                     </div>
 
 
@@ -907,6 +709,7 @@
 
 
                 </div>
+
 
                 <div class="row chartBar">
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -973,7 +776,15 @@
 </body>
 <script type="text/javascript">
 
+    $(document).on("click", ".popover-header", function () {
+        $(this).closest(".popover").popover('hide');
+    });
 
+    $(document).on("click", ".popover-title", function () {
+        $('[data-toggle="popover"]').popover('hide'); 
+    });
+
+    
 
     function drawRegionsMap() {
         var data = google.visualization.arrayToDataTable([
@@ -1190,7 +1001,7 @@
         }
         senderData = JSON.stringify(senderData);
         encrpty(senderData).then(function (encryptData) {
-            gisIframeWindow.postMessage(encryptData, 'https://p-staging.treasury.go.th/TD2');
+            gisIframeWindow.GIS.postMessage(encryptData, 'https://p-staging.treasury.go.th/TD2');
         });
     }
 
@@ -1221,7 +1032,7 @@
 
 
     map.addGraphic = function (shape, symbol) {
-        var sridIn = 32647;
+        var sridIn = 24047;
         var sridOut = [102100];
         var trans = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
 
@@ -1327,9 +1138,11 @@
         parcel_shape: null
     }
 
-
+    var readyLoadTab4 = false;
+ 
 
     $(function () {
+        $('[data-toggle="popover"]').popover();   
 
         InitialData();
 
@@ -1340,10 +1153,24 @@
           MakeSpeedDometer('chartSpeedometer1_5', '', 22);*/
         viewListManager.init();
         var iframeElement = document.getElementById('tdmap');
-      //  iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
+       iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
         gisIframeWindow = null;
         iframeElement.onload = function () {
             gisIframeWindow = iframeElement.contentWindow;
+            gisIframeWindow.SYSTEM_READY(function (evt) {
+                console.log("SYSTEM_READY >>> ", evt);
+
+               
+                if (getUrlVars()["tab"] == "4" && !readyLoadTab4) {
+
+                    setTimeout(
+                        $('#tab4 a').click(), 3000
+                    )
+                    readyLoadTab4 = true;
+                    $("#tdmap").appendTo(".tdmapSec4");
+                }
+            });
+           
         }
 
 
@@ -1448,6 +1275,8 @@
 
     function InitialData() {
 
+
+      //  alert(getUrlVars()["tab"])
 
         $('.txtFromDate').datetimepicker({
             format: 'mm-dd-yyyy',
@@ -1739,6 +1568,18 @@
         //  chartBar3.setOption(horizontalOption);
     }
 
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
 </script>
 
 <script src="~/assets/BI/pace.min.js"></script>
@@ -1750,7 +1591,7 @@
 
 <script src="~/assets/BI/perfect-scrollbar.min.js"></script>
 <script src="~/assets/BI/Script.js?ver=1.2233d42"></script>
-<script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?dwdxddd93"></script>
-<script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.343xxsd3e"></script>
+<script src="~/assets/js/DashboardSystem3/ViewListHandler_Index.js?dssdds225393"></script>
+<script src="~/assets/js/DashboardSystem3/ViewListHandler.js?v4.343xd99dde"></script>
 
 </html>

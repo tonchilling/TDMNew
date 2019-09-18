@@ -16,7 +16,7 @@
 
     <script src="~/Scripts/waiting.js?ver=1.0220"></script>
 
-    <link href="~/assets/css/customize.css" rel="stylesheet" />
+  
     <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
 
     <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
@@ -73,167 +73,32 @@
         }
 
         input[type=button] {
-            display:inline-block;
-           
+            display: inline-block;
         }
 
+        .divTitle {
+          
+        }
+    </style>
     </style>
 
 
 </head>
 <body class="nav-md">
     <div id="wait"></div>
-    <div class="page-topbar">
-        <div class="logo-area">
-
-        </div>
-
-        <div class="quick-area">
-            <div class="pull-left">
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="sidebar-toggle-wrap">
-                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
-
-
-
-                </ul>
-            </div>
-            <div class="profile_details">
-                <ul>
-                    <li class="dropdown profile_details_drop">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <div class="profile_img">
-                                <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
-                                <div class="user-name">
-                                    <p>User</p>
-                                    <span>Administrator</span>
-                                </div>
-
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu drp-mnu">
-                            <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                            <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-                            <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-    <div class="page-sidebar pagescroll expandit">
-
-        <!-- MAIN MENU - START -->
-        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-
-
-
-
-            <div class="page-sidebar navbar-collapse collapse">
-                <!-- BEGIN SIDEBAR MENU -->
-                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 934px;">
-                    <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true"
-                        data-slide-speed="200" data-height="934" data-initialized="1" style="overflow: hidden; width: auto;height: 934px;">
-                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                        <li class="sidebar-toggler-wrapper hide">
-                            <div class="sidebar-toggler">
-                                <span></span>
-                            </div>
-                        </li>
-                        <!-- END SIDEBAR TOGGLER BUTTON -->
-                        <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/Index" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-home" style="color:red"></i>
-                                <span class="title">หน้าหลัก</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIViewer" class="nav-link nav-toggle">
-                                <i class="fa fa-area-chart" style="color:green"></i>
-                                <span class="title">รายงาน BI</span>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item   ">
-                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
-                                <span class="title">เรียกดูแผนที่/ราคา</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu1" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">รายงายซื้อขายจดทะเบียนที่ดิน</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu2" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu3" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-random" style="color:red"></i>
-                                <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/System_3_with_Layout?Menu=5" class="nav-link nav-toggle">
-                                <i class="fa fa-users" style="color:purple"></i>
-                                <span class="title">ปริมาณการเข้าใช้ระบบ</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIManager" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:#ffd800"></i>
-                                <span class="title">สร้างรายงานด้วย BI</span>
-                            </a>
-                        </li>
-
-
-                    </ul>
-                    <div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
-                </div>
-                <!-- END SIDEBAR MENU -->
-            </div>
-
-
-
-        </div>
-        <!-- MAIN MENU - END -->
-
-
-
-    </div>
+    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
+    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
 
     <section id="main-content">
         <section id="menulist">
             <div class="content-heading bg-white">
 
                 <div class="row">
-                    <div class="col-sm-12 divView">
+                    <div class="col-sm-12 divTitle">
                         <!-- Header -->
                         <div class="row ">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <h2 class=" text-center  text-info"><i class="fa fa-bar-chart" aria-hidden="true"> แนวโน้มการซื้อขายอาคารชุด</i></h2>
+                                <h3 class=" text-center  text-info"> แนวโน้มการซื้อขายอาคารชุด</i></h3>
                             </div>
                         </div>
                     </div>
@@ -244,245 +109,245 @@
         </section>
 
         <section class="wrapper main-wrapper row" style=''>
-           
 
 
 
-                <div class="col-xs-12">
-                    <section class="box ">
-                        <header class="panel_header">
-                            <div class="col-sm-10">
-                              
-                               
-                            </div>
-                            <div class="actions panel_actions pull-right">
-                                <a class="box_toggle fa fa-chevron-down"></a>
-                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
-                                <a class="box_close fa fa-times"></a>
-                            </div>
-                        </header>
-                        <div class="content-body">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="x_panel tile" style="border:none;padding:0;">
-                                        <div class="x_content">
+
+            <div class="col-xs-12">
+                <section class="box ">
+                    <header class="panel_header">
+                        <div class="col-sm-10">
 
 
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="panel panel-primary">
-                                                        <div class="panel-heading">
-                                                            <div class="row">
-                                                                <div class="col-xs-6">
-                                                                    <h3 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h3>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="panel-body">
-
-                                                            <div class="row ">
-                                                                <div class="col-xs-6" style="padding:0px">
-                                                                    <div class="row  funkyradio">
-                                                                        <div class="col-xs-12">
-                                                                            <b>เลือกภาค/คลัสเตอร์</b>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row  funkyradio">
-                                                                        <div class="col-xs-6 ">
-
-                                                                            <div class="funkyradio-success">
-                                                                                <input type="radio" name="Type1" id="rdRegion" checked />
-                                                                                <label for="rdRegion">ภาค</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-xs-6">
-                                                                            <div class="funkyradio-primary">
-                                                                                <input type="radio" name="Type1" id="rdCluster" />
-                                                                                <label for="rdCluster">คลัสเตอร์</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-xs-6 pnlRegion">
-
-                                                                    <div class="form-group">
-                                                                        <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
-                                                                            <option value="">เลือกภาค</option>
-                                                                            <option value="1">ภาคกลาง</option>
-                                                                            <option value="2">ตะวันตก</option>
-                                                                            <option value="3">เหนือ</option>
-                                                                            <option value="4">ตะวันออกเฉียงเหนือ</option>
-                                                                            <option value="5">ใต้</option>
-                                                                            <option value="6">ตะวันออก</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-xs-6">
-                                                                    <div class="form-group">
-
-                                                                        <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
-                                                                            <option value="">เลือกจังหวัด</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
+                        </div>
+                        <div class="actions panel_actions pull-right">
+                            <a class="box_toggle fa fa-chevron-down"></a>
+                            <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                            <a class="box_close fa fa-times"></a>
+                        </div>
+                    </header>
+                    <div class="content-body">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel tile" style="border:none;padding:0;">
+                                    <div class="x_content">
 
 
-                                                                <div class="col-xs-6 divTab1">
-                                                                    <div class="form-group">
-
-                                                                        <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
-                                                                            <option value="">เลือกอำภอ</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-xs-6 divTab1">
-                                                                    <div class="form-group">
-
-                                                                        <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
-                                                                            <option value="">เลือกตำบล</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-xs-6">
-                                                                    <div class="x_panel">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                                <label style="line-height: 2.5em;">ช่วงเวลา</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div id="CostRankSlider"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6 col-sm-6 col-xs-3">
-                                                                                <div class="form-group">
-                                                                                    <div class='input-group ' id='txtSFromDate'>
-
-                                                                                        <input class="form-control txtSFromDate"  autocomplete="off" id="txtSearchStartDate" placeholder="จากวันที่" />
-                                                                                        <span class="input-group-addon">
-                                                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-                                                                            <div class="col-md-6 col-sm-6 col-xs-3">
-                                                                                <div class="form-group">
-                                                                                    <div class='input-group ' id='txtSToDate'>
-                                                                                        <input class="form-control txtSToDate"  autocomplete="off" id="txtSearchEndDate" placeholder="ถึงวันที่" />
-                                                                                        <span class="input-group-addon">
-                                                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-
-
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                                <label style="line-height: 2.5em;">ชื่ออาคารชุด</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-9">
-                                                                                <div class="form-group">
-                                                                                    <input class="form-control txtName" id="txtName" placeholder="ชื่ออาคารชุด">
-                                                                                </div>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-xs-4"></div>
-                                                                    <div class="col-xs-2">
-                                                                        <input type="button" class="form-control btn btn-primary  btnSearch" value="ค้นหา" />
-
-
-                                                                    </div>
-                                                                    <div class="col-xs-2">
-                                                                        <input type="button" class="form-control btn btn-default" value="ยกเลิก" />
-
-                                                                    </div>
-
-                                                                </div>
-
-
-                                                            </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                                    <div class="panel panel-primary">
-                                                        <div class="panel-heading">
-                                                            <h3 class="headerwhite">แผนภูมิแสดงราคาซื้อขายเฉลี่ย</h3>
-                                                        </div>
-                                                        <div class="panel-body center">
-
-                                                            <div class="chart-container">
-
-                                                                <div id="graph1" style="height:600px"></div>
-
-
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-heading">
+                                                        <div class="row">
+                                                            <div class="col-xs-6">
+                                                                <h3 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h3>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="panel-body">
 
+                                                        <div class="row ">
+                                                            <div class="col-xs-6" style="padding:0px">
+                                                                <div class="row  funkyradio">
+                                                                    <div class="col-xs-12">
+                                                                        <b>เลือกภาค/คลัสเตอร์</b>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row  funkyradio">
+                                                                    <div class="col-xs-6 ">
+
+                                                                        <div class="funkyradio-success">
+                                                                            <input type="radio" name="Type1" id="rdRegion" checked />
+                                                                            <label for="rdRegion">ภาค</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-6">
+                                                                        <div class="funkyradio-primary">
+                                                                            <input type="radio" name="Type1" id="rdCluster" />
+                                                                            <label for="rdCluster">คลัสเตอร์</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-6 pnlRegion">
+
+                                                                <div class="form-group">
+                                                                    <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                                                        <option value="">เลือกภาค</option>
+                                                                        <option value="1">ภาคกลาง</option>
+                                                                        <option value="2">ตะวันตก</option>
+                                                                        <option value="3">เหนือ</option>
+                                                                        <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                                                        <option value="5">ใต้</option>
+                                                                        <option value="6">ตะวันออก</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <div class="form-group">
+
+                                                                    <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                                                        <option value="">เลือกจังหวัด</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+
+
+                                                            <div class="col-xs-6 divTab1">
+                                                                <div class="form-group">
+
+                                                                    <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                                                        <option value="">เลือกอำภอ</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xs-6 divTab1">
+                                                                <div class="form-group">
+
+                                                                    <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                                                        <option value="">เลือกตำบล</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-xs-6">
+                                                                <div class="x_panel">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                            <label style="line-height: 2.5em;">ช่วงเวลา</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div id="CostRankSlider"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 col-sm-6 col-xs-3">
+                                                                            <div class="form-group">
+                                                                                <div class='input-group ' id='txtSFromDate'>
+
+                                                                                    <input class="form-control txtSFromDate" autocomplete="off" id="txtSearchStartDate" placeholder="จากวันที่" />
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-6 col-xs-3">
+                                                                            <div class="form-group">
+                                                                                <div class='input-group ' id='txtSToDate'>
+                                                                                    <input class="form-control txtSToDate" autocomplete="off" id="txtSearchEndDate" placeholder="ถึงวันที่" />
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                            <label style="line-height: 2.5em;">ชื่ออาคารชุด</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-9">
+                                                                            <div class="form-group">
+                                                                                <input class="form-control txtName" id="txtName" placeholder="ชื่ออาคารชุด">
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4"></div>
+                                                            <div class="col-xs-2">
+                                                                <input type="button" class="form-control btn btn-primary  btnSearch" value="ค้นหา" />
+
+
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <input type="button" class="form-control btn btn-default" value="ยกเลิก" />
+
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="panel panel-primary">
-                                                        <div class="panel-heading">
-                                                            <h3 class="headerwhite">แนวโน้มราคาซื้อขายเฉลี่ยอาคารชุด</h3>
-                                                        </div>
-                                                        <div class="panel-body center divTable" style="overflow-x:auto">
-                                                            <table class="table table-bordered table-striped   ">
-                                                                <thead>
-                                                                    <tr class="bg-info">
-                                                                        <th scope="col" class="center" rowspan="3">ชื่ออาคารชุด</th>
-                                                                        <th scope="col" class="center">ราคาซื้อขายดิน</th>
-                                                                    </tr>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-heading">
+                                                        <h3 class="headerwhite">แผนภูมิแสดงราคาซื้อขายเฉลี่ย</h3>
+                                                    </div>
+                                                    <div class="panel-body center">
+
+                                                        <div class="chart-container">
+
+                                                            <div id="graph1" style="height:600px"></div>
 
 
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-heading">
+                                                        <h3 class="headerwhite">แนวโน้มราคาซื้อขายเฉลี่ยอาคารชุด</h3>
+                                                    </div>
+                                                    <div class="panel-body center divTable" style="overflow-x:auto">
+                                                        <table class="table table-bordered table-striped   ">
+                                                            <thead>
+                                                                <tr class="bg-info">
+                                                                    <th scope="col" class="center" rowspan="3">ชื่ออาคารชุด</th>
+                                                                    <th scope="col" class="center">ราคาซื้อขายดิน</th>
+                                                                </tr>
+
+
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                </div>
+                    </div>
+                </section>
+            </div>
 
-           
+
             </div>
         </section>
     </section>

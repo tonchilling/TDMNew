@@ -275,7 +275,10 @@ $(document).on("click", ".btnLand", function () {
 $(document).on("click", ".btnCondo", function () {
     $("#ddlType1").val([2]).selectpicker('refresh').trigger('change');
     var types = $("#ddlType1").val();
-
+    $("#ddlRegion").val('');
+    $("#ddlProvince").val('');
+    $("#ddlAmphure").val('');
+    $("#ddlTumbol").val('');
     tabSelect = 2;
     selectLocationLevel = 0;
     LoadData(0, '');
@@ -296,7 +299,10 @@ $(document).on("click", ".btnBuilding", function () {
 $(document).on("click", ".btnGov", function () {
     $("#ddlType1").val([4]).selectpicker('refresh').trigger('change');
     var types = $("#ddlType1").val();
-
+    $("#ddlRegion").val('');
+    $("#ddlProvince").val('');
+    $("#ddlAmphure").val('');
+    $("#ddlTumbol").val('');
 
     tabSelect = 4;
     selectLocationLevel = 0;
@@ -347,11 +353,36 @@ function ChartCallBack(param) {
     console.log(param);
 }
 
+function GetLocationColorOfTab(tabNo) {
+    var colorCss = 'completedinfo activeinfo';
+    switch (tabNo) {
+        case 1: colorCss = 'completedinfo activeinfo'; break;
+        case 2: colorCss = 'completeddanger activedanger'; break;
+        case 3: colorCss = 'completedsuccess activesuccess'; break;
+        case 4: colorCss = 'completedwarning activewarning'; break;
+        default: colorCss = 'completedinfo activeinfo';
+    }
+
+    return colorCss;
+}
+
+function GetColorOfTab(tabNo) {
+    var colorCss = 'bg-info';
+    switch (tabNo) {
+        case "1": colorCss = 'bg-info'; break;
+        case "2": colorCss = 'bg-danger'; break;
+        case "3": colorCss = 'bg-success'; break;
+        case "4": colorCss = 'bg-warning'; break;
+        default: colorCss = 'bg-info';
+    }
+
+    return colorCss;
+}
 
 function LoadData(locationLevel,code) {
 
 
-
+    var menuBar = '';
     var html = '';
     var option1, option2, option3;
     var urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceBI';
@@ -385,35 +416,35 @@ function LoadData(locationLevel,code) {
 
         LoadSection1(tabSelect, "")
 
-    }, 1000);
+
 
    
-    var menuBar = '';
+
 
     $('.divView').empty();
     menuBar ='<ul class="nav nav-tabs wizard">'
     switch (locationLevel) {
         case 1:
-            menuBar += '<li class="completed active"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() +'</h4></a></li>';
+            menuBar += '<li class="' + GetLocationColorOfTab(tabSelect)+'"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() +'</h4></a></li>';
           //  $('.divView').append("<h4> <span class='text-lg btnRegion'   data='" + $("#ddlRegion").val()+"'>" + $("#ddlRegion option:selected").text()+"</span></h4>");
 
             break;
         case 2:
-            menuBar += '<li class="completed active"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</h4></a></li>';
-            menuBar += '<li class="completed active opacity"><a href="#i9" class="level2" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h4></a></li>';
+            menuBar += '<li class=" ' + GetLocationColorOfTab(tabSelect) +' "><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</h4></a></li>';
+            menuBar += '<li class=" ' + GetLocationColorOfTab(tabSelect) +'  opacity"><a href="#i9" class="level2" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h4></a></li>';
            // $('.divView').append("<h4><span class='text-lg btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</h4> > <h4 class='btnProvince' data='" + $("#ddlProvince").val() + "'> " + $("#ddlProvince option:selected").text() + "</h4> </p>");
             break;
         case 3:
-            menuBar += '<li class="completed active"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</h3></a></li>';
-            menuBar += '<li class="completed active opacity level2"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h3></a></li>';
-            menuBar += '<li class="completed active opacity level3"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnAmphure"  data="' + $("#ddlDistrict").val() + '">' + $("#ddlDistrict option:selected").text() + '</h3></a></li>';
+            menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +'"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</h3></a></li>';
+            menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +' opacity level2"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h3></a></li>';
+            menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +' opacity level3"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnAmphure"  data="' + $("#ddlDistrict").val() + '">' + $("#ddlDistrict option:selected").text() + '</h3></a></li>';
             //  $('.divView').append("<h3><span class=' text-lg btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</h3> > <h3 class='btnProvince' data='" + $("#ddlProvince").val() + "'> " + $("#ddlProvince option:selected").text() + "</h3> > <h3 class='btnAmphure' data='" + $("#ddlDistrict").val() + "'> " + $("#ddlDistrict option:selected").text() + "</h3> </p>");
             break;
         case 4:
-            menuBar += '<li class="completed active"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</h3></a></li>';
-            menuBar += '<li class="completed active opacity level2"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h3></a></li>';
-            menuBar += '<li class="completed active opacity level3"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnAmphure"  data="' + $("#ddlDistrict").val() + '">' + $("#ddlDistrict option:selected").text() + '</h4></a></li>';
-            menuBar += '<li class="completed active opacity level4"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnTumbol"  data="' + $("#ddlSubdistrict").val() + '">' + $("#ddlSubdistrict option:selected").text() + '</h4></a></li>';
+            menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +'"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</h3></a></li>';
+            menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +' opacity level2"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h3></a></li>';
+            menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +' opacity level3"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnAmphure"  data="' + $("#ddlDistrict").val() + '">' + $("#ddlDistrict option:selected").text() + '</h4></a></li>';
+            menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +' opacity level4"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnTumbol"  data="' + $("#ddlSubdistrict").val() + '">' + $("#ddlSubdistrict option:selected").text() + '</h4></a></li>';
            // $('.divView').append("<h4><span class=' text-lg btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</h2> > <h2 class='btnProvince' data='" + $("#ddlProvince").val() + "'> " + $("#ddlProvince option:selected").text() + "</h2> > <h2 class='btnAmphure' data='" + $("#ddlDistrict").val() + "'> " + $("#ddlDistrict option:selected").text() + "</h2> > <h2 class='btnTumbol' data='" + $("#ddlSubdistrict").val() + "'> " + $("#ddlSubdistrict option:selected").text() + "</h2> </p>");   
                 break;
            
@@ -423,7 +454,8 @@ function LoadData(locationLevel,code) {
     $('.divView').append(menuBar);
     $('#ddlProvince').removeClass("hide")
     $('#ddlDistrict').removeClass("hide")
-    $('#ddlSubdistrict').removeClass("hide")
+        $('#ddlSubdistrict').removeClass("hide")
+    }, 1000);
     switch (selectType) {
         case 1: urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceBI';
             $('.btnLand').css('opacity', '1');
@@ -2596,7 +2628,8 @@ function ReLoadAddress(selectCode) {
         else
             LoadProvice(filterData.RegionCode != null ? filterData.RegionCode : null, filterData.PRO_C);
 
-       
+
+        $("#ddlRegion").val(filterData.RegionCode);
         LoadDistinct(filterData.PRO_C, filterData.DIS_C);
         LoadSubDistinct(filterData.DIS_C, filterData.SUB_C);
     } else if (selectLocationLevel == '3') {
@@ -2609,7 +2642,7 @@ function ReLoadAddress(selectCode) {
         else
             LoadProvice(filterData.RegionCode, filterData.PRO_C);
 
-      
+        $("#ddlRegion").val(filterData.RegionCode);
         LoadDistinct(filterData.PRO_C, filterData.DIS_C);
         LoadSubDistinct(filterData.DIS_C);
     } else if (selectLocationLevel == '2') {
@@ -2620,7 +2653,9 @@ function ReLoadAddress(selectCode) {
 
         if (LocationType == '2')
             LoadProvice(filterData.ClusterCode, filterData.PRO_C);
-            else
+        else
+
+            $("#ddlRegion").val(filterData.RegionCode);
         LoadProvice(filterData.RegionCode, filterData.PRO_C);
         LoadDistinct(filterData.PRO_C);
         LoadSubDistinct(null);

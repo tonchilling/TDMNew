@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace TDM.Controllers
 {
-    public class DashboardSystem3Controller : Controller
+    public class DashboardSystem3Controller : BaseController
     {
         // GET: DashboardSystem3
         public ActionResult Index()

@@ -25,7 +25,7 @@
 
     <script src="~/Scripts/waiting.js?ver=1.0220"></script>
 
-    <link href="~/assets/css/customize.css" rel="stylesheet" />
+  
     <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
 
     <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
@@ -41,8 +41,7 @@
     <link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
     <link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
 
-    <link href="~/assets/css/Kim_Style.css?ver1.33" rel="stylesheet" />
-    <link href="~/assets/css/BI/Style.css?ver1.333dd3" rel="stylesheet" />
+
 
     <!-- CORE CSS TEMPLATE - END -->
     <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
@@ -53,194 +52,47 @@
     <script src="~/assets/js/jquery-ui.js"></script>
     <script src="~/assets/js/bootstrap-select.min.js?33"></script>
 
-    <style type="text/css">
-        .selectpicker {
-            -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-            -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-            -moz-transition: 0.3s;
-            -webkit-transition: 0.3s;
-            transition: 0.3s;
-            background-color: #fff;
-        }
+<style>
 
-            .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
-                color: #333;
-                background-color: #fff;
-                /*border-color: gold;*/
-            }
+    .panel .panel-heading {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        position: relative;
+        line-height: 1;
+        border-bottom: 1px solid #eaeff2;
+        background-color: #f8f9fa;
+    }
 
-
-        .dropdown-menu > li > a {
-            display: block;
-            padding: 3px 20px;
-            clear: both;
-            font-size: 14px;
-            line-height: 1.42857143;
-            color: #333;
-            white-space: nowrap;
-        }
-
-        input[type=button] {
+        .panel .panel-heading .panel-title {
             display: inline-block;
+            vertical-align: middle;
+            *vertical-align: auto;
+            *zoom: 1;
+            *display: inline;
+            margin: 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #717d84;
         }
-    </style>
+</style>
 
 
 </head>
 <body class="nav-md">
-    <div id="wait"></div>
-    <div class="page-topbar">
-        <div class="logo-area">
 
-        </div>
-
-        <div class="quick-area">
-            <div class="pull-left">
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="sidebar-toggle-wrap">
-                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
-
-
-
-                </ul>
-            </div>
-            <div class="profile_details">
-                <ul>
-                    <li class="dropdown profile_details_drop">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <div class="profile_img">
-                                <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
-                                <div class="user-name">
-                                    <p>User</p>
-                                    <span>Administrator</span>
-                                </div>
-
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu drp-mnu">
-                            <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                            <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-                            <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-    <div class="page-sidebar pagescroll expandit">
-
-        <!-- MAIN MENU - START -->
-        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-
-
-
-
-            <div class="page-sidebar navbar-collapse collapse">
-                <!-- BEGIN SIDEBAR MENU -->
-                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 934px;">
-                    <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true"
-                        data-slide-speed="200" data-height="934" data-initialized="1" style="overflow: hidden; width: auto;height: 934px;">
-                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                        <li class="sidebar-toggler-wrapper hide">
-                            <div class="sidebar-toggler">
-                                <span></span>
-                            </div>
-                        </li>
-                        <!-- END SIDEBAR TOGGLER BUTTON -->
-                        <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/Index" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-home" style="color:red"></i>
-                                <span class="title">หน้าหลัก</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIViewer" class="nav-link nav-toggle">
-                                <i class="fa fa-area-chart" style="color:green"></i>
-                                <span class="title">รายงาน BI</span>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item   ">
-                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
-                                <span class="title">เรียกดูแผนที่/ราคา</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu1" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">รายงายซื้อขายจดทะเบียนที่ดิน</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu2" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu3" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-random" style="color:red"></i>
-                                <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/System_3_with_Layout?Menu=5" class="nav-link nav-toggle">
-                                <i class="fa fa-users" style="color:purple"></i>
-                                <span class="title">ปริมาณการเข้าใช้ระบบ</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIManager" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:#ffd800"></i>
-                                <span class="title">สร้างรายงานด้วย BI</span>
-                            </a>
-                        </li>
-
-
-                    </ul>
-                    <div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
-                </div>
-                <!-- END SIDEBAR MENU -->
-            </div>
-
-
-
-        </div>
-        <!-- MAIN MENU - END -->
-
-
-
-    </div>
+    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
+    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
 
     <section id="main-content">
         <section id="menulist">
             <div class="content-heading bg-white">
 
                 <div class="row">
-                    <div class="col-sm-12 divView">
+                    <div class="col-sm-12 divTitle">
                         <!-- Header -->
                         <div class="row ">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <h2 class=" text-center  text-info"><i class="fa fa-bar-chart" aria-hidden="true">รายงานการซื้อขายจดทะเบียนที่ดิน</i></h2>
+                                <h3 class=" text-center  text-info">รายงานการซื้อขายจดทะเบียนที่ดิน</i></h3>
                             </div>
                         </div>
                     </div>
@@ -262,7 +114,7 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel tile" style="border:none;padding:0;">
                                     <div class="x_content">
-                                     
+
 
                                         <div class="row">
                                             <div class="col-xs-12">
@@ -306,8 +158,8 @@
                                                                         <option value="">เลือกปี</option>
                                                                         @foreach (var item in RegisterYearList)
                                                                         {
-                                                                        <option value="@item">@item.ToString("##00")</option>
-                                                                           
+                                                                            <option value="@item">@item.ToString("##00")</option>
+
                                                                         }
 
 
@@ -380,19 +232,19 @@
 
                                         <div class="row">
 
-                                            <div class="col-md-4 col-sm-4 col-xs-12 col-md-offset-4">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <div class="panel panel-primary">
                                                         <div class="panel-heading">
                                                             <h4 class="headerwhite">ภาพรวมจำนวนแปลง</h4>
                                                         </div>
                                                         <div class="panel-body center">
-                                                            <div class="alert alert-2" style="background-color:#c41019;color:#fff;display:inline-block;">
-                                                                <h6>จำนวนแปลงแบ่งแยกใหม่ (แปลง)</h6>
+                                                            <div class="alert alert-2 col-sm-6" style="background-color:#c41019;color:#fff;display:inline-block;">
+                                                                <h3>จำนวนแปลงแบ่งแยกใหม่ (แปลง)</h3>
                                                                 <h2 class="right lbNewRegLand">-</h2>
                                                             </div>
-                                                            <div class="alert alert-3" style="background-color:#19527d;color:#fff;display:inline-block;">
-                                                                <h6>จำนวนแปลงที่มีการซื้อขายจดทะเบียน (แปลง)</h6>
+                                                            <div class="alert alert-3 col-sm-6" style="background-color:#19527d;color:#fff;display:inline-block;">
+                                                                <h3>จำนวนแปลงที่มีการซื้อขายจดทะเบียน (แปลง)</h3>
                                                                 <h2 class="right lbRegLand">-</h2>
                                                             </div>
                                                         </div>
@@ -403,23 +255,23 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div class="panel panel-primary">
                                                     <div class="panel-heading">
                                                         <h4 class="headerwhite">จำนวนแปลงในแต่ละเดือน</h4>
                                                     </div>
                                                     <div class="panel-body chartBarNormal center" style="padding:10px">
-                                                        <div id="graph1" style="height:100%;width:80%"></div>
+                                                        <div id="graph1" class="col-sm-10 col-sm-offset-1" style="height:100%;"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div class="panel panel-primary">
                                                     <div class="panel-heading">
                                                         <h4 class="headerwhite">จำนวนแปลงสะสมในแต่ละเดือน</h4>
                                                     </div>
                                                     <div class="panel-body chartBarNormal  ">
-                                                        <div id="graph2" style="height:100%;width:60%"></div>
+                                                        <div id="graph2" class="col-sm-10 col-sm-offset-1" style="height:100%;"></div>
 
                                                     </div>
                                                 </div>

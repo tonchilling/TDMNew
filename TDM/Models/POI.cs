@@ -49,6 +49,7 @@ namespace TDM.Models
         public EstimateType EstimateType { get; set; }
         public SetionType SectionType { get; set; }
         public LocationType LocationType { get; set; }
+        public string UserId { get; set; }
         public string costEstUnitType { get; set; } // pricetype = 1 ราคาประเมิน pricetype = 2 ราคาซื้อขาย
         public string Code { get; set; }
         public string RegionCode { get; set; }
@@ -102,8 +103,10 @@ namespace TDM.Models
     }
 
     public class ProjectImpactShapeSearch {
-        public int ImportID { get; set; }
+      
         public int PageNo { get; set; }
+        public int ProjectImpactID { get; set; }
+        public int Buffer { get; set; }
     }
 
 

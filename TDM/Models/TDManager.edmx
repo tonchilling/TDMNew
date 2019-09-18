@@ -354,6 +354,7 @@ warning 6013: The table/view 'TDManagement.dbo.PARCEL_VAL_TUMBOL' does not have 
           <Property Name="Area" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ParcelTotal" Type="int" />
           <Property Name="Shape" Type="varchar" MaxLength="8000" />
+          <Property Name="Buffer" Type="int" />
           <Property Name="CREATE_DATE" Type="datetime" Nullable="false" />
           <Property Name="CREATE_BY" Type="nvarchar" MaxLength="50" />
           <Property Name="UPDATE_DATE" Type="datetime" Nullable="false" />
@@ -378,6 +379,10 @@ warning 6013: The table/view 'TDManagement.dbo.PARCEL_VAL_TUMBOL' does not have 
           <Property Name="OriginX" Type="nvarchar" MaxLength="50" />
           <Property Name="OriginY" Type="nvarchar" MaxLength="50" />
           <Property Name="Shape" Type="geometry" />
+          <Property Name="REG_P_WAH" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="RVAL_P_WAH" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="REG_AMT" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="RVAL_AMT" Type="decimal" Precision="18" Scale="2" />
           <Property Name="UpdateDate" Type="datetime" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
@@ -389,6 +394,17 @@ warning 6013: The table/view 'TDManagement.dbo.PARCEL_VAL_TUMBOL' does not have 
           <Property Name="PROJECT_ID" Type="int" Nullable="false" />
           <Property Name="PROV_CODE" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.dbo.PROVINCE' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="PROVINCE">
+          <Property Name="No" Type="int" />
+          <Property Name="ProvinceCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="NameTH" Type="nvarchar" MaxLength="100" />
+          <Property Name="NameEN" Type="nvarchar" MaxLength="100" />
+          <Property Name="RegionCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6013: The table/view 'TDManagement.dbo.REGION' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="REGION">
@@ -402,6 +418,14 @@ warning 6013: The table/view 'TDManagement.dbo.REGION' does not have a primary k
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="STATUS_NAME" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TDManagement.dbo.Temp_Province' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Temp_Province">
+          <Property Name="No" Type="float" />
+          <Property Name="ProvinceName" Type="nvarchar" MaxLength="255" />
+          <Property Name="RegionCode" Type="float" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6013: The table/view 'TDManagement.dbo.TemplateChartType' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="TemplateChartType">
@@ -2173,6 +2197,7 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
           <Property Name="IS_PUBLISHED" Type="Boolean" Nullable="false" />
           <Property Name="IS_DELETED" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Buffer" Type="Int32" />
         </EntityType>
         <EntityType Name="PROJECT_IMPACT_GEOMETRY">
           <Key>
@@ -2191,6 +2216,10 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
           <Property Name="Shape" Type="Geometry" />
           <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="REG_P_WAH" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="RVAL_P_WAH" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="REG_AMT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="RVAL_AMT" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="PROV_IMPACT">
           <Key>
@@ -2623,6 +2652,7 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
           <EntitySetMapping Name="PROJECT_IMPACT">
             <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT">
               <MappingFragment StoreEntitySet="PROJECT_IMPACT">
+                <ScalarProperty Name="Buffer" ColumnName="Buffer" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
                 <ScalarProperty Name="IS_PUBLISHED" ColumnName="IS_PUBLISHED" />
@@ -2646,6 +2676,10 @@ warning 6013: The table/view 'TDManagement.tdadmin.sum_land_assessment_A0' does 
           <EntitySetMapping Name="PROJECT_IMPACT_GEOMETRY">
             <EntityTypeMapping TypeName="TDManagementModel.PROJECT_IMPACT_GEOMETRY">
               <MappingFragment StoreEntitySet="PROJECT_IMPACT_GEOMETRY">
+                <ScalarProperty Name="RVAL_AMT" ColumnName="RVAL_AMT" />
+                <ScalarProperty Name="REG_AMT" ColumnName="REG_AMT" />
+                <ScalarProperty Name="RVAL_P_WAH" ColumnName="RVAL_P_WAH" />
+                <ScalarProperty Name="REG_P_WAH" ColumnName="REG_P_WAH" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="Shape" ColumnName="Shape" />

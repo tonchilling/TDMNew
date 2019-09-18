@@ -1,0 +1,263 @@
+﻿
+<style type="text/css">
+.slimScrollDiv {
+
+        margin-top:5px;
+        }
+    .slimScrollBar {
+        width:15px !important;
+        height:100% !important;
+    }
+    </style>
+<div class="page-sidebar pagescroll expandit">
+
+    <!-- MAIN MENU - START -->
+    <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+
+
+
+
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 934px;">
+                <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true" data-slide-speed="200" data-height="934" data-initialized="1" style="overflow: hidden; width: auto; height: 934px;">
+                    <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <li class="sidebar-toggler-wrapper hide">
+                        <div class="sidebar-toggler">
+                            <span></span>
+                        </div>
+                    </li>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                    <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+
+                    <li class="nav-item   mmLeftMenu  mmMainMenu">
+                        <a href="~/BI/Index?Menu=1" class="nav-link nav-toggle">
+                            <i class="glyphicon glyphicon-home" style="color:red"></i>
+                            <span class="title">หน้าหลัก</span>
+                        </a>
+                    </li>
+                    <li class="nav-item   mmLeftMenu  mmBIReport">
+                        <a href="~/BI/BIViewer?Menu=2" class="nav-link nav-toggle">
+                            <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                            <span class="title">รายงานด้วย BI</span>
+                        </a>
+                    </li>
+
+
+                    <!-- <li class="nav-item   ">
+        <a href="~/Home/Menu1" class="nav-link nav-toggle">
+            <i class="fa fa-money" style="color:blue"></i>
+            <span class="title">ซื้อขายจดทะเบียน</span>
+        </a>
+    </li>-->
+                    <li class="nav-item  mmLeftMenu  mmMapView ">
+                        <a href="~/DashboardSystem3?Menu=3" class="nav-link nav-toggle">
+                            <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                            <span class="title">เรียกดูแผนที่/ราคา</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mmLeftMenu mmLand ">
+                        <a href="~/Home/Menu1?Menu=4" class="nav-link nav-toggle">
+                            <i class="fa fa-bar-chart" style="color:blue"></i>
+                            <span class="title">รายงายซื้อขายจดทะเบียนที่ดิน</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  mmLeftMenu  mmCondo">
+                        <a href="~/Home/Menu2?Menu=6" class="nav-link nav-toggle">
+                            <i class="fa fa-bar-chart" style="color:blue"></i>
+                            <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mmLeftMenu  mmChangeLand">
+                        <a href="~/Home/Menu3?Menu=7" class="nav-link nav-toggle">
+                            <i class="glyphicon glyphicon-random" style="color:red"></i>
+                            <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mmLeftMenu   mmEnterSystem">
+                        <a href="~/Home/System_3_with_Layout?Menu=5" class="nav-link nav-toggle">
+                            <i class="fa fa-users" style="color:purple"></i>
+                            <span class="title">ปริมาณการเข้าใช้ระบบ</span>
+                        </a>
+                    </li>
+
+                  
+                   
+
+                    @{ var Menu = Request.QueryString["Menu"];}
+
+                    @if (Menu == "1" || Menu == "0" || Menu == null)
+                    {
+                        <li class="mmLeftMenu menusection">ค้นหา  </li>
+                        <li class="mmLeftMenu">
+                            <a href="#">
+
+                                <div class="row">
+                                    <div class="col-xs-11">
+                                        <i class="fa fa-search icon-primary"></i>  <span class="title">เลือกพื้นที่ที่ต้องการค้นหา</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-11">
+                                        <div class="funkyradio">
+                                            <div class="funkyradio-success">
+                                                <input type="checkbox" name="Type1" id="rdCluster" />
+                                                <label for="rdCluster">คลัสเตอร์</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-11">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                                <option value="">เลือกภาค</option>
+                                                <option value="1">ภาคกลาง</option>
+                                                <option value="2">ตะวันตก</option>
+                                                <option value="3">เหนือ</option>
+                                                <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                                <option value="5">ใต้</option>
+                                                <option value="6">ตะวันออก</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-11">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                                <option value="">เลือกจังหวัด</option>
+                                                <option value="1">กรุงเทพ</option>
+                                                <option value="2">นนทบุรี</option>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-11">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                                <option value="">เลือกอำเภอ</option>
+                                                <option value="1">สาธร</option>
+                                                <option value="2">บางรัก</option>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-11">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                                <option value="">เลือกตำบล</option>
+                                                <option value="1">ทุ่งมหาเมฆ</option>
+                                                <option value="2">ยานนาวา</option>
+                                                <option value="3">ทุ่งวัดดอน</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </a>
+                        </li>
+
+                    }
+
+                    @if (Menu == "2")
+                    {
+                        <li class="mmLeftMenu menusection">ค้นหา  </li>
+                        <li class="mmLeftMenu">
+                            <a href="#">
+
+                                <div class="row">
+                                    <div class="col-xs-11">
+                                        <i class="fa fa-search icon-primary"></i>  <span class="title">Select Template</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-11">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-lg" name="ddlTemplate" id="ddlTemplate" required>
+                                                <option value="">เลือก Template</option>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </a>
+                        </li>
+                    }
+
+
+                    @if (Menu == "8")
+                    {
+                        <li class="mmLeftMenu menusection">ค้นหา  </li>
+                        <li class="mmLeftMenu">
+                            <a href="#">
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <i class="fa fa-search icon-primary"></i>  <span class="title">View Database</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button class="btnConnect btn btn-primary">View Datatabse</button>
+
+                                    </div>
+
+                                </div>
+
+                            </a>
+                        </li>
+                        <li class="">
+                            <div class="row">
+
+                                <div class="col-xs-12">
+                                    <div class="sectionDB bd">
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </li>
+                    }
+
+                </ul><div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
+            </div>
+            <!-- END SIDEBAR MENU -->
+        </div>
+
+
+
+    </div>
+    <!-- MAIN MENU - END -->
+
+
+
+</div>

@@ -1,0 +1,170 @@
+﻿<link href="~/assets/css/customize.css" rel="stylesheet" />
+<link href="~/assets/css/Kim_Style.css?ver1.33" rel="stylesheet" />
+<link href="~/assets/css/BI/Style.css?ver1.001" rel="stylesheet" />
+<style type="text/css">
+    .btnLogout {
+        cursor: pointer;
+    }
+
+        .btnLogout:hover, .btnLogout > span:hover {
+            color: #b9ea3f;
+            text-underline-position: unset;
+        }
+
+    .rowheader {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+    #menulist.content-heading {
+        min-height: 60px;
+    }
+    .lbUserLogin {
+    color:#fff;
+    font-size:18px;
+    }
+    a.dropdown-toggle {
+        color: #fff;
+    }
+
+</style>
+<div class="page-topbar">
+    <div class="logo-area">
+
+    </div>
+
+    <div class="quick-area">
+
+        <div class="row rowheader">
+            <div class="col-xs-2">
+                <div class="pull-left">
+                    <ul class="info-menu left-links list-inline list-unstyled">
+                        <li class="sidebar-toggle-wrap">
+                            <a href="#" data-toggle="sidebar" class="sidebar_toggle">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-xs-7">
+
+                <h3 class=" text-center  text-light"><i class="fa fa-bar-chart" aria-hidden="true"> ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</i></h3>
+
+
+            </div>
+
+            <div class="col-xs-3">
+                <div class="profile_details">
+                    <ul>
+                        <li class="dropdown dropdown-user">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                <span class="lbUserLogin">
+                                  
+                                </span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li class="btnLogout">
+                                    <a class="btnLogout">
+
+                                        <i class="fa fa-power-off text-danger"></i> ออกจากระบบ
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="Scripts/Main.js?ver=1.25"></script>
+<script type="text/javascript">
+
+
+    var ObjUserLogin;
+    var currentUrl='@Url.Action("TakeSession", Html.ViewContext.RouteData.GetRequiredString("controller"))';
+    $('.btnLogout').click(function () {
+        Logout();
+    });
+
+
+
+    $(function () {
+
+        LoadUserSession();
+
+    });
+
+
+    function LoadUserSession() {
+
+        var userSessionFromMain =( window.parent._sessionManager ==null ? null : window.parent._sessionManager.getSession());
+
+        if (userSessionFromMain == null) {
+            alert('userSessionFromMain dont have permission')
+        }
+        $.post(currentUrl, { userId: "2" }, function (data) {
+
+            ObjUserLogin = data;
+
+            if (data.id == null) {
+         //       $('.mmLeftMenu').invisibleAbsolute();
+             //   https://p-staging.treasury.go.th/td_homepage/
+            //    window.location.href = '@Url.Content("~/ErrorPage.html")';
+            }
+            else {
+                var findMenu = data.menuList.filter(function (o) {
+                    return o.id == 684300
+                });
+                setTimeout(function () {
+
+                    $('.lbUserLogin').text(data.USER_NAME +' '+ data.USER_SURNAME);
+                     
+                }, 500);
+
+             
+                
+                if (findMenu != null) {
+                   // $('.mmMapView').invisibleAbsolute();
+                   /* mmMainMenu
+                    mmBIReport
+                    mmMapView
+                    mmLand
+                    mmCondo
+                    mmChangeLand
+                    mmEnterSystem
+                    mmCreateBIReport*/
+                }
+            }
+
+        }).done(function () {
+            setTimeout(function () {
+
+                waitingDialog.hide()
+
+            }, 500);
+        })
+            .fail(function () {
+                alert("error");
+                waitingDialog.hide()
+            })
+            .always(function () {
+
+            });;}
+
+
+
+</script>

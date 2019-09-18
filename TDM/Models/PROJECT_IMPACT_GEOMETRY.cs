@@ -30,7 +30,7 @@ public partial class PROJECT_IMPACT_GEOMETRY
 
     public string Chanode { get; set; }
 
-    public decimal? Area { get; set; }
+    public Nullable<decimal> Area { get; set; }
 
     public string OriginX { get; set; }
 
@@ -41,6 +41,14 @@ public partial class PROJECT_IMPACT_GEOMETRY
     public System.DateTime UpdateDate { get; set; }
 
     public System.DateTime CreateDate { get; set; }
+
+    public decimal  REG_P_WAH { get; set; }
+
+    public decimal RVAL_P_WAH { get; set; }
+
+    public decimal REG_AMT { get; set; }
+
+    public decimal RVAL_AMT { get; set; }
 
 }
 

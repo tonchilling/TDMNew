@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace TDM.Controllers
 {
-    public class BIController : Controller
+    public class BIController : BaseController
     {
         // GET: BI
         public ActionResult Index()

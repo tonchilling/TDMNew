@@ -15,17 +15,143 @@
     <meta name="Description" content=" กรมธนารักษ์">
     <title>กรมธนารักษ์</title>
 
-    <style type="text/css">
-    </style>
+
     @section Scripts {
         @Scripts.Render("~/assets/css/customize.css?v113")
         @Scripts.Render("~/assets/css/Kim_Style.css?v333")
     }
 
+    <style>
+        .panel-login {
+            border-color: #ccc;
+            -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+            -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+        }
 
+            .panel-login > .panel-heading {
+                color: #00415d;
+                background: linear-gradient(to top, #6ac9fb, #6ac2fb, #6cbafa, #71b2f7, #78a9f4);
+                border-color: #fff;
+                text-align: left;
+            }
+
+                .panel-login > .panel-heading a, .panel-heading span {
+                    text-decoration: none;
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 18px;
+                    -webkit-transition: all 0.1s linear;
+                    -moz-transition: all 0.1s linear;
+                    transition: all 0.1s linear;
+                }
+
+                    .panel-login > .panel-heading a.active {
+                        color: #33c9f2;
+                        font-size: 18px;
+                    }
+
+        .right {
+            text-align: right;
+        }
+
+        #dashboard-section1 h4 {
+            text-align: center;
+            min-height: 2em;
+        }
+
+        .form-check-inline {
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-left: 0;
+            margin-right: .75rem;
+            width: auto;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .rowChartTab {
+            overflow-x: scroll;
+            flex-wrap: nowrap;
+        }
+
+        .chartTab1, .chartTab2, .chartTab3 {
+            display: inline;
+            float: none !important;
+        }
+
+        .panel {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            margin-bottom: 30px;
+            border: 1px solid #d1d6e6;
+            background: #fff;
+        }
+
+            .panel .panel-heading {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                position: relative;
+                line-height: 1;
+                border-bottom: 1px solid #eaeff2;
+                background-color: #f8f9fa;
+            }
+
+                .panel .panel-heading .panel-title {
+                    display: inline-block;
+                    vertical-align: middle;
+                    *vertical-align: auto;
+                    *zoom: 1;
+                    *display: inline;
+                    margin: 0;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #717d84;
+                }
+
+        .btn-default {
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        .divTitle {
+            margin-top: 60px;
+        }
+        .divView {
+        min-height:80px;
+        
+        }
+
+        .slimScrollDiv {
+            margin-top: 0px;
+        }
+        .content-heading {
+        opacity:1;
+        }
+
+    
+
+
+    </style>
     <script src="~/Scripts/waiting.js?ver=1.0220"></script>
 
-    <link href="~/assets/css/customize.css" rel="stylesheet" />
+    <!--
+    <link href="~/assets/css/customize.css" rel="stylesheet" />-->
 
 
     <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
@@ -41,8 +167,7 @@
     <link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
     <link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
 
-    <link href="~/assets/css/Kim_Style.css?ver1.33" rel="stylesheet" />
-    <link href="~/assets/css/BI/Style.css?ver1.333deeed3" rel="stylesheet" />
+
 
     <!-- CORE CSS TEMPLATE - END -->
     <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
@@ -53,282 +178,50 @@
     <script src="~/assets/js/jquery-ui.js"></script>
 
     <script src="~/assets/js/bootstrap-select.min.js?33"></script>
+    <style type="text/css">
+        .tblChart tr td {
+            padding: 20px;
+        }
 
+     
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'THSarabunNew', Helvetica, Arial, sans-serif;
+            margin: 10px 0;
+            font-family: 'THSarabunNew', Arial, Helvetica, sans-serif;
+            font-weight: 400;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body class="nav-md">
     <div id="wait"></div>
-    <div class="page-topbar">
-        <div class="logo-area">
 
-        </div>
-
-        <div class="quick-area">
-            <div class="pull-left">
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="sidebar-toggle-wrap">
-                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
-
-
-
-                </ul>
-            </div>
-            <div class="profile_details">
-                <ul>
-                    <li class="dropdown profile_details_drop">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <div class="profile_img">
-                                <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
-                                <div class="user-name">
-                                    <p>User</p>
-                                    <span>Administrator</span>
-                                </div>
-
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu drp-mnu">
-                            <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                            <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-                            <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
     <!-- START CONTENT -->
-
-    <div class="page-sidebar pagescroll expandit">
-
-        <!-- MAIN MENU - START -->
-        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-
-
-
-
-            <div class="page-sidebar navbar-collapse collapse">
-                <!-- BEGIN SIDEBAR MENU -->
-                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 934px;">
-                    <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true" data-slide-speed="200" data-height="934" data-initialized="1" style="overflow: hidden; width: auto; height: 934px;">
-                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                        <li class="sidebar-toggler-wrapper hide">
-                            <div class="sidebar-toggler">
-                                <span></span>
-                            </div>
-                        </li>
-                        <!-- END SIDEBAR TOGGLER BUTTON -->
-                        <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/Index" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-home" style="color:red"></i>
-                                <span class="title">หน้าหลัก</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIViewer" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
-                                <span class="title">รายงานด้วย BI</span>
-                            </a>
-                        </li>
-
-
-                        <!-- <li class="nav-item   ">
-        <a href="~/Home/Menu1" class="nav-link nav-toggle">
-            <i class="fa fa-money" style="color:blue"></i>
-            <span class="title">ซื้อขายจดทะเบียน</span>
-        </a>
-    </li>-->
-                        <li class="nav-item   ">
-                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
-                                <span class="title">เรียกดูแผนที่/ราคา</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu1" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">รายงายซื้อขายจดทะเบียนที่ดิน</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu2" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu3" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-random" style="color:red"></i>
-                                <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/System_3_with_Layout?Menu=5" class="nav-link nav-toggle">
-                                <i class="fa fa-users" style="color:purple"></i>
-                                <span class="title">ปริมาณการเข้าใช้ระบบ</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIManager" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
-                                <span class="title">สร้างรายงานด้วย BI</span>
-                            </a>
-                        </li>
-                        <!-- <li class="btnLogout" onclick="logout()">
-        <a href="https://p-staging.treasury.go.th/pvalue/logout">
-
-            <i class="icon-key"></i> ออกจากระบบ
-        </a>
-    </li>-->
-                        <li class="menusection">ค้นหา  </li>
-                        <li class="">
-                            <a href="#">
-
-                                <div class="row">
-                                    <div class="col-xs-11">
-                                        <i class="fa fa-search icon-primary"></i>  <span class="title">เลือกพื้นที่ที่ต้องการค้นหา</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-11">
-                                        <div class="funkyradio">
-                                            <div class="funkyradio-success">
-                                                <input type="checkbox" name="Type1" id="rdCluster" />
-                                                <label for="rdCluster">คลัสเตอร์</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-11">
-                                        <div class="form-group">
-                                            <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
-                                                <option value="">เลือกภาค</option>
-                                                <option value="1">ภาคกลาง</option>
-                                                <option value="2">ตะวันตก</option>
-                                                <option value="3">เหนือ</option>
-                                                <option value="4">ตะวันออกเฉียงเหนือ</option>
-                                                <option value="5">ใต้</option>
-                                                <option value="6">ตะวันออก</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-11">
-                                        <div class="form-group">
-                                            <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
-                                                <option value="">เลือกจังหวัด</option>
-                                                <option value="1">กรุงเทพ</option>
-                                                <option value="2">นนทบุรี</option>
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-11">
-                                        <div class="form-group">
-                                            <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
-                                                <option value="">เลือกอำเภอ</option>
-                                                <option value="1">สาธร</option>
-                                                <option value="2">บางรัก</option>
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-11">
-                                        <div class="form-group">
-                                            <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
-                                                <option value="">เลือกตำบล</option>
-                                                <option value="1">ทุ่งมหาเมฆ</option>
-                                                <option value="2">ยานนาวา</option>
-                                                <option value="3">ทุ่งวัดดอน</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-
-                            <div class="row">
-                                <!-- <div class="col-xs-11">
-                <div class="form-group">
-                    <select class="form-control form-control-lg"
-                            title="เลือกประเภท"
-                            placeholder="เลือกประเภท"
-                            name="ddlType1"
-                            id="ddlType1" multiple>
-
-                        <option value="1">ที่ดิน</option>
-                        <option value="2">อาคารชุด</option>
-                        <option value="3">สิ่งปลูกสร้าง</option>
-                        <option value="4">พื้นที่โครงการรัฐ</option>
-
-                    </select>
-                </div>
-
-            </div>-->
-
-                            </div>
-
-
-                        </li>
-
-                    </ul><div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
-                </div>
-                <!-- END SIDEBAR MENU -->
-            </div>
-
-            
-
-            </div>
-            <!-- MAIN MENU - END -->
-
-
-
-        </div>
+    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
+    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
     <section id="main-content">
         <section id="menulist">
             <div class="content-heading bg-white">
-               
+
                 <div class="row">
-                    <div class="col-sm-9 divView">
-                        
+                    <div class="col-sm-12">
+                        <!-- Header -->
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h3 class=" text-center  text-info">หน้าหลัก</i></h3>
+                            </div>
+                        </div>
                     </div>
-                    
+
                 </div>
             </div>
 
-        </section>
-      
-       
+
+
+</section>
+
+
 
         <section class="wrapper main-wrapper row" style=''>
 
@@ -346,11 +239,11 @@
                                 <div class="r4_counter db_box bg-info  btnLand zoom">
                                     <i class='pull-left fa fa-2x fa fa-cubes icon-rounded icon-info '></i>
                                     <div class="stats">
-                                        <h2 class="TextHeader text-center"><strong class="">ที่ดิน</strong></h2>
+                                        <h2 class=" text-center">ที่ดิน</h2>
 
                                     </div>
                                     <div class="footer">
-                                        <h4>รายงานเกี่ยวกับข้อมุลที่ดิน</h4>
+                                        <h3>รายงานเกี่ยวกับข้อมุลที่ดิน</h3>
 
                                     </div>
                                 </div>
@@ -360,11 +253,11 @@
                                 <div class="r4_counter db_box bg-danger  btnCondo zoom">
                                     <i class='pull-left fa fa-building icon-md icon-rounded icon-warning '></i>
                                     <div class="stats">
-                                        <h2 class="TextHeader text-center"><strong class="">ที่อาคารชุด</strong></h2>
+                                        <h2 class=" text-center">ที่อาคารชุด</h2>
 
                                     </div>
                                     <div class="footer">
-                                        <h4>รายงานเกี่ยวกับ อาคารชุด</h4>
+                                        <h3>รายงานเกี่ยวกับ อาคารชุด</h3>
 
                                     </div>
                                 </div>
@@ -374,11 +267,11 @@
                                 <div class="r4_counter db_box bg-success  btnBuilding zoom">
                                     <i class='pull-left glyphicon glyphicon-home icon-md icon-rounded icon-info '></i>
                                     <div class="stats">
-                                        <h2 class="TextHeader text-center"><strong class="">สิ่งปลูกสร้าง</strong></h2>
+                                        <h2 class=" text-center"><strong class="">สิ่งปลูกสร้าง</strong></h2>
 
                                     </div>
                                     <div class="footer">
-                                        <h4>รายงานเกี่ยวกับ สิ่งปลูกสร้าง</h4>
+                                        <h3>รายงานเกี่ยวกับ สิ่งปลูกสร้าง</h3>
 
                                     </div>
                                 </div>
@@ -388,25 +281,31 @@
                                 <div class="r4_counter db_box bg-warning  btnGov zoom">
                                     <i class='pull-left fa fa-bank icon-md icon-rounded icon-accent '></i>
                                     <div class="stats">
-                                        <h2 class="TextHeader text-center"><strong class="">พื้นที่โครงการรัฐ</strong></h2>
+                                        <h2 class=" text-center">พื้นที่โครงการรัฐ</h2>
 
                                     </div>
                                     <div class="footer">
-                                        <h4>รายงานเกี่ยวกับ พื้นที่โครงการรัฐ</h4>
+                                        <h3>รายงานเกี่ยวกับ พื้นที่โครงการรัฐ</h3>
 
                                     </div>
                                 </div>
                             </div>
 
 
-                           
+
                         </div> <!-- End .row -->
                     </div>
                 </section>
             </div>
+         
+                <div class="col-xs-12 ">
+                    <div class="divView  content-heading bg-white"></div>
 
+                </div>
+
+          
             <div class="clearfix"></div>
-           <!--Land-->
+            <!--Land-->
 
             <div class="divLand m-fadeOut">
                 <!-- MAIN CONTENT AREA STARTS -->
@@ -428,7 +327,7 @@
                             <div class="row" style="text-align:center;">
                                 <div class="col-md-3 col-sm-3 col-xs-12">
                                     <div class="form-group text-left">
-                                       
+
                                         <select class="form-control form-control-lg"
                                                 name="ddlLand" id="ddlLand">
                                             <option value="0">เลือกทั้งหมด</option>
@@ -789,7 +688,7 @@
 
 
             </div>
-                <!-- Building-->
+            <!-- Building-->
             <div class="divBuilding m-fadeOut">
 
                 <div class="col-xs-12">
@@ -970,37 +869,40 @@
             <div class="divGov m-fadeOut">
 
                 <!--  <div class="col-xs-12">
-        <div class="content-body">
-            <div class="row" style="text-align:center;">
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="form-group text-left">
-                        <h2 class="title pull-left">แผนงาน/โครงการ</h2>
-                        <select class="form-control form-control-lg"
-                                name="ddlLand" id="ddlLand">
-                            <option value="0">เลือกทั้งหมด</option>
+            <div class="content-body">
+                <div class="row" style="text-align:center;">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="form-group text-left">
+                            <h2 class="title pull-left">แผนงาน/โครงการ</h2>
+                            <select class="form-control form-control-lg"
+                                    name="ddlLand" id="ddlLand">
+                                <option value="0">เลือกทั้งหมด</option>
 
 
-                        </select>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="text-align:center; overflow-x:auto">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="divSection1Gov">
+                            <table class="tblChart">
+
+                                <tr></tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row" style="text-align:center; overflow-x:auto">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="divSection1Gov">
-                        <table class="tblChart">
-
-                            <tr></tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
+        </div>-->
                 <div class="col-xs-12">
                     <section class="box ">
                         <header class="panel_header">
                             <div class="col-sm-10">
                                 <h2 class=" pull-left text-warning"><i class="fa fa-table" aria-hidden="true"> พื้นที่โครงการของรัฐ</i></h2>
+                            </div>
+                            <div class="col-sm-2 padding-40">
+                                <a class="btn btn-warning pull-right btnViewMap" href="~/DashboardSystem3?tab=4">เรียกดูแผนที่</a>
                             </div>
                             <div class="actions panel_actions pull-right">
                                 <a class="box_toggle fa fa-chevron-down"></a>
@@ -1106,8 +1008,8 @@
 
 
 
-                <!-- MAIN CONTENT AREA ENDS -->
-</section>
+            <!-- MAIN CONTENT AREA ENDS -->
+        </section>
 
 
 
@@ -1128,14 +1030,13 @@
 
     <script src="~/assets/BI/perfect-scrollbar.min.js"></script>
     <script src="~/assets/BI/Script.js?ver=1.2233d442"></script>
-    <script src="~/assets/BI/Index.js?ver=1.5dddsxe"></script>
+    <script src="~/assets/BI/Index.js?ver=1.24"></script>
+
+
+
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
-    <script type="text/javascript">
-
-
-
-    </script>
+  
 </body>
 </html>
 

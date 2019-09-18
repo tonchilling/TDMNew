@@ -30,9 +30,9 @@ public partial class PROJECT_IMPACT
 
     public string TAMBOL_ID { get; set; }
 
-    public decimal? Area { get; set; }
+    public Nullable<decimal> Area { get; set; }
 
-        public int? ParcelTotal { get; set; }
+    public Nullable<int> ParcelTotal { get; set; }
 
     public string Shape { get; set; }
 
@@ -51,10 +51,9 @@ public partial class PROJECT_IMPACT
     public bool IS_DELETED { get; set; }
 
     public string Description { get; set; }
-    
-    public string Buffer { get; set; }
 
+    public Nullable<int> Buffer { get; set; }
 
-    }
+}
 
 }
