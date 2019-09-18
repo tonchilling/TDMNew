@@ -363,6 +363,7 @@ namespace TDM.Controllers.api
 
                 foreach (var c in projects)
                 {
+                    
                     c.PROVINCE = tdaEntities.PROVINCEs.Where(p => p.PRO_C == c.PROVINCE_ID).Select(r => new PROVINCE_ViewModel()
                     {
                         PRO_C = r.PRO_C,
@@ -383,7 +384,9 @@ namespace TDM.Controllers.api
                        c.PROVINCE,
                        
                         c.IS_PUBLISHED,
-                        STATUS = tdmEntities.STATUS_IMPACT.Where(y => y.ID == (c.Shape!=null?2:1)).First()
+                        STATUS = tdmEntities.STATUS_IMPACT.Where(y => y.ID == (c.Shape!=null?2:1)).First(),
+                        SHAPETOOLTYPE= (c.Shape!=null && c.Shape!="" && c.Shape.IndexOf('(')>0)?c.Shape.Substring(0,c.Shape.IndexOf('(')-1):"",
+                        ACTIVE=!c.IS_DELETED
                     };
                     result.Add(project);
                 }
@@ -783,7 +786,7 @@ namespace TDM.Controllers.api
                 Detail = results.Select(r=> new { Chanode=r.Chanode,
                     Area =r.Area,
                     Shape = r.Shape.WellKnownValue,
-                    REG_P_WAH=r.REG_P_WAH,
+                   /**/ REG_P_WAH=r.REG_P_WAH,
                     REG_AMT=r.REG_AMT,
                     RVAL_P_WAH =r.RVAL_P_WAH,
                     RVAL_AMT=r.RVAL_AMT,
