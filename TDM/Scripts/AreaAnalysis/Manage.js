@@ -330,8 +330,8 @@ function AddProject(projectId, statusId) {
                                     "width": 2
                                 }
                             };
-                            gisIframeWindow.GIS.buffer(trans[0].shape, sridIn, parseInt(modalModel.Buffer) * 1000, false);
-                            gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
+                            //gisIframeWindow.GIS.buffer(trans[0].shape, sridIn, parseInt(modalModel.Buffer) * 1000, false);
+                            return gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
                             
                             //activateDraw(gisIframeWindow);
                         });
