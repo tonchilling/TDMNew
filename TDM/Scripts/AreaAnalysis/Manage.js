@@ -375,6 +375,43 @@ function encrpty(json) {
     return http.post("/api/GIS/Encrypt", { text: JSON.stringify(json) });
 }
 
+function _mapPostMessage(senderData) {
+    encrpty(senderData).then(function (encryptData) {
+        var domain = window.document.location.origin;
+        gisIframeWindow.postMessage(encryptData, domain);
+    });
+}
+
+map.zoom = function (data) {
+    var jsonData = {
+        zoomBy: "MapService",
+        "graphicLayerId": "parcel1",
+        mapServiceJsonList: [{
+            layerName: "TD_VIEW",
+            layerIndexName: "PARCEL_47_50",
+            where: "PARCEL_47_50",
+            titleField: "PARCEL_47_50",
+            detailField: "",
+            rendering: {
+            }
+        }]
+    }
+
+    var senderData = {
+        event: 'zoom-map',
+        data: jsonData
+    }
+    senderData = JSON.stringify(senderData);
+    encrpty(senderData).then(function (encryptData) {
+        gisIframeWindow.postMessage(encryptData, 'https://p-staging.treasury.go.th/TD2');
+    });
+}
+
+
+function encrpty(json) {
+    return http.post("/api/GIS/Encrypt", { text: JSON.stringify(json) });
+}
+
 
 var _gisIframeWindow = null;
 function AddProject(projectId, statusId) {

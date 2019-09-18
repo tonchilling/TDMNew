@@ -14,7 +14,7 @@
     <meta name="Description" content=" กรมธนารักษ์">
     <title>กรมธนารักษ์</title>
 
-   
+
     @section Scripts {
         @Scripts.Render("~/assets/css/customize.css?v1113")
         @Scripts.Render("~/assets/css/Kim_Style.css?vwwww33333")
@@ -24,7 +24,7 @@
 
     <script src="~/Scripts/waiting.js?ver=1.0220"></script>
     <link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
-    <link href="~/assets/css/customize.css" rel="stylesheet" />
+    <!-- <link href="~/assets/css/customize.css" rel="stylesheet" />-->
     <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
     <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
@@ -63,8 +63,8 @@
 
         .panel_header {
             padding: 10px;
-          
         }
+
         .selectpicker {
             -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
             -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
@@ -198,6 +198,13 @@
             flex: 1 1 auto;
             padding: 1.5rem;
         }
+
+        .main-wrapper {
+            margin-top: 60px;
+        }
+        .divTitle {
+            margin-top: 60px;
+        }
     </style>
     <!-- Bootstrap -->
     <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
@@ -206,209 +213,33 @@
     <script src="~/Scripts/map_loader.js"></script>
 </head>
 <body class="nav-md">
-    <div class="page-topbar">
-        <div class="logo-area">
-
-        </div>
-        <div class="quick-area">
-            <div class="pull-left">
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="sidebar-toggle-wrap">
-                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
-
-
-
-                </ul>
-            </div>
-            <div class="profile_details">
-                <ul>
-                    <li class="dropdown profile_details_drop">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <div class="profile_img">
-                                <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
-                                <div class="user-name">
-                                    <p>User</p>
-                                    <span>Administrator</span>
-                                </div>
-
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu drp-mnu">
-                            <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                            <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-                            <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-    <div class="page-sidebar pagescroll expandit">
-
-        <!-- MAIN MENU - START -->
-        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-
-
-
-
-            <div class="page-sidebar navbar-collapse collapse">
-                <!-- BEGIN SIDEBAR MENU -->
-                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 934px;">
-                    <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true" data-slide-speed="200" data-height="934" data-initialized="1" style="overflow: hidden; width: auto; height: 934px;">
-                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                        <li class="sidebar-toggler-wrapper hide">
-                            <div class="sidebar-toggler">
-                                <span></span>
-                            </div>
-                        </li>
-                        <!-- END SIDEBAR TOGGLER BUTTON -->
-                        <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/Index" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-home" style="color:red"></i>
-                                <span class="title">หน้าหลัก</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIViewer" class="nav-link nav-toggle">
-                                <i class="fa fa-area-chart" style="color:green"></i>
-                                <span class="title">รายงาน BI</span>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item   ">
-                            <a href="~/DashboardSystem3/" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
-                                <span class="title">เรียกดูแผนที่/ราคา</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu1" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">รายงายซื้อขายจดทะเบียนที่ดิน</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu2" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:blue"></i>
-                                <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/Menu3" class="nav-link nav-toggle">
-                                <i class="glyphicon glyphicon-random" style="color:red"></i>
-                                <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
-                            </a>
-                        </li>
-                        <li class="nav-item   ">
-                            <a href="~/Home/System_3_with_Layout?Menu=5" class="nav-link nav-toggle">
-                                <i class="fa fa-users" style="color:purple"></i>
-                                <span class="title">ปริมาณการเข้าใช้ระบบ</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item   ">
-                            <a href="~/BI/BIManager" class="nav-link nav-toggle">
-                                <i class="fa fa-bar-chart" style="color:#ffd800"></i>
-                                <span class="title">สร้างรายงานด้วย BI</span>
-                            </a>
-                        </li>
-                        <!-- <li class="btnLogout" onclick="logout()">
-        <a href="https://p-staging.treasury.go.th/pvalue/logout">
-
-            <i class="icon-key"></i> ออกจากระบบ
-        </a>
-    </li>-->
-                        <li class="menusection">ค้นหา  </li>
-                        <li class="">
-                            <a href="#">
-
-                                <div class="row">
-                                    <div class="col-xs-11">
-                                        <i class="fa fa-search icon-primary"></i>  <span class="title">Select Template</span>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-xs-11">
-                                        <div class="form-group">
-                                            <select class="form-control form-control-lg" name="ddlTemplate" id="ddlTemplate" required>
-                                                <option value="">เลือก Template</option>
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </a>
-                        </li>
-                        <li>
-
-                            <div class="row">
-                                <!-- <div class="col-xs-11">
-                <div class="form-group">
-                    <select class="form-control form-control-lg"
-                            title="เลือกประเภท"
-                            placeholder="เลือกประเภท"
-                            name="ddlType1"
-                            id="ddlType1" multiple>
-
-                        <option value="1">ที่ดิน</option>
-                        <option value="2">อาคารชุด</option>
-                        <option value="3">สิ่งปลูกสร้าง</option>
-                        <option value="4">พื้นที่โครงการรัฐ</option>
-
-                    </select>
-                </div>
-
-            </div>-->
-
-                            </div>
-
-
-                        </li>
-
-                    </ul><div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 706.361px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div>
-                </div>
-                <!-- END SIDEBAR MENU -->
-            </div>
-
-
-
-        </div>
-        <!-- MAIN MENU - END -->
-
-
-
-    </div>
+    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
+    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
     <section id="main-content">
+        <section id="menulist">
+            <div class="content-heading bg-white">
+
+                <div class="row">
+                    <div class="col-sm-12 divView">
+                        <!-- Header -->
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h3 class=" text-center  text-info">รายงานด้วย BI</i></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+        <div class="clearfix"></div>
+
         <section class="wrapper main-wrapper row" style=''>
 
 
 
-            <div class="col-xs-12">
-                <div class="divView">
-
-
-                </div>
-            </div>
+        
 
             <div class="divSection1">
 
@@ -426,7 +257,7 @@
                             </div>
                         </header>
                         <div class="content-body">
-                          
+
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="divDisplay" id="divDisplay" style="width:100%;">

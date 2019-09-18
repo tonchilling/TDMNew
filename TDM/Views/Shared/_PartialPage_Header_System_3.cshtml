@@ -1,43 +1,65 @@
-﻿<div class="col-md-12 col-sm-12 col-xs-12">
+﻿<style>
+    .rowheader {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+
+
+</style>
+<div class="col-md-12 col-sm-12 col-xs-12">
     <div class="page-topbar">
         <div class="logo-area">
 
         </div>
 
         <div class="quick-area">
-            <div class="pull-left">
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="sidebar-toggle-wrap">
-                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
+            <div class="row rowheader">
+                <div class="col-xs-2">
+                    <div class="pull-left">
+                        <ul class="info-menu left-links list-inline list-unstyled">
+                            <li class="sidebar-toggle-wrap">
+                                <a href="#" data-toggle="sidebar" class="sidebar_toggle">
+                                    <i class="fa fa-bars"></i>
+                                </a>
+                            </li>
 
 
 
-                </ul>
-            </div>
-            <div class="profile_details">
-                <ul>
-                    <li class="dropdown profile_details_drop">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <div class="profile_img">
-                                <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
-                                <div class="user-name">
-                                    <p>User</p>
-                                    <span>Administrator</span>
-                                </div>
-
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu drp-mnu">
-                            <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                            <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-                            <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
                         </ul>
-                    </li>
-                </ul>
+                    </div>
+                </div>
+
+                <div class="col-xs-7">
+
+                    <h3 class=" text-center  text-light"><i class="fa fa-bar-chart" aria-hidden="true"> ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</i></h3>
+
+
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="profile_details">
+                        <ul>
+                            <li class="dropdown profile_details_drop">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <div class="profile_img">
+                                        <span class="prfil-img"><img src="~/assets/img/small.gif" class="img-responsive img-circle" alt=""> </span>
+                                        <div class="user-name">
+
+                                            <a class="text-light btnLogout"><i class="fa fa-sign-out"></i><span class="lbUserLogin">Admin</span></a>
+                                        </div>
+
+
+                                    </div>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
         </div>

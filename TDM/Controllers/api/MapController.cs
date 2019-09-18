@@ -56,6 +56,47 @@ namespace TDM.Controllers.api
         }
 
         [HttpGet]
+        public IHttpActionResult GetProvinceById(int id)
+        {
+
+            return Json(tdaEntities.PROVINCEs.Where(p=>p.PRO_C== id.ToString()).Select(p => new { ID = p.PRO_C, Name = p.NAME_T,Shape=p.Shape.AsText() }));
+
+            /* 
+            var provinces = VirtualDb.GetProvinces();
+            return Json(provinces.Where(p => p.PROVINCE_SEQ != 0).OrderBy(o => o.PROVINCE_NAME_TH));
+            */
+            //return Json(VirtualDb.GetProvinces().OrderBy(o => o.NAME_T));
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetDistrictsById(int provinceId,int id)
+        {
+
+            return Json(tdaEntities.AMPHOEs.Where(p => p.PRO_C == provinceId.ToString() && p.DIS_C== id.ToString()).Select(p => new { ID = p.DIS_C, Name = p.NAME_T, Shape = p.Shape.AsText() }));
+
+            /* 
+            var provinces = VirtualDb.GetProvinces();
+            return Json(provinces.Where(p => p.PROVINCE_SEQ != 0).OrderBy(o => o.PROVINCE_NAME_TH));
+            */
+            //return Json(VirtualDb.GetProvinces().OrderBy(o => o.NAME_T));
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetSubDistrictsById(int provinceId, int amphureId,int id)
+        {
+
+            return Json(tdaEntities.TAMBOLs.Where(p => p.PRO_C == provinceId.ToString()
+                                                          && p.DIS_C == amphureId.ToString()
+                                                          && p.SUB_C==id.ToString()).Select(p => new { ID = p.SUB_C, Name = p.NAME_T, Shape = p.Shape.AsText() }));
+
+            /* 
+            var provinces = VirtualDb.GetProvinces();
+            return Json(provinces.Where(p => p.PROVINCE_SEQ != 0).OrderBy(o => o.PROVINCE_NAME_TH));
+            */
+            //return Json(VirtualDb.GetProvinces().OrderBy(o => o.NAME_T));
+        }
+
+        [HttpGet]
         public IHttpActionResult GetDistricts()
         {
            // var districts = VirtualDb.GetDistricts();
@@ -67,7 +108,7 @@ namespace TDM.Controllers.api
         [HttpGet]
         public IHttpActionResult GetDistrictsByProvince(int id)
         {
-            return Json(tdaEntities.AMPHOEs.Where(ap => ap.PRO_C == id.ToString()).Select(s => new { ID = s.DIS_C, Name = s.NAME_T }).OrderBy(o => o.Name));
+            return Json(tdaEntities.AMPHOEs.Where(ap => ap.PRO_C == id.ToString()).Select(s => new { ID = s.DIS_C, Name = s.NAME_T,Shape=s.Shape }).OrderBy(o => o.Name));
 
             //return Json(cmEntities.TB_MAS_AMPHUR.Where(p => p.PROVINCE_SEQ == id).OrderBy(o => o.AMPHUR_NAME_TH));
         }
@@ -103,7 +144,7 @@ namespace TDM.Controllers.api
 
         public IHttpActionResult GetSubDistrictsByDistrict(int id)
         {
-            return Json(tdaEntities.TAMBOLs.Where(t => t.DIS_C == id.ToString()).Select(s => new { ID = s.SUB_C, Name = s.NAME_T }).OrderBy(o => o.Name));
+            return Json(tdaEntities.TAMBOLs.Where(t => t.DIS_C == id.ToString()).Select(s => new { ID = s.SUB_C, Name = s.NAME_T }).GroupBy(o=>o));
 
 
             //return Json(cmEntities.TB_MAS_TAMBOL.Where(p => p.AMPHUR_SEQ == id).OrderBy(o => o.TAMBOL_NAME_TH));

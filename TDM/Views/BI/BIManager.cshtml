@@ -27,7 +27,7 @@
     <script src="~/assets/js/jquery-sortable.js"></script>
 
     <link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
-    <link href="~/assets/css/customize.css" rel="stylesheet" />
+  
     <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
     <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
@@ -424,9 +424,11 @@
             margin-left: 170px;
         }
 
-        .divAllList {
-        
-        margin-left:-180px;
+       
+
+
+        .divTitle {
+            margin-top: 60px;
         }
 
     </style>
@@ -442,192 +444,31 @@
 </head>
 <body class="nav-md">
 
-    <div class="page-topbar">
-        <div class="logo-area">
+    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
+    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
+    <section id="main-content">
 
-        </div>
-        <div class="quick-area">
-            <div class="pull-left">
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="sidebar-toggle-wrap">
-                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
+        <section id="menulist">
+            <div class="content-heading bg-white">
 
+                <div class="row">
+                    <div class="col-sm-12 divTitle">
+                        <!-- Header -->
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h2 class=" text-center  text-info"><i class="fa fa-bar-chart" aria-hidden="true">สร้างรายงานด้วย BI</i></h2>
+                            </div>
+                        </div>
+                    </div>
 
-
-                </ul>
-            </div>
- 
-                <div class="profile_details">
-                    <ul>
-    
-                        <li class="dropdown profile_details_drop">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <div class="profile_img">
-                                    <span class="prfil-img"><i class="fa fa-bell-o fa-2x icon-info"></i> </span>
-                                    <span class="square-8  pos-absolute bg-danger  t-15 r-5 rounded-circle" ></span>
-
-                                    <div class="user-name">
-                                        <p>User</p>
-                                        <span>Administrator</span>
-                                    </div>
-
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-
-                            <ul class="dropdown-menu drp-mnu bullets divAllList">
-                               
-                            </ul>
-                        </li>
-                    </ul>
                 </div>
-
             </div>
 
-        </div>
-    <!-- START CONTENT -->
-
-    <div class="page-sidebar pagescroll expandit droppable " style="overflow-y:scroll;max-height:1200px" data-color="xx">
-
-        <!-- MAIN MENU - START -->
-        <div class="page-sidebar-wrapper " id="main-menu-wrapper">
+        </section>
+        <section class="wrapper main-wrapper" style=''>
 
 
           
-
-            <ul class="wraplist " style="height: auto;">
-                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                <li class="sidebar-toggler-wrapper hide">
-                    <div class="sidebar-toggler">
-                        <span></span>
-                    </div>
-                </li>
-                <!-- END SIDEBAR TOGGLER BUTTON -->
-                <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-
-              
-                <li class="nav-item   ">
-                    <a href="~/BI/BIViewer" class="nav-link nav-toggle">
-                        <i class="fa fa-area-chart" style="color:green"></i>
-                        <span class="title">รายงาน BI</span>
-                    </a>
-                </li>
-
-
-
-                <li class="nav-item   ">
-                    <a href="~/BI/BIManager" class="nav-link nav-toggle">
-                        <i class="fa fa-bar-chart" style="color:#ffd800"></i>
-                        <span class="title">สร้างรายงานด้วย BI</span>
-                    </a>
-                </li>
-                <li class="menusection">ค้นหา  </li>
-                <li class="">
-                    <a href="#">
-
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <i class="fa fa-search icon-primary"></i>  <span class="title">Connecting to Server</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-
-                                    <input class="form-control form-control-lg txtServer" name="txtServer" id="txtServer" value="192.168.41.31\tdasset_non" placeholder="Server Name" />
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-
-                                    <input class="form-control form-control-lg txtUserName" name="txtUserName" id="txtUserName" placeholder="User" />
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-
-                                    <input class="form-control form-control-lg txtPassword" name="txtPassword" id="txtPassword" placeholder="Password" />
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <button class="btnConnect btn btn-primary">Connect</button>
-
-                            </div>
-
-                        </div>
-
-                    </a>
-                </li>
-                <li class="">
-
-
-
-
-
-
-
-
-                    <div class="row">
-
-                        <div class="col-xs-12">
-                            <div class="sectionDB bd">
-
-
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-                </li>
-
-
-
-
-            </ul>
-
-
-
-        </div>
-        <!-- MAIN MENU - END -->
-
-
-
-    </div>
-    <section id="main-content">
-        <section class="wrapper main-wrapper row" style=''>
-
-
-
-            <div class="col-xs-12">
-                <div class="divView">
-
-
-                </div>
-            </div>
             <div class="clearfix"></div>
             <div class="col-lg-12">
 
@@ -673,9 +514,9 @@
 
                                         </div>
                                     </div>
-                                    </div>
-                                    </div>
-</section>
+                                </div>
+                            </div>
+                        </section>
 
                     </div>
 
@@ -700,14 +541,14 @@
                                                 <option value="4">Card Display</option>
                                             </select>
                                             <button class="btn btn-primary btnPreview ">Preview</button>
-</div>
+                                        </div>
                                     </div>
-                                
+
                                     <div class="col-xs-4 col-md-6 col-lg-8">
 
                                         <div class="actions panel_actions pull-right">
-                                           
-                                          
+
+
                                             <a class="box_toggle fa fa-chevron-down"></a>
                                             <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
                                             <a class="box_close fa fa-times"></a>
@@ -726,7 +567,7 @@
                                             <header class="panel_header">
                                                 <h2 class="title pull-left lblChartBar">Menu</h2>
                                                 <div class="actions panel_actions pull-right">
-                                                  
+
                                                     <button class="btn btn-success btnSave pull-right">Save</button>
                                                 </div>
                                             </header>
@@ -740,18 +581,18 @@
                                                             <input class="form-control form-control-lg" style="margin-top:5px" name="txtTitle" id="txtTitle" />
                                                         </div>
                                                         <div class="col-xs-4">
-                                                           
-                                                                <label class="text-md">Chart width</label>
-                                                                <select class="form-control form-control-lg" style="margin-top:5px" name="ddlWidth" id="ddlWidth">
-                                                                    <option value="12"> Full</option>
-                                                                    <option value="6"> Half</option>
-                                                                    <option value="3"> Quater</option>
-                                                                    <option value="2"> Small</option>
-                                                                </select>
-                                                          
+
+                                                            <label class="text-md">Chart width</label>
+                                                            <select class="form-control form-control-lg" style="margin-top:5px" name="ddlWidth" id="ddlWidth">
+                                                                <option value="12"> Full</option>
+                                                                <option value="6"> Half</option>
+                                                                <option value="3"> Quater</option>
+                                                                <option value="2"> Small</option>
+                                                            </select>
+
 
                                                         </div>
-                                                       
+
 
                                                     </div>
                                                     <div class="row">
@@ -766,7 +607,7 @@
 
 
                                                     </div>
-                                                   
+
                                                     <div class="row">
 
                                                         <div class="col-xs-12 ">
@@ -812,29 +653,26 @@
                                                     <div class="col-sm-12">
                                                         <div class="divList"></div>
                                                     </div>
-                                                    </div>
-
                                                 </div>
-</section>
-                                        </div>
 
                                             </div>
-
-
-
-
-
+                                        </section>
                                     </div>
-</section>
+
+                                </div>
+
+
+
+
+
+                            </div>
+                        </section>
 
                     </div>
 
                 </div>
 
 
-               
-
-     
 
 
 
@@ -845,11 +683,14 @@
 
 
 
-            <!-- MAIN CONTENT AREA ENDS -->
+
+
+
+                <!-- MAIN CONTENT AREA ENDS -->
         </section>
 
 
-     
+
     </section>
 
 
@@ -869,7 +710,7 @@
     <script src="~/assets/BI/Script.js?ver=1.22d33442"></script>
     <script src="~/Scripts/numeral2.6.min.js"></script>
     <script src="~/assets/ChartOptions.js?sssss3xxs"></script>
-    <script src="~/assets/BI/BIManager.js?ver=1.2s00tdddw"></script>
+    <script src="~/assets/BI/BIManager.js?ver=1.2ddddsxdw"></script>
 
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 

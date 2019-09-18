@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using TDM.Repositories;
 namespace TDM.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         TDAssetRespository repos = new TDAssetRespository();
 

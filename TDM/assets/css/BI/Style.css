@@ -179,6 +179,15 @@ body.boxed .page-topbar {
 .padding-30{
     padding: 30px;
 }
+
+.padding-40 {
+    padding-top: 40px;
+}
+
+.padding-45 {
+    padding-top: 45px;
+}
+
 .marginBottom30{
     margin-bottom: 30px;
 }
@@ -234,9 +243,9 @@ section.box.marginBottom0,
 h1, h2, h3, h4, h5, h6 {
     /*  font-family: 'THSarabunNew', Helvetica, Arial, sans-serif;*/
     margin: 10px 0;
-    font-family: 'THSarabunNew', Arial, Helvetica, sans-serif;
+    font-family:  Arial, Helvetica, sans-serif;
     font-weight: 400;
-    color: #ffffff;
+   color: #ffffff;
 }
 .light {
     font-weight: 100;
@@ -377,7 +386,7 @@ a:hover, a:focus {
 /*-------------------------------
   Page Loading Progress Bar (PACE)
 -----------------------------------*/
-.card.bg-danger {
+    .card.bg-danger {
     background: #fb6054;
 }
 tr.bg-danger {
@@ -8390,6 +8399,65 @@ table.dataTable.display tbody tr:first-child td {
         border-bottom: none !important;
         
     }
+
+
+    .nav-tabs.wizard li.completedinfo > * {
+        color: #fff !important;
+        background-color: #27a9ba !important;
+        border-color: #27a9ba !important;
+        border-bottom: none !important;
+    }
+
+    .nav-tabs.wizard li.activeinfo > * {
+        color: #fff !important;
+        background-color: #27a9ba !important;
+        border-color: #27a9ba !important;
+        border-bottom: none !important;
+    }
+
+    .nav-tabs.wizard li.completeddanger > * {
+        color: #fff !important;
+        background-color: #e2362a !important;
+        border-color: #e2362a !important;
+        border-bottom: none !important;
+    }
+
+    .nav-tabs.wizard li.activedanger > * {
+        color: #fff !important;
+        background-color: #e2362a !important;
+        border-color: #e2362a !important;
+        border-bottom: none !important;
+    }
+
+
+    .nav-tabs.wizard li.completedsuccess > * {
+        color: #fff !important;
+        background-color: #4CAF50 !important;
+        border-color: #4CAF50 !important;
+        border-bottom: none !important;
+    }
+
+    .nav-tabs.wizard li.activesuccess > * {
+        color: #fff !important;
+        background-color: #4CAF50 !important;
+        border-color: #4CAF50 !important;
+        border-bottom: none !important;
+    }
+
+    .nav-tabs.wizard li.completedwarning > * {
+        color: #fff !important;
+        background-color: #FFC107 !important;
+        border-color: #FFC107 !important;
+        border-bottom: none !important;
+    }
+
+    .nav-tabs.wizard li.activewarning > * {
+        color: #fff !important;
+        background-color: #FFC107 !important;
+        border-color: #FFC107 !important;
+        border-bottom: none !important;
+    }
+
 
 .nav-tabs.wizard li::after:last-child {
   border: none;
