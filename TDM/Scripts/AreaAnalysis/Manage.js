@@ -178,15 +178,17 @@ function searchProjectImpactList(start, count, keyword) {
                         { title: "รหัสโครงการ" },
                         { title: "ชื่อโครงการ" },
                         { title: "จังหวัดที่ได้รับผลกระทบ" },
-                        { title: "วันที่เผยแพร่ข้อมูล" },
                         { title: "เปิดเผยข้อมูล" },
-                        { title: "วัน/ เวลาที่สร้าง" },
-                        { title: "ผู้ใช้ที่สร้าง" },
-                        { title: "วัน/ เวลาที่แก้ไข" },
-                        { title: "ผู้ใช้ที่แก้ไข" },
+                        { title: "เครื่องมือในการวาด"},
+                        { title: "วัน-เวลาที่สร้าง / ผู้ใช้" },
+                        
+                        { title: "วัน/ เวลาที่แก้ไข / ผู้ใช้" },
+                        
+                        { title: "สถานะแผนที่" },
                         { title: "สถานะ" },
                         { title: "แก้ไข" },
-                        { title: "ลบ" },
+                        { title: "ลบ" }
+                        
                     ],
                     columnDefs: [
                         {
@@ -210,21 +212,9 @@ function searchProjectImpactList(start, count, keyword) {
                                 return Province.join(',');
                             }
                         },
+                        
                         {
                             targets: 3,
-                            data: function (row, type, val, meta) {
-                                var PublishDate = moment(row.PUBLISH_DATE).format('DD/MM/YYYY');
-                                if (row.IS_PUBLISHED === false) {
-                                    PublishDate = "-";
-                                    if (row.STATUS.ID === 1 || row.STATUS.ID === 2) {
-                                        PublishDate = "ข้อมูลไม่สมบูรณ์";
-                                    }
-                                }
-                                return PublishDate;
-                            }
-                        },
-                        {
-                            targets: 4,
                             data: function (row, type, val, meta) {
                                 var IsPublished = "ไม่เปิดเผย";
                                 if (row.IS_PUBLISHED) {
@@ -234,43 +224,45 @@ function searchProjectImpactList(start, count, keyword) {
                             }
                         },
                         {
-                            targets: 5,
+                            targets: 4,
                             data: function (row, type, val, meta) {
-                                return moment(row.CREATE_DATE).format('DD/MM/YYYY h:mm');
+                                return row.SHAPETOOLTYPE;
                             }
                         },
+                        {
+                            targets: 5,
+                            data: function (row, type, val, meta) {
+                                return moment(row.CREATE_DATE).format('DD/MM/YYYY h:mm') + ' / ' + row.CREATE_BY;
+                            }
+                        },
+                        
                         {
                             targets: 6,
                             data: function (row, type, val, meta) {
-                                return row.CREATE_BY;
+                                return moment(row.UPDATE_DATE).format('DD/MM/YYYY h:mm') + ' / ' + row.UPDATE_BY;
                             }
                         },
+                        
                         {
                             targets: 7,
-                            data: function (row, type, val, meta) {
-                                return moment(row.UPDATE_DATE).format('DD/MM/YYYY h:mm');
-                            }
-                        },
-                        {
-                            targets: 8,
-                            data: function (row, type, val, meta) {
-                                return row.UPDATE_BY;
-                            }
-                        },
-                        {
-                            targets: 9,
                             data: function (row, type, val, meta) {
                                 return row.STATUS.STATUS_NAME;
                             }
                         },
                         {
-                            targets: 10,
+                            targets: 8,
+                            data: function (row, type, val, meta) {
+                                return (row.ACTIVE)?'ใช้งาน':'ไม่ใช้งาน';
+                            }
+                        },
+                        {
+                            targets: 9,
                             data: function (row, type, val, meta) {
                                 return `<a href="#" class="btn btn-success" onclick="AddProject(${row.ID}, ${row.STATUS.ID})"><i class="glyphicon glyphicon-pencil"></i> </a>`;
                             }
                         },
                         {
-                            targets: 11,
+                            targets: 10,
                             data: function (row, type, val, meta) {
                                 return `<a href="#" class="btn btn-success" onclick="DelProvImpact(${row.ID}, '${row.SUBJECT_NAME}')"><i class="glyphicon glyphicon-trash"></i> </a>`;
                             }
@@ -417,6 +409,7 @@ function AddProject(projectId, statusId) {
                             var trans = gisIframeWindow.GIS.transform(modalModel.Shape, sridIn, sridOut);
                             var symbol;
 
+
                             if (modalModel.Shape.toLowerCase().indexOf('linestring') > -1) {
                                 symbol = polylineSymbol;
                                 mapType = 'polyline';
@@ -436,8 +429,21 @@ function AddProject(projectId, statusId) {
 
                             gisIframeWindow.GIS.removeGraphic();
 
-                            return gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
 
+                            symbol = {
+                                "type": "esriSFS",
+                                "style": "esriSFSSolid",
+                                "color": [255, 0, 0],
+                                "outline": {
+                                    "type": "esriSLS",
+                                    "style": "esriSLSSolid",
+                                    "color": [0, 255, 0, 0],
+                                    "width": 2
+                                }
+                            };
+                            gisIframeWindow.GIS.buffer(trans[0].shape, sridIn, parseInt(modalModel.Buffer) * 1000, false);
+                            gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
+                            
 
                             //activateDraw(gisIframeWindow);
                         });

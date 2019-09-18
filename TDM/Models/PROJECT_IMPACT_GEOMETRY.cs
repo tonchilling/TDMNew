@@ -18,29 +18,32 @@ using System;
 public partial class PROJECT_IMPACT_GEOMETRY
 {
 
-    public long ProjectImpactID { get; set; }
+        public long ProjectImpactID { get; set; }
 
-    public long ShapeID { get; set; }
+        public long ShapeID { get; set; }
 
-    public string PROVINCE_ID { get; set; }
+        public string PROVINCE_ID { get; set; }
 
-    public string AMPHOE_ID { get; set; }
+        public string AMPHOE_ID { get; set; }
 
-    public string TAMBOL_ID { get; set; }
+        public string TAMBOL_ID { get; set; }
 
-    public string Chanode { get; set; }
+        public string Chanode { get; set; }
+
 
     public Nullable<decimal> Area { get; set; }
 
-    public string OriginX { get; set; }
 
-    public string OriginY { get; set; }
+        public string OriginX { get; set; }
 
-    public System.Data.Entity.Spatial.DbGeometry Shape { get; set; }
+        public string OriginY { get; set; }
 
-    public System.DateTime UpdateDate { get; set; }
+        public System.Data.Entity.Spatial.DbGeometry Shape { get; set; }
 
-    public System.DateTime CreateDate { get; set; }
+        public System.DateTime UpdateDate { get; set; }
+
+        public System.DateTime CreateDate { get; set; }
+
 
     public decimal  REG_P_WAH { get; set; }
 
@@ -51,5 +54,6 @@ public partial class PROJECT_IMPACT_GEOMETRY
     public decimal RVAL_AMT { get; set; }
 
 }
+
 
 }
