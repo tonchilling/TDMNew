@@ -8,6 +8,57 @@ var paging = {
     count: 1000
 };
 
+
+var mapType = 1;
+
+var defaultSymbol = {
+    "type": "esriSFS",
+    "style": "esriSFSSolid",
+    "color": [255, 0, 0],
+    "outline": {
+        "type": "esriSLS",
+        "style": "esriSLSSolid",
+        "color": [0, 255, 0, 0],
+        "width": 2
+    }
+};
+
+
+var polygonSymbol = {
+    "type": "esriSFS",
+    "style": "esriSFSSolid",
+    "color": [255, 0, 0],
+    "outline": {
+        "type": "esriSLS",
+        "style": "esriSLSSolid",
+        "color": [0, 255, 0, 0],
+        "width": 2
+    }
+};
+
+var pointSymbol = {
+    "type": "esriSMS",
+    "style": "esriSMSCircle",
+    "color": [255, 0, 0],
+    "size": 8,
+    "angle": 0,
+    "outline":
+    {
+        "type": "esriSLS",
+        "style": "esriSLSSolid",
+        "color": [0, 0, 0, 255],
+        "width": 1
+    }
+};
+var polylineSymbol = {
+    "type": "esriSLS",
+    "style": "esriSLSSolid",
+    "color": [255, 0, 0],
+    "width": 3
+};
+
+
+
 $(function () {
     $('#datetimepicker4').datetimepicker({
         format: 'mm-dd-yyyy',
@@ -127,13 +178,13 @@ function searchProjectImpactList(start, count, keyword) {
                         { title: "รหัสโครงการ" },
                         { title: "ชื่อโครงการ" },
                         { title: "จังหวัดที่ได้รับผลกระทบ" },
-                        { title: "เปิดเผยข้อมูล" },
+                        //{ title: "เปิดเผยข้อมูล" },
                         { title: "เครื่องมือในการวาด"},
                         { title: "วัน-เวลาที่สร้าง / ผู้ใช้" },
                         
                         { title: "วัน/ เวลาที่แก้ไข / ผู้ใช้" },
                         
-                        { title: "สถานะแผนที่" },
+                        //{ title: "สถานะแผนที่" },
                         { title: "สถานะ" },
                         { title: "แก้ไข" },
                         { title: "ลบ" }
@@ -162,7 +213,7 @@ function searchProjectImpactList(start, count, keyword) {
                             }
                         },
                         
-                        {
+                        /*{
                             targets: 3,
                             data: function (row, type, val, meta) {
                                 var IsPublished = "ไม่เปิดเผย";
@@ -171,47 +222,47 @@ function searchProjectImpactList(start, count, keyword) {
                                 }
                                 return IsPublished;
                             }
-                        },
+                        },*/
                         {
-                            targets: 4,
+                            targets: 3,
                             data: function (row, type, val, meta) {
                                 return row.SHAPETOOLTYPE;
                             }
                         },
                         {
-                            targets: 5,
+                            targets: 4,
                             data: function (row, type, val, meta) {
                                 return moment(row.CREATE_DATE).format('DD/MM/YYYY h:mm') + ' / ' + row.CREATE_BY;
                             }
                         },
                         
                         {
-                            targets: 6,
+                            targets: 5,
                             data: function (row, type, val, meta) {
                                 return moment(row.UPDATE_DATE).format('DD/MM/YYYY h:mm') + ' / ' + row.UPDATE_BY;
                             }
                         },
                         
-                        {
+                        /*{
                             targets: 7,
                             data: function (row, type, val, meta) {
                                 return row.STATUS.STATUS_NAME;
                             }
-                        },
+                        },*/
                         {
-                            targets: 8,
+                            targets: 6,
                             data: function (row, type, val, meta) {
                                 return (row.ACTIVE)?'ใช้งาน':'ไม่ใช้งาน';
                             }
                         },
                         {
-                            targets: 9,
+                            targets: 7,
                             data: function (row, type, val, meta) {
                                 return `<a href="#" class="btn btn-success" onclick="AddProject(${row.ID}, ${row.STATUS.ID})"><i class="glyphicon glyphicon-pencil"></i> </a>`;
                             }
                         },
                         {
-                            targets: 10,
+                            targets: 8,
                             data: function (row, type, val, meta) {
                                 return `<a href="#" class="btn btn-success" onclick="DelProvImpact(${row.ID}, '${row.SUBJECT_NAME}')"><i class="glyphicon glyphicon-trash"></i> </a>`;
                             }
@@ -266,7 +317,7 @@ function uploadShapeData(formData) {
     /*Make Ajax request with the contentType = false, and procesDate = false*/
     var ajaxRequest = $.ajax({
         type: "POST",
-        url: http.url("/api/AreaAnalysis/UploadMapShape"),
+        url: http.url(rootUrl + "/api/AreaAnalysis/UploadMapShape"),
         contentType: false,
         processData: false,
         data: data
@@ -284,7 +335,45 @@ function uploadShapeData(formData) {
 
 }
 
+var map = {};
 
+
+function _mapPostMessage(senderData) {
+    encrpty(senderData).then(function (encryptData) {
+        var domain = window.document.location.origin;
+        gisIframeWindow.postMessage(encryptData, domain);
+    });
+}
+
+map.zoom = function (data) {
+    var jsonData = {
+        zoomBy: "MapService",
+        "graphicLayerId": "parcel1",
+        mapServiceJsonList: [{
+            layerName: "TD_VIEW",
+            layerIndexName: "PARCEL_47_50",
+            where: "PARCEL_47_50",
+            titleField: "PARCEL_47_50",
+            detailField: "",
+            rendering: {
+            }
+        }]
+    }
+
+    var senderData = {
+        event: 'zoom-map',
+        data: jsonData
+    }
+    senderData = JSON.stringify(senderData);
+    encrpty(senderData).then(function (encryptData) {
+        gisIframeWindow.postMessage(encryptData, 'https://p-staging.treasury.go.th/TD2');
+    });
+}
+
+
+function encrpty(json) {
+    return http.post("/api/GIS/Encrypt", { text: JSON.stringify(json) });
+}
 
 
 var _gisIframeWindow = null;
@@ -318,6 +407,28 @@ function AddProject(projectId, statusId) {
                             var sridIn = 24047;
                             var sridOut = [102100];
                             var trans = gisIframeWindow.GIS.transform(modalModel.Shape, sridIn, sridOut);
+                            var symbol;
+
+
+                            if (modalModel.Shape.toLowerCase().indexOf('linestring') > -1) {
+                                symbol = polylineSymbol;
+                                mapType = 'polyline';
+
+                            }
+                            else if (modalModel.Shape.toLowerCase().indexOf('polygon') > -1) {
+                                symbol = polygonSymbol;
+                                mapType = 'polygon';
+                            } else if (modalModel.Shape.toLowerCase().indexOf('point') > -1) {
+                                symbol = pointSymbol;
+                                mapType = 'point';
+
+                            }
+                            $("#ddlDrawToolsType").val(mapType);
+                           // map.zoom();
+                           // return false;
+
+                            gisIframeWindow.GIS.removeGraphic();
+
 
                             symbol = {
                                 "type": "esriSFS",
@@ -331,8 +442,9 @@ function AddProject(projectId, statusId) {
                                 }
                             };
                             //gisIframeWindow.GIS.buffer(trans[0].shape, sridIn, parseInt(modalModel.Buffer) * 1000, false);
-                            return gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
+                            gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
                             
+
                             //activateDraw(gisIframeWindow);
                         });
 
@@ -427,7 +539,7 @@ function DelProvImpact(projectId, projectName) {
                     IS_DELETED: true
                 };
                 $.ajax({
-                    url: http.url("/api/AreaAnalysis/DeleteProject"),
+                    url: http.url(rootUrl + "/api/AreaAnalysis/DeleteProject"),
                     type: "POST",
                     data: JSON.stringify(data),
                     dataType: "json",
@@ -453,7 +565,7 @@ function DelSuccess(projectName) {
         icon: "success",
     });
 
-    window.location.href = http.url( "/AreaAnalysis/Manage");
+    window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
 
 
 
@@ -820,3 +932,209 @@ $(function () {
 
 
 
+
+
+var AddProvince = [];
+var RemoveProvince = [];
+
+var provinceId, amphureId,tumbolId;
+$(document).on("change", "#PROVINCE_ID", function () {
+    $('#AMPHOE_ID').empty();
+    $('#TAMBOL_ID').empty();
+    $('#AMPHOE_ID').append("<option value=''>เลือกอำเภอ</option>");
+    $('#TAMBOL_ID').append("<option value=''>เลือกตำบล</option>");
+     provinceId = $(this).val();
+    $.get(rootUrl + "/api/Map/GetDistrictsByProvince", { id: provinceId }, function (data) {
+        if (data != null && data.length > 0) {
+
+
+            $.each(data, function (index, data) {
+                $("#AMPHOE_ID").append("<option value='" + data.ID + "'>" + data.Name + "</option>");
+               
+
+              
+            });
+
+            $.get(rootUrl + "/api/Map/GetProvinceById", { id: provinceId }, function (data) {
+                var sridIn = 24047;
+                var sridOut = [102100];
+
+                map.addGraphic(data[0].Shape);
+            
+            });
+        }
+    });
+
+    $(document).on("change", "#AMPHOE_ID", function () {
+         amphureId = $(this).val();
+        $('#TAMBOL_ID').empty();
+        $('#TAMBOL_ID').append("<option value=''>เลือกตำบล</option>");
+        $.get(rootUrl + "/api/Map/GetSubDistrictsByDistrict", { id: $(this).val() }, function (data) {
+            if (data != null && data.length > 0) {
+
+
+                $.each(data, function (index, item) {
+                    $("#TAMBOL_ID").append("<option value='" + item[0].ID + "'>" + item[0].Name + "</option>");
+                });
+            }
+
+            $.get(rootUrl + "/api/Map/GetDistrictsById", { provinceId: provinceId, id: amphureId }, function (data) {
+                var sridIn = 24047;
+                var sridOut = [102100];
+
+                map.addGraphic(data[0].Shape);
+
+            });
+        });
+
+
+
+    });
+
+    $(document).on("change", "#TAMBOL_ID", function () {
+        var tumbolId = $(this).val();
+      
+        $.get(rootUrl + "/api/Map/GetSubDistrictsById", { provinceId: provinceId, amphureId: amphureId, id: tumbolId }, function (data) {
+            var sridIn = 24047;
+            var sridOut = [102100];
+
+            map.addGraphic(data[0].Shape);
+
+        });
+
+
+
+    });
+
+
+$(document).ready(function () {
+    var isPublished = $('input[name=IS_PUBLISHED]:checked').val();
+    var statusID = $('#StatusID').val();
+
+    if ($("#ProjectID").val() > 0 && statusID === "3") {
+        if (isPublished === "True") {
+            $('#publishedYes').addClass('active');
+            $('#publishedNo').removeClass('active');
+        } else {
+            $('#publishedNo').addClass('active');
+            $('#publishedYes').removeClass('active');
+            $('#PublishedDate').css('display', 'none');
+        }
+    } else {
+        $('input:radio[name=IS_PUBLISHED]')[0].checked = false;
+        $('#publishDateSet').val('00/00/0000 00:00');
+        $("#test3").val("Dolly Duck");
+        $('#publishedNo').addClass('active');
+        $('#publishedYes').removeClass('active');
+        $('#PublishedDate').css('display', 'none');
+        $('#PublishedCheck').css('display', 'none');
+    }
+
+
+    $('#PublishedDate').datetimepicker({
+        format: 'mm-dd-yyyy',
+        minView: 2,
+        pickTime: false,
+        autoclose: true
+    });
+
+
+
+
+
+
+
+    });
+
+
+
+
+    // $("#ddlProvince").selectpicker('refresh');
+    // $("#ddlDistrict").selectpicker('refresh');
+    // $("#ddlSubdistrict").selectpicker('refresh');
+});
+
+function checkPublished(value) {
+    if (value) {
+        $('#PublishedDate').css('display', 'block');
+    } else {
+        $('#PublishedDate').css('display', 'none');
+    }
+}
+
+
+function btnSubmit(id) {
+
+    try {
+        var formData = $('#myForm').serializeObject();
+        if (formData.PUBLISH_DATE == '00/00/0000 00:00') {
+            formData.PUBLISH_DATE = formData.CREATE_DATE;
+        }
+
+
+        var myFormData = JSON.stringify(formData);
+
+        /*mode save data*/
+        if (id <= 0) {
+            /// ImportShape.ShapeFile($('input[type=file]')[0].files);
+            url = rootUrl + "/api/AreaAnalysis/AddProject";
+            url = http.url(url);
+
+            $.ajax({
+                url,
+                type: "POST",
+                data: myFormData,
+                dataType: "json",
+                contentType: 'application/json',
+                success: function (response) {
+                    $("#myModal").modal("hide");
+                    window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
+                }
+            });
+
+
+        } else {
+            ImportShape.ShapeFile($('input[type=file]')[0].files);
+            url = rootUrl + "/api/AreaAnalysis/UpdateProject";
+            url = http.url(url);
+
+            $.ajax({
+                url,
+                type: "POST",
+                data: myFormData,
+                dataType: "json",
+                contentType: 'application/json',
+                success: function (response) {
+                    $("#myModal").modal("hide");
+                    window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
+                }
+            });
+        }
+    } catch (e) {
+        alert(e.message);
+    }
+
+
+
+
+
+
+}
+
+var map = {};
+
+
+map.addGraphic = function (shape, symbol) {
+    var sridIn = 24047;
+    var sridOut = [102100];
+    var trans = _gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+     trans = _gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+    symbol = symbol || {
+        "type": "esriSLS",
+        "style": "esriSLSSolid",
+        "color": [0, 0, 0, 255],
+        "width": 0
+    }
+
+    return _gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
+}

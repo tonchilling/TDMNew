@@ -24,7 +24,7 @@
 
                 <div class="row" style="padding-top: 10px;">
                     <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
-                        <div>พื้นที่กระทบ</div>
+                        <div>จังหวัด</div>
 
                         @Html.DropDownListFor(model => model.PROVINCE_ID, new SelectList(Model.PROVINCE, "PRO_C", "ON_PRO_THA"), "เลือกจังหวัด", new { @id = "PROVINCE_ID", @class = "form-control" })
 
@@ -48,7 +48,7 @@
 
                     </div>
                     <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
-                        <div>บัฟเฟอร์ (Buffer)</div>
+                        <div>บัฟเฟอร์ (กิโลเมตร)</div>
                         @Html.TextBoxFor(model => model.Buffer, new { @class = " form-control input__screen-full", @placeholder = "บัฟเฟอร์ (Buffer)", @type = "number" })
                     </div>
 
@@ -227,154 +227,7 @@
 
 
 
-    var AddProvince = [];
-    var RemoveProvince = [];
-
-    $(document).ready(function () {
-        var isPublished = $('input[name=IS_PUBLISHED]:checked').val();
-        var statusID = $('#StatusID').val();
-
-        if ($("#ProjectID").val() > 0 && statusID === "3") {
-            if (isPublished === "True" ) {
-                $('#publishedYes').addClass('active');
-                $('#publishedNo').removeClass('active');
-            } else {
-                $('#publishedNo').addClass('active');
-                $('#publishedYes').removeClass('active');
-                $('#PublishedDate').css('display', 'none');
-            }
-        } else {
-            $('input:radio[name=IS_PUBLISHED]')[0].checked = false;
-            $('#publishDateSet').val('00/00/0000 00:00');
-            $("#test3").val("Dolly Duck");
-            $('#publishedNo').addClass('active');
-            $('#publishedYes').removeClass('active');
-            $('#PublishedDate').css('display', 'none');
-            $('#PublishedCheck').css('display', 'none');
-        }
-
-
-        $('#PublishedDate').datetimepicker({
-            format: 'mm-dd-yyyy',
-            minView: 2,
-            pickTime: false,
-            autoclose: true
-        });
-
-
-
-
-        $("#PROVINCE_ID").change(function () {
-            $('#AMPHOE_ID').empty();
-            $('#TAMBOL_ID').empty();
-             $('#AMPHOE_ID').append("<option value=''>เลือกอำเภอ</option>");
-             $('#TAMBOL_ID').append("<option value=''>เลือกตำบล</option>");
-             $.get(rootUrl + "/api/Map/GetDistrictsByProvince", { id: $(this).val() }, function (data) {
-                 if (data != null && data.length > 0) {
-
-
-                     $.each(data, function (index, data) {
-                         $("#AMPHOE_ID").append("<option value='" + data.ID + "'>" + data.Name + "</option>");
-                     });
-                 }
-             });
-
-
-
-
-
-    });
-        $("#AMPHOE_ID").change(function () {
-
-            $('#TAMBOL_ID').empty();
-            $('#TAMBOL_ID').append("<option value=''>เลือกตำบล</option>");
-             $.get(rootUrl + "/api/Map/GetSubDistrictsByDistrict", { id: $(this).val() }, function (data) {
-                 if (data != null && data.length > 0) {
-
-
-                     $.each(data, function (index, data) {
-                         $("#TAMBOL_ID").append("<option value='" + data.ID + "'>" + data.Name + "</option>");
-                     });
-                 }
-             });
-
-
-
-    });
-
-
-
-   // $("#ddlProvince").selectpicker('refresh');
-   // $("#ddlDistrict").selectpicker('refresh');
-   // $("#ddlSubdistrict").selectpicker('refresh');
-    });
-
-    function checkPublished(value) {
-        if (value) {
-            $('#PublishedDate').css('display', 'block');
-        } else {
-            $('#PublishedDate').css('display', 'none');
-        }
-    }
-
-
-    function btnSubmit(id) {
-
-        try {
-            var formData = $('#myForm').serializeObject();
-            if (formData.PUBLISH_DATE == '00/00/0000 00:00') {
-                formData.PUBLISH_DATE = formData.CREATE_DATE;
-            }
-
-           
-            var myFormData = JSON.stringify(formData);
-
-            /*mode save data*/
-            if (id <= 0) {
-               /// ImportShape.ShapeFile($('input[type=file]')[0].files);
-                url = rootUrl + "/api/AreaAnalysis/AddProject";
-                url = http.url(url);
-
-                $.ajax({
-                    url,
-                    type: "POST",
-                    data: myFormData,
-                    dataType: "json",
-                    contentType: 'application/json',
-                    success: function (response) {
-                        $("#myModal").modal("hide");
-                        window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
-                    }
-                });
-
-
-            } else {
-                ImportShape.ShapeFile($('input[type=file]')[0].files);
-                url = rootUrl + "/api/AreaAnalysis/UpdateProject";
-                url = http.url(url);
-
-                $.ajax({
-                    url,
-                        type: "POST",
-                    data: myFormData,
-                    dataType: "json",
-                    contentType: 'application/json',
-                    success: function (response) {
-                        $("#myModal").modal("hide");
-                        window.location.href = http.url(rootUrl + "/AreaAnalysis/Manage");
-                    }
-                });
-            }
-        } catch (e) {
-            alert(e.message);
-        }
-
-        
-
-
-
-        
-    }
+ 
 
 
     $.fn.serializeObject = function () {
