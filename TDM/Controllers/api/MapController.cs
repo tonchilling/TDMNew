@@ -46,7 +46,7 @@ namespace TDM.Controllers.api
         public IHttpActionResult GetProvinces()
         {
             
-            return Json(tdaEntities.PROVINCEs.Select(p => new { ID = p.PRO_C, Name = p.NAME_T }).OrderBy(o => o.Name));
+            return Json(tdaEntities.PROVINCEs.Select(p => new { ID = p.PRO_C, Name = p.NAME_T.Replace("จ.","") }).OrderBy(o => o.Name));
 
             /* 
             var provinces = VirtualDb.GetProvinces();
@@ -237,7 +237,7 @@ namespace TDM.Controllers.api
 
             var provinces = GetProvincesByRegionId(id);
 
-            return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.NAME_T }));
+            return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.NAME_T.Replace("จ.", "") }).OrderBy(o => o.Name));
         }
 
         [HttpGet]
@@ -247,9 +247,11 @@ namespace TDM.Controllers.api
             searchMap = new SearchMap();
             searchMap.LocationType = (LocationType)LocationType;
             searchMap.Code = id;
-            var provinces = repos.GetProvince(searchMap);
 
-            return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.NAME_T }));
+
+            var provinces = (id == null || id == "") ? tdaEntities.PROVINCEs.Select(p => new { PRO_C = p.PRO_C, NAME_T = p.NAME_T }).ToList() : repos.GetProvince(searchMap).Select(p => new { PRO_C = p.PRO_C, NAME_T = p.NAME_T });
+
+            return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.NAME_T.Replace("จ.", "") }).OrderBy(o => o.Name));
         }
 
         

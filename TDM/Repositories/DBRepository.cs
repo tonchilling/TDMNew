@@ -12,7 +12,8 @@ namespace TDM.Repositories
 {
     public class DBRepository
     {
-        string dbConnectionStr = ConfigurationManager.AppSettings["dbConnection"].ToString(); 
+        string dbConnectionStr = ConfigurationManager.AppSettings["dbConnection"].ToString();
+        string BIServer = ConfigurationManager.AppSettings["BIServer"].ToString();
         public IDbConnection CreateConnectionManage()
         {
             var regex = new Regex("(data source)=\\w.*");
@@ -21,6 +22,78 @@ namespace TDM.Repositories
         }
 
         public List<Databases> GetDatabaseList(DBViewModel dto)
+        {
+
+            List<Databases> dbList = new List<Databases>();
+            Databases db = null;
+            List<TableAll> tableAll = new List<TableAll>();
+            List<ColumnAll> columnAll = new List<ColumnAll>();
+            // Open connection to the database
+            string conString = string.Format("{0}", BIServer);
+
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+
+                // Set up a command with the given query and associate
+                // this with the current connection.
+                using (SqlCommand cmd = new SqlCommand("GetAllDatabase", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            db = new Databases();
+                            db.Database = dr[0].ToString();
+                            dbList.Add(db);
+                        }
+                        dr.NextResult();
+                        while (dr.Read())
+                        {
+
+                            tableAll.Add(new TableAll() { Database = dr[0].ToString(), Table = dr[1].ToString() + '.' + dr[2].ToString() });
+
+                        }
+                        dr.NextResult();
+                        while (dr.Read())
+                        {
+
+                            columnAll.Add(new ColumnAll() { Database = dr[0].ToString(), Table = dr[1].ToString() + '.' + dr[2].ToString(), Column = dr[3].ToString() });
+
+                        }
+                    }
+                }
+                /* from q in pois
+                 select
+                 new
+                 {
+                     OBJECT_ID = q.OBJECTID,
+                     NAME = q.NAME_T,
+                     X = q.X,
+                     Y = q.Y,
+                     CHANGWAT_NAME = q.PROV_NAME_T,
+                     TUMBON_NAME = q.TUMB_NAME_T,
+                     AMPHUR_NAME = q.AMPH_NAME_T,
+                     TUMBON_CODE = q.TUMB_CODE,
+                 }
+             );
+               */
+                foreach (Databases tempDB in dbList)
+                {
+                    tempDB.Tables = tableAll.FindAll(o => o.Database == tempDB.Database);
+                    foreach (TableAll tempTable in tempDB.Tables)
+                    {
+                        tempTable.Columns = columnAll.FindAll(o => o.Database == tempTable.Database && o.Table == tempTable.Table);
+                    }
+                }
+            }
+            return dbList;
+
+        }
+
+
+        public List<Databases> GetDatabaseList_Old(DBViewModel dto)
         {
            
             List<Databases> dbList = new List<Databases>();
@@ -93,6 +166,49 @@ namespace TDM.Repositories
 
 
         public DataTable GetQueryToDatatable(DBViewModel dto)
+        {
+            List<string> list = new List<string>();
+            var tb = new DataTable();
+            // Open connection to the database
+            string conString = string.Format("{0}", BIServer);
+            try
+            {
+
+                if (dto.Query.ToLower().IndexOf("insert") > -1
+                    || dto.Query.ToLower().IndexOf("update") > -1
+                    || dto.Query.ToLower().IndexOf("delete") > -1)
+                {
+                    throw new Exception("Invalid Query cannot used insert update delete!!");
+                }
+                    using (SqlConnection con = new SqlConnection(conString))
+                {
+                    con.Open();
+
+                    // Set up a command with the given query and associate
+                    // this with the current connection.
+                    using (SqlCommand cmd = new SqlCommand(dto.Query, con))
+                    {
+
+
+
+                        using (IDataReader dr = cmd.ExecuteReader())
+                        {
+
+                            tb.Load(dr);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Query Error:"+ ex.Message); 
+            }
+            return tb;
+
+        }
+
+
+        public DataTable GetQueryToDatatable_Old(DBViewModel dto)
         {
             List<string> list = new List<string>();
             var tb = new DataTable();

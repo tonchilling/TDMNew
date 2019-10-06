@@ -11,7 +11,7 @@
 
 <p><b>การแสดงผลผู้เข้าใช้งานในจังหวัด <span id="ProvincetabSystem"></span></b></p>
 <p>ช่วงวันที่ <span id="dateSearchStart"></span> – <span id="dateSearchEnd"></span></p>
-<div class="row">>
+<div class="row">
 <div class="col-lg-2"><span>ความถี่ในการแสดงข้อมูล</span></div>
 <div class="col-lg-2" >
     <label>
@@ -200,7 +200,7 @@
                 };
 
                 var barChart = new Chart(densityCanvas, {
-                    type: 'bar',
+                    type: 'line',
                     data: planetData,
                     options: chartOptions
                 });
@@ -209,7 +209,7 @@
 
                 setTimeout(function(){
                     new Chart(densityCanvas, {
-                        type: 'bar',
+                        type: 'line',
                         data: planetData,
                         options: chartOptions
                     });

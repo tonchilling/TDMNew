@@ -754,8 +754,8 @@ $(document).on("click", ".btnViewImpact", function () {
                 tableStr += '<td>' + item.ProvinceName + '</td>';
                 tableStr += '<td>' + item.AmphoeName + '</td>';
                 tableStr += '<td>' + item.TambolName + '</td>';
-                tableStr += '<td>' + formatCurrency(item.RVAL_P_WAH) + '</td>';
-                tableStr += '<td>' + formatCurrency(item.Area) + '</td>';
+                tableStr += '<td class="text-center">' + formatCurrency(item.RVAL_P_WAH) + '</td>';
+                tableStr += '<td class="text-center">' + formatCurrency(item.Area) + '</td>';
                 tableStr += '</tr>';
             });
             tableStr += '</tbody>';
@@ -869,8 +869,8 @@ $(document).on("click", ".btnSearchImpact", function () {
                 tableStr += '<td>' + item.ProvinceName + '</td>';
                 tableStr += '<td>' + item.AmphoeName + '</td>';
                 tableStr += '<td>' + item.TambolName + '</td>';
-                tableStr += '<td>' + formatCurrency(item.RVAL_P_WAH) + '</td>';
-                tableStr += '<td>' + formatCurrency(item.Area) + '</td>';
+                tableStr += '<td class="text-center">' + formatCurrency(item.RVAL_P_WAH) + '</td>';
+                tableStr += '<td class="text-center">' + formatCurrency(item.Area) + '</td>';
 
                 areaTotal += item.Area;
                 tableStr += '</tr>';

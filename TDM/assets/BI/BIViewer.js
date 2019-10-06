@@ -44,6 +44,8 @@ function LoadTemplateDropdownList()
             $.each(data, function (index, obj) {
                 $("#ddlTemplate").append("<option value='" + obj.Value + "'>" + obj.Name + "</option>");
             });
+
+               $("#ddlTemplate").prop('selectedIndex',0);
         }
     });
 }

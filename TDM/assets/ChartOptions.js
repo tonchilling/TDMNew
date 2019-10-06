@@ -10,8 +10,10 @@
     },
     toolbox: {
         show: true,
+       
         feature: {
             dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ['line', 'bar'] },
             restore: { show: true },
             saveAsImage: { show: true }
         }
@@ -83,6 +85,9 @@
                     label: {
                         show: true,
                         position: 'top',
+                        style: {
+                            fontSize: '18px'
+                        },
                         formatter: function (params) {
                             return numeral(params.value).format('0.0a');
                         } 
@@ -116,8 +121,10 @@ var BarHorizentalOption = {
     },
     toolbox: {
         show: true,
+      
         feature: {
             dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ['line', 'bar'] },
             restore: { show: true },
             saveAsImage: { show: true }
         }
@@ -188,6 +195,9 @@ var BarHorizentalOption = {
                     },
                     label: {
                         show: false,
+                        style: {
+                            fontSize: '18px'
+                        },
                         position: 'insideRight',
                         formatter: function (params) {
                             return numeral(params.value).format('0.0a');
@@ -228,22 +238,11 @@ PieOption = {
         data: null
     },
     toolbox: {
-        show: false,
+        show: true,
         feature: {
             mark: { show: true },
             dataView: { show: true, readOnly: false },
-            magicType: {
-                show: true,
-                type: ['pie', 'funnel'],
-                option: {
-                    funnel: {
-                        x: '25%',
-                        width: '50%',
-                        funnelAlign: 'left',
-                        max: 1548
-                    }
-                }
-            },
+            magicType: { show: true, type: ['line', 'bar'] },
             restore: { show: true },
             saveAsImage: { show: true }
         }
@@ -293,7 +292,7 @@ var CardOption = {
         html += display
         html += '</h2>'
         html += '<span class="h2 mb-0">'
-        html += value;
+        html += formatCurrency(value);
         html += '</span>';
         html += '</div>';
         html += '<div class="col-xs-3">';
@@ -315,5 +314,16 @@ var ChartType =
         { ID: 2, Name: 'Bar Chart(Horizontal)', Option: BarHorizentalOption }, 
         { ID: 3, Name: 'Pie Chart', Option: PieOption },
         { ID: 4, Name: 'CardOption', Option: CardOption }
-        ]
+    ]
+
+
+function formatCurrency(data) {
+    data = parseFloat(data).toFixed(2);
+
+    if (isNaN(data)) {
+        data = "";
+    }
+    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 

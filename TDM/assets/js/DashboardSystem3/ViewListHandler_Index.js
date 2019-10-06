@@ -214,7 +214,7 @@ $(document).on("click", ".liTab", function (event) {
 
 
         $('.divTab2').removeClass("col-md-12 col-sm-12")
-        $('.divTab2').addClass("col-md-10 col-sm-10")
+       // $('.divTab2').addClass("col-md-10 col-sm-10")
         $('.divTab1').removeClass("invisible").css({ position: "relative" });
         $(".chartBar").removeClass("invisible").css({ position: "relative" });
         $(".tableLand").removeClass("invisible").css({ position: "relative" });
@@ -244,7 +244,7 @@ $(document).on("click", ".liTab", function (event) {
         
         tabSelect = '2';
         $('.divTab2').removeClass("col-md-12 col-sm-12")
-        $('.divTab2').addClass("col-md-10 col-sm-10")
+       // $('.divTab2').addClass("col-md-10 col-sm-10")
         $('.divTab1').removeClass("invisible").css({ position: "relative" });
 
         $("#ddlType").empty();
@@ -601,10 +601,15 @@ function LoadSection2EvalBox1_LeftBox(data) {
     $("#EvalBox1").empty();
     if (data != null) {
         if (data != null && data.length > 0) {
-            $.each(data, function (index, data) {
-                body += '<div class=" leftbox r4_counter db_box bg-success zoom">';
-                body += '<h3 class="Header">' + data.DisplayName + '</h4>';
 
+            body += '<table class="tblChart">';
+            body += '<tr>';
+
+
+            $.each(data, function (index, data) {
+                body += '<td width="400px"><div class="card text-white bg-info mb-3 box400 zoom">';
+                body += '<div class="card-header "><h3>' + data.DisplayName + '</h3></div>';
+                body += '<div class="card-body">';
                 if (tabSelect == '1') {
                     if (sectionType == "4") {
 
@@ -637,8 +642,10 @@ function LoadSection2EvalBox1_LeftBox(data) {
                     body += '<h5>ราคาเฉลี่ย :  ' + data.MarketPriceAvg + ' บาท </h5>';
 
                 }
-                body += ' </div>';
+                body += ' </div></div></td>';
             });
+            body += '</tr>';
+            body += '</table>';
         }
     }
 
@@ -674,7 +681,7 @@ function LoadSection2Construction(data)
                 body += '<td>' + data.DisplayName + '</td>';
                 if (data.Color == '')
                 {
-                    body += '<td>' + numeral(data.ParcelPrice).format('0,0.00') + '</td>';
+                    body += '<td class="text-center">' + numeral(data.ParcelPrice).format('0,0.00') + '</td>';
                 } else {
                     body += '<td><span style="color:' + data.Color + '">' + numeral(data.ParcelPrice).format('0,0.00') + '</span></td>';
                 }
@@ -867,24 +874,24 @@ function LoadSection2EvalBox1_Table(data) {
 
                 if (tabSelect == '1') {
 
-                    body += '<td>' + data.LAND_Total + ' แปลง</td>';
+                    body += '<td class="text-center">' + data.LAND_Total + ' แปลง</td>';
                   
                     if ($('#ddlType').val() == "1" || $('#ddlType').val() == "0" ) {
 
                         if (sectionType == "4") {
-                            body += '<td>' + data.ParcelWAHPrice + ' บาท</td>';
+                            body += '<td class="text-center">' + data.ParcelWAHPrice + ' บาท</td>';
                         } else {
-                            body += '<td>' + data.ParcelWAHPriceMax + ' บาท</td>';
-                            body += '<td>' + data.ParcelWAHPriceMin + ' บาท</td>';
-                            body += '<td>' + data.ParcelWAHPriceAvg + ' บาท</td>';
+                            body += '<td class="text-center">' + data.ParcelWAHPriceMax + ' บาท</td>';
+                            body += '<td class="text-center">' + data.ParcelWAHPriceMin + ' บาท</td>';
+                            body += '<td class="text-center">' + data.ParcelWAHPriceAvg + ' บาท</td>';
                         }
                     } else {
                         if (sectionType == "4") {
-                            body += '<td>' + data.MarketWAHPrice + ' บาท</td>';
+                            body += '<td class="text-center">' + data.MarketWAHPrice + ' บาท</td>';
                         } else {
-                            body += '<td>' + data.MarketWAHPriceMax + ' บาท</td>';
-                            body += '<td>' +data.MarketWAHPriceMin + ' บาท</td>';
-                            body += '<td>' +data.MarketWAHPriceAvg+ ' บาท</td>';
+                            body += '<td class="text-center">' + data.MarketWAHPriceMax + ' บาท</td>';
+                            body += '<td class="text-center">' +data.MarketWAHPriceMin + ' บาท</td>';
+                            body += '<td class="text-center">' +data.MarketWAHPriceAvg+ ' บาท</td>';
                         }
                     }
                 } else if (tabSelect == '2') {
@@ -893,11 +900,11 @@ function LoadSection2EvalBox1_Table(data) {
 
                         body += '<td></td>';
                         body += '<td>0 ชั้น</td>';
-                        body += '<td>' + data.MarketPrice + ' บาท </td>';
+                        body += '<td class="text-center">' + data.MarketPrice + ' บาท </td>';
                     } else {
-                        body += '<td>' +data.MarketPriceMax + ' บาท</td>';
-                        body += '<td>' + data.MarketPriceMin + ' บาท</td>';
-                        body += '<td>' + data.MarketPriceAvg + ' บาท</td>';
+                        body += '<td class="text-center">' +data.MarketPriceMax + ' บาท</td>';
+                        body += '<td class="text-center">' + data.MarketPriceMin + ' บาท</td>';
+                        body += '<td class="text-center">' + data.MarketPriceAvg + ' บาท</td>';
 
                     }
                   
@@ -990,8 +997,8 @@ function LoadSection4() {
                         tableStr += '<td class="td__Center"><a class="fa fa-2x glyphicon glyphicon-zoom-in btnViewImpact icon-danger" data-html="true"  data-toggle="popover" title="Popover Header" data-content="Some content inside the popover"></a></td>';
                         tableStr += ' <td class="td__Center">' + item.SUBJECT_NAME + '</td>';
                         tableStr += '<td class="td__Center">' + item.ProvinceName + '</td>';
-                        tableStr += '<td class="td__Center" align="center">' + item.ParcelTotal + '</td>';
-                        tableStr += '<td class="td__Center">' + item.Area + '</td>';
+                        tableStr += '<td class="td__Center text-center" >' + formatCurrency(item.ParcelTotal) + '</td>';
+                        tableStr += '<td class="td__Center text-center">' + formatCurrency(item.Area) + '</td>';
                         //tableStr += '<td class="td__Center">xx</td>';
                         tableStr += '</tr>';
 

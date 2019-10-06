@@ -287,12 +287,15 @@ $(document).on("click", ".btnCondo", function () {
 
 $(document).on("click", ".btnBuilding", function () {
     $("#ddlType1").val([3]).selectpicker('refresh').trigger('change');
+   
     var types = $("#ddlType1").val();
 
 
     tabSelect = 3;
     selectLocationLevel = 0;
     LoadData(0, '');
+  ////  $("#ddlAmphure").invisible();
+   // $("#ddlTumbol").invisible();
 });
 
 
@@ -303,10 +306,14 @@ $(document).on("click", ".btnGov", function () {
     $("#ddlProvince").val('');
     $("#ddlAmphure").val('');
     $("#ddlTumbol").val('');
-
+   // $("#ddlAmphure").invisible();
+   // $("#ddlTumbol").invisible();
+  
     tabSelect = 4;
     selectLocationLevel = 0;
     LoadData(0, '');
+
+  
 });
 
 
@@ -383,6 +390,7 @@ function LoadData(locationLevel,code) {
 
 
     var menuBar = '';
+    var subMenu = '';
     var html = '';
     var option1, option2, option3;
     var urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceBI';
@@ -419,22 +427,28 @@ function LoadData(locationLevel,code) {
 
 
    
-
-
+        $('.lblStatus').empty();
+        
     $('.divView').empty();
     menuBar ='<ul class="nav nav-tabs wizard">'
     switch (locationLevel) {
         case 1:
+            subMenu += '<a class="btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() +'</a>';
             menuBar += '<li class="' + GetLocationColorOfTab(tabSelect)+'"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() +'</h4></a></li>';
           //  $('.divView').append("<h4> <span class='text-lg btnRegion'   data='" + $("#ddlRegion").val()+"'>" + $("#ddlRegion option:selected").text()+"</span></h4>");
 
             break;
         case 2:
+            subMenu += '<a class="btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</a> > ';
+            subMenu += '<a class="btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</a>';
             menuBar += '<li class=" ' + GetLocationColorOfTab(tabSelect) +' "><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</h4></a></li>';
             menuBar += '<li class=" ' + GetLocationColorOfTab(tabSelect) +'  opacity"><a href="#i9" class="level2" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h4></a></li>';
            // $('.divView').append("<h4><span class='text-lg btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</h4> > <h4 class='btnProvince' data='" + $("#ddlProvince").val() + "'> " + $("#ddlProvince option:selected").text() + "</h4> </p>");
             break;
         case 3:
+            subMenu += '<a class="btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</a> > ';
+            subMenu += '<a class="btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</a> > ';
+            subMenu += '<a class="btnAmphure"  data="' + $("#ddlDistrict").val() + '">' + $("#ddlDistrict option:selected").text() + '</a>';
             menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +'"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</h3></a></li>';
             menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +' opacity level2"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h3></a></li>';
             menuBar += '<li class="' + GetLocationColorOfTab(tabSelect) +' opacity level3"><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnAmphure"  data="' + $("#ddlDistrict").val() + '">' + $("#ddlDistrict option:selected").text() + '</h3></a></li>';
@@ -450,13 +464,15 @@ function LoadData(locationLevel,code) {
            
         }
     
-    menuBar += '</ul>'
+        menuBar += '</ul>'
+
+        $('.lblStatus').append(subMenu);
     $('.divView').append(menuBar);
     $('#ddlProvince').removeClass("hide")
     $('#ddlDistrict').removeClass("hide")
         $('#ddlSubdistrict').removeClass("hide")
-    }, 1000);
-    switch (selectType) {
+  
+    switch (tabSelect) {
         case 1: urlForSearch = mapApi.getServerPath() + '/api/PriceSys/GetPriceBI';
             $('.btnLand').css('opacity', '1');
             $('.btnCondo').css('opacity', '0.3');
@@ -485,6 +501,8 @@ function LoadData(locationLevel,code) {
             $('.btnCondo').css('opacity', '0.3');
             $('.btnBuilding').css('opacity', '0.3');
             $('.btnGov').css('opacity', '1');
+            $('#ddlDistrict').removeClass("hide").addClass("hide")
+            $('#ddlSubdistrict').removeClass("hide").addClass("hide")
             break;
             codeTemp = $('#ddlProvince').val();
             break;
@@ -492,71 +510,75 @@ function LoadData(locationLevel,code) {
 
 
 
+        objSearch = {
 
-    objSearch = {
+            SectionType: locationLevel,
+            code: code,
+            LocationType: LocationType,
+            ConStructionType: constructionType != null ? constructionType : "",
+            ProvinceCodeCompare1: (provinceCode1 != null && provinceCode1.length > 0) ? provinceCode1.join() : "",
+            PercentCompare: percentCompare
 
-        SectionType: locationLevel,
-        code: code,
-        LocationType:LocationType,
-        ConStructionType: constructionType != null ? constructionType:"",
-        ProvinceCodeCompare1: (provinceCode1 != null && provinceCode1.length > 0) ? provinceCode1.join() : "",
-        PercentCompare: percentCompare
+        };
 
-    };
+        $.ajax({
+            type: "POST",
+            url: urlForSearch,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(objSearch),
+            success: function (data) {
 
-    $.ajax({
-        type: "POST",
-        url: urlForSearch,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(objSearch),
-        success: function (data) {
+                if (data != null && data.EstimateData != null) {
+                    resultAll = data;
+                    DisplayDataSection1 = data.EstimateData;
+                    objQuery.data = data.Barchart;
+                    chartData = data.Barchart;
+                    var html = '';
+                    var count = 0;
 
-            if (data != null && data.EstimateData != null) {
-                resultAll = data;
-                DisplayDataSection1 = data.EstimateData;
-                objQuery.data = data.Barchart;
-                chartData = data.Barchart;
-                var html = '';
-                var count = 0;
+                    if (tabSelect == '1') {
+                        LoadChartLand(DisplayDataSection1, chartData, locationLevel);
 
-                if (tabSelect == '1') {
-                    LoadChartLand(DisplayDataSection1, chartData, locationLevel);
-
-                } else if (tabSelect == '2') {
-                    LoadChartCondo(DisplayDataSection1, chartData, locationLevel);
-                } else if (tabSelect == '3') {
-                    LoadChartBuilding(DisplayDataSection1, chartData);
-                } else if (tabSelect == '4') {
-                    LoadGovernment(DisplayDataSection1, chartData);
-                }
-
-
-                if (DisplayDataSection1 != null && DisplayDataSection1.length > 0) {
-                    if (locationLevel == "1") { }
-                    else if (locationLevel == "2") {
-
-                        if (DisplayDataSection1[0].RegionCode!="")
-                        $("#ddlRegion").val(DisplayDataSection1[0].RegionCode)
-
+                    } else if (tabSelect == '2') {
+                        LoadChartCondo(DisplayDataSection1, chartData, locationLevel);
+                    } else if (tabSelect == '3') {
+                        LoadChartBuilding(DisplayDataSection1, chartData);
+                    } else if (tabSelect == '4') {
+                        LoadGovernment(DisplayDataSection1, chartData);
                     }
-                    else if (locationLevel == "3") { }
+
+
+                    if (DisplayDataSection1 != null && DisplayDataSection1.length > 0) {
+                        if (locationLevel == "1") { }
+                        else if (locationLevel == "2") {
+
+                            if (DisplayDataSection1[0].RegionCode!=null && DisplayDataSection1[0].RegionCode != "" )
+                                $("#ddlRegion").val(DisplayDataSection1[0].RegionCode)
+
+                        }
+                        else if (locationLevel == "3") { }
+                    }
+                } else if (data != null && selectType == "4") {
+                    resultAll = data;
+                    LoadGovernment(resultAll);
                 }
-            } else if (data != null && selectType == "4") {
-                resultAll = data;
-                LoadGovernment(resultAll);
+
+                // $('body').pleaseWait("stop");
+                waitingDialog.hide();
+            },
+            error: function (response) {
+                waitingDialog.hide();
+                //  $('body').pleaseWait("stop");
+                alert('failure');
             }
+        });
 
-           // $('body').pleaseWait("stop");
-            waitingDialog.hide();
-        },
-        error: function (response) {
-            waitingDialog.hide();
-          //  $('body').pleaseWait("stop");
-            alert('failure');
-        }
-    });
 
+    }, 1000);
+
+
+ 
 
 
 
@@ -1068,23 +1090,27 @@ function LoadChartLand(ObjData,chartData) {
     }
 
     html += '<div class="row">'
-
+    html += '<div class="col-xs-12">'
+    html += '<table class="tblBoxSection1">';
+    html += '<tr>';
+   //ObjData
+   
     $.each(ObjData, function (index, item) {
-        if (count > 3) {
+        /*if (count > 3) {
 
             return;
-        } else {
+        } else {*/
 
-
-            html += '<div class="col-lg-3 col-sm-6 col-xs-12">'
-            html += '<div class="card text-white bg-info mb-3">'
+            html += '<td width="400px"><div class=" text-white  mb-3 box400 zoom">';
+       
+            html += '<div class="card cardBI text-white bg-info mb-3">'
             html += '<div class="card-header   ' + btnSelect + '" data="' + item.DisplayCode + '">' + item.DisplayName + '</div>'
             html += '<div class="card-body ">'
            // html += '<h5 class="card-title text-left">' + item.RegionName + ' > ' + item.ProviceName + ' > ' + item.AmphureName + '</h5>'
             html += '<table class="table ">'
             html += '<thead >'
             html += '<tr class="text-primary font-weight-bolder text-light">'
-            html += '<td>(ราคา/ตรว.)</td>'
+        html += '<td><h4>(ราคา/ตรว.)</h4></td>'
             if (selectLocationLevel == '4') {
                 html += '<td><h4> ราคา</h4></td>'
             } else {
@@ -1098,24 +1124,24 @@ function LoadChartLand(ObjData,chartData) {
             if (selectLocationLevel == '4') {
                 html += '<tr>'
                 html += '<td>ราคาประเมิน</td>'
-                html += '<td>' + formatCurrency(item.ParcelWAHPriceMax) + '</td>'
+                html += '<td class="text-right">' + formatCurrency(item.ParcelWAHPriceMax) + '</td>'
                
                 html += '</tr>'
                 html += '<tr>'
                 html += '<td>ราคาซื้อขาย</td>'
-                html += '<td>' + formatCurrency(item.MarketWAHPriceMax) + '</td>'
+                html += '<td class="text-right">' + formatCurrency(item.MarketWAHPriceMax) + '</td>'
 
                 html += '</tr>'
             } else {
                 html += '<tr>'
                 html += '<td>ราคาประเมิน</td>'
-                html += '<td>' + formatCurrency(item.ParcelWAHPriceMax) + '</td>'
-                html += '<td>' + formatCurrency(item.ParcelWAHPriceMin) + '</td>'
+                html += '<td class="text-right">' + formatCurrency(item.ParcelWAHPriceMax) + '</td>'
+                html += '<td class="text-right">' + formatCurrency(item.ParcelWAHPriceMin) + '</td>'
                 html += '</tr>'
                 html += '<tr>'
                 html += '<td>ราคาซื้อขาย</td>'
-                html += '<td>' + formatCurrency(item.MarketWAHPriceMax) + '</td>'
-                html += '<td>' + formatCurrency(item.MarketWAHPriceMin) + '</td>'
+                html += '<td class="text-right">' + formatCurrency(item.MarketWAHPriceMax) + '</td>'
+                html += '<td class="text-right">' + formatCurrency(item.MarketWAHPriceMin) + '</td>'
                 html += '</tr>'
             }
 
@@ -1126,8 +1152,8 @@ function LoadChartLand(ObjData,chartData) {
             html += '</table>'
             html += '</div>'
             html += '</div>'
-            html += '</div>'
-
+           
+            html += '</td>';
 /*
             html += '<div class="card2 p-3 align-center col-12 col-md-6 col-lg-2">';
             html += '<div class="panel-item">';
@@ -1144,11 +1170,15 @@ function LoadChartLand(ObjData,chartData) {
             html += '</div>';
             html += '</div>';
             */
-        }
+      //  }
         count++;
 
     });
+    html += '</tr>';
+    html += '</table>';
     html += '</div>'
+    html += '</div>'
+   
     $(".divLand .divSection1").append(html);
 
     setTimeout(function () {
@@ -1216,7 +1246,9 @@ function LoadChartLand(ObjData,chartData) {
         $(".divLand .divSection2").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeIn")
     }, 400);
     $(".divLand .divSection2").append(html);
-    $(".divLand .divSection2 table").DataTable();
+    $(".divLand .divSection2 table").DataTable({
+        "order": [[4, "desc"], [5, "desc"]]
+    });
 
 
     if (chartData.Data.length > 0) {
@@ -1344,6 +1376,9 @@ function LoadChartLand(ObjData,chartData) {
                         normal: {
                             label: {
                                 show: false,
+                                style: {
+                                    fontSize: '18px'
+                                },
                                 position: 'top',
                                 formatter: '{b}\{c}'
                                 /*  formatter: '{b}\n{c}'*/
@@ -1467,6 +1502,9 @@ function LoadChartLand(ObjData,chartData) {
                            
                             label: {
                                 show: false,
+                                style: {
+                                    fontSize: '18px'
+                                },
                                 position: 'top',
                                 formatter: '{b}\{c}'
                                 /*  formatter: '{b}\n{c}'*/
@@ -1492,6 +1530,9 @@ function LoadChartLand(ObjData,chartData) {
                             label: {
                                 show: false,
                                 position: 'top',
+                                style: {
+                                    fontSize: '18px'
+                                },
                                 formatter: function (params) {
                                     var val = params.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                     return val;
@@ -1520,7 +1561,11 @@ function LoadChartLand(ObjData,chartData) {
 
 
 function formatCurrency(data) {
-    data = parseFloat(data);
+    data = parseFloat(data).toFixed(2);
+
+    if (isNaN(data)) {
+        data = "";
+    }
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -1557,16 +1602,18 @@ function LoadChartCondo(ObjData, chartData) {
     }
 
     html += '<div class="row">'
+    html += '<div class="col-xs-12">'
+    html += '<table class="tblBoxSection1">';
+    html += '<tr>';
 
     $.each(ObjData, function (index, item) {
-        if (count > 3) {
+  
 
-            return;
-        } else {
+        html += '<td width="400px"><div class=" text-white  mb-3 box400 zoom">';
 
 
             html += '<div class="col-lg-3 col-sm-6 col-xs-12">'
-            html += '<div class="card text-white bg-danger mb-3">'
+        html += '<div class="card cardBI text-white bg-danger mb-3">'
             html += '<div class="card-header   ' + btnSelect + '" data="' + item.DisplayCode + '">' + item.DisplayName + '</div>'
             html += '<div class="card-body ">'
             // html += '<h5 class="card-title text-left">' + item.RegionName + ' > ' + item.ProviceName + ' > ' + item.AmphureName + '</h5>'
@@ -1599,11 +1646,14 @@ function LoadChartCondo(ObjData, chartData) {
 
            
             html += '</tr>'
-            html += '</tbody>'
-            html += '</table>'
-            html += '</div>'
-            html += '</div>'
-            html += '</div>'
+
+        html += '</tbody>'
+        html += '</table>'
+        html += '</div>'
+        html += '</div>'
+
+        html += '</td>';
+
 
             /*
                         html += '<div class="card2 p-3 align-center col-12 col-md-6 col-lg-2">';
@@ -1620,10 +1670,13 @@ function LoadChartCondo(ObjData, chartData) {
             html += '</div>';
             html += '</div>';
                         */
-        }
+     
         count++;
 
     });
+    html += '</tr>';
+    html += '</table>';
+    html += '</div>'
     html += '</div>'
     $(".divCondo .divSection1").append(html);
 
@@ -2035,8 +2088,8 @@ function LoadGovernment(ObjData, chartData) {
                         tableStr += '<tr data-toggle="collapse" data-target="#accordion" class="clickable">';
                         tableStr += ' <td class="td__Center">' + item.SUBJECT_NAME + '</td>';
                         tableStr += '<td class="td__Center">' + item.ProvinceName + '</td>';
-                tableStr += '<td class="td__Center">' + item.ParcelTotal + '</td>';
-                tableStr += '<td class="td__Center">' + item.Area + '</td>';
+                tableStr += '<td class="td__Center text-right">' + formatCurrency(item.ParcelTotal) + '</td>';
+                tableStr += '<td class="td__Center text-right">' + formatCurrency(item.Area) + '</td>';
                    //     tableStr += '<td class="td__Center"></td>';
                         tableStr += '</tr>';
 
@@ -2219,6 +2272,8 @@ function LoadChartBuilding(data, chartData) {
 
     var body = '';
     $(".divBuilding .divSection1").empty();
+    $('#ddlDistrict').removeClass("hide").addClass("hide")
+    $('#ddlSubdistrict').removeClass("hide").addClass("hide")
 
     body += '<table class="table table-bordered table-striped">';
     body += '<thead>';
@@ -2247,7 +2302,7 @@ function LoadChartBuilding(data, chartData) {
                     body += '<td class="text-right"><span style="color:' + data.Color + '">' +formatCurrency(data.ParcelPrice)  + '</span></td>';
                 }
 
-                body += '<td><span>' + data.Percent + '</span></td>';
+                body += '<td class="text-right"><span>' + data.Percent + '</span></td>';
                 
                
 
@@ -2653,10 +2708,12 @@ function ReLoadAddress(selectCode) {
 
         if (LocationType == '2')
             LoadProvice(filterData.ClusterCode, filterData.PRO_C);
-        else
+        else {
 
             $("#ddlRegion").val(filterData.RegionCode);
-        LoadProvice(filterData.RegionCode, filterData.PRO_C);
+            LoadProvice(filterData.RegionCode, filterData.PRO_C);
+           
+        }
         LoadDistinct(filterData.PRO_C);
         LoadSubDistinct(null);
     } else if (selectLocationLevel == '1') {
@@ -2831,6 +2888,8 @@ $(document).on("change", "#ddlProvince", function (event) {
     }
 
     else {
+       // $("#ddlProvince").val(selectId)
+        
         selectLocationLevel = 2;
         LoadData(2, selectId);
 

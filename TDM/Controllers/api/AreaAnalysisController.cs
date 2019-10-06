@@ -235,7 +235,7 @@ namespace TDM.Controllers.api
         /// <param name="searchDto"></param>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult GetAllProjectImpactBI(PROJECT_IMPACTDto searchDto)
+        public IHttpActionResult GetAllProjectImpactBI(SearchMap searchDto)
         {
             var repos = new TDAssetRespository();
 
@@ -247,7 +247,15 @@ namespace TDM.Controllers.api
             var barchart = new Barchart();
             int row = 0;
 
-            var estimateData = repos.GetPROJECT_IMPACT(searchDto);
+            if (searchDto.SectionType == SetionType.Region)
+            {
+                searchDto.RegionCode = searchDto.Code;
+            }
+            else if (searchDto.SectionType == SetionType.Provice)
+            {
+                searchDto.ProvinceCode = searchDto.Code;
+            }
+                var estimateData = repos.GetPROJECT_IMPACT(searchDto);
 
             if (estimateData != null)
             {
@@ -793,9 +801,9 @@ namespace TDM.Controllers.api
                     PROVINCE_ID= r.PROVINCE_ID,
                     ProvinceName= r.PROVINCE_ID.Trim() != "" ? tdaEntities.PROVINCEs.Where(p=>p.PRO_C == r.PROVINCE_ID).FirstOrDefault().NAME_T:"",
                     AMPHOE_ID =r.AMPHOE_ID,
-                    AmphoeName = r.AMPHOE_ID.Trim()!="" ? tdaEntities.AMPHOEs.Where(p => p.DIS_C == r.PROVINCE_ID+r.AMPHOE_ID).FirstOrDefault().NAME_T : "",
+                    AmphoeName = r.AMPHOE_ID.Trim()!="" ? (tdaEntities.AMPHOEs.Where(p => p.DIS_C == r.PROVINCE_ID + r.AMPHOE_ID).FirstOrDefault()!=null?tdaEntities.AMPHOEs.Where(p => p.DIS_C == r.PROVINCE_ID+r.AMPHOE_ID).FirstOrDefault().NAME_T :"") : "",
                     TAMBOL_ID =r.TAMBOL_ID,
-                    TambolName = r.TAMBOL_ID.Trim() != "" ? tdaEntities.TAMBOLs.Where(p => p.SUB_C == r.PROVINCE_ID + r.AMPHOE_ID+r.AMPHOE_ID).FirstOrDefault().NAME_T :""
+                    TambolName = r.TAMBOL_ID.Trim() != "" ? (tdaEntities.TAMBOLs.Where(p => p.SUB_C == r.PROVINCE_ID + r.AMPHOE_ID + r.AMPHOE_ID).FirstOrDefault()!=null? tdaEntities.TAMBOLs.Where(p => p.SUB_C == r.PROVINCE_ID + r.AMPHOE_ID+r.AMPHOE_ID).FirstOrDefault().NAME_T:"") :""
 
                 }).ToList(),
                      PageNo = data.PageNo,

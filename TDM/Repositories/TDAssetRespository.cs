@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
  using TDM.Models.ViewModels;
 using TDM.Models.Utils;
 
+
 namespace TDM.Repositories
 {
     public class TDAssetRespository : BaseRepository
@@ -33,10 +34,12 @@ namespace TDM.Repositories
         }
 
 
-        public IDbConnection CreateConnectionManage()
+        public SqlConnection CreateConnectionManage()
         {
             var regex = new Regex("(data source)=\\w.*");
-            var connectionString = regex.Match(ConfigurationManager.ConnectionStrings["TDManagementEntities"].ConnectionString).Value.TrimEnd(new char[] { '"' });
+            //  var connectionString = regex.Match(ConfigurationManager.ConnectionStrings["TDManagementEntities"].ConnectionString).Value.TrimEnd(new char[] { '"' });
+            var connectionString = ConfigurationManager.AppSettings["BIServer"];
+            
             return new SqlConnection(connectionString);
         }
 
@@ -990,12 +993,70 @@ namespace TDM.Repositories
             return result > 0;
 
         }
-            /// <summary>
-            /// Section 4
-            /// </summary>
-            /// <param name="search"></param>
-            /// <returns></returns>
-            public List<PROJECT_IMPACTDto> GetPROJECT_IMPACT(PROJECT_IMPACTDto search)
+
+        /// <summary>
+        /// Section 4
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<PROJECT_IMPACT_GEOMETRY> SearcPROJECT_IMPACT_GEOMETRY(ProjectImpactShapeSearch search)
+        {
+            IDataReader reader = null;
+            List<PROJECT_IMPACT_GEOMETRY> result = null;
+            PROJECT_IMPACT_GEOMETRY data = null;
+            var p = new DynamicParameters();
+            p.Add("@ProjectImpactID", search.ProjectImpactID, dbType: DbType.String);
+            p.Add("@Buffer", search.Buffer, dbType: DbType.String);
+
+
+            try
+            {
+                result = new List<PROJECT_IMPACT_GEOMETRY>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("[sp_PROJECT_IMPACT_GEOMETRY_Get]", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.PROJECT_IMPACT_GEOMETRY();
+                       
+                        data.ProjectImpactID = Converting.ToInt( reader["ProjectImpactID"].ToString());
+                        data.PROVINCE_ID = reader["PROVINCE_ID"].ToString();
+                        data.AMPHOE_ID = reader["AMPHOE_ID"].ToString();
+                        data.TAMBOL_ID = reader["TAMBOL_ID"].ToString();
+                        data.Chanode = reader["Chanode"].ToString();
+                        data.Area = Converting.ToDecimal(reader["Area"].ToString());
+                        data.OriginX = reader["OriginX"].ToString();
+                        data.OriginY = reader["OriginY"].ToString();
+                        data.Shape = System.Data.Entity.Spatial.DbGeometry.FromText(reader["SHAPE"].ToString());
+                        data.REG_P_WAH = Converting.ToDecimal(reader["REG_P_WAH"].ToString());
+                        data.RVAL_P_WAH = Converting.ToDecimal(reader["RVAL_P_WAH"].ToString());
+                        data.REG_AMT = Converting.ToDecimal(reader["REG_AMT"].ToString());
+                        data.RVAL_AMT = Converting.ToDecimal(reader["RVAL_AMT"].ToString());
+
+
+
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Section 4
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<PROJECT_IMPACTDto> GetPROJECT_IMPACT(PROJECT_IMPACTDto search)
         {
             IDataReader reader = null;
             List<PROJECT_IMPACTDto> result = null;
@@ -1038,6 +1099,73 @@ namespace TDM.Repositories
                         data.Shape = reader["Shape"].ToString();
 
                        data.ParcelTotal = reader["ParcelTotal"].ToString();
+                        data.Area = reader["Area"].ToString();
+
+
+                        result.Add(data);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Section 4
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public List<PROJECT_IMPACTDto> GetPROJECT_IMPACT(SearchMap search)
+        {
+            IDataReader reader = null;
+            List<PROJECT_IMPACTDto> result = null;
+            PROJECT_IMPACTDto data = null;
+            var p = new DynamicParameters();
+          //  p.Add("@SUBJECT_NAME", search.SUBJECT_NAME);
+            p.Add("@PROVINCE_ID", search.ProvinceCode, dbType: DbType.String);
+            p.Add("@RegionCode", search.RegionCode, dbType: DbType.String);
+            p.Add("@LocationType", search.LocationType, dbType: DbType.String);
+            
+            // p.Add("@AMPHOE_ID", search.AMPHOE_ID, dbType: DbType.String);
+            // p.Add("@TAMBOL_ID", search.TAMBOL_ID, dbType: DbType.String);
+
+
+            try
+            {
+                result = new List<PROJECT_IMPACTDto>();
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+
+                    reader = conn.ExecuteReader("sp_PROJECT_IMPACT_FindByColumn", p, commandType: CommandType.StoredProcedure);
+
+                    while (reader.Read())
+                    {
+                        data = new Models.PROJECT_IMPACTDto();
+                        data.ID = reader["ID"].ToString();
+                        data.SUBJECT_ID = reader["SUBJECT_ID"].ToString();
+                        data.SUBJECT_NAME = reader["SUBJECT_NAME"].ToString();
+                        data.CREATE_DATE = reader["CREATE_DATE"].ToString();
+                        data.CREATE_BY = reader["CREATE_BY"].ToString();
+                        data.UPDATE_DATE = reader["UPDATE_DATE"].ToString();
+                        data.UPDATE_BY = reader["UPDATE_BY"].ToString();
+                        data.PUBLISH_DATE = reader["PUBLISH_DATE"].ToString();
+                        data.IS_PUBLISHED = reader["IS_PUBLISHED"].ToString();
+                        data.PROVINCE_ID = reader["PROVINCE_ID"].ToString();
+                        data.ProvinceName = reader["ProvinceName"].ToString();
+                        data.Description = reader["Description"].ToString();
+                        data.ShapeText = reader["ShapeText"].ToString();
+                        data.AMPHOE_ID = reader["AMPHOE_ID"].ToString();
+                        data.AmphoeName = reader["AmphoeName"].ToString();
+                        data.TAMBOL_ID = reader["TAMBOL_ID"].ToString();
+                        data.TambolName = reader["TambolName"].ToString();
+                        data.Shape = reader["Shape"].ToString();
+
+                        data.ParcelTotal = reader["ParcelTotal"].ToString();
                         data.Area = reader["Area"].ToString();
 
 
@@ -1854,6 +1982,125 @@ namespace TDM.Repositories
 
             return result;
         }
+
+
+
+
+        /// <summary>
+        /// Home>Menu2
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public UserProFile GetPermission(string userid)
+        {
+
+           
+            RegisterLand result = null;
+            UserProFile userProfile = null;
+            List<UserPermissionMenuModel> userMenuList = null;
+            UserPermissionMenuModel userMenu = null;
+            List<UserPermissionMenuModel> userSubMenuList = null;
+           
+            
+      
+            CondoInfo data = null;
+            SqlParameter p = new SqlParameter("@UserId", userid);
+        
+           
+
+
+
+            try
+            {
+                userProfile = new UserProFile();
+                userMenuList = new List<UserPermissionMenuModel>();
+                userSubMenuList = new List<UserPermissionMenuModel>();
+
+                using (SqlConnection conn = CreateConnectionManage())
+                {
+                    conn.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection= conn;
+                    command.CommandText = "[sp_GetUserPermission]";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(p);
+
+
+                    // reader = command.ExecuteReader();
+
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+
+                        if (reader.Read())
+                        {
+
+                            userProfile.id = reader["id"].ToString();
+                            userProfile.USER_ID = reader["USER_ID"].ToString();
+                            userProfile.USER_NAME = reader["USER_NAME"].ToString();
+                            userProfile.USER_SURNAME = reader["USER_SURNAME"].ToString();
+                            userProfile.Email = reader["Email"].ToString();
+                            userProfile.remember_token = reader["remember_token"].ToString();
+
+
+                        }
+
+                        reader.NextResult();
+
+                        while (reader.Read())
+                        {
+                            userMenu = new UserPermissionMenuModel();
+
+                            userMenu.id = reader["id"].ToString();
+                            userMenu.user_id = reader["user_id"].ToString();
+                            userMenu.menuId = reader["menuId"].ToString();
+                            userMenu.titleTh = reader["titleTh"].ToString();
+                            userMenu.parentMenu = reader["parentMenu"].ToString();
+
+                            userMenuList.Add(userMenu);
+
+                        }
+
+
+                        reader.NextResult();
+
+                        while (reader.Read())
+                        {
+                            userMenu = new UserPermissionMenuModel();
+                            userMenu.id = reader["id"].ToString();
+                            userMenu.user_id = reader["user_id"].ToString();
+                            userMenu.menuId = reader["menuId"].ToString();
+                            userMenu.titleTh = reader["titleTh"].ToString();
+                            userMenu.parentMenu = reader["parentMenu"].ToString();
+
+                            userSubMenuList.Add(userMenu);
+
+                        }
+
+                        if (userMenuList != null)
+                        {
+                            foreach (UserPermissionMenuModel temp in userMenuList)
+                            {
+                                temp.subMenuList = userSubMenuList.FindAll(o => o.parentMenu == temp.menuId);
+                            }
+
+                        }
+
+                        userProfile.menuList = userMenuList;
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
+            return userProfile;
+        }
+
+
 
 
     }

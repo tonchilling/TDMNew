@@ -1,10 +1,7 @@
 ﻿
 <style type="text/css">
     .slimScrollDiv {
-        margin: auto;
-        height: 285px;
-        width: 300px;
-        overflow-y: auto; /* This changed */
+      
     }
     .slimScrollBar {
         width: 15px !important;
@@ -31,10 +28,10 @@
             <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
             <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
             <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-            <div class="slimScrollDiv" style="position:relative; overflow-y:auto; overflow-x:hidden; width: auto; height: 100%;">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 940px;">
                 <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="true" data-auto-scroll="true"
-                    data-slide-speed="200" data-height="940" data-initialized="1"
-                    style="overflow-y:scroll; width: auto; height: 940px;">
+                    data-slide-speed="200" data-height="940" data-initialized="1" 
+                    style="overflow: hidden; width: auto; height: 940px;">
                     <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
                     <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                     <li class="sidebar-toggler-wrapper hide">
@@ -95,15 +92,9 @@
                             <span class="title">ปริมาณการเข้าใช้ระบบ</span>
                         </a>
                     </li>
-                    <li class="nav-item mmLeftMenu   mmEnterSystem">
-                        <a href="~/BI/BIManager?Menu=8" class="nav-link nav-toggle">
-                            <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
-                            <span class="title">สร้างรายงาน BI</span>
-                        </a>
-                    </li>
 
-
-
+                  
+                   
 
                     @{ var Menu = Request.QueryString["Menu"];}
 
@@ -174,7 +165,7 @@
                                     </div>
 
                                 </div>
-                                <div class="row invisible">
+                                <div class="row">
                                     <div class="col-xs-11">
                                         <div class="form-group">
                                             <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
@@ -263,17 +254,19 @@
                     }
 
                 </ul>
+                <div class="slimScrollBar" style="background: rgb(187, 187, 187);
+width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 300.361px;"></div>
 
-                <!-- END SIDEBAR MENU -->
             </div>
-
-
-
+            <!-- END SIDEBAR MENU -->
         </div>
-        <!-- MAIN MENU - END -->
 
 
 
     </div>
+    <!-- MAIN MENU - END -->
+
+
+
 </div>
 

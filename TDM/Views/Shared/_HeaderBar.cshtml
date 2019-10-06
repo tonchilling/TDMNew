@@ -1,6 +1,6 @@
 ﻿<link href="~/assets/css/customize.css" rel="stylesheet" />
-<link href="~/assets/css/Kim_Style.css?ver1.33" rel="stylesheet" />
-<link href="~/assets/css/BI/Style.css?ver1.001" rel="stylesheet" />
+<link href="~/assets/css/Kim_Style.css?ver=1.1" rel="stylesheet" />
+<link href="~/assets/css/BI/Style.css?ver1.011" rel="stylesheet" />
 <style type="text/css">
     .btnLogout {
         cursor: pointer;
@@ -62,12 +62,18 @@
             </div>
 
             <div class="col-xs-3">
+                
                 <div class="profile_details">
                     <ul>
+
+
+
+
+                     
                         <li class="dropdown dropdown-user">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
                                 <span class="lbUserLogin">
-                                  
+
                                 </span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
@@ -82,7 +88,7 @@
                         </li>
 
 
-                       
+
                     </ul>
                 </div>
             </div>
@@ -90,12 +96,12 @@
     </div>
 
 </div>
-<script src="Scripts/Main.js?ver=1.25"></script>
+
 <script type="text/javascript">
 
 
     var ObjUserLogin;
-    var currentUrl='@Url.Action("TakeSession", Html.ViewContext.RouteData.GetRequiredString("controller"))';
+    var UserSessionUrl='@Url.Action("TakeSession", Html.ViewContext.RouteData.GetRequiredString("controller"))';
     $('.btnLogout').click(function () {
         Logout();
     });
@@ -114,16 +120,18 @@
         var userSessionFromMain =( window.parent._sessionManager ==null ? null : window.parent._sessionManager.getSession());
 
         if (userSessionFromMain == null) {
+
+ // window.location.href = '@Url.Content("~/ErrorPage.html")';
             alert('userSessionFromMain dont have permission')
         }
-        $.post(currentUrl, { userId: "2" }, function (data) {
+        $.post(UserSessionUrl, { userId: "2" }, function (data) {
 
             ObjUserLogin = data;
 
             if (data.id == null) {
          //       $('.mmLeftMenu').invisibleAbsolute();
              //   https://p-staging.treasury.go.th/td_homepage/
-            //    window.location.href = '@Url.Content("~/ErrorPage.html")';
+          //    window.location.href = '@Url.Content("~/ErrorPage.html")';
             }
             else {
                 var findMenu = data.menuList.filter(function (o) {

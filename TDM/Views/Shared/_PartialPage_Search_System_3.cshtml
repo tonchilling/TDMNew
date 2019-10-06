@@ -1,492 +1,478 @@
 ﻿@Scripts.Render("~/assets/js/bootstrap-select.min-1.6.5.js")
 @Styles.Render("~/assets/css/bootstrap-select-1.6.5.min.css")
 @Scripts.Render("~/assets/js/bootstrap-select.min-1.6.5.js")
-
 @*<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.1.0/flatpickr.min.js"></script>*@
 @*<link href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/2.1.0/flatpickr.min.css" rel="stylesheet" />*@
-
 <!-- Function ของเอฟ -->
-<script src="~/Scripts/AreaAnalysisSystem3/Index.js"></script>
+<!--
+<script src="~/Scripts/AreaAnalysisSystem3/Index.js"></script>-->
+
 
 
 <script src="~/assets/js/flatpickr2.1.0.min.js"></script>
 <link href="~/assets/css/flatpickr2.1.0.min.css" rel="stylesheet" />
 <style>
+
     .li__disabled {
-    pointer-events:none;  
-    opacity:0.6;         
-}
+        pointer-events: none;
+        opacity: 0.6;
+    }
 
     .flatpickr-calendar.open {
         width: 234px;
     }
 
     .bootstrap-select.btn-group.show-tick .dropdown-menu {
-       
-        max-width:700px;
+        max-width: 700px;
         margin: auto;
     }
-
-  
-</style>
-
-<form action="/Home/System_3_with_Layout" method="get">
-
-        @{ var Menu = Request.QueryString["Menu"];}
-        
-        @if (Menu == "1" || Menu == "2" || Menu == "3" || Menu == "4")
-        {
-            <div class="col-md-4 col-sm-12 col-xs-12" style="display:none">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>เลือกขอบเขตการปกครอง</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li>
-                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="#">Settings 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Settings 2</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="row">
-                            <div class="col-md-6 padding2">
-                                <select class="full-width" style="height:35px; width:100%" id="province" name="selected_province">
-                                    <!-- name="selected_province"-->
-                                </select>
-                            </div>
-                            <div class="col-md-6 padding2">
-                                <select class="full-width" style="height:35px; width:100%" id="district">
-                                    <option value="">อำเภอ/เขต</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 padding2">
-                                <select class="full-width" style="height:35px; width:100%" id="sub-district">
-                                    <option value="">ตำบล/แขวง</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 padding2">
-                                <select class="full-width" style="height:35px; width:100%" id="branch">
-                                    <option value="">สำนักงานที่ดิน</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="row">
-                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                    <li role="presentation" class="active" id="tab_label1" style="display:none">
-                                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fas fa-money-check-alt txt-light-blue fa-lg" onclick="tab_1_selected();"></i></a>
-                                    </li>
-                                    <li role="presentation" class="" id="tab_label2" style="display:none">
-                                        <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false"><i class="fas fa-sync txt-light-blue fa-lg" onclick="tab_2_selected();"></i></a>
-                                    </li>
-                                    <li role="presentation" class="" id="tab_label3" onclick="tab_3_selected();" style="display:none">
-                                        <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false"><i class="fas fa-table txt-light-blue fa-lg" onclick="tab_3_selected();"></i></a>
-                                    </li>
-                                    <li role="presentation" class="" id="tab_label4" onclick="tab_4_selected();" style="display:none">
-                                        <a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false"><i class="far fa-check-circle txt-light-blue fa-lg" onclick="tab_4_selected();"></i></a>
-                                    </li>
-                                    <li role="presentation" class="li__disabled" id="tab_label5" onclick="tab_5_selected(this);" style="display:none">
-                                        <a href="#tab_content5" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false"><i class="fas fa-users txt-light-blue fa-lg" onclick="tab_5_selected(this);" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Submit Order"></i></a>
-                                    </li>
-                                </ul>
-                                <div id="myTabContent" class="tab-content">
-                                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                                        <p>a1</p>
-                                        <input type="button" value="Submit" onclick="searchTab1()">
-                                        <input type="reset" value="Clear">
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                                        <p>
-                                            การเปลี่ยนแปลงราคาซื้อขาย / ราคาประเมิน
-                                        </p>
-                                        <div class="col-md-4"><input type="radio" name="land" value="land" checked> ที่ดิน</div>
-                                        <div class="col-md-4"><input type="radio" name="condo" value="condo"> อาคารขุด</div>
-                                        <div class="col-md-4"><input type="radio" name="construction" value="construction"> สิ่งปลูกสร้าง</div>
-                                        <div class="col-md-12 padding2">
-                                            <select class="full-width" style="height:35px; width:100%" name="price" id="price_id">
-                                                <option value="assessing">ราคาประเมิน</option>
-                                                <option value="selling">ราคาซื้อขาย</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-12 padding2">
-                                            <select class="full-width" style="height:35px; width:100%" name="period">
-                                                <option value="period_1">2561</option>
-                                            </select>
-                                        </div>
-                                        <input type="button" value="Submit" onclick="searchTab2()">
-                                        <input type="reset" value="Clear">
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                                        <p>เลือกหัวข้อการวิเคราะห์พื้นที่</p>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
-                                            <div id="building" class="tab-pane fade in">
-                                                <div class="row" style="margin-bottom: 10px;" id="">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="form-group" style="padding-left: 0px;">
-                                                            <input type="text" id="subject_name" class="form-control" placeholder="ชื่อโครงการ" style=" max-width inherit;">
-                                                        </div>
-                                                        <!-- /.form-group -->
-                                                    </div>
-
-
-                                                    <!--/.col-md-6-->
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <button type="button" onclick="onSearchClick()" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
-                                                        </div>
-                                                        <!-- /.form-group -->
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <button type="button" onclick="onResetClick()" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
-                                                        </div>
-                                                        <!-- /.form-group -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="results-detail" class="scroller__track" style="">
-                                            <table id="tdProjectList" class="table"></table>
-                                        </div>
-
-                                        <input type="button" value="Submit" onclick="searchTab3()">
-                                        <input type="reset" value="Clear">
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
-                                        <p>การเปลี่ยนแปลงราคาซื้อขาย / ราคาประเมิน</p>
-                                        <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="land" checked> ที่ดิน</div>
-                                        <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="condo"> อาคารชุด</div>
-                                        <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="construction"> สิ่งปลูกสร้าง</div>
-
-                                        <div class="col-md-12" style="margin-top:30px">
-                                            <input type="button" value="Submit" onclick="searchTab4()">
-                                            <input type="reset" value="Clear">
-                                        </div>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
-                                        <p>ระบุเงื่อนไขการเข้าใช้ระบบ</p>
-                                        <div class="col-md-6">
-                                            <div class="input-group">
-                                                <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyStart" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-group">
-                                                <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyStart" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button">
-                                                        <i class="fa fa-clock-o"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-group">
-                                                <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyEnd" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6" id="fdivtimeOnlyEnd">
-                                            <div class="input-group" id="inputgrouptimeOnlyEnd">
-                                                <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyEnd" />
-                                                <span class="input-group-btn" id="spantimeOnlyEnd">
-                                                    <button class="btn default" type="button" id="buttontimeOnlyEnd">
-                                                        <i class="fa fa-clock-o"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <select id="ddlsystem" class="selectpicker" style="width:1200px !important" data-live-search="true" multiple="true" title="ทุกระบบ" data-selected-text-format="count>3"
-                                                    data-size="10" data-width="auto"
-                                                    data-hide-disabled="false" data-dropup-auto="false"
-                                                    data-style="btn-inverse" data-mobile="false"
-                                                    data-show-subtext="true" data-max-options="20"></select>
-                                            @*<select id="ddlsystem" class="selectpicker show-menu-arrow" data-live-search="true" multiple="true" title="ทุกระบบ" data-selected-text-format="count>3" data-size="10" data-width="auto" data-hide-disabled="false" data-dropup-auto="false" data-style="btn-inverse" data-mobile="false" data-show-subtext="true" data-max-options="20"></select>*@
-                                        </div>
-                                        <div class="col-md-12" style="margin-top:30px">
-                                            <input type="button" value="Submit" onclick="searchTab5()">
-                                            <input type="reset" value="Clear">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p>&nbsp;</p>
-                        <input type="hidden" id="tab_selected_id" name="tab_selected_name" value="1">
-                        <input type="submit" value="Submit" style="display:none">
-                        <input type="reset" value="Clear" style="display:none">
-
-                        <div style="display:none">
-                            <hr />
-                            <!-- <img src="~/assets/img/map.jpg" alt="map" height="800" width="580"> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="col-md-4 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>เลือกขอบเขตการปกครอง</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li>
-                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="#">Settings 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Settings 2</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="row">
-                            <div class="col-md-6 padding2">
-                                <select class="full-width" style="height:35px; width:100%" id="province" name="selected_province">
-                                    <!-- name="selected_province"-->
-                                </select>
-                            </div>
-                            <div class="col-md-6 padding2">
-                                <select class="full-width" style="height:35px; width:100%" id="district">
-                                    <option value="">อำเภอ/เขต</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 padding2">
-                                <select class="full-width" style="height:35px; width:100%" id="sub-district">
-                                    <option value="">ตำบล/แขวง</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 padding2">
-                                <select class="full-width" style="height:35px; width:100%" id="branch">
-                                    <option value="">สำนักงานที่ดิน</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="row">
-                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                    <li role="presentation" class="active" id="tab_label1" style="display:none">
-                                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fas fa-money-check-alt txt-light-blue fa-lg" onclick="tab_1_selected();"></i></a>
-                                    </li>
-                                    <li role="presentation" class="" id="tab_label2" style="display:none">
-                                        <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false"><i class="fas fa-sync txt-light-blue fa-lg" onclick="tab_2_selected();"></i></a>
-                                    </li>
-                                    <li role="presentation" class="" id="tab_label3" onclick="tab_3_selected();" style="display:none">
-                                        <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false"><i class="fas fa-table txt-light-blue fa-lg" onclick="tab_3_selected();"></i></a>
-                                    </li>
-                                    <li role="presentation" class="" id="tab_label4" onclick="tab_4_selected();" style="display:none">
-                                        <a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false"><i class="far fa-check-circle txt-light-blue fa-lg" onclick="tab_4_selected();"></i></a>
-                                    </li>
-                                    <li role="presentation" class="li__disabled" id="tab_label5" onclick="tab_5_selected(this);" style="display:none">
-                                        <a href="#tab_content5" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false"><i class="fas fa-users txt-light-blue fa-lg" onclick="tab_5_selected(this);" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Submit Order"></i></a>
-                                    </li>
-                                </ul>
-                                <div id="myTabContent" class="tab-content">
-                                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                                        <p>a1</p>
-                                        <input type="button" value="Submit" onclick="searchTab1()">
-                                        <input type="reset" value="Clear">
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                                        <p>
-                                            การเปลี่ยนแปลงราคาซื้อขาย / ราคาประเมิน
-                                        </p>
-                                        <div class="col-md-4"><input type="radio" name="land" value="land" checked> ที่ดิน</div>
-                                        <div class="col-md-4"><input type="radio" name="condo" value="condo"> อาคารขุด</div>
-                                        <div class="col-md-4"><input type="radio" name="construction" value="construction"> สิ่งปลูกสร้าง</div>
-                                        <div class="col-md-12 padding2">
-                                            <select class="full-width" style="height:35px; width:100%" name="price" id="price_id">
-                                                <option value="assessing">ราคาประเมิน</option>
-                                                <option value="selling">ราคาซื้อขาย</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-12 padding2">
-                                            <select class="full-width" style="height:35px; width:100%" name="period">
-                                                <option value="period_1">2561</option>
-                                            </select>
-                                        </div>
-                                        <input type="button" value="Submit" onclick="searchTab2()">
-                                        <input type="reset" value="Clear">
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                                        <p>เลือกหัวข้อการวิเคราะห์พื้นที่</p>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
-                                            <div id="building" class="tab-pane fade in">
-                                                <div class="row" style="margin-bottom: 10px;" id="">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="form-group" style="padding-left: 0px;">
-                                                            <input type="text" id="subject_name" class="form-control" placeholder="ชื่อโครงการ" style=" max-width inherit;">
-                                                        </div>
-                                                        <!-- /.form-group -->
-                                                    </div>
-
-
-                                                    <!--/.col-md-6-->
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <button type="button" onclick="onSearchClick()" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
-                                                        </div>
-                                                        <!-- /.form-group -->
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        <div class="form-group">
-                                                            <button type="button" onclick="onResetClick()" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
-                                                        </div>
-                                                        <!-- /.form-group -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="results-detail" class="scroller__track" style="">
-                                            <table id="tdProjectList" class="table"></table>
-                                        </div>
-
-                                        <input type="button" value="Submit" onclick="searchTab3()">
-                                        <input type="reset" value="Clear">
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
-                                        <p>การเปลี่ยนแปลงราคาซื้อขาย / ราคาประเมิน</p>
-                                        <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="land" checked> ที่ดิน</div>
-                                        <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="condo"> อาคารชุด</div>
-                                        <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="construction"> สิ่งปลูกสร้าง</div>
-
-                                        <div class="col-md-12" style="margin-top:30px">
-                                            <input type="button" value="Submit" onclick="searchTab4()">
-                                            <input type="reset" value="Clear">
-                                        </div>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
-                                        <p>ระบุเงื่อนไขการเข้าใช้ระบบ</p>
-                                        <div class="col-md-6">
-                                            <div class="input-group">
-                                                <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyStart" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-group">
-                                                <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyStart" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button">
-                                                        <i class="fa fa-clock-o"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-group">
-                                                <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyEnd" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn default" type="button">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6" id="fdivtimeOnlyEnd">
-                                            <div class="input-group" id="inputgrouptimeOnlyEnd">
-                                                <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyEnd" />
-                                                <span class="input-group-btn" id="spantimeOnlyEnd">
-                                                    <button class="btn default" type="button" id="buttontimeOnlyEnd">
-                                                        <i class="fa fa-clock-o"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <select id="ddlsystem" class="selectpicker" style="width:1200px !important" data-live-search="true" multiple="true" title="ทุกระบบ" data-selected-text-format="count>3"
-                                                    data-size="10" data-width="auto"
-                                                    data-hide-disabled="false" data-dropup-auto="false"
-                                                    data-style="btn-inverse" data-mobile="false"
-                                                    data-show-subtext="true" data-max-options="20"></select>
-                                            @*<select id="ddlsystem" class="selectpicker show-menu-arrow" data-live-search="true" multiple="true" title="ทุกระบบ" data-selected-text-format="count>3" data-size="10" data-width="auto" data-hide-disabled="false" data-dropup-auto="false" data-style="btn-inverse" data-mobile="false" data-show-subtext="true" data-max-options="20"></select>*@
-                                        </div>
-                                        <div class="col-md-12" style="margin-top:30px">
-                                            <input type="button" value="Submit" onclick="searchTab5()">
-                                            <input type="reset" value="Clear">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p>&nbsp;</p>
-                        <input type="hidden" id="tab_selected_id" name="tab_selected_name" value="1">
-                        <input type="submit" value="Submit" style="display:none">
-                        <input type="reset" value="Clear" style="display:none">
-
-                        <div style="display:none">
-                            <hr />
-                            <!-- <img src="~/assets/img/map.jpg" alt="map" height="800" width="580"> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-
+    .padding2 {
     
+    padding:10px;
+    }
+</style>
+<form action="/Home/System_3_with_Layout" method="get">
+    @{ var Menu = Request.QueryString["Menu"];}
 
-@Scripts.Render("~/Scripts/Shared/helper.js")
-@Scripts.Render("~/Scripts/Shared/config.js")
-@Scripts.Render("~/Scripts/Shared/http.js")
+    @if (Menu == "1" || Menu == "2" || Menu == "3" || Menu == "4")
+    {
+        <div class="col-md-12 col-sm-12 col-xs-12" style="display:none">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>เลือกขอบเขตการปกครอง</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#">Settings 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Settings 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-6 padding2">
+                            <select class="full-width" style="height:35px; width:100%" id="province" name="selected_province">
+                                <!-- name="selected_province"-->
+                            </select>
+                        </div>
+                        <div class="col-md-6 padding2">
+                            <select class="full-width" style="height:35px; width:100%" id="district">
+                                <option value="">อำเภอ/เขต</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 padding2">
+                            <select class="full-width" style="height:35px; width:100%" id="sub-district">
+                                <option value="">ตำบล/แขวง</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 padding2">
+                            <select class="full-width" style="height:35px; width:100%" id="branch">
+                                <option value="">สำนักงานที่ดิน</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active" id="tab_label1" style="display:none">
+                                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fas fa-money-check-alt txt-light-blue fa-lg" onclick="tab_1_selected();"></i></a>
+                                </li>
+                                <li role="presentation" class="" id="tab_label2" style="display:none">
+                                    <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false"><i class="fas fa-sync txt-light-blue fa-lg" onclick="tab_2_selected();"></i></a>
+                                </li>
+                                <li role="presentation" class="" id="tab_label3" onclick="tab_3_selected();" style="display:none">
+                                    <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false"><i class="fas fa-table txt-light-blue fa-lg" onclick="tab_3_selected();"></i></a>
+                                </li>
+                                <li role="presentation" class="" id="tab_label4" onclick="tab_4_selected();" style="display:none">
+                                    <a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false"><i class="far fa-check-circle txt-light-blue fa-lg" onclick="tab_4_selected();"></i></a>
+                                </li>
+                                <li role="presentation" class="li__disabled" id="tab_label5" onclick="tab_5_selected(this);" style="display:none">
+                                    <a href="#tab_content5" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false"><i class="fas fa-users txt-light-blue fa-lg" onclick="tab_5_selected(this);" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Submit Order"></i></a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                    <p>a1</p>
+                                    <input type="button" value="Submit" onclick="searchTab1()">
+                                    <input type="reset" value="Clear">
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                                    <p>
+                                        การเปลี่ยนแปลงราคาซื้อขาย / ราคาประเมิน
+                                    </p>
+                                    <div class="col-md-4"><input type="radio" name="land" value="land" checked> ที่ดิน</div>
+                                    <div class="col-md-4"><input type="radio" name="condo" value="condo"> อาคารขุด</div>
+                                    <div class="col-md-4"><input type="radio" name="construction" value="construction"> สิ่งปลูกสร้าง</div>
+                                    <div class="col-md-12 padding2">
+                                        <select class="full-width" style="height:35px; width:100%" name="price" id="price_id">
+                                            <option value="assessing">ราคาประเมิน</option>
+                                            <option value="selling">ราคาซื้อขาย</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 padding2">
+                                        <select class="full-width" style="height:35px; width:100%" name="period">
+                                            <option value="period_1">2561</option>
+                                        </select>
+                                    </div>
+                                    <input type="button" value="Submit" onclick="searchTab2()">
+                                    <input type="reset" value="Clear">
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                                    <p>เลือกหัวข้อการวิเคราะห์พื้นที่</p>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
+                                        <div id="building" class="tab-pane fade in">
+                                            <div class="row" style="margin-bottom: 10px;" id="">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" style="padding-left: 0px;">
+                                                        <input type="text" id="subject_name" class="form-control" placeholder="ชื่อโครงการ" style=" max-width inherit;">
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
 
- 
+                                                <!--/.col-md-6-->
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <button type="button" onclick="onSearchClick()" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <button type="button" onclick="onResetClick()" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="results-detail" class="scroller__track" style="">
+                                        <table id="tdProjectList" class="table"></table>
+                                    </div>
+                                    <input type="button" value="Submit" onclick="searchTab3()">
+                                    <input type="reset" value="Clear">
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                                    <p>การเปลี่ยนแปลงราคาซื้อขาย / ราคาประเมิน</p>
+                                    <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="land" checked> ที่ดิน</div>
+                                    <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="condo"> อาคารชุด</div>
+                                    <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="construction"> สิ่งปลูกสร้าง</div>
+                                    <div class="col-md-12" style="margin-top:30px">
+                                        <input type="button" value="Submit" onclick="searchTab4()">
+                                        <input type="reset" value="Clear">
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
+                                    <p>ระบุเงื่อนไขการเข้าใช้ระบบ</p>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyStart" />
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyStart" />
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyEnd" />
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" id="fdivtimeOnlyEnd">
+                                        <div class="input-group" id="inputgrouptimeOnlyEnd">
+                                            <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyEnd" />
+                                            <span class="input-group-btn" id="spantimeOnlyEnd">
+                                                <button class="btn default" type="button" id="buttontimeOnlyEnd">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <select id="ddlsystem" class="selectpicker" style="width:1200px !important" data-live-search="true" multiple="true" title="ทุกระบบ" data-selected-text-format="count>3"
+                                                data-size="10" data-width="auto"
+                                                data-hide-disabled="false" data-dropup-auto="false"
+                                                data-style="btn-inverse" data-mobile="false"
+                                                data-show-subtext="true" data-max-options="20"></select>
+                                        @*<select id="ddlsystem" class="selectpicker show-menu-arrow" data-live-search="true" multiple="true" title="ทุกระบบ" data-selected-text-format="count>3" data-size="10" data-width="auto" data-hide-disabled="false" data-dropup-auto="false" data-style="btn-inverse" data-mobile="false" data-show-subtext="true" data-max-options="20"></select>*@
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:30px">
+                                        <input type="button" value="Submit" onclick="searchTab5()">
+                                        <input type="reset" value="Clear">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>&nbsp;</p>
+                    <input type="hidden" id="tab_selected_id" name="tab_selected_name" value="1">
+                    <input type="submit" value="Submit" style="display:none">
+                    <input type="reset" value="Clear" style="display:none">
+                    <div style="display:none">
+                        <hr />
+                        <!-- <img src="~/assets/img/map.jpg" alt="map" height="800" width="580"> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>เลือกขอบเขตการปกครอง</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#">Settings 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Settings 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-6 padding2">
+                            <select class="full-width" style="height:35px; width:100%" id="province" name="selected_province">
+                                <!-- name="selected_province"-->
+                            </select>
+                        </div>
+                        <div class="col-md-6 padding2">
+                            <select class="full-width" style="height:35px; width:100%" id="district">
+                                <option value="">อำเภอ/เขต</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 padding2">
+                            <select class="full-width" style="height:35px; width:100%" id="sub-district">
+                                <option value="">ตำบล/แขวง</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 padding2">
+                            <select class="full-width" style="height:35px; width:100%" id="branch">
+                                <option value="">สำนักงานที่ดิน</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active" id="tab_label1" style="display:none">
+                                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true"><i class="fas fa-money-check-alt txt-light-blue fa-lg" onclick="tab_1_selected();"></i></a>
+                                </li>
+                                <li role="presentation" class="" id="tab_label2" style="display:none">
+                                    <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false"><i class="fas fa-sync txt-light-blue fa-lg" onclick="tab_2_selected();"></i></a>
+                                </li>
+                                <li role="presentation" class="" id="tab_label3" onclick="tab_3_selected();" style="display:none">
+                                    <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false"><i class="fas fa-table txt-light-blue fa-lg" onclick="tab_3_selected();"></i></a>
+                                </li>
+                                <li role="presentation" class="" id="tab_label4" onclick="tab_4_selected();" style="display:none">
+                                    <a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false"><i class="far fa-check-circle txt-light-blue fa-lg" onclick="tab_4_selected();"></i></a>
+                                </li>
+                                <li role="presentation" class="li__disabled" id="tab_label5" onclick="tab_5_selected(this);" style="display:none">
+                                    <a href="#tab_content5" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false"><i class="fas fa-users txt-light-blue fa-lg" onclick="tab_5_selected(this);" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Submit Order"></i></a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                    <p>a1</p>
+                                    <input type="button" value="Submit" onclick="searchTab1()">
+                                    <input type="reset" value="Clear">
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                                    <p>
+                                        การเปลี่ยนแปลงราคาซื้อขาย / ราคาประเมิน
+                                    </p>
+                                    <div class="col-md-4"><input type="radio" name="land" value="land" checked> ที่ดิน</div>
+                                    <div class="col-md-4"><input type="radio" name="condo" value="condo"> อาคารขุด</div>
+                                    <div class="col-md-4"><input type="radio" name="construction" value="construction"> สิ่งปลูกสร้าง</div>
+                                    <div class="col-md-12 padding2">
+                                        <select class="full-width" style="height:35px; width:100%" name="price" id="price_id">
+                                            <option value="assessing">ราคาประเมิน</option>
+                                            <option value="selling">ราคาซื้อขาย</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 padding2">
+                                        <select class="full-width" style="height:35px; width:100%" name="period">
+                                            <option value="period_1">2561</option>
+                                        </select>
+                                    </div>
+                                    <input type="button" value="Submit" onclick="searchTab2()">
+                                    <input type="reset" value="Clear">
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                                    <p>เลือกหัวข้อการวิเคราะห์พื้นที่</p>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
+                                        <div id="building" class="tab-pane fade in">
+                                            <div class="row" style="margin-bottom: 10px;" id="">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group" style="padding-left: 0px;">
+                                                        <input type="text" id="subject_name" class="form-control" placeholder="ชื่อโครงการ" style=" max-width inherit;">
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
 
-<script>
+                                                <!--/.col-md-6-->
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <button type="button" onclick="onSearchClick()" class="btn btn-default" style="width: 100%"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
+                                                        <button type="button" onclick="onResetClick()" class="btn btn-grey-dark" style="width: 100%"><i class="fa fa-refresh"></i></button>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="results-detail" class="scroller__track" style="">
+                                        <table id="tdProjectList" class="table"></table>
+                                    </div>
+                                    <input type="button" value="Submit" onclick="searchTab3()">
+                                    <input type="reset" value="Clear">
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                                    <p>การเปลี่ยนแปลงราคาซื้อขาย / ราคาประเมิน</p>
+                                    <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="land" checked> ที่ดิน</div>
+                                    <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="condo"> อาคารชุด</div>
+                                    <div class="col-md-4"><input type="radio" name="tab4_rdo_typeSearch" value="construction"> สิ่งปลูกสร้าง</div>
+                                    <div class="col-md-12" style="margin-top:30px">
+                                        <input type="button" value="Submit" onclick="searchTab4()">
+                                        <input type="reset" value="Clear">
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
+                                    <p>ระบุเงื่อนไขการเข้าใช้ระบบ</p>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyStart" />
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyStart" />
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyEnd" />
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" id="fdivtimeOnlyEnd">
+                                        <div class="input-group" id="inputgrouptimeOnlyEnd">
+                                            <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyEnd" />
+                                            <span class="input-group-btn" id="spantimeOnlyEnd">
+                                                <button class="btn default" type="button" id="buttontimeOnlyEnd">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <select id="ddlsystem" class="selectpicker" style="width:1200px !important" data-live-search="true" multiple="true" title="ทุกระบบ" data-selected-text-format="count>3"
+                                                data-size="10" data-width="auto"
+                                                data-hide-disabled="false" data-dropup-auto="false"
+                                                data-style="btn-inverse" data-mobile="false"
+                                                data-show-subtext="true" data-max-options="20"></select>
+                                        @*<select id="ddlsystem" class="selectpicker show-menu-arrow" data-live-search="true" multiple="true" title="ทุกระบบ" data-selected-text-format="count>3" data-size="10" data-width="auto" data-hide-disabled="false" data-dropup-auto="false" data-style="btn-inverse" data-mobile="false" data-show-subtext="true" data-max-options="20"></select>*@
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:30px">
+                                        <input type="button" value="Submit" onclick="searchTab5()">
+                                        <input type="reset" value="Clear">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>&nbsp;</p>
+                    <input type="hidden" id="tab_selected_id" name="tab_selected_name" value="1">
+                    <input type="submit" value="Submit" style="display:none">
+                    <input type="reset" value="Clear" style="display:none">
+                    <div style="display:none">
+                        <hr />
+                        <!-- <img src="~/assets/img/map.jpg" alt="map" height="800" width="580"> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @Scripts.Render("~/Scripts/Shared/helper.js")
+    @Scripts.Render("~/Scripts/Shared/config.js")
+    @Scripts.Render("~/Scripts/Shared/http.js")
+
+    <script>
     var pathname = window.location.pathname; // Returns path only
     var url = window.location.href;     // Returns full URL
     var origin = window.location.origin;   // Returns base URL
     config.root = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["root"]));
     config.mapUrl = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["mapUrl"]));
     var objectPageList = [];
-   
+        var provinceList = [];
     $(function () {
         setDateTime();
         GetUMSystem();
@@ -494,7 +480,7 @@
         reSizeCalendar();
         setCalendar();
         focusTabOnly();
-
+        LoadEvent();
     });
 
     function objectPageListOnchange(){
@@ -517,6 +503,7 @@
         gy = url.split("?");
         cusparameter = gy[0];
 
+        cusparameter = rootUrl;
         console.log(page);
         console.log(objectPageList.length);
         if(page == '_Charts'){
@@ -524,7 +511,7 @@
                 if(objectPageList.length > 0)
                     objectPageList.pop();
             });
-            
+
             $('#PartialView').load(cusparameter + "/Shared/GetPageChart");
         }
         else if(page == '_Region'){
@@ -532,14 +519,14 @@
                 if(objectPageList.length > 0)
                     objectPageList.pop();
             });
-            
+
             $('#PartialView').load(cusparameter + "/Shared/GetPageRegion");
         }else if(page == '_Province'){
             $.each(objectPageList,function(index,value){
                 if(objectPageList.length > 2)
                     objectPageList.pop();
             });
-            
+
             if(objectPageList.length > 0){
                 value =  objectPageList[0]["value"];
                 console.log('values==>',value);
@@ -547,7 +534,7 @@
 
                 objectPageList.pop();
             }
-            
+
             console.log(objectPageList.length);
             console.log(objectPageList);
 
@@ -564,6 +551,8 @@
 
         }
 
+      
+
         //console.log(objectPageList.length);
         //console.log(objectPageList);
         //console.log(page);
@@ -575,9 +564,9 @@
         $('#dateOnlyStart,#timeOnlyStart,#dateOnlyEnd,#timeOnlyEnd').click(function(){
             $(".flatpickr-calendar.open").css("width",$(this).outerWidth());
             $(".btn-group bootstrap-select show-tick show-menu-arrow").css("width",$(this).outerWidth());
-        }); 
+        });
     }
-    
+
     function setCalendar(){
         $('#dateOnlyStart,#dateOnlyEnd').flatpickr({
             enableTime: false,
@@ -589,7 +578,7 @@
             noCalendar: true,
             dateFormat: "H:i",
             time_24hr: true
-             
+
         });
     }
 
@@ -603,8 +592,222 @@
 
         setTimeout(function() {
             $("#tab_label5").removeClass("li__disabled");
-        },setTime);
-    }
+        }, setTime);
+
+
+        $.get(config.root + "/api/Address/GetAddressList", function (addressList) {
+
+            SectionProvince = addressList.ProvinceList;
+            SectionAmphure = addressList.AmphoeList;
+            SectionTumbol = addressList.TambolList;
+
+            LoadProvince(SectionProvince);
+            $('#ddlRegion').prop('disabled', false);
+            $("#ddlProvince").prop('disabled', false);
+            $('#ddlDistrict').prop('disabled', false);
+            $('#ddlSubdistrict').prop('disabled', false);
+        });
+
+
+     
+
+      
+        }
+
+        function LoadProvince(provinceData) {
+
+            $("#province").empty();
+            $("#province").append("<option value=''>จังหวัด</option>");
+            $.each(provinceData, function (index, row) {
+                provinceList[row.PRO_C] = row.NAME_T;
+                // provincesMap[row.PRO_C] = row;
+                $("#province").append("<option data='" + row.PRO_C + "' value='" + row.PRO_C + "'>" + row.NAME_T + "</option>");
+            });
+        }
+
+        function LoadEvent() {
+
+            $(document).on("change", "#province", function () {
+                //   alert($(this).attr('data'))
+
+                // $('body').pleaseWait();
+                selectCode = $(this).val();
+                selectLocationLevel = 2;
+              //  $("#province").val($(this).attr('data'))
+
+                ReLoadAddress(selectCode);
+             
+
+
+            });
+
+            $(document).on("change", "#district", function () {
+                // $('body').pleaseWait();
+                selectCode = $(this).val();
+               // $("#district").val($(this).attr('data'))
+                selectLocationLevel = 3;
+                ReLoadAddress(selectCode);
+            
+
+            });
+
+
+        }
+
+
+        var regionId = '';
+        var provinceId = '';
+        var districtId = '';
+
+        var LocationType = '1'; // 1
+        var SectionRegion = [];
+
+        var SectionProvince = [];
+
+
+        var SectionAmphure = [];
+
+        var SectionTumbol = [];
+
+        function ReLoadAddress(selectCode) {
+
+            var filterData = {};
+
+            if (selectLocationLevel == '4') {
+
+                filterData = SectionTumbol.filter(t => t.SUB_C == selectCode);
+                filterData = filterData[0];
+
+                if (LocationType == '2')
+                    LoadProvice(filterData.ClusterCode, filterData.PRO_C);
+                else
+                    LoadProvice(filterData.RegionCode != null ? filterData.RegionCode : null, filterData.PRO_C);
+
+
+              //  $("#ddlRegion").val(filterData.RegionCode);
+                LoadDistinct(filterData.PRO_C, filterData.DIS_C);
+                LoadSubDistinct(filterData.DIS_C, filterData.SUB_C);
+            } else if (selectLocationLevel == '3') {
+
+                filterData = SectionAmphure.filter(t => t.DIS_C == selectCode);
+                filterData = filterData[0];
+
+                if (LocationType == '2')
+                    LoadProvice(filterData.ClusterCode, filterData.PRO_C);
+                else
+                    LoadProvice(filterData.RegionCode, filterData.PRO_C);
+
+               // $("#ddlRegion").val(filterData.RegionCode);
+                LoadDistinct(filterData.PRO_C, filterData.DIS_C);
+                LoadSubDistinct(filterData.DIS_C);
+            } else if (selectLocationLevel == '2') {
+
+                filterData = SectionProvince.filter(t => t.PRO_C == selectCode);
+
+                filterData = filterData[0];
+
+                if (LocationType == '2')
+                    LoadProvice(filterData.ClusterCode, filterData.PRO_C);
+                else {
+
+                //    $("#ddlRegion").val(filterData.RegionCode);
+                    LoadProvice(filterData.RegionCode, filterData.PRO_C);
+
+                }
+                LoadDistinct(filterData.PRO_C);
+                LoadSubDistinct(null);
+            } else if (selectLocationLevel == '1') {
+
+                LoadProvice(selectCode, '');
+                LoadDistinct(null);
+                LoadSubDistinct(null);
+            } else if (selectLocationLevel == '0') {
+                LoadProvice(selectCode, '');
+                LoadDistinct(null);
+                LoadSubDistinct(null);
+            }
+
+        }
+
+
+        function LoadProvice(regionId, provincecode) {
+
+            $('#province').empty();
+            $('#province').append("<option value=''>เลือกจังหวัด</option>");
+            $('#province').prop('disabled', false);
+
+            if (SectionProvince != null && SectionProvince.length > 0) {
+                $('#province').empty();
+                $('#province').append("<option value=''>เลือกจังหวัด</option>");
+
+                /// Load by Region Code
+                if (LocationType == "1") {
+                    $.each(SectionProvince.filter(p => p.RegionCode == regionId), function (index, province) {
+                        $("#province").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
+                    });
+                }
+
+                /// Load by Cluster Code
+                else if (LocationType == "2") {
+                    $.each(SectionProvince.filter(p => p.ClusterCode == regionId), function (index, province) {
+                        $("#province").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
+                    });
+                }
+
+
+                if (provincecode != null)
+                    $('#province').val(provincecode);
+
+                var proviceOption1 = $("#province option").clone();
+
+
+            
+
+
+            }
+        }
+
+
+        function LoadDistinct(provinceid, distinctid) {
+
+            $('#district').empty();
+            $('#district').append("<option value=''>เลือกอำเภอ</option>");
+            $('#district').prop('disabled', false);
+
+            if (SectionAmphure != null && SectionAmphure.length > 0) {
+
+
+
+                $.each(SectionAmphure.filter(p => p.PRO_C == provinceid), function (index, district) {
+                    $("#district").append("<option value='" + district.DIS_C + "'>" + district.NAME_T + "</option>");
+                });
+
+                if (distinctid != null && distinctid != '')
+                    $('#district').val(distinctid);
+
+            }
+        }
+
+
+        function LoadSubDistinct(districtId, subdistinctid) {
+
+            $('#sub-district').empty();
+            $('#sub-district').append("<option value=''>เลือกตำบล</option>");
+            $('#sub-district').prop('disabled', false);
+
+            if (SectionTumbol != null && SectionTumbol.length > 0) {
+
+
+
+                $.each(SectionTumbol.filter(p => p.DIS_C == districtId), function (index, subDistricts) {
+                    $("#sub-district").append("<option value='" + subDistricts.SUB_C + "'>" + subDistricts.NAME_T + "</option>");
+                });
+
+                if (subdistinctid != null && subdistinctid != "")
+                    $('#sub-district').val(subdistinctid);
+
+            }
+        }
 
     function focusTabOnly(){
         hu = window.location.search.substring(1);
@@ -635,7 +838,7 @@
 
                     //$('#tab_label1').show();
                     //$('#tab_label1').css('display','block');
-                     
+
                 }
                 if (ft[1] == "2") {
                     document.getElementById('tab_label1').className = "";
@@ -724,11 +927,11 @@
                     $('#tab_label5').show();
                     $('#tab_label5').css('display','block');
                 }
-            }  
+            }
         }
 
     }
- 
+
     function select_active_tab() {
         //alert("xddd");
         hu = window.location.search.substring(1);
@@ -828,7 +1031,7 @@
                     //setDateTime();
                 }
             } // end of if (ft[0] == "tab_selected_name")
-        } // end of for (i = 0; i < gy.length; i++) 
+        } // end of for (i = 0; i < gy.length; i++)
     } /* function select_active_tab */
     function tab_1_selected() {
         document.getElementById("tab_selected_id").value = "1";
@@ -893,7 +1096,7 @@
         cusparameter = gy[0];
         $('#SessionContent').empty();
         $('#SessionContent').load(cusparameter + "/Shared/GetPageFunction5");
-        
+
     }
 
     function searchTab5() {
@@ -954,4 +1157,4 @@
             });
         });
     }
-</script>
+    </script>

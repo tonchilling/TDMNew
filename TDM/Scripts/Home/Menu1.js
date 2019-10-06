@@ -337,8 +337,8 @@ var searchForm = {
         , 400);
 
                     var month = data.summaryByMonthData.map(x => x.MonthName);
-                    var newLandRegister = data.summaryByMonthData.map(x => x.ParcelRegister);
-                    var LandRegister = data.summaryByMonthData.map(x => x.ParcelNewRegister);
+                    var newLandRegister = data.summaryByMonthData.map(x => x.ParcelNewRegister);
+                    var LandRegister = data.summaryByMonthData.map(x => x.ParcelRegister);
 
                     LoadGraph1Display(month, newLandRegister, LandRegister);
                     LoadGraph2Display(month, newLandRegister, LandRegister);

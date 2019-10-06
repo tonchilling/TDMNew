@@ -7,11 +7,38 @@ $(function () {
     $.get(mapApi.getServerPath() + "/api/PriceSys/GetDropDownList", { Code: 'land' }, function (data) {
         $("#ddlYear").empty();
         if (data != null && data.length > 0) {
+
+         
             $("#ddlYear").append("<option value=''>เลือกทั้งหมด</option>");
             $.each(data, function (index, row) {
                 $("#ddlYear").append(`<option value="${row.Value}">${row.Name}</option>`);
             });
 
+
+        }
+    });
+
+
+    $.get(mapApi.getServerPath() + "/api/Map/GetProvinces", function (provinces) {
+
+        if (provinces != null && provinces.length > 0) {
+            $('#ddlProvince').empty();
+            $('#ddlProvince').append("<option value='999999'>ทั้งหมด</option>");
+           
+            $.each(provinces, function (index, province) {
+                $("#ddlProvince").append("<option value='" + province.ID + "'>" + province.Name + "</option>");
+            });
+
+
+            var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
+
+            var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
+
+            $("#ddlProvince1").empty();
+
+            $("#ddlProvince1").append(proviceOption1);
+
+            $("#ddlProvince1").selectpicker('refresh')
 
         }
     });
@@ -199,12 +226,14 @@ var searchForm = {
         $('#ddlRegion').change(function (event) {
 
             var regionId = $('#ddlRegion').val();
+
+           
             mapApi.getProvincesByRegion(LocationType, regionId, function (provinces) {
 
                 if (provinces != null && provinces.length > 0) {
                     $('#ddlProvince').empty();
                     $('#ddlProvince').append("<option value='999999'>ทั้งหมด</option>");
-
+                  
                     $.each(provinces, function (index, province) {
                         $("#ddlProvince").append("<option value='" + province.ID + "'>" + province.Name + "</option>");
                     });
@@ -537,6 +566,12 @@ var mapApi = {
             fnSuccess(provinces);
         });
     },
+    getProvincesAll: function (locationType, regionId, fnSuccess) {
+
+        $.get(mapApi.getServerPath() + "/api/Map/GetProvinces", function (provinces) {
+            fnSuccess(provinces);
+        });
+    },
     getDistricts: function (provinceId, fnSuccess) {
 
         $.get(mapApi.getServerPath() + "/api/Map/GetDistrictsByProvince/", {}, function (data) {
@@ -610,6 +645,15 @@ var mapApi = {
     }
 }
 
+
+
+function compare(a, b) {
+    if (a.name < b.name)
+        return -1;
+    if (a.name > b.name)
+        return 1;
+    return 0;
+}
 
 
 

@@ -265,6 +265,14 @@
             opacity: 0.5;
             z-index: 2000;
         }
+        .divCaption ul>li>ul {
+        margin-left:-200px;
+        }
+        .divAllList li {
+        
+        padding:6px;
+        min-width:300px;
+        }
     </style>
 
    
@@ -428,7 +436,11 @@
 
 
         .divTitle {
-            margin-top: 60px;
+            margin-top: 0px;
+        }
+
+        ul, li {
+            list-style-type: none;
         }
 
     </style>
@@ -457,6 +469,29 @@
                         <div class="row ">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <h2 class=" text-center  text-info"><i class="fa fa-bar-chart" aria-hidden="true">สร้างรายงานด้วย BI</i></h2>
+                                <div class="pull-right divCaption">
+
+                                    <ul>
+                                        <li class="dropdown dropdown-user">
+                                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                              
+                                                <h3 class="text-info lblCaption">
+                                                    <i class="fa fa-bell text-danger"></i>&nbsp;<span class="lblTotal text-success">0</span>&nbsp;  รายการ
+                                                </h3>
+
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-default">
+                                                <li >
+                                                    <div class="divAllList"></div>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+
+
+                                    </ul>
+                                   
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -607,6 +642,18 @@
 
 
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <label class="text-md" id="lblyAxis">yAxis2</label>
+                                                            <select class="form-control form-control-lg" style="margin-top:5px" name="ddlyAxis2" id="ddlyAxis2"></select>
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <label class="text-md" id="lblxAxis">xAxis2</label>
+                                                            <select class="form-control form-control-lg" style="margin-top:5px" name="ddlxAxis2" id="ddlxAxis2"></select>
+                                                        </div>
+
+
+                                                    </div>
 
                                                     <div class="row">
 
@@ -674,7 +721,7 @@
 
 
 
-
+                </div>
 
 
 
@@ -710,7 +757,7 @@
     <script src="~/assets/BI/Script.js?ver=1.22d33442"></script>
     <script src="~/Scripts/numeral2.6.min.js"></script>
     <script src="~/assets/ChartOptions.js?sssss3xxs"></script>
-    <script src="~/assets/BI/BIManager.js?ver=1.2ddddsxdw"></script>
+    <script src="~/assets/BI/BIManager.js?ver=1.2w"></script>
 
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 

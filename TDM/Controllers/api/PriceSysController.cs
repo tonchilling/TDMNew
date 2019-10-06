@@ -102,7 +102,8 @@ namespace TDM.Controllers.api
 
             var estimateData = repos.GetPriceBI(searchDto);
 
-            resultList.EstimateData = estimateData.OrderByDescending(o => o.ParcelPriceMax).ToList();
+            resultList.EstimateData = estimateData.OrderByDescending(o => Converting.ToDecimal(o.ParcelWAHPriceMax))
+                                         .ThenBy(c => c.MarketWAHPriceMax).ThenBy(c => c.DisplayName).ToList();
             if (estimateData != null)
             {
                 data = new List<string>();
@@ -110,7 +111,8 @@ namespace TDM.Controllers.api
                 value2 = new List<BarchartValue>();
 
                 row = 0;
-                foreach (EstimateData result in estimateData.OrderByDescending(o => Converting.ToDecimal(o.ParcelWAHPriceMax)))
+                foreach (EstimateData result in estimateData.OrderByDescending(o => Converting.ToDecimal(o.ParcelWAHPriceMax))
+                                         .ThenBy(c => c.MarketWAHPriceMax).ThenBy(c => c.DisplayName))
                 {
                     if (row >= overMax)
                     {
