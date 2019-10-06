@@ -738,6 +738,16 @@ var setParameters = function setParameters(params) {
     $customIcon.setAttribute('style', $customIcon.getAttribute('style') + 'width:' + _imgWidth + 'px; height:' + _imgHeight + 'px');
   }
 
+    /*
+ * Show confirm button?
+ */
+    modal.setAttribute('data-has-confirm-button', params.showConfirmButton);
+    if (params.showConfirmButton) {
+        $confirmBtn.style.display = 'inline-block';
+    } else {
+        (0, _handleDom.hide)($confirmBtn);
+    }
+
   /*
    * Show cancel button?
    */
@@ -748,15 +758,7 @@ var setParameters = function setParameters(params) {
     (0, _handleDom.hide)($cancelBtn);
   }
 
-  /*
-   * Show confirm button?
-   */
-  modal.setAttribute('data-has-confirm-button', params.showConfirmButton);
-  if (params.showConfirmButton) {
-    $confirmBtn.style.display = 'inline-block';
-  } else {
-    (0, _handleDom.hide)($confirmBtn);
-  }
+
 
   /*
    * Custom text on cancel/confirm buttons

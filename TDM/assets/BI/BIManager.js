@@ -122,7 +122,7 @@ function SortedTable() {
         handle: '',
         cancel: '',
 
-    }).disableSelection();
+    });
 
   
 
@@ -332,7 +332,18 @@ $(document).on("click", ".btnPreview", function (e) {
     
 });
 
+function GetGraphText(graphid)
+{
+    var text = "";
+    switch (graphid) {
+        case "1": text = "Bar Chart"; break;
+        case "3": text = "Pie Chart"; break;
+        case "4": text = "Card Display"; break;
 
+    }
+
+    return text;
+}
 
 $(document).on("click", ".btnEdit", function (e) {
     $.get(mapApi.getServerPath() + chartMgrUrl + "/GetGraphList", { TemplateID: $(this).attr('data') }, function (data) {
@@ -351,7 +362,9 @@ $(document).on("click", ".btnEdit", function (e) {
 
 
               
-                DisplayList(keepResult);
+               DisplayListForEdit (keepResult);
+
+               
             }
 
             /*$('.txtServer').val(data.Server),
@@ -445,6 +458,8 @@ function ClearData() {
 
 function LoadTemplateList() {
     $(".divAllList").empty();
+    $(".lblTotal").empty();
+    $(".lblTotal").val("0");
    var  html = "";
     $.get(mapApi.getServerPath() + chartMgrUrl + "/LoadAllList", function (data) {
 
@@ -453,9 +468,9 @@ function LoadTemplateList() {
         });
 
         $(".divAllList").append(html);
+        $(".lblTotal").text(data.length);
     });
-
-   
+  
   //  
 }
 
@@ -512,9 +527,8 @@ $(document).on("click", ".btnPreviewGraph", function (e) {
     var connection = JSON.parse(editChart[0].Connection);
     $("#ddlSelectGraph").val(editChart[0].GraphID);
     $("#txtQuery").val(connection.Query);
-    $("#ddlxAxis").val(editChart[0].x);
-    $("#ddlyAxis").val(editChart[0].y);
-
+   
+    
     $("#ddlWidth").val(editChart[0].Width);
 
     $("#txtTitle").val(editChart[0].Title);
@@ -551,6 +565,21 @@ $(document).on("click", ".btnPreviewGraph", function (e) {
             waitingDialog.hide()
 
         }, 1000);
+
+        DbManager.GetQuery("",
+            "",
+            "",
+            $('.txtQuery').val(), function (data) {
+
+                DataResult = data;
+                DisplayResult(DataResult);
+
+                 $("#ddlxAxis").val(editChart[0].x);
+                $("#ddlyAxis").val(editChart[0].y);
+                waitingDialog.hide()
+
+            });
+
 
     }
     else {
@@ -641,6 +670,8 @@ function DisplayResult(dataResult)
     
     $("#ddlxAxis").empty();
     $("#ddlyAxis").empty();
+    $("#ddlxAxis").append("<option value=''>กรุณาเลือก</option>");
+    $("#ddlyAxis").append("<option value=''>กรุณาเลือก</option>");
     for (var key in columnsIn) {
         $("#ddlxAxis").append("<option value='" + key + "'>" + key + "</option>");
         $("#ddlyAxis").append("<option value='" + key + "'>" + key + "</option>");
@@ -759,6 +790,51 @@ function DisplayDatabase(Database) {
 
 }
 
+function DisplayListForEdit(chartList) {
+
+
+    var body = '';
+    $(".divList").empty();
+
+    body += '<table class="table table-bordered sorted_table  table-striped tblResult">';
+    body += '<thead>';
+    body += '<tr class="bg-success" >';
+    body += '<th scope="col">No</th>';
+    body += '<th scope="col">Title</th>';
+    body += '<th scope="col">Chart Type</th>';
+    body += '<th scope="col">Preview</th>';
+    body += '</tr>';
+    body += '</thead>';
+    body += '<tbody>';
+    if (chartList != null) {
+        if (chartList != null && chartList.Charts.length > 0) {
+            $.each(chartList.Charts, function (index, data) {
+
+                body += '<tr data="' + data.No + '">';
+                body += '<td><span>' + data.SortNo + '</span></td>';
+                body += '<td><span>' + data.Title + '</span></td>';
+                body += '<td><span>' + GetGraphText(data.GraphID) + '</span></td>';
+
+                body += '<td class="text-center"><span><button data="' + data.No + '" class="btn btn-info btnPreviewGraph"><i class="fa text-mute fa-bar-chart"></button></span></td>';
+
+
+
+                body += '</tr>';
+            });
+        }
+    }
+    body += '</tbody>';
+    body += '</table>';
+    $(".divList").append(body);
+
+
+
+
+    // $(".divList table").DataTable({ searching: false, info: false });
+
+    SortedTable();
+
+}
 function DisplayList(chartList) {
 
 
