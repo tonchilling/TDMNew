@@ -179,7 +179,11 @@ function searchProjectImpactList(start, count, keyword) {
                         { title: "ชื่อโครงการ" },
                         { title: "จังหวัดที่ได้รับผลกระทบ" },
                         //{ title: "เปิดเผยข้อมูล" },
-                        { title: "เครื่องมือในการวาด"},
+                        { title: "เครื่องมือในการวาด" },
+
+                        { title: "จำนวนแปลงที่ได้รับผลกระทบ" },
+                        { title: "เนื้อที่แปลงที่ได้รับผลกระทบ" },
+
                         { title: "วัน-เวลาที่สร้าง / ผู้ใช้" },
                         
                         { title: "วัน/ เวลาที่แก้ไข / ผู้ใช้" },
@@ -229,15 +233,33 @@ function searchProjectImpactList(start, count, keyword) {
                                 return row.SHAPETOOLTYPE;
                             }
                         },
+
                         {
                             targets: 4,
+                            data: function (row, type, val, meta) {
+                                return row.TotalImpactCount.toLocaleString();
+                            }
+                        },
+
+                        {
+                            targets: 5,
+                            data: function (row, type, val, meta) {
+                                return row.TotalImpactArea.toLocaleString();
+                            }
+                        },
+
+
+
+
+                        {
+                            targets: 6,
                             data: function (row, type, val, meta) {
                                 return moment(row.CREATE_DATE).format('DD/MM/YYYY h:mm') + ' / ' + row.CREATE_BY;
                             }
                         },
                         
                         {
-                            targets: 5,
+                            targets: 7,
                             data: function (row, type, val, meta) {
                                 return moment(row.UPDATE_DATE).format('DD/MM/YYYY h:mm') + ' / ' + row.UPDATE_BY;
                             }
@@ -250,19 +272,19 @@ function searchProjectImpactList(start, count, keyword) {
                             }
                         },*/
                         {
-                            targets: 6,
+                            targets: 8,
                             data: function (row, type, val, meta) {
                                 return (row.ACTIVE)?'ใช้งาน':'ไม่ใช้งาน';
                             }
                         },
                         {
-                            targets: 7,
+                            targets: 9,
                             data: function (row, type, val, meta) {
                                 return `<a href="#" class="btn btn-success" onclick="AddProject(${row.ID}, ${row.STATUS.ID})"><i class="glyphicon glyphicon-pencil"></i> </a>`;
                             }
                         },
                         {
-                            targets: 8,
+                            targets: 10,
                             data: function (row, type, val, meta) {
                                 return `<a href="#" class="btn btn-success" onclick="DelProvImpact(${row.ID}, '${row.SUBJECT_NAME}')"><i class="glyphicon glyphicon-trash"></i> </a>`;
                             }
@@ -415,6 +437,9 @@ function encrpty(json) {
 
 var _gisIframeWindow = null;
 function AddProject(projectId, statusId) {
+
+    
+
 
     try {
 
@@ -610,6 +635,10 @@ function DelSuccess(projectName) {
 
 function btnSubmitV2(id) {
 
+   
+
+
+
 
     try
     {
@@ -654,6 +683,7 @@ function btnSubmitV2(id) {
         } else {
 
             var hddVal = document.getElementById("hddShape").value;
+            /*
             if (hddVal.startsWith("POLYGON")) {
                 shape = {
                     srid: 24047,
@@ -662,7 +692,11 @@ function btnSubmitV2(id) {
             } else {
                 shape = eval("(" + hddVal + ')');
             }
-           
+            */
+            shape = {
+                srid: 24047,
+                shape: hddVal
+            };
             
             
         }
@@ -677,7 +711,7 @@ function btnSubmitV2(id) {
 
         formData.Shape = (gisIframeWindow.GIS.transform(shape.shape, sridIn, sridOut)[0]).shape;
         //formData.Shape = modalModel.Shape;
-        var myFormData = JSON.stringify(formData);
+        var myFormData = JSON.stringify(formData); /*alert(myFormData);*/
 
         /*mode save data*/
         if (id > 0) {
@@ -694,7 +728,9 @@ function btnSubmitV2(id) {
                 type: "warning",
                 showCancelButton: true,
                 closeOnConfirm: false,
-                showLoaderOnConfirm: true
+                showLoaderOnConfirm: true,
+                confirmButtonClass: "confirm btn btn-lg btn-default",
+                cancelButtonClass: "cancel btn btn-lg btn-primary"
             },
                 function (isConfirm) {
                     if (isConfirm) {
@@ -709,7 +745,7 @@ function btnSubmitV2(id) {
                                 dataType: "json",
                                 contentType: 'application/json',
                                 success: function (response) {
-
+                                alert(JSON.stringify(response));
                                 setTimeout(function () {
 
                                  //   waitingDialog.hide()
@@ -733,7 +769,9 @@ function btnSubmitV2(id) {
                 type: "warning",
                 showCancelButton: true,
                 closeOnConfirm: false,
-                showLoaderOnConfirm: true
+                showLoaderOnConfirm: true,
+                confirmButtonClass: "confirm btn btn-lg btn-default",
+                cancelButtonClass: "cancel btn btn-lg btn-primary"
             },
                 function (isConfirm) {
                     if (isConfirm) {
