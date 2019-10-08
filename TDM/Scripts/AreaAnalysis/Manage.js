@@ -14,7 +14,7 @@ var mapType = 1;
 var defaultSymbol = {
     "type": "esriSFS",
     "style": "esriSFSSolid",
-    "color": [255, 0, 0],
+    "color": [255, 255, 0],
     "outline": {
         "type": "esriSLS",
         "style": "esriSLSSolid",
@@ -471,6 +471,7 @@ function AddProject(projectId, statusId) {
                             var trans = gisIframeWindow.GIS.transform(modalModel.Shape, sridIn, sridOut);
                             var symbol;
 
+                            var reqZoomTAMBOL = false;
 
                             if (modalModel.Shape.toLowerCase().indexOf('linestring') > -1) {
                                 symbol = polylineSymbol;
@@ -483,6 +484,7 @@ function AddProject(projectId, statusId) {
                             } else if (modalModel.Shape.toLowerCase().indexOf('point') > -1) {
                                 symbol = pointSymbol;
                                 mapType = 'point';
+                                reqZoomTAMBOL = true;
 
                             }
                             $("#ddlDrawToolsType").val(mapType);
@@ -492,7 +494,7 @@ function AddProject(projectId, statusId) {
                             gisIframeWindow.GIS.removeGraphic();
 
 
-                            symbol = {
+                         /*   symbol = {
                                 "type": "esriSFS",
                                 "style": "esriSFSSolid",
                                 "color": [255, 0, 0],
@@ -502,9 +504,27 @@ function AddProject(projectId, statusId) {
                                     "color": [0, 255, 0, 0],
                                     "width": 2
                                 }
-                            };
-                            //gisIframeWindow.GIS.buffer(trans[0].shape, sridIn, parseInt(modalModel.Buffer) * 1000, false);
+                            };*/
+                            
+                            if (reqZoomTAMBOL) {
+                                
+                                var tumbolId = $("#TAMBOL_ID").val();
+                                var provinceId = $("#PROVINCE_ID").val();
+                                var amphureId = $("#AMPHOE_ID").val();
+
+                                $.get(rootUrl + "/api/Map/GetSubDistrictsById", { provinceId: provinceId, amphureId: amphureId, id: tumbolId }, function (data) {
+                                    var sridIn = 24047;
+                                    var sridOut = [102100];
+
+                                    map.addGraphic(data[0].Shape);
+
+                                });
+
+                            }
+
+                            gisIframeWindow.GIS.buffer(trans[0].shape, sridIn, parseInt(modalModel.Buffer) * 100, true);
                             gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
+                            
                             
 
                             //activateDraw(gisIframeWindow);
@@ -711,7 +731,7 @@ function btnSubmitV2(id) {
 
         formData.Shape = (gisIframeWindow.GIS.transform(shape.shape, sridIn, sridOut)[0]).shape;
         //formData.Shape = modalModel.Shape;
-        var myFormData = JSON.stringify(formData); /*alert(myFormData);*/
+        var myFormData = JSON.stringify(formData); 
 
         /*mode save data*/
         if (id > 0) {
