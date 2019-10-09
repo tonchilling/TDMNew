@@ -11,7 +11,7 @@
     <NameOfLastUsedPublishProfile>FolderProfile</NameOfLastUsedPublishProfile>
     <ProjectView>ShowAllFiles</ProjectView>
     <NameOfLastUsedPublishProfile>FolderProfile2</NameOfLastUsedPublishProfile>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
     <Use64BitIISExpress>false</Use64BitIISExpress>

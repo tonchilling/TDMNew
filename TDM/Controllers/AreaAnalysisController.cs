@@ -34,7 +34,7 @@ namespace TDM.Controllers
             {
                 PROJECT_IMPACT project = db.PROJECT_IMPACT.SingleOrDefault(x => x.ID == projectId && x.IS_DELETED == false);
                 model.ID = project.ID;
-                model.IS_DELETED = project.IS_DELETED;
+                model.IS_DELETED = !project.IS_DELETED;/*reverse value for modal dialog display active/inactive*/
                 model.SUBJECT_ID = project.SUBJECT_ID;
                 model.SUBJECT_NAME = project.SUBJECT_NAME;
                 model.PUBLISH_DATE = project.PUBLISH_DATE;
@@ -49,6 +49,7 @@ namespace TDM.Controllers
                 model.TAMBOL_ID = project.TAMBOL_ID;
                 model.Shape = project.Shape != null ? project.Shape.ToString() : "" ;
                 model.Buffer = project.Buffer != null ? project.Buffer.ToString() : "0";
+               
             }
             try
             {

@@ -329,6 +329,8 @@ namespace TDM.Controllers.api
                 prov_name = prov_name == null ? "" : prov_name;
                 subject_id = subject_id == null ? "" : subject_id;
 
+                
+
                 var PROVINCES = tdaEntities.PROVINCEs.Where(p => p.NAME_T.Contains(prov_name));
 
                 var _projects = tdmEntities.PROJECT_IMPACT.Where(x => !x.IS_DELETED).ToList();
@@ -379,6 +381,8 @@ namespace TDM.Controllers.api
 
                     }).ToList();
 
+                    var projectImpactLists = tdmEntities.PROJECT_IMPACT_GEOMETRY.Where(p => p.ProjectImpactID == c.ID).ToList();
+
                     dynamic project = new
                     {
                         c.ID,
@@ -394,7 +398,10 @@ namespace TDM.Controllers.api
                         c.IS_PUBLISHED,
                         STATUS = tdmEntities.STATUS_IMPACT.Where(y => y.ID == (c.Shape!=null?2:1)).First(),
                         SHAPETOOLTYPE= (c.Shape!=null && c.Shape!="" && c.Shape.IndexOf('(')>0)?c.Shape.Substring(0,c.Shape.IndexOf('(')-1):"",
-                        ACTIVE=!c.IS_DELETED
+                        //ACTIVE=!c.IS_DELETED,
+                        ACTIVE = !c.IS_PUBLISHED,
+                        TotalImpactCount = projectImpactLists.Count(),
+                        TotalImpactArea = projectImpactLists.Sum(p=>p.Area)
                     };
                     result.Add(project);
                 }
