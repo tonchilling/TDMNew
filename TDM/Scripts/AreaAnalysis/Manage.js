@@ -185,14 +185,14 @@ function searchProjectImpactList(start, count, keyword) {
                         { title: "เนื้อที่แปลงที่ได้รับผลกระทบ" },
 
                         { title: "วัน-เวลาที่สร้าง / ผู้ใช้" },
-                        
+
                         { title: "วัน/ เวลาที่แก้ไข / ผู้ใช้" },
-                        
+
                         //{ title: "สถานะแผนที่" },
                         { title: "สถานะ" },
                         { title: "แก้ไข" },
                         { title: "ลบ" }
-                        
+
                     ],
                     columnDefs: [
                         {
@@ -216,7 +216,7 @@ function searchProjectImpactList(start, count, keyword) {
                                 return Province.join(',');
                             }
                         },
-                        
+
                         /*{
                             targets: 3,
                             data: function (row, type, val, meta) {
@@ -257,14 +257,14 @@ function searchProjectImpactList(start, count, keyword) {
                                 return moment(row.CREATE_DATE).format('DD/MM/YYYY h:mm') + ' / ' + row.CREATE_BY;
                             }
                         },
-                        
+
                         {
                             targets: 7,
                             data: function (row, type, val, meta) {
                                 return moment(row.UPDATE_DATE).format('DD/MM/YYYY h:mm') + ' / ' + row.UPDATE_BY;
                             }
                         },
-                        
+
                         /*{
                             targets: 7,
                             data: function (row, type, val, meta) {
@@ -274,7 +274,7 @@ function searchProjectImpactList(start, count, keyword) {
                         {
                             targets: 8,
                             data: function (row, type, val, meta) {
-                                return (row.ACTIVE)?'ใช้งาน':'ไม่ใช้งาน';
+                                return (row.ACTIVE) ? 'ใช้งาน' : 'ไม่ใช้งาน';
                             }
                         },
                         {
@@ -438,7 +438,7 @@ function encrpty(json) {
 var _gisIframeWindow = null;
 function AddProject(projectId, statusId) {
 
-    
+
 
 
     try {
@@ -488,26 +488,26 @@ function AddProject(projectId, statusId) {
 
                             }
                             $("#ddlDrawToolsType").val(mapType);
-                           // map.zoom();
-                           // return false;
+                            // map.zoom();
+                            // return false;
 
                             gisIframeWindow.GIS.removeGraphic();
 
 
-                         /*   symbol = {
-                                "type": "esriSFS",
-                                "style": "esriSFSSolid",
-                                "color": [255, 0, 0],
-                                "outline": {
-                                    "type": "esriSLS",
-                                    "style": "esriSLSSolid",
-                                    "color": [0, 255, 0, 0],
-                                    "width": 2
-                                }
-                            };*/
-                            
+                            /*   symbol = {
+                                   "type": "esriSFS",
+                                   "style": "esriSFSSolid",
+                                   "color": [255, 0, 0],
+                                   "outline": {
+                                       "type": "esriSLS",
+                                       "style": "esriSLSSolid",
+                                       "color": [0, 255, 0, 0],
+                                       "width": 2
+                                   }
+                               };*/
+
                             if (reqZoomTAMBOL) {
-                                
+
                                 var tumbolId = $("#TAMBOL_ID").val();
                                 var provinceId = $("#PROVINCE_ID").val();
                                 var amphureId = $("#AMPHOE_ID").val();
@@ -524,8 +524,8 @@ function AddProject(projectId, statusId) {
 
                             gisIframeWindow.GIS.buffer(trans[0].shape, sridIn, parseInt(modalModel.Buffer) * 100, true);
                             gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
-                            
-                            
+
+
 
                             //activateDraw(gisIframeWindow);
                         });
@@ -655,13 +655,12 @@ function DelSuccess(projectName) {
 
 function btnSubmitV2(id) {
 
-   
 
 
 
 
-    try
-    {
+
+    try {
         var mode = (id == 0) ? 'SAVE' : 'EDIT';
 
 
@@ -699,10 +698,26 @@ function btnSubmitV2(id) {
                 formData.Shape[1] = '{}';
             }
 
-            shape = eval("(" + formData.Shape[1] + ')');
+            // shape = eval("(" + formData.Shape[1] + ')');
+            shape = {
+                srid: 24047,
+                shape: hddVal
+            };
         } else {
 
             var hddVal = document.getElementById("hddShape").value;
+
+            if (formData.Shape[1] == '') {
+                formData.Shape[1] = '{}';
+            } else if (formData.Shape[0] == formData.Shape[1]) {
+                hddVal = formData.Shape[1];
+                shape = {
+                    srid: 24047,
+                    shape: hddVal
+                };
+            } else {
+                shape = $.parseJSON(formData.Shape[1]);
+            }
             /*
             if (hddVal.startsWith("POLYGON")) {
                 shape = {
@@ -713,15 +728,13 @@ function btnSubmitV2(id) {
                 shape = eval("(" + hddVal + ')');
             }
             */
-            shape = {
-                srid: 24047,
-                shape: hddVal
-            };
-            
-            
+
+
+
         }
-        
-        
+
+
+
 
         //formData.Shape = shape.shape;
 
@@ -731,7 +744,7 @@ function btnSubmitV2(id) {
 
         formData.Shape = (gisIframeWindow.GIS.transform(shape.shape, sridIn, sridOut)[0]).shape;
         //formData.Shape = modalModel.Shape;
-        var myFormData = JSON.stringify(formData); 
+        var myFormData = JSON.stringify(formData);
 
         /*mode save data*/
         if (id > 0) {
@@ -740,7 +753,7 @@ function btnSubmitV2(id) {
 
             //uploadShapeData(myFormData);
 
-            
+
 
             swal({
                 title: "Save",
@@ -760,24 +773,24 @@ function btnSubmitV2(id) {
 
                         $.ajax({
                             url,
-                                type: "POST",
-                                data: myFormData,
-                                dataType: "json",
-                                contentType: 'application/json',
-                                success: function (response) {
-                                alert(JSON.stringify(response));
+                            type: "POST",
+                            data: myFormData,
+                            dataType: "json",
+                            contentType: 'application/json',
+                            success: function (response) {
+                                // alert(JSON.stringify(response));
                                 setTimeout(function () {
 
-                                 //   waitingDialog.hide()
+                                    //   waitingDialog.hide()
                                     $("#myModal").modal("hide");
                                     window.location.href = http.url("/AreaAnalysis/Manage");
-                            }, 1000);
+                                }, 1000);
 
                             }
-                            });
+                        });
 
                     }
-           });
+                });
 
 
         } else {
@@ -1032,22 +1045,22 @@ $(function () {
 var AddProvince = [];
 var RemoveProvince = [];
 
-var provinceId, amphureId,tumbolId;
+var provinceId, amphureId, tumbolId;
 $(document).on("change", "#PROVINCE_ID", function () {
     $('#AMPHOE_ID').empty();
     $('#TAMBOL_ID').empty();
     $('#AMPHOE_ID').append("<option value=''>เลือกอำเภอ</option>");
     $('#TAMBOL_ID').append("<option value=''>เลือกตำบล</option>");
-     provinceId = $(this).val();
+    provinceId = $(this).val();
     $.get(rootUrl + "/api/Map/GetDistrictsByProvince", { id: provinceId }, function (data) {
         if (data != null && data.length > 0) {
 
 
             $.each(data, function (index, data) {
                 $("#AMPHOE_ID").append("<option value='" + data.ID + "'>" + data.Name + "</option>");
-               
 
-              
+
+
             });
 
             $.get(rootUrl + "/api/Map/GetProvinceById", { id: provinceId }, function (data) {
@@ -1055,13 +1068,13 @@ $(document).on("change", "#PROVINCE_ID", function () {
                 var sridOut = [102100];
 
                 map.addGraphic(data[0].Shape);
-            
+
             });
         }
     });
 
     $(document).on("change", "#AMPHOE_ID", function () {
-         amphureId = $(this).val();
+        amphureId = $(this).val();
         $('#TAMBOL_ID').empty();
         $('#TAMBOL_ID').append("<option value=''>เลือกตำบล</option>");
         $.get(rootUrl + "/api/Map/GetSubDistrictsByDistrict", { id: $(this).val() }, function (data) {
@@ -1088,7 +1101,7 @@ $(document).on("change", "#PROVINCE_ID", function () {
 
     $(document).on("change", "#TAMBOL_ID", function () {
         var tumbolId = $(this).val();
-      
+
         $.get(rootUrl + "/api/Map/GetSubDistrictsById", { provinceId: provinceId, amphureId: amphureId, id: tumbolId }, function (data) {
             var sridIn = 24047;
             var sridOut = [102100];
@@ -1102,36 +1115,36 @@ $(document).on("change", "#PROVINCE_ID", function () {
     });
 
 
-$(document).ready(function () {
-    var isPublished = $('input[name=IS_PUBLISHED]:checked').val();
-    var statusID = $('#StatusID').val();
+    $(document).ready(function () {
+        var isPublished = $('input[name=IS_PUBLISHED]:checked').val();
+        var statusID = $('#StatusID').val();
 
-    if ($("#ProjectID").val() > 0 && statusID === "3") {
-        if (isPublished === "True") {
-            $('#publishedYes').addClass('active');
-            $('#publishedNo').removeClass('active');
+        if ($("#ProjectID").val() > 0 && statusID === "3") {
+            if (isPublished === "True") {
+                $('#publishedYes').addClass('active');
+                $('#publishedNo').removeClass('active');
+            } else {
+                $('#publishedNo').addClass('active');
+                $('#publishedYes').removeClass('active');
+                $('#PublishedDate').css('display', 'none');
+            }
         } else {
+            $('input:radio[name=IS_PUBLISHED]')[0].checked = false;
+            $('#publishDateSet').val('00/00/0000 00:00');
+            $("#test3").val("Dolly Duck");
             $('#publishedNo').addClass('active');
             $('#publishedYes').removeClass('active');
             $('#PublishedDate').css('display', 'none');
+            $('#PublishedCheck').css('display', 'none');
         }
-    } else {
-        $('input:radio[name=IS_PUBLISHED]')[0].checked = false;
-        $('#publishDateSet').val('00/00/0000 00:00');
-        $("#test3").val("Dolly Duck");
-        $('#publishedNo').addClass('active');
-        $('#publishedYes').removeClass('active');
-        $('#PublishedDate').css('display', 'none');
-        $('#PublishedCheck').css('display', 'none');
-    }
 
 
-    $('#PublishedDate').datetimepicker({
-        format: 'mm-dd-yyyy',
-        minView: 2,
-        pickTime: false,
-        autoclose: true
-    });
+        $('#PublishedDate').datetimepicker({
+            format: 'mm-dd-yyyy',
+            minView: 2,
+            pickTime: false,
+            autoclose: true
+        });
 
 
 
@@ -1223,7 +1236,7 @@ map.addGraphic = function (shape, symbol) {
     var sridIn = 24047;
     var sridOut = [102100];
     var trans = _gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
-     trans = _gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
+    trans = _gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
     symbol = symbol || {
         "type": "esriSLS",
         "style": "esriSLSSolid",
@@ -1233,3 +1246,4 @@ map.addGraphic = function (shape, symbol) {
 
     return _gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
 }
+

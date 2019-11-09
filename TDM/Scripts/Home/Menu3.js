@@ -1,5 +1,158 @@
 ﻿
-var LocationType='1'
+var LocationType = '1'
+var SectionProvince =null;
+var SectionAmphure = null;
+var SectionTumbol = null;
+
+var labelOption = {
+    normal: {
+        position: 'top',
+        show: true
+    }
+};
+
+
+var colorList = [
+    '#D7504B', '#B5C334', '#26C0C0', '#E87C25', '#27727B',
+    '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+    '#C6E579', '#C1232B', '#F4E001', '#F0805A', '#FCCE10'
+];
+
+
+var posList = [
+    'left', 'right', 'top', 'bottom',
+    'inside',
+    'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+    'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+];
+
+
+var land_chart1_region = {
+    "data": ['ไตรมาส 1', 'ไตรมาส 2', 'ไตรมาส 3', 'ไตรมาส 4'],
+    "display": [],
+    "value": [
+        { value: 550000, name: 'ไตรมาส 1' },
+        { value: 200000, name: 'ไตรมาส 2' },
+        { value: 120000, name: 'ไตรมาส 3' },
+        { value: 300000, name: 'ไตรมาส 4' }],
+    "value2": [
+        { value: 600000, name: 'ไตรมาส 1' },
+        { value: 230000, name: 'ไตรมาส 2' },
+        { value: 150000, name: 'ไตรมาส 3' },
+        { value: 400000, name: 'ไตรมาส 4' }]
+    ,
+    "value3": [
+        { value: 600000, name: 'ไตรมาส 1' },
+        { value: 230000, name: 'ไตรมาส 2' },
+        { value: 150000, name: 'ไตรมาส 3' },
+        { value: 400000, name: 'ไตรมาส 4' }],
+"value4": [
+    { value: 600000, name: 'ไตรมาส 1' },
+    { value: 230000, name: 'ไตรมาส 2' },
+    { value: 150000, name: 'ไตรมาส 3' },
+    { value: 400000, name: 'ไตรมาส 4' }]
+};
+
+ChartOption = {
+    color: ['#006699', '#4cabce', '#003366', '#e5323e'],
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        data: land_chart1_region.data
+    },
+    toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+            mark: { show: true },
+            dataView: { show: true, readOnly: false },
+            magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+            restore: { show: true },
+            saveAsImage: { show: true }
+        }
+    },
+    calculable: true,
+    xAxis: [
+        {
+            type: 'category',
+            axisTick: { show: false },
+            data: land_chart1_region.display
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value'
+        }
+    ],
+    series: [
+        {
+            name: 'ไตรมาส 1',
+            type: 'bar',
+            barGap: 0,
+            label: labelOption,
+
+            itemStyle: {
+                normal: {
+                    color: function (params) {
+                        return colorList[0]
+                        // return colorList[params.dataIndex]
+                    }
+                }
+            },
+            data: null
+        },
+        {
+            name: 'ไตรมาส 2',
+            type: 'bar',
+            label: labelOption,
+            itemStyle: {
+                normal: {
+                    color: function (params) {
+                        return colorList[1]
+                        // return colorList[params.dataIndex]
+                    }
+                }
+            },
+            data: null
+        },
+        {
+            name: 'ไตรมาส 3',
+            type: 'bar',
+            label: labelOption,
+            itemStyle: {
+                normal: {
+                    color: function (params) {
+                        return colorList[2]
+                        // return colorList[params.dataIndex]
+                    }
+                }
+            },
+            data: null
+        },
+        {
+            name: 'ไตรมาส 4',
+            type: 'bar',
+            label: labelOption,
+            itemStyle: {
+                normal: {
+                    color: function (params) {
+                        return colorList[3]
+                        // return colorList[params.dataIndex]
+                    }
+                }
+            },
+            data: null
+        }
+    ]
+};
+
+
 $(function () {
 
 
@@ -14,37 +167,20 @@ $(function () {
                 $("#ddlYear").append(`<option value="${row.Value}">${row.Name}</option>`);
             });
 
+            $("#ddlYear").val(currentYear);
+            
+
 
         }
     });
 
 
-    $.get(mapApi.getServerPath() + "/api/Map/GetProvinces", function (provinces) {
-
-        if (provinces != null && provinces.length > 0) {
-            $('#ddlProvince').empty();
-            $('#ddlProvince').append("<option value='999999'>ทั้งหมด</option>");
-           
-            $.each(provinces, function (index, province) {
-                $("#ddlProvince").append("<option value='" + province.ID + "'>" + province.Name + "</option>");
-            });
+    LoadAddress();
 
 
-            var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
+   
 
-            var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
-
-            $("#ddlProvince1").empty();
-
-            $("#ddlProvince1").append(proviceOption1);
-
-            $("#ddlProvince1").selectpicker('refresh')
-
-        }
-    });
-
-
-    CMPLTADMIN_SETTINGS.windowBasedLayout();
+  /*  CMPLTADMIN_SETTINGS.windowBasedLayout();
     CMPLTADMIN_SETTINGS.mainMenu();
     CMPLTADMIN_SETTINGS.mainmenuCollapsed();
     CMPLTADMIN_SETTINGS.mainmenuScroll();
@@ -53,9 +189,12 @@ $(function () {
     CMPLTADMIN_SETTINGS.chatApiScroll();
     CMPLTADMIN_SETTINGS.chatApiWindow();
     CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
-
+    */
     searchForm.initComp();
-    $("#ddlProvince1").selectpicker('refresh')
+    $("#ddlProvince1").selectpicker({
+        liveSearch: true,
+        size: 10,
+    });
     $(".divTable table").DataTable({
         searching: false
         , info: false
@@ -90,12 +229,43 @@ $(document).on("change", "#ddlProvince1", function () {
         proviceOption1 = $("#ddlProvince1 option").clone();
     }
     else {
-        proviceOption1 = $("#ddlProvince1 option:not([value='" + $(this).val() + "'])").clone();
+        proviceOption1 = $("#ddlProvince1 option:not([value='" + $(this).val() + "']):not([value='999999']):not([value=''])").clone();
     }
 
 
 
 });
+
+
+
+
+function LoadAddress() {
+
+    //  $('#ddlProvince').empty();
+    //$('#ddlDistrict').empty();
+    //$('#ddlSubdistrict').empty();
+
+
+    $('#ddlRegion').prop('disabled', true);
+    $("#ddlProvince").prop('disabled', true);
+    $('#ddlDistrict').prop('disabled', true);
+    $('#ddlSubdistrict').prop('disabled', true);
+    $.get(mapApi.getServerPath() + "/api/Address/GetAddressList", function (addressList) {
+
+        SectionProvince = addressList.ProvinceList;
+        SectionAmphure = addressList.AmphoeList;
+        SectionTumbol = addressList.TambolList;
+
+       
+        $('#ddlRegion').prop('disabled', false);
+        $("#ddlProvince").prop('disabled', false);
+        $('#ddlDistrict').prop('disabled', false);
+        $('#ddlSubdistrict').prop('disabled', false);
+        $('#ddlRegion').trigger("change");
+    });
+
+}
+
 
 
 /// tabid=1 region
@@ -128,7 +298,7 @@ function DisplaySection2SearchRegionCluster(tabid) {
 function LoadCluster() {
     $("#ddlRegion").empty();
 
-    $("#ddlRegion").append("<option value=''>กรุณาเลือก</option>");
+    $("#ddlRegion").append("<option value=''>เลือกครัสเตอร์</option>");
     $.ajax({
         url: rootUrl + "/api/Address/GetCluster",
         type: "POST",
@@ -193,7 +363,7 @@ var searchForm = {
     },
     setupSearchForm: function () {
 
-
+        LoadChart(ChartOption, document.getElementById('chart1'));
         searchForm.clearDropDown('ddlDistrict');
         $('#ddlDistrict').prop('disabled', 'disabled');
 
@@ -226,99 +396,109 @@ var searchForm = {
         $('#ddlRegion').change(function (event) {
 
             var regionId = $('#ddlRegion').val();
+            console.debug("#ddlRegion change ");
 
-           
-            mapApi.getProvincesByRegion(LocationType, regionId, function (provinces) {
+            $('#ddlProvince').empty();
+            $('#ddlProvince1').empty();
 
-                if (provinces != null && provinces.length > 0) {
-                    $('#ddlProvince').empty();
-                    $('#ddlProvince').append("<option value='999999'>ทั้งหมด</option>");
-                  
-                    $.each(provinces, function (index, province) {
-                        $("#ddlProvince").append("<option value='" + province.ID + "'>" + province.Name + "</option>");
+            $('#ddlProvince').append("<option value=''>เลือกจังหวัด</option>");
+
+
+
+            if (SectionProvince != null && SectionProvince.length > 0) {
+                $('#ddlProvince').empty();
+                $('#ddlProvince').append("<option value=''>เลือกจังหวัด</option>");
+
+
+                if (regionId == "") {
+
+                    $.each(SectionProvince, function (index, province) {
+                        $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
                     });
 
-
-                    var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
-
-                    var proviceOption1 = $("#ddlProvince option:not([value='999999'])").clone();
-
+                    var proviceOption1 = $("#ddlProvince option").clone();
                     $("#ddlProvince1").empty();
 
                     $("#ddlProvince1").append(proviceOption1);
 
-                    $("#ddlProvince1").selectpicker('refresh')
+                    $("#ddlProvince1").selectpicker('refresh');
+                }
+                /// Load by Region Code
+                else if (LocationType == "1") {
+                    $.each(SectionProvince.filter(p => p.RegionCode == regionId), function (index, province) {
+                        $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
+                    });
 
-                    $("#ddlProvince").change(function (event) {
+                    var proviceOption1 = $("#ddlProvince option").clone();
+                    $("#ddlProvince1").empty();
 
-                        $("#ddlProvince1").empty();
-                   
-                        var provinceId = $("#ddlProvince").val();
-                        var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "']):not([value='999999'])").clone();
+                    $("#ddlProvince1").append(proviceOption1);
 
-                        $("#ddlProvince1").append(proviceOption1);
-                        $("#ddlProvince1").selectpicker('refresh')
-                       
-
-                        
-                        if (provinceId == '' || provinceId == '999999') {
-                            $('#ddlDistrict').prop('disabled', 'disabled');
-                            $('#ddlSubdistrict').prop('disabled', 'disabled');
-
-                        } else {
-                            $('#ddlDistrict').prop('disabled', false);
-                            mapApi.getDistrictsByProvince(regionId, provinceId, function (districts) {
-                                if (districts != null && districts.length > 0) {
-
-                                    searchForm.clearDropDown('ddlDistrict');
-                                    searchForm.clearDropDown('ddlSubdistrict');
+                    $("#ddlProvince1").selectpicker("refresh");
+                   /* $("#ddlProvince1").selectpicker({
+                        liveSearch: true,
+                        size: 5,
+                    });*/
+                }
 
 
-
-                                    $.each(districts, function (index, district) {
-                                        $("#ddlDistrict").append("<option value='" + district.ID + "'>" + district.Name + "</option>");
-                                    });
-
-                                    $('#ddlDistrict').change(function (event) {
-                                        var districtId = $("#ddlDistrict").val();
-
-
-                                        if (districtId == '' || districtId == '999999') {
-                                            $('#ddlSubdistrict').prop('disabled', 'disabled');
-                                        } else {
-                                            mapApi.getSubDistrictsByDistrict(regionId, districtId, function (subDistricts) {
-
-                                                searchForm.clearDropDown('ddlSubdistrict');
-                                                // $('#ddlSubdistrict').empty();
-                                                // $('#ddlSubdistrict').append("<option value='999999'>ทั้งหมด</option>");
-
-                                                $('#ddlSubdistrict').prop('disabled', false);
-
-
-
-
-                                                $.each(subDistricts, function (index, subDistrict) {
-                                                    $("#ddlSubdistrict").append("<option value='" + subDistrict.ID + "'>" + subDistrict.Name + "</option>");
-                                                });
-                                            })
-                                        }
-
-                                        event.stopPropagation();
-
-                                    });
-
-                                }
-
-                            });
-                        }
-                        event.stopPropagation();
+                /// Load by Cluster Code
+                else if (LocationType == "2") {
+                    $.each(SectionProvince.filter(p => p.ClusterCode == regionId), function (index, province) {
+                        $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
                     });
                 }
-            });
+
+           
+
+              //  if (provincecode != null)
+                  //  $('#ddlProvince').val(provincecode);
+
+                var proviceOption1 = $("#ddlProvince option").clone();
+
+
+                $("#ddlProvince1").empty();
+                $("#ddlProvince1").append(proviceOption1);
+                $("#ddlProvince1").selectpicker({
+                    liveSearch: true,
+                    size: 5,
+                });
+
+
+              
+
+
+            }
+
+
+
+         
 
             event.stopPropagation();
         });
-        $('#ddlRegion').trigger("change");
+
+
+        $("#ddlProvince").change(function (event) {
+
+            $("#ddlProvince1").empty();
+
+            var provinceId = $("#ddlProvince").val();
+            var proviceOption1 = $("#ddlProvince option:not([value='" + provinceId + "']):not([value='999999']):not([value=''])").clone();
+
+            $("#ddlProvince1").append(proviceOption1);
+            $("#ddlProvince1").selectpicker("refresh");
+           /* $("#ddlProvince1").selectpicker({
+                liveSearch: true,
+                size: 5,
+            });*/
+
+        });
+
+       
+     
+
+
+       
 
     },
     switchMode: function (mode) {
@@ -394,6 +574,23 @@ var searchForm = {
                 }
                 if (data != null && data.DataList != null) {
                     LoadTable(data.DataList)
+
+                    ChartOption.xAxis[0].data = $.map(data.MapInfoList, function (n, i) {
+                        return n.ProvinceName;
+                    });
+                    ChartOption.series[0].data = $.map(data.MapInfoList, function (n, i) {
+                        return n.Q1MaxPrice;
+                    });
+                    ChartOption.series[1].data = $.map(data.MapInfoList, function (n, i) {
+                        return n.Q2MaxPrice;
+                    });
+                    ChartOption.series[2].data = $.map(data.MapInfoList, function (n, i) {
+                        return n.Q3MaxPrice;
+                    });
+                    ChartOption.series[3].data = $.map(data.MapInfoList, function (n, i) {
+                        return n.Q4MaxPrice;
+                    });
+                    LoadChart(ChartOption, document.getElementById('chart1'));
 
                 }
 
@@ -488,8 +685,8 @@ function LoadTable(data)
     body += '<tr  class="bg-info">';
     body += '<th scope="col" class="center">จังหวัด</th>';
     body += '<th scope="col" class="center">ช่วงเวลา</th>';
-    body += '<th scope="col" class="center">SA/Ratio<br>ต่ำสุด</th>';
     body += '<th scope="col" class="center">SA/Ratio<br>สูงสุด</th>';
+    body += '<th scope="col" class="center">SA/Ratio<br>ต่ำสุด</th>';
     body += '<th scope="col" class="center">SA/Ratio<br>เฉลี่ย</th>';
     body += '</tr>';
     body += '</thead>';
@@ -502,9 +699,10 @@ function LoadTable(data)
                 body += '<tr>';
                 body += '<td>' + item.ProvinceName + '</td>';
                 body += '<td>ไตรมาส ' + item.Quater + ' </td>';
-                body += '<td>' + item.MinPrice + '</td>';
-                body += '<td>' + item.MaxPrice + '</td>';
-                body += '<td>' + item.AvgPrice + '</td>';
+                body += '<td class="text-right">' + item.MaxPrice + '</td>';
+                body += '<td class="text-right">' + item.MinPrice + '</td>';
+             
+                body += '<td class="text-right">' + item.AvgPrice + '</td>';
 
                 body += '</tr>';
             });
@@ -528,6 +726,25 @@ function LoadTable(data)
 
 }
 
+
+function LoadChart(Option, divChart) {
+    var chartLoad = echarts.init(divChart);
+    var option = Option;
+
+    chartLoad.setOption(option, true);
+    window.onresize = chartLoad.resize;
+
+
+
+
+
+    // setTimeout(function () {
+    //     chartLoad.setOption(option, true);
+    // chartLoad.on("click", ChartCallBack);
+
+
+    // }, 1000);
+}
 
 
 
@@ -553,6 +770,7 @@ function MergeCommonRows(table, columnIndexToMerge) {
         }
     });
 }
+
 
 
 var mapApi = {

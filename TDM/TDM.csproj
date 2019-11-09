@@ -486,6 +486,7 @@
     <Content Include="assets\css\nprogress\nprogress.css" />
     <Content Include="assets\css\sweetalert.css" />
     <Content Include="assets\fonts\font-awesome.min.css" />
+    <Content Include="assets\fonts\Kanit\OFL.txt" />
     <Content Include="assets\icons\TDM\measurement_tool_01_selected.png" />
     <Content Include="assets\icons\TDM\measurement_tool_02_hover.png" />
     <Content Include="assets\icons\TDM\measurement_tool_03_hover.png" />
@@ -517,6 +518,7 @@
     <Content Include="assets\js\bootstrap-select.min-1.6.5.js" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\charts-google.min.js" />
+    <Content Include="assets\js\Chart\echart.js" />
     <Content Include="assets\js\Chart\echarts.min.js" />
     <Content Include="assets\js\custom.min.js" />
     <Content Include="assets\js\custom_pera\custom.min.js" />
@@ -568,6 +570,7 @@
     <Content Include="assets\js\datatable\datatables.js" />
     <Content Include="assets\js\datatable\datatables.min.js" />
     <Content Include="assets\js\togeojson\togeojson.js" />
+    <Content Include="Scripts\Home\Menu4.js" />
     <Content Include="Scripts\Home\Menu2.js" />
     <Content Include="Scripts\Home\Menu3_bk20190513.js" />
     <Content Include="Scripts\Home\Menu3.js" />
@@ -1669,6 +1672,24 @@
     <Content Include="assets\css\flatpickr2.1.0.min.css" />
     <Content Include="assets\css\fontawesome5.3.1.css" />
     <Content Include="fonts\THSarabunNew.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-Black.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-BlackItalic.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-Bold.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-BoldItalic.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-ExtraBold.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-ExtraBoldItalic.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-ExtraLight.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-ExtraLightItalic.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-Italic.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-Light.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-LightItalic.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-Medium.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-MediumItalic.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-Regular.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-SemiBold.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-SemiBoldItalic.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-Thin.ttf" />
+    <Content Include="assets\fonts\Kanit\Kanit-ThinItalic.ttf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
@@ -1789,7 +1810,10 @@
     <Content Include="Views\Shared\_HeaderBar.cshtml" />
     <Content Include="Views\Shared\_LeftMenu.cshtml" />
     <Content Include="Views\Shared\_LeftMenu_bk.cshtml" />
-    <Content Include="Views\BI\Index_bk.cshtml" />
+    <Content Include="Views\Home\Menu4.cshtml" />
+    <Content Include="Views\BI\Index_bK.cshtml" />
+    <Content Include="Views\Shared\_Layout_bk.cshtml" />
+    <Content Include="Views\Shared\_NewLeftMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

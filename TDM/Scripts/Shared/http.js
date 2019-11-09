@@ -15,7 +15,7 @@ http.get = function (url, params, callback) {
 }
 
 http.url = function (url) {
-    console.log('HTTP.URL==>', url);
+    console.log('HTTP.URL==>', rootUrl + url);
     
     return rootUrl + url;
 }

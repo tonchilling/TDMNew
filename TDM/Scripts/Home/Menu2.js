@@ -17,23 +17,10 @@ var regionObj = {
 $(function () {
 
     LoadGraphView(null, null);
-    $('.txtSFromDate').datetimepicker({
-        format: 'mm-dd-yyyy',
-        minView: 2,
-        pickTime: false,
-        autoclose: true
-    });
+  
 
 
-    $('.txtSToDate').datetimepicker({
-        format: 'mm-dd-yyyy',
-        minView: 2,
-        pickTime: false,
-        autoclose: true
-    });
-
-
-    CMPLTADMIN_SETTINGS.windowBasedLayout();
+  /*  CMPLTADMIN_SETTINGS.windowBasedLayout();
     CMPLTADMIN_SETTINGS.mainMenu();
     CMPLTADMIN_SETTINGS.mainmenuCollapsed();
     CMPLTADMIN_SETTINGS.mainmenuScroll();
@@ -42,6 +29,7 @@ $(function () {
     CMPLTADMIN_SETTINGS.chatApiScroll();
     CMPLTADMIN_SETTINGS.chatApiWindow();
     CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
+    */
   
     searchForm.initComp();
 
@@ -95,7 +83,7 @@ function DisplaySection2SearchRegionCluster(tabid) {
 function LoadCluster() {
     $("#ddlRegion").empty();
 
-    $("#ddlRegion").append("<option value=''>กรุณาเลือก</option>");
+    $("#ddlRegion").append("<option value=''>เลือกครัสเตอร์</option>");
     $.ajax({
         url: rootUrl + "/api/Address/GetCluster",
         type: "POST",
@@ -133,20 +121,7 @@ var searchForm = {
 
             //$("body").append("<div id='overlay'><br/><br/><br/><br/><br/><br/><img style='display: block;margin-left: auto;margin-right: auto;' src='http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_64.gif' /></div>");
 
-            $("#overlay")
-               .height(target.height())
-               .width(target.width() + 20)
-               .css({
-                   'opacity': 0.4,
-                   'position': 'absolute',
-                   'top': target.offset().top,
-                   'left': target.offset().left,
-                   'background-color': 'black',
-                   'z-index': 5000,
-                   'margin-left': 'auto',
-                   'margin-right': 'auto'
-               })
-                .hide();
+           
 
         }, 5000);
 
@@ -324,13 +299,13 @@ var searchForm = {
         var objSearch = {};
 
         if ($('.txtSFromDate').val() != '') {
-            fromMonth = $('.txtSFromDate').val().split('-')[0];
-            fromYear = $('.txtSFromDate').val().split('-')[2];
+            fromMonth = $('.txtSFromDate').val().split('/')[0];
+            fromYear = $('.txtSFromDate').val().split('/')[2];
         }
 
         if ($('.txtSToDate').val() != '') {
-            toMonth = $('.txtSToDate').val().split('-')[0];
-            toYear = $('.txtSToDate').val().split('-')[2];
+            toMonth = $('.txtSToDate').val().split('/')[0];
+            toYear = $('.txtSToDate').val().split('/')[2];
         }
 
         
@@ -399,7 +374,7 @@ function LoadTable(data)
             $.each(item, function (key, val) {
 
                 if (col > 2) {
-                    body += '<th scope="col" class="text-center">' + key + '</th>';
+                    body += '<th scope="col" class="text-center">' + key.toLocaleString() + '</th>';
                 }
                 col++;
 
@@ -421,7 +396,7 @@ function LoadTable(data)
             $.each(item, function (key, val) {
 
                 if (col != 1 && col != 2) {
-                    body += '<td>' + (val != null ? val : "") + '</td>';
+                    body += '<td>' + (val != null ? val.toLocaleString() : "") + '</td>';
                 }
                 col++;
 
@@ -564,11 +539,25 @@ function LoadGraph1Display(months, newLandRegisters, LandRegisters) {
             }
         },
         calculable: true,
+        grid: {
+            y: 30,
+            y2: 90,
+        },
         xAxis: [
             {
                 type: 'category',
                 boundaryGap: false,
-                data: months
+                data: months,
+                splitLine: {
+                    show: true,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    shadowBlur: 10,
+                    lineStyle: {
+                        color: '#ccc',
+                        width: 0.8
+                    },
+                    shadowBlur: 2,
+                },
             }
         ],
         yAxis: [
@@ -648,10 +637,15 @@ function LoadGraphView(YearMonthArray, CondoLineGraphList) {
             trigger: 'axis'
         },
         legend: {
-            data: condoNameList
+            data: condoNameList,
+            icon: 'roundRect',
+            height: "100px"
         },
         toolbox: {
             show: true,
+            orient: 'vertical',
+            left: 'right',
+            top: 'center',
             feature: {
                 mark: { show: true },
                 dataView: { show: true, readOnly: false },
@@ -661,11 +655,26 @@ function LoadGraphView(YearMonthArray, CondoLineGraphList) {
             }
         },
         calculable: true,
+        grid: {
+            y: 30,
+            y2: 90,
+            top: '20%',
+        },
         xAxis: [
             {
                 type: 'category',
                 boundaryGap: true,
-                data: YearMonthArray
+                data: YearMonthArray,
+            splitLine: {
+                show: true,
+                shadowColor: 'rgba(0, 0, 0, 0.5)',
+                shadowBlur: 10,
+                lineStyle: {
+                    color: '#ccc',
+                    width: 0.8
+                },
+                shadowBlur: 2,
+            },
             }
         ],
         yAxis: [
@@ -676,7 +685,7 @@ function LoadGraphView(YearMonthArray, CondoLineGraphList) {
                     show: true,
                     margin: 2,
                     formatter: function (params) {
-                        return params.length > 6 ? params.substring(0, 6) + '..' : params;
+                        return params.length > 6 ? params.substring(0, 6) + '..' : params.toLocaleString();
                     }
                 },
                 splitLine: {

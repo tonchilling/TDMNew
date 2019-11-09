@@ -248,6 +248,7 @@ namespace TDM.Repositories
             var p = new DynamicParameters();
             p.Add("@TemplateID", chartTemplate.TemplateID,DbType.String,ParameterDirection.InputOutput,100); // Region=1, Cluster=2
             p.Add("@Name", chartTemplate.Name, dbType: DbType.String);    // Region=Code, Cluster=47 or 48
+            p.Add("@TemplateType", chartTemplate.TemplateType, dbType: DbType.String);    // Region=Code, Cluster=47 or 48
 
             try
             {
@@ -271,15 +272,27 @@ namespace TDM.Repositories
                         p.Add("@Color", chart.Color, dbType: DbType.String);
                         p.Add("@x", chart.x, dbType: DbType.String);
                         p.Add("@y", chart.y, dbType: DbType.String);
+                        p.Add("@x2", chart.x2, dbType: DbType.String);
+                        p.Add("@y2", chart.y2, dbType: DbType.String);
                         p.Add("@Desc", chart.Desc, dbType: DbType.String);
                         p.Add("@Connection", chart.Connection, dbType: DbType.String);
                         p.Add("@Chart", chart.ChartOptions, dbType: DbType.String);
                         p.Add("@xAxisData", chart.xAxisData, dbType: DbType.String);
                         p.Add("@yAxisData", chart.yAxisData, dbType: DbType.String);
+                        p.Add("@xAxisData2", chart.xAxisData2, dbType: DbType.String);
+                        p.Add("@yAxisData2", chart.yAxisData2, dbType: DbType.String);
                         p.Add("@SortNo", chart.SortNo, dbType: DbType.String);
-
+                        p.Add("@xCaption", chart.xCaption, dbType: DbType.String);
+                        p.Add("@x2Caption", chart.x2Caption, dbType: DbType.String);
+                        p.Add("@yCaption", chart.yCaption, dbType: DbType.String);
+                        p.Add("@y2Caption", chart.y2Caption, dbType: DbType.String);
                         input = conn.Execute("sp_TemplateDetail_Insert", p, tran, null, commandType: CommandType.StoredProcedure);
-                    }
+
+                    /*     public string xCaption { get; set; }
+        public string x2Caption { get; set; }
+        public string yCaption { get; set; }
+        public string y2Caption { get; set; }*/
+    }
 
                     tran.Commit();
                 }
@@ -294,6 +307,44 @@ namespace TDM.Repositories
             }
 
             return input==0;
+        }
+
+        public bool DeleteTemplate(ChartTemplate_ViewModel chartTemplate)
+        {
+            IDataReader reader = null;
+            IDbTransaction tran = null;
+            var input = 0;
+            var templateID = "";
+
+            var p = new DynamicParameters();
+            p.Add("@TemplateID", chartTemplate.TemplateID, DbType.String); // Region=1, Cluster=2
+           
+
+            try
+            {
+
+                using (IDbConnection conn = CreateConnectionManage())
+                {
+                    conn.Open();
+
+
+                    input = conn.Execute("[sp_TemplateHeader_Delete]", p, null, commandType: CommandType.StoredProcedure);
+
+                 
+                
+                }
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                string error = ex.ToString();
+            }
+            finally
+            {
+
+            }
+
+            return input == 0;
         }
 
         public ChartTemplate_ViewModel GetGraphList(string templateID)
@@ -319,7 +370,8 @@ namespace TDM.Repositories
                     {
                         result.TemplateID= reader["TemplateID"].ToString();
                         result.Name= reader["Name"].ToString();
-                      
+                        result.TemplateType= reader["TemplateType"].ToString();
+                        result.CreateDate = reader["CreateDate"].ToString();
 
 
                     }
@@ -333,13 +385,21 @@ namespace TDM.Repositories
                         chart.Color = reader["Color"].ToString();
                         chart.x= reader["x"].ToString();
                         chart.y = reader["y"].ToString();
+                        chart.x2 = reader["x2"].ToString();
+                        chart.y2 = reader["y2"].ToString();
                         chart.GraphID = reader["GraphID"].ToString();
                         chart.Desc= reader["Desc"].ToString();
                         chart.ChartOptions = reader["Chart"].ToString();
                         chart.Connection = reader["Connection"].ToString();
                         chart.xAxisData = reader["xAxisData"].ToString();
                         chart.yAxisData = reader["yAxisData"].ToString();
+                        chart.xAxisData2 = reader["xAxisData2"].ToString();
+                        chart.yAxisData2 = reader["yAxisData2"].ToString();
                         chart.SortNo = reader["SortNo"].ToString();
+                        chart.xCaption = reader["xCaption"].ToString();
+                        chart.yCaption = reader["yCaption"].ToString();
+                        chart.x2Caption = reader["x2Caption"].ToString();
+                        chart.y2Caption = reader["y2Caption"].ToString();
                         chartList.Add(chart);
                     }
                     result.Charts = chartList;

@@ -357,6 +357,12 @@ namespace TDM.Repositories
                         data = new Models.DropdownObj();
                         data.Name = reader["Name"].ToString();
                         data.Value = reader["Value"].ToString();
+                       
+                        if (table == "TemplateHeader")
+                        {
+                            data.CreateDate = reader["CreateDate"].ToString();
+                            data.Type = reader["TemplateType"].ToString();
+                        }
                         result.Add(data);
                     }
                 }
@@ -692,10 +698,22 @@ namespace TDM.Repositories
                         data.AmphureName = reader["AmphureName"].ToString();
                         data.TAMBOLCode = reader["TAMBOLCode"].ToString();
                         data.TAMBOLName = reader["TAMBOLName"].ToString();
+                        data.MarketWAHPrice = Converting.ToDecimal(reader["MarketWAHPrice"].ToString()).ToString("##,##0.00");
+                        data.MarketWAHPriceMin = Converting.ToDecimal(reader["MarketWAHPriceMin"].ToString()).ToString("##,##0.00");
+                        data.MarketWAHPriceMax = Converting.ToDecimal(reader["MarketWAHPriceMax"].ToString()).ToString("##,##0.00");
+                        data.MarketWAHPriceAvg = Converting.ToDecimal(reader["MarketWAHPriceAvg"].ToString()).ToString("##,##0.00");
+
                         data.MarketPrice = Converting.ToDecimal(reader["MarketPrice"].ToString()).ToString("##,##0.00");
                         data.MarketPriceMin = Converting.ToDecimal(reader["MarketPriceMin"].ToString()).ToString("##,##0.00");
                         data.MarketPriceMax = Converting.ToDecimal(reader["MarketPriceMax"].ToString()).ToString("##,##0.00");
                         data.MarketPriceAvg = Converting.ToDecimal(reader["MarketPriceAvg"].ToString()).ToString("##,##0.00");
+
+
+                        data.ParcelWAHPrice = Converting.ToDecimal(reader["ParcelWAHPrice"].ToString()).ToString("##,##0.00");
+                        data.ParcelWAHPriceMin = Converting.ToDecimal(reader["ParcelWAHPriceMin"].ToString()).ToString("##,##0.00");
+                        data.ParcelWAHPriceMax = Converting.ToDecimal(reader["ParcelWAHPriceMax"].ToString()).ToString("##,##0.00");
+                        data.ParcelWAHPriceAvg = Converting.ToDecimal(reader["ParcelWAHPriceAvg"].ToString()).ToString("##,##0.00");
+
                         data.ParcelPrice = Converting.ToDecimal(reader["ParcelPrice"].ToString()).ToString("##,##0.00");
                         data.ParcelPriceMin = Converting.ToDecimal(reader["ParcelPriceMin"].ToString()).ToString("##,##0.00");
                         data.ParcelPriceMax = Converting.ToDecimal(reader["ParcelPriceMax"].ToString()).ToString("##,##0.00");
@@ -1984,14 +2002,49 @@ namespace TDM.Repositories
         }
 
 
+        public List<PeriodModel> GetPeriod()
+        {
+
+           List<PeriodModel> resultList = null;
+            using (SqlConnection conn = CreateConnectionManage())
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = conn;
+                command.CommandText = "GetPeriod";
+                command.CommandType = CommandType.StoredProcedure;
+                // command.Parameters.Add(p);
 
 
-        /// <summary>
-        /// Home>Menu2
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        public UserProFile GetPermission(string userid)
+                // reader = command.ExecuteReader();
+
+                resultList = new List<PeriodModel>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    //ID,YEARSTART,YEAREND,PERIODS_NAME,Use_flag 
+                    while (reader.Read())
+                    {
+                        resultList.Add(new PeriodModel() {
+                            ID = reader["ID"].ToString(),
+                            YEARSTART = reader["YEARSTART"].ToString(),
+                            YEAREND = reader["YEAREND"].ToString(),
+                            PERIODS_NAME = reader["PERIODS_NAME"].ToString(),
+                            Use_flag = reader["Use_flag"].ToString(),
+
+                        });
+                    }
+                }
+            }
+
+            return resultList;
+        }
+
+                    /// <summary>
+                    /// Home>Menu2
+                    /// </summary>
+                    /// <param name="search"></param>
+                    /// <returns></returns>
+                    public UserProFile GetPermission(string userid)
         {
 
            
