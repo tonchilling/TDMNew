@@ -635,11 +635,6 @@ color:#777;
 
 
 
-.chartBarNormal {
-
-height:400px;
-width:1200px;
-}
 
 
 
@@ -765,6 +760,7 @@ color:#428bca;
 .row.funkyradio {
 margin-left:0px;
 margin-right:0px;
+display:flex;
 }
 
 .funkyradio input[type="radio"]:empty ~ label:before,
