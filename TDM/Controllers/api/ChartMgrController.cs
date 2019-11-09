@@ -21,6 +21,17 @@ namespace TDM.Controllers.api
             return Json(result);
         }
 
+        [HttpPost]
+        public IHttpActionResult DeleteTemplate(ChartTemplate_ViewModel dto)
+        {
+            var repos = new DBRepository();
+            bool result = repos.DeleteTemplate(dto);
+
+            return Json(result);
+        }
+
+        
+
 
         [HttpGet]
         public IHttpActionResult GetDropDownList(string Code)

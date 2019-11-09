@@ -8,6 +8,7 @@ var DataResult = [];
 var currentUrl = '/api/DBMgr/';
 var chartMgrUrl = '/api/ChartMgr/';
 var tblResult;
+var selX, selY, selX2, selY2;
 var keepResult = {
     
     Charts: []
@@ -91,22 +92,16 @@ $(document).ready(function () {
 
 
 
-    CMPLTADMIN_SETTINGS.windowBasedLayout();
+  /*  CMPLTADMIN_SETTINGS.windowBasedLayout();
     CMPLTADMIN_SETTINGS.mainMenu();
     CMPLTADMIN_SETTINGS.mainmenuCollapsed();
     CMPLTADMIN_SETTINGS.mainmenuScroll();
     CMPLTADMIN_SETTINGS.sectionBoxActions();
-    /* LoadChart1();
-     LoadChart2();
-     LoadChart3();
-     LoadChartCondo1();
-     LoadChartCondo2();
-     LoadChartCondo3();
-     LoadChartBuilding1();*/
+    
     CMPLTADMIN_SETTINGS.chatAPI();
     CMPLTADMIN_SETTINGS.chatApiScroll();
     CMPLTADMIN_SETTINGS.chatApiWindow();
-    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
+    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();*/
 
     LoadTemplateList();
     SortedTable();
@@ -131,7 +126,8 @@ function SortedTable() {
 
 $(document).on("click", ".rounded-list > li", function () {
    // $this.next().find('ol').toggleClass('show');
-   $this.find('ol').slideToggle(350);
+    $this.find('ol').slideToggle(350);
+    return false;
  //   $(this).nextAll(".rounded-list:first").slideToggle();
 })
 
@@ -146,6 +142,8 @@ $(document).on("click", ".btnConnect", function () {
         DisplayDatabase(Database);
         waitingDialog.hide();
     });
+
+    return false;
 });
 
 $(document).on("click", ".btnSelectColumn", function (e) {
@@ -162,7 +160,7 @@ $(document).on("click", ".btnSelectColumn", function (e) {
         $('#txtQuery').val(query)
     }
 
-   
+    return false;
     
 });
 $(document).on("click", ".toggle", function (e) {
@@ -187,7 +185,7 @@ $(document).on("click", ".toggle", function (e) {
     $this.parents('.inner').siblings('a.toggle').addClass("expanded"); // ensures all ancestors of this class will also remain expanded
 
     $this.toggleClass("expanded"); // to expand or collapse arrow on click (toggle)
-
+    return false;
 
 });
 
@@ -242,7 +240,8 @@ $(document).on("click", ".btnQuery", function (e) {
                      DisplayResult(DataResult);
                      waitingDialog.hide()
 
-    });
+        });
+    return false;
 
 });
 
@@ -257,19 +256,24 @@ $(document).on("click", ".btnPreview", function (e) {
     var xAxisData = getColumnByKey(DataResult, $("#ddlxAxis").val());
     var yAxisData = getColumnByKey(DataResult, $("#ddlyAxis").val());
 
+    var xAxisData2 = $("#ddlxAxis2").val()!="" ? getColumnByKey(DataResult, $("#ddlxAxis2").val()):"";
+    var yAxisData2 = $("#ddlyAxis2").val() != "" ? getColumnByKey(DataResult, $("#ddlyAxis2").val()) : "";
+
 
     if ($("#ddlSelectGraph option:selected").val() == '4') {
 
         $("#divPreviewBody").empty();
         var html = "";
         for (var i = 0; i < xAxisData.length; i++) {
-            html += ChartType[3].Option.ConvertToHTML(yAxisData[i], xAxisData[i], $("#ddlWidth option:selected").val());
+            html += ChartType[3].Option.ConvertToHTML(yAxisData[i], xAxisData[i],null, $("#ddlWidth option:selected").val());
 
         }
         keepChart = ChartType[3].Option;
 
         keepChart.xAxisData = xAxisData;
         keepChart.yAxisData = yAxisData;
+        keepChart.xAxisData2 = xAxisData2;
+        keepChart.yAxisData2 = yAxisData2;
         $("#divPreviewBody").append(html);
         setTimeout(function () {
 
@@ -288,12 +292,28 @@ $(document).on("click", ".btnPreview", function (e) {
                     keepChart = ChartType[0].Option;
                     keepChart.xAxis[0].data = xAxisData;
                     keepChart.series[0].data = yAxisData;
+                    keepChart.series[0].name = $("#txtyAxis").val();
+                    if ($("#ddlyAxis2").val() != "") {
+                        keepChart.series[1].name = $("#txtyAxis2").val();
+                        keepChart.series[1].data = yAxisData2;
+                    } else {
+                    keepChart.series[1].name = "";
+                    keepChart.series[1].data = null;
+                }
+                    
 
                 } else {
                     keepChart = ChartType[1].Option;
                     keepChart.yAxis[0].data = yAxisData;
                     keepChart.series[0].data = xAxisData;
-
+                    keepChart.series[0].name = $("#txtxAxis").val();;
+                    if ($("#ddlxAxis2").val() != "") {
+                        keepChart.series[1].name = $("#txtxAxis2").val();;
+                        keepChart.series[1].data = xAxisData2;
+                    } else {
+                        keepChart.series[1].name = "";
+                        keepChart.series[1].data = null;
+                    }
 
                 }
                 break;
@@ -316,6 +336,9 @@ $(document).on("click", ".btnPreview", function (e) {
 
         keepChart.xAxisData = xAxisData;
         keepChart.yAxisData = yAxisData;
+
+        keepChart.xAxisData2 = xAxisData2;
+        keepChart.yAxisData2 = yAxisData2;
         keepChart.GraphID = $("#ddlSelectGraph option:selected").val();
         keepChart.title.text = $("#txtTitle").val();
 
@@ -329,7 +352,7 @@ $(document).on("click", ".btnPreview", function (e) {
         }, 1000);
 
     }
-    
+    return false;
 });
 
 function GetGraphText(graphid)
@@ -345,6 +368,48 @@ function GetGraphText(graphid)
     return text;
 }
 
+
+
+$(document).on("click", ".btnDelete", function (e) {
+    var data = {
+        TemplateID: $(this).attr('data')
+    };
+    swal({
+        title: "Delete",
+        text: "Do you want to delete?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+
+                
+                $.ajax({
+                    url: mapApi.getServerPath() + chartMgrUrl +"/DeleteTemplate",
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    contentType: 'application/json',
+                    success: function () {
+                        swal("Save", "Delete data complete!", "success");
+
+                        setTimeout(function () {
+
+                            $("#frmMain").submit();
+
+                        }, 1000);
+                       
+                    }
+                });
+
+            }
+        });
+
+    return false;
+});
+
 $(document).on("click", ".btnEdit", function (e) {
     $.get(mapApi.getServerPath() + chartMgrUrl + "/GetGraphList", { TemplateID: $(this).attr('data') }, function (data) {
 
@@ -352,6 +417,8 @@ $(document).on("click", ".btnEdit", function (e) {
 
             keepResult = data;
             $('#txtTemplateName').val(data.Name)
+            $('#ddlTemplateType').val(data.TemplateType)
+         
             if (data.Charts.length > 0) {
                 $.each(keepResult.Charts, function (index, chartData) {
                     divChartID = 'divChart' + index;
@@ -374,7 +441,7 @@ $(document).on("click", ".btnEdit", function (e) {
 
         }
     });
-
+    return false;
 
 });
 
@@ -393,6 +460,7 @@ $(document).on("click", ".btnSave", function (e) {
 
           //  keepResult.TemplateID = '';
             keepResult.Name = $("#txtTemplateName").val();
+            keepResult.TemplateType = $("#ddlTemplateType").val();
             no = keepResult.Charts == null ? 1 : keepResult.Charts.length + 1;
             keepResult.Charts.push({
                 No: no,
@@ -400,12 +468,20 @@ $(document).on("click", ".btnSave", function (e) {
                 Title: $("#txtTitle").val(),
                 Width: $("#ddlWidth option:selected").val(),
                 x: $("#ddlxAxis option:selected").val(),
+                x2: $("#ddlxAxis2 option:selected").val(),
                 y: $("#ddlyAxis option:selected").val(),
+                y2: $("#ddlyAxis2 option:selected").val(),
                 Desc: $("#ddlSelectGraph option:selected").text(),
+                xCaption: $("#txtxAxis").val(),
+                x2Caption: $("#txtxAxis2").val(),
+                yCaption: $("#txtyAxis").val(),
+                y2Caption: $("#txtyAxis2").val(),
                 Connection: JSON.stringify({ Server: "", User: "", Password: "", Query: $("#txtQuery").val() }),
                 ChartOptions: JSON.stringify(keepChart),
                 xAxisData: JSON.stringify(keepChart.xAxisData),
-                yAxisData: JSON.stringify(keepChart.yAxisData)
+                yAxisData: JSON.stringify(keepChart.yAxisData),
+                xAxisData2: JSON.stringify(keepChart.xAxisData2),
+                yAxisData2: JSON.stringify(keepChart.yAxisData2)
             });
         } else {
 
@@ -416,13 +492,21 @@ $(document).on("click", ".btnSave", function (e) {
                     data.Title = $("#txtTitle").val();
                     data.Width = $("#ddlWidth option:selected").val();
                     data.x = $("#ddlxAxis option:selected").val();
+                    data.x2 = $("#ddlxAxis2 option:selected").val();
                     data.y = $("#ddlyAxis option:selected").val();
+                    data.y2 = $("#ddlyAxis2 option:selected").val();
                     data.Desc = $("#ddlSelectGraph option:selected").text();
                     data.Connection = JSON.stringify({ Server: "", User: "", Password: "", Query: $("#txtQuery").val() });
                     // data.Connection = { Server: $("#txtServer").val(), User: $("#txtUserName").val(), Password: $("#txtPassword").val(), Query: $("#txtQuery").val() };
                     data.ChartOptions = JSON.stringify(keepChart);
+                    data.xCaption= $("#txtxAxis").val(),
+                        data.x2Caption = $("#txtxAxis2").val(),
+                        data.yCaption =$("#txtyAxis").val(),
+                        data.y2Caption = $("#txtyAxis2").val();
                     data.xAxisData = JSON.stringify(keepChart.xAxisData);
                     data.yAxisData = JSON.stringify(keepChart.yAxisData);
+                    data.xAxisData2 = JSON.stringify(keepChart.xAxisData2);
+                    data.yAxisData2 = JSON.stringify(keepChart.yAxisData2);
                    
                 }
 
@@ -431,7 +515,7 @@ $(document).on("click", ".btnSave", function (e) {
 
         }
 
-        DisplayList(keepResult);
+        DisplayListForEdit(keepResult);
 
         editChart = null;
         ClearData();
@@ -445,6 +529,8 @@ alert('Please preview')
 
     }, 1000);
 
+
+    return false;
   
 });
 
@@ -464,7 +550,7 @@ function LoadTemplateList() {
     $.get(mapApi.getServerPath() + chartMgrUrl + "/LoadAllList", function (data) {
 
         $.each(data, function (index, item) {
-            html += ' <li> <a href="#" class="btnEdit" data="' + item.TemplateID+'"><i class="fa fa-bar-chart icon-success"></i> ' + item.Name +' ['+ item.CreateDate+']</a> </li>';
+            html += ' <li> <a href="#" class="btnEdit" data="' + item.TemplateID + '"><i class="fa fa-bar-chart icon-success"></i> ' + item.Name + ' [' + item.CreateDate + ']</a>  <i class="fa fa-trash text-danger btnDelete" data="' + item.TemplateID + '"></i> </li>';
         });
 
         $(".divAllList").append(html);
@@ -478,6 +564,7 @@ $(document).on("click", ".btnSaveTemplate", function (e) {
 
     waitingDialog.show('Waiting for saving template', { dialogSize: 'md', progressType: 'success' });
     keepResult.Name = $("#txtTemplateName").val();
+    keepResult.TemplateType = $("#ddlTemplateType").val();
     var SortNo = 1;
   
 
@@ -492,7 +579,7 @@ $(document).on("click", ".btnSaveTemplate", function (e) {
 
     $.post(mapApi.getServerPath() +chartMgrUrl + "/SaveTempate", keepResult, function (data) {
 
-        alert("Save Template Complate");
+        swal("Save", "Save data complete!", "success");
         LoadTemplateList();
         setTimeout(function () {
 
@@ -507,12 +594,14 @@ $(document).on("click", ".btnSaveTemplate", function (e) {
         }, 1000);
     })
         .fail(function () {
-            alert("error");
+            swal("Save", "Invaid saving data!", "warning");
             waitingDialog.hide()
         })
         .always(function () {
            
-        });;
+        });
+
+    return false;
 });
 
 
@@ -521,23 +610,48 @@ $(document).on("click", ".btnSaveTemplate", function (e) {
 
 $(document).on("click", ".btnPreviewGraph", function (e) {
    // data.filter(d => d.age > 37);
-   
-    
+
     editChart = keepResult.Charts.filter(d => d.No == $(this).attr('data'));
     var connection = JSON.parse(editChart[0].Connection);
     $("#ddlSelectGraph").val(editChart[0].GraphID);
     $("#txtQuery").val(connection.Query);
-   
-    
+
+
+
+    selX = editChart[0].x;
+    selY = editChart[0].y;
+    selX2 = editChart[0].x2;
+    selY2 = editChart[0].y2;
+   // $("#ddlxAxis").val(editChart[0].x);
+   // $("#ddlyAxis").val(editChart[0].y);
+
+    DbManager.GetQuery("",
+        "",
+        "",
+        $('.txtQuery').val(), function (data) {
+
+            DataResult = data;
+            DisplayResult(DataResult);
+            waitingDialog.hide()
+
+       
+  
+
     $("#ddlWidth").val(editChart[0].Width);
 
-    $("#txtTitle").val(editChart[0].Title);
+            $("#txtTitle").val(editChart[0].Title);
+            $("#txtyAxis").val(editChart[0].yCaption);
+            $("#txtxAxis").val(editChart[0].xCaption);
+            $("#txtyAxis2").val(editChart[0].y2Caption);
+            $("#txtxAxis2").val(editChart[0].x2Caption);
+            
 
 
 
     var xAxisData = JSON.parse(editChart[0].xAxisData);
     var yAxisData = JSON.parse(editChart[0].yAxisData);
-
+            var xAxisData2 = JSON.parse(editChart[0].xAxisData2);
+            var yAxisData2 = JSON.parse(editChart[0].yAxisData2);
     $("#ddlSelectGraph").trigger('change');
 
     if ($("#ddlSelectGraph option:selected").val() == '4') {
@@ -551,7 +665,7 @@ $(document).on("click", ".btnPreviewGraph", function (e) {
         $("#divPreviewBody").empty();
         var html = "";
         for (var i = 0; i < xAxisData.length; i++) {
-            html += ChartType[3].Option.ConvertToHTML(yAxisData[i], xAxisData[i], $("#ddlWidth option:selected").val());
+            html += ChartType[3].Option.ConvertToHTML(yAxisData[i], xAxisData[i],null, $("#ddlWidth option:selected").val());
 
         }
 
@@ -573,9 +687,6 @@ $(document).on("click", ".btnPreviewGraph", function (e) {
 
                 DataResult = data;
                 DisplayResult(DataResult);
-
-                 $("#ddlxAxis").val(editChart[0].x);
-                $("#ddlyAxis").val(editChart[0].y);
                 waitingDialog.hide()
 
             });
@@ -593,12 +704,28 @@ $(document).on("click", ".btnPreviewGraph", function (e) {
                     keepChart = ChartType[0].Option;
                     keepChart.xAxis[0].data = xAxisData;
                     keepChart.series[0].data = yAxisData;
+                    keepChart.series[0].name = $("#txtyAxis").val();
+                    if ($("#ddlyAxis2").val() != "") {
+                        keepChart.series[1].name = $("#txtyAxis2").val();
+                        keepChart.series[1].data = yAxisData2;
+                    } else {
+                        keepChart.series[1].name = "";
+                        keepChart.series[1].data = null;
+                    }
+                
 
                 } else {
                     keepChart = ChartType[1].Option;
                     keepChart.yAxis[0].data = yAxisData;
                     keepChart.series[0].data = xAxisData;
-
+                    keepChart.series[0].name = $("#txtxAxis").val();;
+                    if ($("#ddlxAxis2").val() != "") {
+                        keepChart.series[1].name = $("#txtxAxis2").val();;
+                        keepChart.series[1].data = xAxisData2;
+                    } else {
+                        keepChart.series[1].name = "";
+                        keepChart.series[1].data = null;
+                    }
 
                 }
 
@@ -634,6 +761,19 @@ $(document).on("click", ".btnPreviewGraph", function (e) {
                     $("#lblyAxis").text('Value');
                 }, 400);
                 break;
+
+
+
+                DbManager.GetQuery("",
+                    "",
+                    "",
+                    $('.txtQuery').val(), function (data) {
+
+                        DataResult = data;
+                        DisplayResult(DataResult);
+                        waitingDialog.hide()
+
+                    });
         }
 
 
@@ -643,7 +783,11 @@ $(document).on("click", ".btnPreviewGraph", function (e) {
 
         // keepChart = JSON.parse(editChart[0].ChartOptions);
         LoadChart(keepChart, document.getElementById('divPreviewBody'))
-    }
+            }
+
+        });
+
+    return false;
 });
 
 
@@ -670,13 +814,24 @@ function DisplayResult(dataResult)
     
     $("#ddlxAxis").empty();
     $("#ddlyAxis").empty();
+    $("#ddlxAxis2").empty();
+    $("#ddlyAxis2").empty();
     $("#ddlxAxis").append("<option value=''>กรุณาเลือก</option>");
     $("#ddlyAxis").append("<option value=''>กรุณาเลือก</option>");
+    $("#ddlxAxis2").append("<option value=''>กรุณาเลือก</option>");
+    $("#ddlyAxis2").append("<option value=''>กรุณาเลือก</option>");
+
     for (var key in columnsIn) {
         $("#ddlxAxis").append("<option value='" + key + "'>" + key + "</option>");
+        $("#ddlxAxis2").append("<option value='" + key + "'>" + key + "</option>");
         $("#ddlyAxis").append("<option value='" + key + "'>" + key + "</option>");
+        $("#ddlyAxis2").append("<option value='" + key + "'>" + key + "</option>");
     }
 
+    $("#ddlxAxis").val(selX);
+    $("#ddlyAxis").val(selY);
+    $("#ddlxAxis2").val(selX2);
+    $("#ddlyAxis2").val(selY2);
 
     $('.divResult').empty();
 
@@ -760,13 +915,13 @@ function DisplayDatabase(Database) {
 
     $.each(Database, function (index, dbObj) {
         html += '<li class="br-menu-item">'
-        html += '<a id="top" class="toggle br-menu-link " href="javascript:void(0);"><i class="fa fa-database icon-gold"></i>' + dbObj.Database + '</a>'
+        html += '<a id="top" class="toggle br-menu-link " href="javascript:void(0);"><i class="fa fa-database icon-gold"></i> ' + dbObj.Database + '</a>'
         html += '<ol class="br-menu-sub">'
         $.each(dbObj.Tables, function (index, tableObj) {
-            html += '<li class="sub-item"><a  class="toggle" href="javascript:void(0);"><i class="fa fa-table icon-info"></i>' + tableObj.Table + '</a>'
+            html += '<li class="sub-item"><a  class="toggle" href="javascript:void(0);"><i class="fa fa-table icon-info"></i> ' + tableObj.Table + '</a>'
             html += '<ol class="br-menu-sub">'
             $.each(tableObj.Columns, function (index, columnObj) {
-                html += '<li><a class="btnSelectColumn "  href="javascript:void(0);" database="' + columnObj.Database + '" table="' + columnObj.Table + '" column="' + columnObj.Column +'"><i class="fa fa-list-alt icon-success"></i>' + columnObj.Column + '</a></li>'
+                html += '<li><a class="btnSelectColumn "  href="javascript:void(0);" database="' + columnObj.Database + '" table="' + columnObj.Table + '" column="' + columnObj.Column +'"><i class="fa fa-list-alt icon-success"></i> ' + columnObj.Column + '</a></li>'
             })
                 html += ' </ol>'
             html += '</li>'

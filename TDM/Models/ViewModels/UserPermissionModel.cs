@@ -35,9 +35,19 @@ namespace TDM.Models.ViewModels
         public List<UserPermissionMenuModel> subMenuList { get; set; }
     }
 
+    public class PeriodModel
+    {
+        //ID,YEARSTART,YEAREND,PERIODS_NAME,Use_flag 
+        public string ID { get; set; }
+        public string YEARSTART { get; set; }
+        public string YEAREND { get; set; }
+        public string PERIODS_NAME { get; set; }
+        public string Use_flag { get; set; }
+    }
 
-  
 
 
 
-}
+
+
+    }

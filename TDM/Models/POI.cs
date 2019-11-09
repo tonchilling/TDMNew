@@ -39,8 +39,8 @@ namespace TDM.Models
     {
         All = 0,
         Land = 1,
-        Condo = 2,
-        Building = 3
+        Condo = 3,
+        Building = 2
 
     }
 
@@ -91,6 +91,8 @@ namespace TDM.Models
     {
         public string Name { get; set; }
         public string Value { get; set; }
+        public string CreateDate { get; set; }
+        public string Type { get; set; }
     }
 
 
@@ -103,7 +105,7 @@ namespace TDM.Models
     }
 
     public class ProjectImpactShapeSearch {
-      
+
         public int PageNo { get; set; }
         public int ProjectImpactID { get; set; }
         public int Buffer { get; set; }
@@ -332,6 +334,15 @@ namespace TDM.Models
     {
         public List<MapMenu3> MapInfoList { get; set; }
         public List<DataMenu3> DataList { get; set; }
+        public LandSalePriceMenu ChartData { get; set; }
+    }
+
+    public class LandSalePriceMenu {
+        public List<string> ProvinceList { get; set; }
+        public List<decimal> Q1List { get; set; }
+        public List<decimal> Q2List { get; set; }
+        public List<decimal> Q3List { get; set; }
+        public List<decimal> Q4List { get; set; }
     }
 
     public partial class MapMenu3

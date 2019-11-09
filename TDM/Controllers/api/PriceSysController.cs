@@ -60,10 +60,14 @@ namespace TDM.Controllers.api
             if (searchDto.costEstUnitType == "2") // ราคาซื้อขาย
             {
                 estimateData = repos.GetPrice(searchDto);
-                  estimateData = estimateData.Where(o => (Converting.ToDecimal(o.MarketWAHPrice) >= Converting.ToDecimal(searchDto.costEstMin) && Converting.ToDecimal(o.MarketWAHPrice) <= Converting.ToDecimal(searchDto.costEstMax))).ToList();
+                  estimateData = estimateData.Where(o => (Converting.ToDecimal(o.MarketWAHPrice) >= Converting.ToDecimal(searchDto.costEstMin) 
+                                      && Converting.ToDecimal(o.MarketWAHPrice) <= Converting.ToDecimal(searchDto.costEstMax)))
+                                      .OrderByDescending(x=> Converting.ToDecimal(x.MarketWAHPriceMax)).ToList();
             }
             else {
-                estimateData = repos.GetPrice(searchDto).Where(o => (Converting.ToDecimal(o.ParcelWAHPrice) >= Converting.ToDecimal(searchDto.costEstMin) && Converting.ToDecimal(o.ParcelWAHPrice) <= Converting.ToDecimal(searchDto.costEstMax))).ToList();
+                estimateData = repos.GetPrice(searchDto).Where(o => (Converting.ToDecimal(o.ParcelWAHPrice) >= Converting.ToDecimal(searchDto.costEstMin) 
+                    && Converting.ToDecimal(o.ParcelWAHPrice) <= Converting.ToDecimal(searchDto.costEstMax)))
+                      .OrderByDescending(x => Converting.ToDecimal(x.ParcelWAHPriceMax)).ToList();
             }
            
 

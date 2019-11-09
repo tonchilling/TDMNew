@@ -2,280 +2,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="Keywords" content="กรมธนารักษ์">
-    <meta name="Description" content=" กรมธนารักษ์">
-    <title>กรมธนารักษ์</title>
 
-    @{
-        ViewBag.Title = "รายงานการซื้อขายจดทะเบียนที่ดิน";
-
-        List<int>
-   RegisterYearList = (List<int>
-   )ViewData["RegisterYear"];
-    }
 
     @section Scripts {
-        @Scripts.Render("~/assets/css/customize.css?v113")
-        @Scripts.Render("~/assets/css/Kim_Style.css?V=1.2")
+
     }
 
-    <script src="~/Scripts/waiting.js?ver=1.0220"></script>
-
-  
-    <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
-
-    <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-
-    <!-- CORE CSS FRAMEWORK - START -->
-    <link href="~/assets/css/BI/bootstrap.min.css?ver=1.3330" rel="stylesheet" />
-
-    <link href="~/assets/css/BI/pace-theme-flash.css" rel="stylesheet" />
-    <link href="~/assets/css/BI/bootstrap-theme.min.css" rel="stylesheet" />
-    <!-- CORE CSS FRAMEWORK - END -->
-    <!-- CORE CSS TEMPLATE - START -->
-    <link href="~/assets/css/BI/animate.min.css" rel="stylesheet" />
-    <link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
-    <link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
 
 
 
-    <!-- CORE CSS TEMPLATE - END -->
-    <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
-
-
-    <!-- Bootstrap -->
-    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/assets/js/jquery-ui.js"></script>
-    <script src="~/assets/js/bootstrap-select.min.js?33"></script>
-
-<style>
-
-    .panel .panel-heading {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        position: relative;
-        line-height: 1;
-        border-bottom: 1px solid #eaeff2;
-        background-color: #f8f9fa;
-    }
-
-        .panel .panel-heading .panel-title {
-            display: inline-block;
-            vertical-align: middle;
-            *vertical-align: auto;
-            *zoom: 1;
-            *display: inline;
-            margin: 0;
-            font-size: 14px;
-            font-weight: 500;
-            color: #717d84;
-        }
-</style>
 
 
 </head>
-<body class="nav-md">
 
-    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
-    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
 
-    <section id="main-content">
-        <section id="menulist">
-            <div class="content-heading bg-white">
 
-                <div class="row">
-                    <div class="col-sm-12 divTitle">
-                        <!-- Header -->
-                        <div class="row ">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <h3 class=" text-center  text-info">รายงานการซื้อขายจดทะเบียนที่ดิน</i></h3>
-                            </div>
-                        </div>
+
+
+
+
+<section id="menulist">
+    <div class="content-heading bg-white">
+
+        <div class="row">
+            <div class="col-sm-12 divTitle">
+                <!-- Header -->
+                <div class="row ">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h3 class=" text-center  text-info">รายงานการซื้อขายจดทะเบียนที่ดิน</i></h3>
                     </div>
-
                 </div>
             </div>
 
-        </section>
+        </div>
+    </div>
 
-        <section class="wrapper main-wrapper row" style=''>
+</section>
 
 
-
-
-            <div class="row">
+<div class="row" style="padding-top:10px">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="panel with-nav-tabs panel-primary">
+            <div class="panel-body">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="panel with-nav-tabs panel-primary">
-                        <div class="panel-body">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="x_panel tile" style="border:none;padding:0;">
-                                    <div class="x_content">
+                    <div class="x_panel tile" style="border:none;padding:0;">
+                        <div class="x_content">
 
 
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div class="panel panel-primary">
-                                                    <div class="panel-heading">
-                                                        <div class="row">
-                                                            <div class="col-xs-6">
-                                                                <h3 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="panel-body">
-
-                                                        <div class="row ">
-                                                            <div class="col-sm-6 col-xs-12" style="padding:0px">
-                                                                <div class="row  funkyradio">
-                                                                    <div class="col-sm-12 col-xs-12">
-                                                                        <b>เลือกภาค/คลัสเตอร์</b>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row  funkyradio">
-                                                                    <div class="col-sm-6 col-xs-12">
-
-                                                                        <div class="funkyradio-success">
-                                                                            <input type="radio" name="Type1" id="rdRegion" checked />
-                                                                            <label for="rdRegion">ภาค</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-6 col-xs-12">
-                                                                        <div class="funkyradio-primary">
-                                                                            <input type="radio" name="Type1" id="rdCluster" />
-                                                                            <label for="rdCluster">คลัสเตอร์</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-3 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <span>&nbsp;</span>
-                                                                    <select class="form-control form-control-lg" name="ddlYear" id="ddlYear" required>
-                                                                        <option value="">เลือกปี</option>
-                                                                        @foreach (var item in RegisterYearList.OrderByDescending(o=>o))
-                                                                        {
-                                                                            <option value="@item">@item.ToString("##00")</option>
-
-                                                                        }
 
 
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-6 col-xs-12 pnlRegion">
+                            <div class="row">
 
-                                                                <div class="form-group">
-                                                                    <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
-                                                                        <option value="">เลือกภาค</option>
-                                                                        <option value="1">ภาคกลาง</option>
-                                                                        <option value="2">ตะวันตก</option>
-                                                                        <option value="3">เหนือ</option>
-                                                                        <option value="4">ตะวันออกเฉียงเหนือ</option>
-                                                                        <option value="5">ใต้</option>
-                                                                        <option value="6">ตะวันออก</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-
-                                                                    <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
-                                                                        <option value="">เลือกจังหวัด</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="row">
-
-
-                                                            <div class="col-sm-6 col-xs-12 divTab1">
-                                                                <div class="form-group">
-
-                                                                    <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
-                                                                        <option value="">เลือกอำภอ</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-6  col-xs-12 divTab1">
-                                                                <div class="form-group">
-
-                                                                    <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
-                                                                        <option value="">เลือกตำบล</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-sm-1 col-xs-6 col-sm-offset-5">
-                                                                <button class="form-control btn btn-primary btnSearch">ค้นหา</button>
-                                                            </div>
-                                                            <div class="col-sm-1 col-xs-6">
-
-                                                                <button class="form-control btn btn-default">ยกเลิก</button>
-                                                            </div>
-
-                                                        </div>
-
-
-                                                    </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h3 class="headerwhite">ภาพรวมจำนวนแปลง</h3>
+                                            </div>
+                                            <div class="panel-body center">
+                                                <div class="alert alert-danger col-sm-5">
+                                                    <h3>จำนวนแปลงแบ่งแยกใหม่ (แปลง)</h3>
+                                                    <h2 class="right lbNewRegLand">-</h2>
+                                                </div>
+                                                <div class="col-sm-1"></div>
+                                                <div class="alert alert-primary col-sm-6">
+                                                    <h3>จำนวนแปลงที่มีการซื้อขายจดทะเบียน (แปลง)</h3>
+                                                    <h2 class="right lbRegLand">-</h2>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <div class="row">
+                            </div>
 
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="panel panel-primary">
-                                                        <div class="panel-heading">
-                                                            <h3 class="headerwhite">ภาพรวมจำนวนแปลง</h3>
-                                                        </div>
-                                                        <div class="panel-body center">
-                                                            <div class="alert alert-2 col-sm-6" style="background-color:#c41019;color:#fff;display:inline-block;">
-                                                                <h3>จำนวนแปลงแบ่งแยกใหม่ (แปลง)</h3>
-                                                                <h2 class="right lbNewRegLand">-</h2>
-                                                            </div>
-                                                            <div class="alert alert-3 col-sm-6" style="background-color:#19527d;color:#fff;display:inline-block;">
-                                                                <h3>จำนวนแปลงที่มีการซื้อขายจดทะเบียน (แปลง)</h3>
-                                                                <h2 class="right lbRegLand">-</h2>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                            <div class="row">
 
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="headerwhite">จำนวนแปลงในแต่ละเดือน</h3>
                                         </div>
+                                        <div class="panel-body " style="padding:10px">
 
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div class="panel panel-primary">
-                                                    <div class="panel-heading">
-                                                        <h3 class="headerwhite">จำนวนแปลงในแต่ละเดือน</h3>
-                                                    </div>
-                                                    <div class="panel-body chartBarNormal center" style="padding:10px">
-                                                        <div id="graph1" class="col-sm-10 col-sm-offset-1" style="height:100%;"></div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="chartBarNormal chart-container">
+                                                        <div id="graph1" style="height:350px;"></div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div class="panel panel-primary">
-                                                    <div class="panel-heading">
-                                                        <h3 class="headerwhite">จำนวนแปลงสะสมในแต่ละเดือน</h3>
-                                                    </div>
-                                                    <div class="panel-body chartBarNormal  ">
-                                                        <div id="graph2" class="col-sm-10 col-sm-offset-1" style="height:100%;"></div>
+                                            </div> <!-- End .row -->
 
-                                                    </div>
-                                                </div>
-                                            </div>
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="headerwhite">จำนวนแปลงสะสมในแต่ละเดือน</h3>
+                                        </div>
+                                        <div class="panel-body chartBarNormal chart-container  ">
+                                            <div id="graph2"  style="height:350px;"></div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -284,23 +114,34 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
 
 
-        </section>
-    </section>
-</body>
 
-<script src="~/assets/BI/pace.min.js"></script>
-<script src="~/assets/BI/viewportchecker.js"></script>
-<script src="~/assets/BI/jquery-jvectormap-2.0.1.min.js"></script>
-<script src="~/assets/BI/jquery-jvectormap-world-mill-en.js"></script>
-<script src="~/assets/BI/dashboard.js"></script>
-<script src="~/assets/BI/echarts-custom-for-dashboard.js"></script>
 
-<script src="~/assets/BI/perfect-scrollbar.min.js"></script>
-<script src="~/assets/BI/Script.js?ver=1.2233d42"></script>
-<script src="~/Scripts/Home/Menu1.js?ver=1.ssdd333rrrd"></script>
+
+<script>
+
+     var currentYear = @DateTime.Now.Year
+
+    $(document).on("click", ".blockSearch", function () {
+
+        if (IsMobile()) {
+            openNavR('60%');
+        }
+        else {
+            openNavR('40%');
+        }
+
+    });
+
+
+</script>
+
+<script src="~/Scripts/Home/Menu1.js?ver=1.9999"></script>
 </html>
 
 

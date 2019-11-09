@@ -14,6 +14,8 @@ var SectionAmphure = [];
 
 var SectionTumbol = [];
 
+chartList = [];
+
 var regionObj = {
     "data": [
         { "name": "เลือกภาค", "value": "" },
@@ -126,6 +128,8 @@ var land_chart1_chanod = {
 };
 
 
+
+
 /*"Data": [
     { "name": "11101", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งมหาเมฆ", "TumbolCode": "1", "ChanodeNo": "11101", "MaxPrice": "160,000", "MinPrice": "100,000" },
     { "name": "11102", "RegionCode": "1", "Region": "ภาคกลาง", "ProvinceCode": "1", "Province": "กรุงเทพ", "Amphure": "สาธร", "AmphureCode": "1", "Tumbol": "ทุ่งมหาเมฆ", "TumbolCode": "1", "ChanodeNo": "11102", "MaxPrice": "150,000", "MinPrice": "60,000" },
@@ -136,8 +140,16 @@ var land_chart1_chanod = {
 ]*/
 
 
+var sectionClass = ["text-info", "text-danger", "text-success", "text-warning"];
+$('#ddlProvince1').selectpicker({
+    liveSearch: true,
+    size: 10,
+});
 
-
+$('#ddlProvince2').selectpicker({
+    liveSearch: true,
+    size: 10,
+});
 
 var mapApi = {
     getServerPath: function () {
@@ -233,22 +245,23 @@ $(document).ready(function () {
    
 
     initialData();
-    CMPLTADMIN_SETTINGS.windowBasedLayout();
+    CMPLTADMIN_SETTINGS.sectionBoxActions();
+    /*CMPLTADMIN_SETTINGS.windowBasedLayout();
      CMPLTADMIN_SETTINGS.mainMenu();
      CMPLTADMIN_SETTINGS.mainmenuCollapsed();
      CMPLTADMIN_SETTINGS.mainmenuScroll();
     CMPLTADMIN_SETTINGS.sectionBoxActions();
-   /* LoadChart1();
+   LoadChart1();
     LoadChart2();
     LoadChart3();
     LoadChartCondo1();
     LoadChartCondo2();
     LoadChartCondo3();
-    LoadChartBuilding1();*/
+    LoadChartBuilding1();
     CMPLTADMIN_SETTINGS.chatAPI();
     CMPLTADMIN_SETTINGS.chatApiScroll();
     CMPLTADMIN_SETTINGS.chatApiWindow();
-    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();
+    CMPLTADMIN_SETTINGS.breadcrumbAutoHidden();*/
 
 });
 
@@ -261,6 +274,17 @@ $(document).on("click", ".btnLand", function () {
     $("#ddlAmphure").val('');
     $("#ddlTumbol").val('');
 
+    $.each(sectionClass, function (i, v) {
+        $("#lblSection").removeClass(v);
+    });
+
+    $(".btnSearchBuiding").invisible();
+    setTimeout(function () {
+        $("#lblSection").text('ที่ดิน');
+        $("#lblSection").addClass(sectionClass[0]);
+
+
+    },1000);
 
 
     $("#ddlType1").val([1]).selectpicker('refresh').trigger('change');
@@ -280,6 +304,20 @@ $(document).on("click", ".btnCondo", function () {
     $("#ddlAmphure").val('');
     $("#ddlTumbol").val('');
     tabSelect = 2;
+
+    $(".btnSearchBuiding").invisible();
+    $.each(sectionClass, function (i, v) {
+        $("#lblSection").removeClass(v);
+    });
+
+    setTimeout(function () {
+        $("#lblSection").text('อาคารชุด');
+        $("#lblSection").addClass(sectionClass[1]);
+
+
+    }, 1000);
+
+
     selectLocationLevel = 0;
     LoadData(0, '');
     //   LoadSection(types)
@@ -292,7 +330,25 @@ $(document).on("click", ".btnBuilding", function () {
 
 
     tabSelect = 3;
+
+    $(".btnSearchBuiding").visible();
+
+    $.each(sectionClass, function (i, v) {
+        $("#lblSection").removeClass(v);
+    });
+
+    setTimeout(function () {
+        $("#lblSection").text('สิ่งปลูกสร้าง');
+        $("#lblSection").addClass(sectionClass[2]);
+
+
+    }, 1000);
+
+
+   
     selectLocationLevel = 0;
+
+    ReLoadAddress($("#ddlRegion").val());
     LoadData(0, '');
   ////  $("#ddlAmphure").invisible();
    // $("#ddlTumbol").invisible();
@@ -308,9 +364,21 @@ $(document).on("click", ".btnGov", function () {
     $("#ddlTumbol").val('');
    // $("#ddlAmphure").invisible();
    // $("#ddlTumbol").invisible();
-  
+    $(".btnSearchBuiding").invisible();
+    $.each(sectionClass, function (i, v) {
+        $("#lblSection").removeClass(v);
+    });
+
+    setTimeout(function () {
+        $("#lblSection").text('พื้นที่โครงการรัฐ');
+        $("#lblSection").addClass(sectionClass[3]);
+
+
+    }, 1000);
+
     tabSelect = 4;
     selectLocationLevel = 0;
+  
     LoadData(0, '');
 
   
@@ -404,7 +472,7 @@ function LoadData(locationLevel,code) {
     var constructionType = $('#ddlConstructionType').val();
     var objSearch = {};
 
-
+    if(!IsMobile())
     waitingDialog.show('Waiting for loading data', { dialogSize: 'md', progressType: 'success' });
 
 
@@ -439,11 +507,16 @@ function LoadData(locationLevel,code) {
 
             break;
         case 2:
+
+
             subMenu += '<a class="btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</a> > ';
             subMenu += '<a class="btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</a>';
             menuBar += '<li class=" ' + GetLocationColorOfTab(tabSelect) +' "><a href="#i9" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</h4></a></li>';
-            menuBar += '<li class=" ' + GetLocationColorOfTab(tabSelect) +'  opacity"><a href="#i9" class="level2" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h4></a></li>';
-           // $('.divView').append("<h4><span class='text-lg btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</h4> > <h4 class='btnProvince' data='" + $("#ddlProvince").val() + "'> " + $("#ddlProvince option:selected").text() + "</h4> </p>");
+
+            if (tabSelect != 3) {
+                menuBar += '<li class=" ' + GetLocationColorOfTab(tabSelect) + '  opacity"><a href="#i9" class="level2" data-toggle="tab" aria-expanded="true"><h3 class="text-lg btnProvince"  data="' + $("#ddlProvince").val() + '">' + $("#ddlProvince option:selected").text() + '</h4></a></li>';
+
+            }// $('.divView').append("<h4><span class='text-lg btnRegion' data='" + $("#ddlRegion").val() + "'>" + $("#ddlRegion option:selected").text() + "</h4> > <h4 class='btnProvince' data='" + $("#ddlProvince").val() + "'> " + $("#ddlProvince option:selected").text() + "</h4> </p>");
             break;
         case 3:
             subMenu += '<a class="btnRegion"  data="' + $("#ddlRegion").val() + '">' + $("#ddlRegion option:selected").text() + '</a> > ';
@@ -529,6 +602,7 @@ function LoadData(locationLevel,code) {
             data: JSON.stringify(objSearch),
             success: function (data) {
 
+                chartList = [];
                 if (data != null && data.EstimateData != null) {
                     resultAll = data;
                     DisplayDataSection1 = data.EstimateData;
@@ -564,7 +638,7 @@ function LoadData(locationLevel,code) {
                     LoadGovernment(resultAll);
                 }
 
-                // $('body').pleaseWait("stop");
+                if (!IsMobile())
                 waitingDialog.hide();
             },
             error: function (response) {
@@ -629,11 +703,28 @@ function LoadConstructionType() {
         success: function (data) {
             if (data != null) {
                 if (data != null && data.length > 0) {
-
+                    var tempValue = 0;
                     $.each(data, function (index, obj) {
-                        $("#ddlConstructionType").append("<option value='" + obj.Value + "'>" + obj.Name + "</option>");
+                        if (obj.Value % 100 == 0 && (tempValue != obj.Value || tempValue == 0)) {
+                            tempValue = obj.Value;
+                           
+                            $("#ddlConstructionType").append(' <optgroup  label="' + obj.Name + '">');
+
+                        } else if (obj.Value % 100 == 0 && tempValue != obj.Value) {
+                            tempValue = obj.Value;
+                            $("#ddlConstructionType").append('</optgroup>');
+                        }            
+                            else {
+                            $("#ddlConstructionType").append("<option value='" + obj.Value + "'>   &nbsp;&nbsp;&nbsp;" + obj.Name + "</option>");
+                     }
+                        
                     });
                 }
+               /* $("#ddlConstructionType").select2({
+                    placeholder: "Select a State",
+                    allowClear: true
+                });*/
+              
             }
         }
     });
@@ -690,7 +781,7 @@ function LoadChartCondo_Section1(locationLevel, code) {
     {
         objQuery = land_chart1_chanod;
         $.each(SectionChanod.Data, function (index, item) {
-            html += '<div class="card2 p-3 align-center col-12 col-md-6 col-lg-2">';
+            html += '<div class="card2 p-3 align-center">';
             html += '<div class="panel-item">';
             html += '<div class="icon-wrap ">';
             html += '<span class="fa fa-bar-chart "></span>';
@@ -795,6 +886,7 @@ function SearchAll(sectionTypeTemp, codeTemp) {
             LoadChartLand(DisplayDataSection1,chartData);
 
 
+
          
 
 
@@ -869,7 +961,7 @@ function LoadSection1View(data) {
                 $("#ddlCondo").append(`<option value="${row.Code}">${row.Name}</option>`);
             });
             if (selectValue != "" && selectValue != "0")
-                $("#ddlLand").val(selectValue);
+                $("#ddlCondo").val(selectValue);
 
         }
 
@@ -1089,19 +1181,20 @@ function LoadChartLand(ObjData,chartData) {
        
     }
 
-    html += '<div class="row">'
-    html += '<div class="col-xs-12">'
+  //  html += '<div class="row">'
+   // html += '<div class="col-xs-12">'
     html += '<table class="tblBoxSection1">';
     html += '<tr>';
    //ObjData
-   
+
+    chartList = [];
     $.each(ObjData, function (index, item) {
         /*if (count > 3) {
 
             return;
         } else {*/
 
-            html += '<td width="400px"><div class=" text-white  mb-3 box400 zoom">';
+            html += '<td><div class=" text-white  mb-3 zoom">';
        
             html += '<div class="card cardBI text-white bg-info mb-3">'
             html += '<div class="card-header   ' + btnSelect + '" data="' + item.DisplayCode + '">' + item.DisplayName + '</div>'
@@ -1176,8 +1269,8 @@ function LoadChartLand(ObjData,chartData) {
     });
     html += '</tr>';
     html += '</table>';
-    html += '</div>'
-    html += '</div>'
+   // html += '</div>'
+   // html += '</div>'
    
     $(".divLand .divSection1").append(html);
 
@@ -1261,13 +1354,7 @@ function LoadChartLand(ObjData,chartData) {
             },
             tooltip: {
                 trigger: 'item',
-                formatter: function (params) {
-                    var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
-                    let rez = '<p>' + params.name + ' : ' + formatCurrency(params.value) + '</p>';
-
-
-                    return rez;
-                }        
+                formatter: tooltripPieFormat   
             },
             legend: {
                 orient: 'vertical',
@@ -1307,10 +1394,21 @@ function LoadChartLand(ObjData,chartData) {
                     data: chartData.Value,
                     itemStyle: {
                         normal: {
-                            label: {
-                                show: false
-                            }
+                    label: {
+                        show: true,
+                        position: 'outside',
+                        color: '#000',
+                        fontFamily:'',
+                        formatter: function (params) {
+                            return  numeral(params.value).format('0.0a');
                         }
+                            },
+                            color: function (params) {
+                                return colorList[params.dataIndex]
+                                // return colorList[params.dataIndex]
+                            }
+
+                }
                     }
                 }
             ],
@@ -1327,13 +1425,7 @@ function LoadChartLand(ObjData,chartData) {
             },
             tooltip: {
                 trigger: 'item',
-                formatter: function (params) {
-                    var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
-                    let rez = '<p>' + params.name + ' : ' + formatCurrency(params.value) +'</p>';
-                   
-
-                    return rez;
-                }        
+                formatter: tooltripPieFormat       
               //  formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
             legend: {
@@ -1375,14 +1467,16 @@ function LoadChartLand(ObjData,chartData) {
                     itemStyle: {
                         normal: {
                             label: {
-                                show: false,
-                                style: {
-                                    fontSize: '18px'
-                                },
-                                position: 'top',
-                                formatter: '{b}\{c}'
-                                /*  formatter: '{b}\n{c}'*/
-                            }
+                                show: true,
+                                position: 'outside',
+                                formatter: function (params) {
+                                    return numeral(params.value).format('0.0a');
+                                }
+                            },
+                        color: function (params) {
+                            return colorList[params.dataIndex]
+                            // return colorList[params.dataIndex]
+                        }
                         }
                     }
                 }
@@ -1397,8 +1491,8 @@ function LoadChartLand(ObjData,chartData) {
                 subtext: ''
             },
             color: [
-                "#ff7f50",
-                "#87cefa",
+                "#32cd32",
+                "#6495ed",
                 "#da70d6",
                 "#32cd32",
                 "#6495ed",
@@ -1434,7 +1528,7 @@ function LoadChartLand(ObjData,chartData) {
                 data: ['ราคาประเมิน', 'ราคาซื้อขาย']
             },
             toolbox: {
-                show: false,
+                show: true,
                 feature: {
                     mark: { show: true },
                     dataView: { show: true, readOnly: false },
@@ -1449,6 +1543,16 @@ function LoadChartLand(ObjData,chartData) {
                 {
                     type: 'value',
                     show: true,
+                    splitLine: {
+                        show: true,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
+                        shadowBlur: 10,
+                        lineStyle: {
+                            color: '#ccc',
+                            width: 0.8
+                        },
+                        shadowBlur: 2,
+                    },
                    
                       
                 }
@@ -1471,9 +1575,9 @@ function LoadChartLand(ObjData,chartData) {
                         shadowBlur: 10,
                         lineStyle: {
                             color: '#ccc',
-                            width:2
+                            width: 0.8
                         },
-                        shadowBlur: 10,
+                        shadowBlur: 2,
                     },
                     splitArea: {
                         show: true,
@@ -1499,15 +1603,15 @@ function LoadChartLand(ObjData,chartData) {
                     },
                     itemStyle: {
                         normal: {
-                           
+
                             label: {
-                                show: false,
-                                style: {
-                                    fontSize: '18px'
+                                show: true,
+                                position: 'right',
+                                color: '#000',
+                                formatter: function (params) {
+                                    return numeral(params.value).format('0.0a');
                                 },
-                                position: 'top',
-                                formatter: '{b}\{c}'
-                                /*  formatter: '{b}\n{c}'*/
+                                color: '#000',
                             }
                         }
                     }
@@ -1528,15 +1632,13 @@ function LoadChartLand(ObjData,chartData) {
                         normal: {
                            
                             label: {
-                                show: false,
-                                position: 'top',
-                                style: {
-                                    fontSize: '18px'
-                                },
+                                show: true,
+                                position: 'right',
+                                color:'#000',
                                 formatter: function (params) {
-                                    var val = params.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                    return val;
-                                }
+                                    return numeral(params.value).format('0.0a');
+                                },
+                                color: '#000',
                             }
                         }
                     }
@@ -1544,12 +1646,14 @@ function LoadChartLand(ObjData,chartData) {
             ]
         };
 
-        LoadChart(option1, document.getElementById('chart1'))
-        LoadChart(option2, document.getElementById('chart2'))
+        var chart1 = LoadChart(option1, document.getElementById('chart1'))
 
-        LoadChart(option3, document.getElementById('chart3'))
-
-
+        chartList.push(chart1);
+        var chart2 =  LoadChart(option2, document.getElementById('chart2'))
+        chartList.push(chart2);
+        var chart3 =   LoadChart(option3, document.getElementById('chart3'))
+        chartList.push(chart3);
+        if (!IsMobile())
         waitingDialog.hide();
 
 
@@ -1558,6 +1662,16 @@ function LoadChartLand(ObjData,chartData) {
 
    
 }
+
+$(window).on('resize', function () {
+    if (chartList != null && chartList != undefined) {
+
+        $.each(chartList, function (key, chartItem) {
+            chartItem.resize();
+        });
+
+    }
+});
 
 
 function formatCurrency(data) {
@@ -1601,8 +1715,8 @@ function LoadChartCondo(ObjData, chartData) {
 
     }
 
-    html += '<div class="row">'
-    html += '<div class="col-xs-12">'
+   // html += '<div class="row">'
+  //  html += '<div class="col-xs-12">'
     html += '<table class="tblBoxSection1">';
     html += '<tr>';
 
@@ -1612,7 +1726,7 @@ function LoadChartCondo(ObjData, chartData) {
         html += '<td width="400px"><div class=" text-white  mb-3 box400 zoom">';
 
 
-            html += '<div class="col-lg-3 col-sm-6 col-xs-12">'
+          //  html += '<div class="col-lg-3 col-sm-6 col-xs-12">'
         html += '<div class="card cardBI text-white bg-danger mb-3">'
             html += '<div class="card-header   ' + btnSelect + '" data="' + item.DisplayCode + '">' + item.DisplayName + '</div>'
             html += '<div class="card-body ">'
@@ -1650,7 +1764,7 @@ function LoadChartCondo(ObjData, chartData) {
         html += '</tbody>'
         html += '</table>'
         html += '</div>'
-        html += '</div>'
+       // html += '</div>'
 
         html += '</td>';
 
@@ -1676,8 +1790,8 @@ function LoadChartCondo(ObjData, chartData) {
     });
     html += '</tr>';
     html += '</table>';
-    html += '</div>'
-    html += '</div>'
+   // html += '</div>'
+   // html += '</div>'
     $(".divCondo .divSection1").append(html);
 
     setTimeout(function () {
@@ -1745,7 +1859,7 @@ function LoadChartCondo(ObjData, chartData) {
         $(".divCondo .divSection2").removeClass("m-fadeOut m-fadeIn").addClass("m-fadeIn")
     }, 400);
     $(".divCondo .divSection2").append(html);
-    $(".divCondo .divSection2 table").DataTable();
+    $(".divCondo .divSection2 table").DataTable({"order": [[5, "desc"], [1, "asc"]] });
 
 
     var option = {
@@ -1756,7 +1870,7 @@ function LoadChartCondo(ObjData, chartData) {
         },
         tooltip: {
             trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+            formatter: tooltripPieFormat
         },
         legend: {
             orient: 'vertical',
@@ -1792,7 +1906,7 @@ function LoadChartCondo(ObjData, chartData) {
             },
             formatter: function (params) {
                 var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
-                let rez = '<p>' + params.name + ' : ' + formatCurrency(params.value) + '</p>';
+                let rez = '<p>' + params.name + ' : ' + numeral(params.value).format('0.0a') + '</p>';
 
 
                 return rez;
@@ -1809,10 +1923,19 @@ function LoadChartCondo(ObjData, chartData) {
                 itemStyle: {
                     normal: {
                         label: {
-                            show: false,
-                            position: 'top',
-                            formatter: '{b}\{c}'
-                            /*  formatter: '{b}\n{c}'*/
+                            show: true,
+                            position: 'outside',
+                            formatter: function (params) {
+                                var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
+                                let rez = numeral(params.value).format('0.0a');
+
+
+                                return rez;
+                            }  
+                        },
+                        color: function (params) {
+                            return colorList[params.dataIndex]
+                            // return colorList[params.dataIndex]
                         }
                     }
                 }
@@ -1820,8 +1943,12 @@ function LoadChartCondo(ObjData, chartData) {
         ]
     };
 
-    LoadChart(option, document.getElementById('chartCondo1'))
+  
 
+   
+
+    var chart1 =  LoadChart(option, document.getElementById('chartCondo1'))
+    chartList.push(chart1);
 
 
      labelTop = {
@@ -1910,7 +2037,7 @@ function LoadChartCondo(ObjData, chartData) {
             },
             formatter: function (params) {
                 var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
-                let rez = '<p>' + params.name + ' : ' + formatCurrency(params.value) + '</p>';
+                let rez = numeral(params.value).format('0.0a');
 
 
                 return rez;
@@ -1959,7 +2086,7 @@ function LoadChartCondo(ObjData, chartData) {
             },
             formatter: function (params) {
                 var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
-                let rez = '<p>' + params.name + ' : ' + formatCurrency(params.value) + '</p>';
+                let rez =  numeral(params.value).format('0.0a') ;
 
 
                 return rez;
@@ -1973,6 +2100,16 @@ function LoadChartCondo(ObjData, chartData) {
             {
                 type: 'value',
                 show: true,
+                splitLine: {
+                    show: true,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    shadowBlur: 10,
+                    lineStyle: {
+                        color: '#ccc',
+                        width: 0.8
+                    },
+                    shadowBlur: 2,
+                },
             }
         ],
         yAxis: [
@@ -1992,9 +2129,9 @@ function LoadChartCondo(ObjData, chartData) {
                     shadowBlur: 10,
                     lineStyle: {
                         color: '#ccc',
-                        width: 2
+                        width: 0.8
                     },
-                    shadowBlur: 10,
+                    shadowBlur: 2,
                 },
                 splitArea: {
                     show: true,
@@ -2026,11 +2163,11 @@ function LoadChartCondo(ObjData, chartData) {
                         color: '#B5C334',
                         
                         label: {
-                            show: false,
-                            position: 'top',
+                            show: true,
+                            position: 'inside',
                             formatter: function (params) {
                                 var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
-                                let rez = '<p>' + params.name + ' : ' + formatCurrency(params.value) + '</p>';
+                                let rez = params.name + ' : ' + numeral(params.value).format('0.0a');
 
 
                                 return rez;
@@ -2042,7 +2179,9 @@ function LoadChartCondo(ObjData, chartData) {
         ]
     };
 
-    LoadChart(option, document.getElementById('chartCondo3'));
+    var chart1= LoadChart(option, document.getElementById('chartCondo3'));
+    chartList.push(chart1);
+    if (!IsMobile())
     waitingDialog.hide();
 
 }
@@ -2100,7 +2239,7 @@ function LoadGovernment(ObjData, chartData) {
                     tableStr += ' </table>';
             $(".divGov .divSection1").append(tableStr);
 
-            $(".divGov .divSection1 table").DataTable({ searching: false, info: false });
+            $(".divGov .divSection1 table").DataTable({ searching: false, info: false, "order": [[2, "desc"], [3, "desc"]] });
                     //   $(".tblInfoSection4").DataTable({ searching: true, info: false });
         }
 
@@ -2114,7 +2253,7 @@ function LoadGovernment(ObjData, chartData) {
             },
             tooltip: {
                 trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                formatter: tooltripPieFormat
             },
             legend: {
                 orient: 'vertical',
@@ -2167,20 +2306,25 @@ function LoadGovernment(ObjData, chartData) {
                     itemStyle: {
                         normal: {
                             label: {
-                                show: false,
-                                position: 'top',
-                                formatter: '{b}\{c}'
-                                /*  formatter: '{b}\n{c}'*/
-                            }
+                                show: true,
+                                position: 'outside',
+                                formatter: function (params) {
+                                    return numeral(params.value).format('0.0a');
+                                }
+                            },
+                        color: function (params) {
+                            return colorList[params.dataIndex]
+                            // return colorList[params.dataIndex]
+                        }
                         }
                     }
                 }
             ]
         };
 
-        LoadChart(option, document.getElementById('ChartGov1'))
+        var chart1=   LoadChart(option, document.getElementById('ChartGov1'))
 
-
+        chartList.push(chart1);
 
          option = {
             title: {
@@ -2190,7 +2334,8 @@ function LoadGovernment(ObjData, chartData) {
             },
             tooltip: {
                 trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
+
+                formatter: tooltripPieFormat
             },
             legend: {
                 orient: 'vertical',
@@ -2224,13 +2369,7 @@ function LoadGovernment(ObjData, chartData) {
                     restore: { show: true },
                     saveAsImage: { show: true }
                 },
-                formatter: function (params) {
-                    var colorSpan = color => '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + color + '"></span>';
-                    let rez = '<p>' + params.name + ' : ' + formatCurrency(params.value) + '</p>';
-
-
-                    return rez;
-                }
+                formatter: tooltripFormat  
             },
             calculable: true,
             series: [
@@ -2243,25 +2382,42 @@ function LoadGovernment(ObjData, chartData) {
                     itemStyle: {
                         normal: {
                             label: {
-                                show: false,
-                                position: 'top',
-                                formatter: '{b}\{c}'
-                                /*  formatter: '{b}\n{c}'*/
-                            }
+                                show: true,
+                                position: 'outside',
+    
+                                formatter: function (params) {
+                                    return numeral(params.value).format('0.0a');
+                                }
+                            },
+                        color: function (params) {
+                            return colorList[params.dataIndex]
+                            // return colorList[params.dataIndex]
+                        }
                         }
                     }
                 }
             ]
         };
 
-        LoadChart(option, document.getElementById('ChartGov2'));
-
+        var chart1= LoadChart(option, document.getElementById('ChartGov2'));
+        chartList.push(chart1);
             }
     
 
    
 }
 
+
+function tooltripFormat (params) {
+    let rez = '<p class="text-light">' + params.name + ' : ' + params.value.toLocaleString() + '</p>';
+    return rez;
+}   
+
+
+function tooltripPieFormat(params) {
+    let rez = '<p class="text-light">' + params.name + ' : ' + params.value.toLocaleString() + '(' + params.percent+'%)' + '</p>';
+    return rez;
+}   
 
 
 function LoadChartBuilding(data, chartData) {
@@ -2360,7 +2516,7 @@ function LoadChartBuilding(data, chartData) {
             x: 'center',
             text: $("#ddlConstructionType option:selected").text() ,
             subtext: 'ราคาประเมิน',
-            link: 'http://echarts.baidu.com/doc/example.html'
+            link: ''
         },
         tooltip: {
             trigger: 'item'
@@ -2386,11 +2542,23 @@ function LoadChartBuilding(data, chartData) {
                 data: chartData.Data,
                 axisLabel: {
                     show: true,
-                    margin: 2,
+                    rotate: 90, 
+                    margin: 8,
+                    fontsize:10,
                     formatter: function (params) {
-                        return params.length > 10 ? params.substring(0, 10) + '..' : params;
+                        return params.replace('จังหวัด','');
                     }
-                }
+                },
+                splitLine: {
+                    show: true,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    shadowBlur: 10,
+                    lineStyle: {
+                        color: '#ccc',
+                        width: 0.8
+                    },
+                    shadowBlur: 2,
+                },
             }
         ],
         yAxis: [
@@ -2400,6 +2568,7 @@ function LoadChartBuilding(data, chartData) {
                 axisLabel: {
                     show: true,
                     margin: 2,
+
                     formatter: function (params) {
                         return params.length > 10 ? params.substring(0, 10) + '..' : params;
                     }
@@ -2410,9 +2579,9 @@ function LoadChartBuilding(data, chartData) {
                     shadowBlur: 10,
                     lineStyle: {
                         color: '#ccc',
-                        width: 2
+                        width: 0.8
                     },
-                    shadowBlur: 10,
+                    shadowBlur: 2,
                 },
                 splitArea: {
                     show: true,
@@ -2441,7 +2610,9 @@ function LoadChartBuilding(data, chartData) {
                         label: {
                             show: true,
                             position: 'top',
-                            formatter: '{c}'
+                            formatter: function (params) {
+                                return numeral(params.value).format('0.0a');
+                            }
                         }
                     }
                 },
@@ -2451,7 +2622,7 @@ function LoadChartBuilding(data, chartData) {
                         trigger: 'item',
                         backgroundColor: 'rgba(0,0,0,0)',
                         formatter: function (params) {
-                            return'';
+                            return numeral(params).format('0.0a');
                         }
                     },
                   
@@ -2460,7 +2631,8 @@ function LoadChartBuilding(data, chartData) {
         ]
     };
 
-    LoadChart(option, document.getElementById('chartBuilding1'))
+    var chart1=  LoadChart(option, document.getElementById('chartBuilding1'))
+    chartList.push(chart1);
 }
 
 
@@ -2470,7 +2642,7 @@ function LoadChart(Option, divChart) {
     var option = Option;
 
  
-    window.onresize = chartLoad.resize;
+ //   window.onresize = chartLoad.resize;
    
    
 
@@ -2482,6 +2654,8 @@ function LoadChart(Option, divChart) {
 
 
     }, 1000);
+
+    return chartLoad;
 }
 
 
@@ -2546,15 +2720,26 @@ function LoadSection(types) {
        
     }
 }
+
+
 function initialData() {
+
+   
 
     $("#ddlType1").val([1]).selectpicker('refresh').trigger('change');
    
     $("#ddlProvince1").selectpicker('refresh').trigger('change');
     $("#ddlProvince2").selectpicker('refresh').trigger('change');
-   
+    setTimeout(function () {
+        $("#lblSection").text('ที่ดิน');
+        $("#lblSection").addClass(sectionClass[0]);
+
+
+    }, 1000);
     var types = $("#ddlType1").val();
 
+    $(".btnSearchBuiding").invisible();
+    
     selectLocationLevel = 0;
     LoadConstructionType();
     LoadAddress();
@@ -2570,7 +2755,22 @@ function initialData() {
 
 
         }
-        });
+    });
+
+
+    $.get(mapApi.getServerPath() + "/Home/GetPeriod", function (data) {
+        if (data != null ) {
+
+            setTimeout(function () {
+                $("#lbPeriod").text(" ( รอบบัญชี  "+data.PERIODS_NAME+" )");
+              //  $(".txtPeriod").val('ที่ดิน');
+                
+
+            }, 2000);
+
+
+        }
+    });
 
 }
 
@@ -2616,6 +2816,7 @@ $(document).on("click", ".btnSearchBuiding", function () {
 
     selectCode = $("#ddlProvince1").val();
 
+   
     if (selectCode != "") {
         selectLocationLevel = 2;
     }
@@ -2636,7 +2837,7 @@ $(document).on("click", ".btnProvince", function () {
     selectCode = $(this).attr('data');
     selectLocationLevel = 2;
     $("#ddlProvince").val($(this).attr('data'))
-
+   
     ReLoadAddress(selectCode);
     LoadData(selectLocationLevel, $(this).attr('data'));
 
@@ -2740,8 +2941,15 @@ function LoadProvice(regionId,provincecode) {
         $('#ddlProvince').empty();
         $('#ddlProvince').append("<option value=''>เลือกจังหวัด</option>");
 
+        if (regionId == "") {
+            $.each(SectionProvince, function (index, province) {
+                $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
+            });
+
+        }
+        
         /// Load by Region Code
-        if (LocationType == "1") {
+        else if (LocationType == "1") {
             $.each(SectionProvince.filter(p => p.RegionCode == regionId), function (index, province) {
                 $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
             });
@@ -2753,23 +2961,35 @@ function LoadProvice(regionId,provincecode) {
                 $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
             });
         }
-
-
-        if (provincecode != null)
-            $('#ddlProvince').val(provincecode);  
-
+        $('#ddlProvince').val(provincecode);  
         var proviceOption1 = $("#ddlProvince option").clone();
 
+        if (provincecode != null) {
 
-        $("#ddlProvince1").empty();
-        $("#ddlProvince1").append(proviceOption1);
-        $("#ddlProvince1").selectpicker('refresh')
+            $("#ddlProvince1").empty();
+            $("#ddlProvince1").append(proviceOption1);
+
+            $("#ddlProvince1").val([provincecode]).selectpicker('refresh');
+
+        }
+        else {
+            $("#ddlProvince1").empty();
+            $("#ddlProvince1").append(proviceOption1);
+            //$("#ddlProvince1").selectpicker('refresh')
 
 
-        var proviceOption2 = $("#ddlProvince option:not([value='" + provincecode + "']):not([value='999999'])").clone();
-        $("#ddlProvince2").empty();
-        $("#ddlProvince2").append(proviceOption2);
-        $("#ddlProvince2").selectpicker('refresh')
+            var proviceOption2 = $("#ddlProvince option:not([value='" + provincecode + "']):not([value='999999'])").clone();
+            $("#ddlProvince2").empty();
+            $("#ddlProvince2").append(proviceOption2);
+            $("#ddlProvince2").selectpicker('refresh')
+
+        }
+          
+
+       
+
+
+      
 
 
     }
@@ -2830,7 +3050,6 @@ $(document).on("change", "#ddlRegion", function () {
 
     $('#ddlProvince').empty();
     $('#ddlProvince1').empty();
-   // $('#ddlProvince2').empty();
     $('#ddlDistrict').empty();
     $('#ddlSubdistrict').empty();
 
@@ -2876,7 +3095,7 @@ $(document).on("change", "#ddlProvince", function (event) {
     var proviceOption1 = $("#ddlProvince option:not([value='" + selectId + "']):not([value='999999'])").clone();
     $("#ddlProvince1").empty();
     $("#ddlProvince1").append(proviceOption1);
-    $("#ddlProvince1").selectpicker('refresh')
+   // $("#ddlProvince1").selectpicker('refresh')
 
 
     if (selectId == '') {
@@ -2993,6 +3212,7 @@ $("#ddlProvince1").change(function (event) {
     var provinceId = $("#ddlProvince1").val();
     var proviceOption1 = $("#ddlProvince1 option:not([value='" + provinceId + "']):not([value='999999'])").clone();
 
+    $("#ddlProvince").val(provinceId);
     $("#ddlProvince2").append(proviceOption1);
     $("#ddlProvince2").selectpicker('refresh');
 
@@ -3143,7 +3363,7 @@ function DisplaySection2SearchRegionCluster(tabid) {
 function LoadCluster() {
     $("#ddlRegion").empty();
 
-    $("#ddlRegion").append("<option value=''>กรุณาเลือก</option>");
+    $("#ddlRegion").append("<option value=''>เลือกครัสเตอร์</option>");
     $.ajax({
         url: mapApi.getServerPath()  + "/api/Address/GetCluster",
         type: "POST",

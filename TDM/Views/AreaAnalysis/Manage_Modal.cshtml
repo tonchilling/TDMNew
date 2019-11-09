@@ -1,13 +1,10 @@
-﻿@model TDM.Models.PROJECT_IMPACT_ViewModel
-
+﻿﻿@model TDM.Models.PROJECT_IMPACT_ViewModel
 
 <div>
-    
+
     <form id="myForm">
         <div class="row">
             <div class="col-md-4 col-sm-4 co-xs-4" style="padding-left: 5px;">
-
-
 
 
                 <div class="row">
@@ -21,41 +18,28 @@
                         @Html.TextBoxFor(model => model.SUBJECT_NAME, new { @class = "col-md-6 col-sm-6 co-xs-6 form-control input__screen-full", @placeholder = "ชื่อโครงการ" })
                     </div>
                 </div>
-
                 <div class="row" style="padding-top: 10px;">
                     <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
                         <div>จังหวัด</div>
-
                         @Html.DropDownListFor(model => model.PROVINCE_ID, new SelectList(Model.PROVINCE, "PRO_C", "ON_PRO_THA"), "เลือกจังหวัด", new { @id = "PROVINCE_ID", @class = "form-control" })
-
                     </div>
-
 
                     <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
                         <div>อำเภอ</div>
-
                         @Html.DropDownListFor(model => model.AMPHOE_ID, new SelectList(Model.AMPHOE, "DIS_C", "ON_DIS_THA"), "เลือกอำเภอ", new { @id = "AMPHOE_ID", @class = "form-control" })
-
                     </div>
-
 
                 </div>
                 <div class="row" style="padding-top: 10px;">
                     <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
                         <div>ตำบล</div>
-
                         @Html.DropDownListFor(model => model.TAMBOL_ID, new SelectList(Model.TAMBOL, "SUB_C", "ON_SUB_THA"), "เลือกตำบล", new { @id = "TAMBOL_ID", @class = "form-control" })
-
                     </div>
                     <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
-
                         <div>บัฟเฟอร์ (กิโลเมตร)</div>
-
                         @Html.TextBoxFor(model => model.Buffer, new { @class = " form-control input__screen-full", @placeholder = "บัฟเฟอร์ (Buffer)", @type = "number" })
                     </div>
-
                 </div>
-
                 <div class="row" style="padding-top: 10px;display:none">
                     <div class="col-md-6 col-sm-6 co-xs-6" style="padding-left: 0px;">
                         <div>ประเภทไฟล์</div>
@@ -74,12 +58,10 @@
                             <option value="3">WGS 1984 UTM Zone47</option>
                             <option value="4">WGS 1984 UTM Zone48</option>
                             <option value="5">Web Mercator</option>
-
                         </select>
                     </div>
                 </div>
-
-                <div class="row" style="padding-top: 10px;display:none" >
+                <div class="row" style="padding-top: 10px;display:none">
                     <div class="col-md-12 col-sm-12 co-xs-12" style="padding-left: 0px;">
                         <div>ไฟล์ข้อมูล</div>
                         <div class="form-group">
@@ -89,12 +71,10 @@
                                     <button class="btn btn-default btn-choose" type="button">Browse..</button>
                                 </span>
 
-
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="row" style="padding-top: 10px; visibility:hidden;position:absolute;">
                     <div class="col-md-12 col-sm-12 co-xs-12">
                         <div>นำเข้าแผนที่</div>
@@ -103,14 +83,13 @@
                 </div>
                 <div class="row" style="padding-top: 10px; visibility:hidden;position:absolute;">
                     <div class="col-md-12 col-sm-12 co-xs-12">
-                        <button type="button" class="btn btn-default"  onclick="activateDraw(_gisIframeWindow)">วาดพื้นที่มีผลกระทบ</button>
+                        <button type="button" class="btn btn-default" onclick="activateDraw(_gisIframeWindow)">วาดพื้นที่มีผลกระทบ</button>
                     </div>
                 </div>
 
-                
                 <div class="row" style="padding-top: 10px; position:absolute;">
                     <div class="col-md-12 col-sm-12 co-xs-12">
-                        
+
                         <!--<div class="clearfix">
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <button type="button" id="btnSubmit" class="btn btn-default" style="width: 150px;" onclick="activateDraw(_gisIframeWindow)">วาดพื้นที่ที่มีผลกระทบ</button>
@@ -121,7 +100,7 @@
                                     <option value="polygon">Polygon</option>
                                     <option value="polyline">Polyline</option>
                                     <option value="point">Point</option>
-                                    
+
                                 </select>
                             </div>
                         </div>-->
@@ -137,13 +116,13 @@
                                         </label>
                                     </div>
                                 </div>
-                                    
+
                             </div>
-                            
+
                         </div>
                         <div class="clearfix">
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
-                                <button type="button" id="btnSubmit" class="btn btn-default" style="width: 150px;" onclick="btnSubmitV2(@Model.ID)">
+                                <button type="button" id="btnSubmit" class="btn btn-success" style="width: 150px;" onclick="btnSubmitV2(@Model.ID)">
                                     <i class="fa fa-save"></i>
                                     @if (Model.ID > 0)
                                     {<span>แก้ไข</span> }
@@ -155,10 +134,9 @@
                                 <button type="button" data-dismiss="modal" class="btn btn-grey-dark" style="width: 150px;"><i class="fa fa-refresh"></i> ยกเลิก</button>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
-                
 
             </div>
             <div class="col-md-8 col-sm-8 co-xs-8" style="padding-left: 5px;">
@@ -171,53 +149,49 @@
                                     <option value="polygon">Polygon</option>
                                     <option value="polyline">Polyline</option>
                                     <option value="point">Point</option>
-
                                 </select>
                             </div>
                             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <button type="button" id="btnSubmit" class="btn btn-default" onclick="activateDraw(_gisIframeWindow)">วาดพื้นที่ที่มีผลกระทบ</button>
+                                <button type="button" id="btnSubmit" class="btn btn-primary" onclick="activateDraw(_gisIframeWindow)">วาดพื้นที่ที่มีผลกระทบ</button>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
-                    <div class="row" >
-                        <div class="col-md-12 col-sm-12 co-xs-12">
-                            <div class="divLand">
-
-                                <iframe class="map-height" id="tdmap" src="https://p-staging.treasury.go.th/TD2" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
-
-                            </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 co-xs-12">
+                        <div class="divLand">
+                            <iframe class="map-height" id="tdmap" src="https://p-staging.treasury.go.th/TD2" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
                         </div>
-                
                     </div>
-            
-        </div>
 
+                </div>
 
-        @*<div class="form-group" id="PublishedCheck">
-            <div class="btn-group" data-toggle="buttons">
-                <label id="publishedYes" class="btn btn-primary active" onclick="checkPublished(true)">
-                    @Html.RadioButtonFor(model => model.IS_PUBLISHED, true, new { name = "IS_PUBLISHED", @Value = true }) เปิดเผย
-                </label>
-                <label id="publishedNo" class="btn btn-primary" onclick="checkPublished(false)">
-                    @Html.RadioButtonFor(model => model.IS_PUBLISHED, false, new { name = "IS_PUBLISHED", @Value = false }) ไม่เปิดเผย
-                </label>
             </div>
-        </div>*@
-        <div id="PublishedDate">
-            <div style="margin-top: 15px;">ระบุวันที่เผยแพร่</div>
-            @Html.TextBoxFor(model => model.PUBLISH_DATE, new { @class = "form-control input__screen-full", @id = "publishDateSet", @placeholder = "ระบุวันที่เผยแพร่", @Value = (Model.ID > 0) ? Model.PUBLISH_DATE : System.DateTime.Now })
-        </div>
-        @Html.HiddenFor(model => model.CREATE_BY, new { @class = "form-control input__screen-full", @placeholder = "สร้างโดย", @Value = "admin" })
-        @Html.HiddenFor(model => model.CREATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่สร้าง", @Value = (Model.ID > 0) ? Model.CREATE_DATE : System.DateTime.Now })
-        @Html.HiddenFor(model => model.UPDATE_BY, new { @class = "form-control input__screen-full", @placeholder = "แก้ไขโดย", @Value = "admin" })
-        @Html.HiddenFor(model => model.UPDATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่แก้ไข", @Value = System.DateTime.Now })
-        @Html.HiddenFor(model => model.IS_DELETED, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @Value = "false" })
-        @Html.HiddenFor(model => model.STATUS_ID, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @id = "StatusID" })
-        @Html.HiddenFor(model => model.Shape, new { @class = "form-control input__screen-full", @placeholder = "", @id = "hddShape" })
+
+            @*<div class="form-group" id="PublishedCheck">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label id="publishedYes" class="btn btn-primary active" onclick="checkPublished(true)">
+                            @Html.RadioButtonFor(model => model.IS_PUBLISHED, true, new { name = "IS_PUBLISHED", @Value = true }) เปิดเผย
+                        </label>
+                        <label id="publishedNo" class="btn btn-primary" onclick="checkPublished(false)">
+                            @Html.RadioButtonFor(model => model.IS_PUBLISHED, false, new { name = "IS_PUBLISHED", @Value = false }) ไม่เปิดเผย
+                        </label>
+                    </div>
+                </div>*@
+            <div id="PublishedDate">
+                <div style="margin-top: 15px;">ระบุวันที่เผยแพร่</div>
+                @Html.TextBoxFor(model => model.PUBLISH_DATE, new { @class = "form-control input__screen-full", @id = "publishDateSet", @placeholder = "ระบุวันที่เผยแพร่", @Value = (Model.ID > 0) ? Model.PUBLISH_DATE : System.DateTime.Now })
+            </div>
+            @Html.HiddenFor(model => model.CREATE_BY, new { @class = "form-control input__screen-full", @placeholder = "สร้างโดย", @Value = "admin" })
+            @Html.HiddenFor(model => model.CREATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่สร้าง", @Value = (Model.ID > 0) ? Model.CREATE_DATE : System.DateTime.Now })
+            @Html.HiddenFor(model => model.UPDATE_BY, new { @class = "form-control input__screen-full", @placeholder = "แก้ไขโดย", @Value = "admin" })
+            @Html.HiddenFor(model => model.UPDATE_DATE, new { @class = "form-control input__screen-full", @placeholder = "วันที่แก้ไข", @Value = System.DateTime.Now })
+            @Html.HiddenFor(model => model.IS_DELETED, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @Value = "false" })
+            @Html.HiddenFor(model => model.STATUS_ID, new { @class = "form-control input__screen-full", @placeholder = "สถานะ", @id = "StatusID" })
+            @Html.HiddenFor(model => model.Shape, new { @class = "form-control input__screen-full", @placeholder = "", @id = "hddShape" })
     </form>
-    
+
     @if (Model.ID > 0)
     {
         <div class="clearfix" style="font-size: 10px; margin-top:20px;">
@@ -228,7 +202,6 @@
         </div>
     }
 </div>
-
 
 <script>
 
@@ -269,7 +242,7 @@
 
 
 
- 
+
 
 
     $.fn.serializeObject = function () {

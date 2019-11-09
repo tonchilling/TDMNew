@@ -188,17 +188,17 @@ namespace TDM.Controllers.api
 
                 if (id == 1)
                 {
-                    cmd.CommandText = $@"select PRO_C,NAME_T FROM province WHERE pro_c IN
+                    cmd.CommandText = $@" select * from (select PRO_C,NAME_T,NAME_T Name  FROM province WHERE pro_c IN
                                     (
                                         SELECT AD_CHANGWA FROM MUNISAN where AD_REGION!='' AND AD_REGION = {id} Group By AD_REGION,AD_CHANGWA
                                     ) 
-                                     union all select PRO_C,NAME_T FROM province WHERE pro_c='10'";
+                                     union all select PRO_C,NAME_T FROM province WHERE pro_c='10' ) pro order by Name asc";
                 }
                 else {
-                    cmd.CommandText = $@"select PRO_C,NAME_T FROM province WHERE pro_c IN
+                    cmd.CommandText = $@" select PRO_C,NAME_T ,NAME_T Name FROM province WHERE pro_c IN
                                     (
                                         SELECT AD_CHANGWA FROM MUNISAN where AD_REGION!='' AND AD_REGION = {id} Group By AD_REGION,AD_CHANGWA
-                                    )";
+                                    ) order by NAME_T";
                 }
 
                 string name = "";
@@ -236,8 +236,9 @@ namespace TDM.Controllers.api
         {
 
             var provinces = GetProvincesByRegionId(id);
-
-            return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.NAME_T.Replace("จ.", "") }).OrderBy(o => o.Name));
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("th-TH");
+            return Json(provinces); 
+           // return Json(provinces.Select(p => new { ID = p.PRO_C, Name = p.NAME_T.Replace("จ.", "") }).OrderBy(o => o.Name, StringComparer.CurrentCulture));
         }
 
         [HttpGet]
@@ -269,7 +270,7 @@ namespace TDM.Controllers.api
                 {
                     ID = id,
                     PriceType = priceType,
-                    Type = SetionType.ProviceByID,
+                    Type = SetionType.Provice,
                     AreaType = areaType,
                     CostEstUnitType = costEstUnitType,
                     CostEstMax = costEstMax,
@@ -350,7 +351,7 @@ namespace TDM.Controllers.api
                 {
                     ID = id,
                     PriceType = priceType,
-                    Type = SetionType.AmphurByID,
+                    Type = SetionType.Amphur,
                     AreaType = areaType,
                     CostEstUnitType = costEstUnitType,
                     CostEstMax = costEstMax,

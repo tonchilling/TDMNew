@@ -26,7 +26,7 @@ namespace TDM.Controllers
         {
           //  string userId = (System.Web.HttpContext.Current.Request != null && System.Web.HttpContext.Current.Request.Form["UserId"]!= null) ? System.Web.HttpContext.Current.Request.Form["UserId"]:"" ;
             repos = new TDAssetRespository();
-            userId = "2";
+           
             if (System.Web.HttpContext.Current.Session["UserPermission"] == null && userId != "")
             {
                 userProfile = repos.GetPermission(userId);

@@ -6,240 +6,184 @@
 
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="Keywords" content="กรมธนารักษ์">
-    <meta name="Description" content=" กรมธนารักษ์">
-    <title>กรมธนารักษ์</title>
+
 
 
     @section Scripts {
-        @Scripts.Render("~/assets/css/customize.css?v1113")
-        @Scripts.Render("~/assets/css/Kim_Style.css?vwwww33333")
+
     }
 
 
-
-    <script src="~/Scripts/waiting.js?ver=1.0220"></script>
-    <link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
-    <!-- <link href="~/assets/css/customize.css" rel="stylesheet" />-->
-    <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
-    <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-
-    <!-- CORE CSS FRAMEWORK - START -->
-    <link href="~/assets/css/BI/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/assets/css/BI/pace-theme-flash.css" rel="stylesheet" />
-    <link href="~/assets/css/BI/bootstrap-theme.min.css" rel="stylesheet" />
-    <!-- CORE CSS FRAMEWORK - END -->
-    <!-- CORE CSS TEMPLATE - START -->
-    <link href="~/assets/css/BI/animate.min.css" rel="stylesheet" />
-    <link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
-    <link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
-
-    <link href="~/assets/css/BI/Style.css?ver=1r233d" rel="stylesheet" />
-
-    <!-- CORE CSS TEMPLATE - END -->
-
     <style type="text/css">
-        .table > tbody > tr.tdDetail > td {
-            padding: 0px;
-            line-height: 0px;
-            height: 0px;
+
+        .fade-scale {
+            transform: scale(0);
+            opacity: 0;
+            -webkit-transition: all .25s linear;
+            -o-transition: all .25s linear;
+            transition: all .25s linear;
         }
 
-        .absolute {
-            position: absolute;
+            .fade-scale.in {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+        .modal-dialog {
+            width: 100%;
+            height: 95%;
+            margin: 0;
+            padding: 0;
+            top:60px;
+            
         }
 
-        .modal-header h3, h4 {
-            height: 40px;
+        .modal-content {
+            height: auto;
+            min-height: 100%;
+            border-radius: 0;
         }
 
-        .modal-header {
-            background-color: rgba(0, 0, 0, 0.03);
+        .btnMenu {
+        
+        cursor:pointer;
+       opacity:1;
+       min-height:150px;
         }
 
-        .panel_header {
-            padding: 10px;
-        }
-
-        .selectpicker {
-            -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-            -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-            -moz-transition: 0.3s;
-            -webkit-transition: 0.3s;
-            transition: 0.3s;
-            background-color: #fff;
-        }
-
-            .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
-                color: #333;
-                background-color: #fff;
-                /*border-color: gold;*/
+            .btnMenu:hover, .btnMenu:focus {
+                
+                opacity: 1;
             }
 
 
-        .dropdown-menu > li > a {
-            display: block;
-            padding: 3px 20px;
-            clear: both;
-            font-size: 14px;
-            line-height: 1.42857143;
-            color: #333;
-            white-space: nowrap;
+        .footer {
+            border-top: 1px solid #eee;
+            margin-top: 14px;
+          
+         
+            
         }
-
-        body .section4 p {
-            color: #428bca;
-        }
-
-        .bootstrap-select.btn-group .dropdown-menu li a i.check-mark {
-            display: none;
+            .footer span {
+                float: right;
+                padding:8px;
+            }
+        #body .out-wrap #tabs li a:hover {
+            color: #555;
         }
 
 
-
-
-        .zoom {
-            transition: transform .2s; /* Animation */
+        .hidden-scrollbar .inner {
+            height: 200px;
+            overflow: auto;
+            margin: 15px -300px 15px 15px;
+            padding-right: 300px;
         }
 
-            .zoom:hover {
-                transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        #body .out-wrap #tabs {
+            border-bottom: 0;
+            margin: 0 -50px 20px;
+            display: flex;
+            min-height:50px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            flex-wrap: nowrap !important;
+            background: rgba(210,255,82,1);
+            background: -moz-linear-gradient(top, rgba(210,255,82,1) 0%, rgba(145,232,66,1) 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(210,255,82,1)), color-stop(100%, rgba(145,232,66,1)));
+            background: -webkit-linear-gradient(top, rgba(210,255,82,1) 0%, rgba(145,232,66,1) 100%);
+            background: -o-linear-gradient(top, rgba(210,255,82,1) 0%, rgba(145,232,66,1) 100%);
+            background: -ms-linear-gradient(top, rgba(210,255,82,1) 0%, rgba(145,232,66,1) 100%);
+            background: linear-gradient(to bottom, rgba(210,255,82,1) 0%, rgba(145,232,66,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842', GradientType=0 );
+        }
+        ::-webkit-scrollbar {
+            width: 0px;
+            height:1px;
+            background: transparent; /* make scrollbar transparent */
+        }
+
+            #body .out-wrap #tabs li {
+                width: auto;
+                white-space: nowrap;
+                flex: 1;
             }
 
+                #body .out-wrap #tabs li.active a {
+                    background: #fff;
+                    color: #3d5a68;
+                }
 
-        table.dataTable thead th, table.dataTable thead td {
-            border-bottom: 1px solid #eeeeee !important;
-            color: #fff;
+        #body .out-wrap {
+            position: relative;
+            padding: 30px;
+            border-radius:10px;
+            min-height:580px;
+            box-shadow: 0 6px 10px -2px rgba(0, 0, 0, 0.25);
+            background: rgba(179,220,237,1);
+            background: -moz-linear-gradient(top, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(179,220,237,1)), color-stop(50%, rgba(41,184,229,1)), color-stop(100%, rgba(188,224,238,1)));
+            background: -webkit-linear-gradient(top, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+            background: -o-linear-gradient(top, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+            background: -ms-linear-gradient(top, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+            background: linear-gradient(to bottom, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee', GradientType=0 );
         }
 
-        .profile_details {
-            float: right;
-            padding-right: 1em;
-        }
-
-            .profile_details ul li {
-                list-style-type: none;
-                position: relative;
-                padding-top: 5px;
+            #body .out-wrap #tabs li a {
+                border: 0;
+                border-radius: 0;
+                cursor: pointer;
+                margin: 0;
+                color: #fff;
+                text-transform: uppercase;
+                min-height: 50px;
             }
 
-
-            .profile_details ul {
-                padding: 0px;
-                padding-top: 2px;
-            }
-
-        .profile_img span.prfil-img {
-            float: left;
-        }
-
-        .img-responsive {
-            height: 40px;
-            width: auto;
-        }
-
-        .user-name {
-            float: left;
-            margin-top: 7px;
-            margin-left: 11px;
-            height: 35px;
-        }
-
-        .profile_details li a i.fa.lnr {
-            position: absolute;
-            top: 34%;
-            right: 8%;
-            color: #68AE00;
-            font-size: 1.6em;
-        }
-
-        .user-name p {
-            font-size: 1em;
-            color: #FC8213;
-            line-height: 0px;
-            font-weight: 700;
-        }
-
-        .user-name span {
-            font-size: .75em;
-            font-style: italic;
-            color: #ffffff;
-            font-weight: normal;
-            margin-top: .3em;
-        }
-
-        .profile_details_drop.open .fa.fa-angle-down {
-            display: none;
-        }
-
-        .divView span {
-            font-size: 22px;
-            color: #FC8213;
-        }
-
-        .divSection1Land {
+        .tab-content {
             padding: 15px;
+            border: 0px solid #eaeaea;
+            background-color: transparent;
+            border-top: 0px;
         }
 
-        .fa-primary {
-            color: #007bff;
+        .nav-tabs > li > a i {
+           
+           
+            margin-right: 5px;
         }
 
-        .fa-danger {
-            color: #ff0000;
-        }
 
-        .card-body {
-            flex: 1 1 auto;
-            padding: 1.5rem;
-        }
-
-        .main-wrapper {
-            margin-top: 60px;
-        }
-        .divTitle {
-            margin-top: 60px;
-        }
     </style>
-    <!-- Bootstrap -->
-    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/assets/js/jquery-ui.js"></script>
-    <script src="~/assets/js/bootstrap-select.min.js?33"></script>
-    <script src="~/Scripts/map_loader.js"></script>
+
 </head>
-<body class="nav-md">
-    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
-    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
-    <section id="main-content">
-        <section id="menulist">
-            <div class="content-heading bg-white">
 
-                <div class="row">
-                    <div class="col-sm-12 divView">
-                        <!-- Header -->
-                        <div class="row ">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <h3 class=" text-center  text-info">รายงานด้วย BI</i></h3>
-                            </div>
-                        </div>
+
+
+
+
+
+<div class="row">
+    <div class="content-heading bg-white">
+
+        <div class="row">
+            <div class="col-sm-12 divView">
+                <!-- Header -->
+                <div class="row ">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h3 class=" text-center  text-info">รายงานด้วย BI<label class="lbPeriod"></label></h3>
                     </div>
-
                 </div>
             </div>
 
-        </section>
-        <div class="clearfix"></div>
+        </div>
+    </div>
 
-        <section class="wrapper main-wrapper row" style=''>
-
-
-
-        
+</div>
+<div class=" row" style="padding-top:10px;">
+    <div class="col-sm-12">
+        <section style=''>
 
             <div class="divSection1">
 
@@ -247,52 +191,76 @@
 
                     <section class="box ">
                         <header class="panel_header bg-info">
-                            <i class="fa fa-area-chart fa-2x " aria-hidden="true"> รายงาน BI</i>
-                            <span class="fa-2x lbCaption"></span>
-                            <div class="actions panel_actions pull-right">
+                            <div class="col-sm-6">
+                                <i class="fa fa-area-chart fa-2x " aria-hidden="true"> รายงาน BI</i>
+                                <span class="fa-2x lbCaption"></span>
+                            </div>
+                            <div class="col-sm-3 col-sm-offset-3">
+                                <select class="form-control form-control-lg ddlTemplateView  pull-right">
+                                    <option value="">เลือก Template</option>
 
-                                <a class="box_toggle fa fa-chevron-down"></a>
-                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
-                                <a class="box_close fa fa-times"></a>
+                                </select>
+                                <!--  <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>-->
                             </div>
                         </header>
-                        <div class="content-body">
-
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="divDisplay" id="divDisplay" style="width:100%;">
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </section>
-
                 </div>
 
+
+                <div class="content-body">
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="divDisplay" id="divDisplay" style="width:100%;">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-
         </section>
-    </section>
+    </div>
+</div>
 
 
-    <!-- END CONTENT -->
-    <!-- END CONTAINER -->
-    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 
-    <script src="~/assets/BI/pace.min.js"></script>
-    <script src="~/assets/BI/viewportchecker.js"></script>
-    <script src="~/assets/BI/jquery-jvectormap-2.0.1.min.js"></script>
-    <script src="~/assets/BI/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="~/assets/BI/dashboard.js"></script>
-    <script src="~/assets/BI/echarts-custom-for-dashboard.js"></script>
 
-    <script src="~/assets/BI/perfect-scrollbar.min.js"></script>
-    <script src="~/assets/BI/Script.js?ver=1.22d33442"></script>
-    <script src="~/Scripts/numeral2.6.min.js"></script>
-    <script src="~/assets/ChartOptions.js?sdddxxs"></script>
 
-    <script src="~/assets/BI/BIViewer.js?xdfxaaxdddd"></script>
-</body>
+<!-- END CONTENT -->
+<!-- END CONTAINER -->
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+
+
+<script src="~/assets/BI/Script.js?ver=888"></script>
+<script src="~/assets/ChartOptions.js?ver=gggg"></script>
+<script src="~/assets/BI/BIViewer.js?ver=ver=xdd5s"></script>
+
+
+
+<script>
+
+    $(document).on("click", ".blockSearch", function () {
+
+        $(".menu2Modal").modal("show");
+       /* if (IsMobile()) {
+            openNavR('60%');
+        }
+        else {
+            openNavR('30%');
+        }*/
+
+    });
+
+    $(document).ready(function () {
+      
+        
+        
+    });
+
+    
+
+
+</script>
+

@@ -1,6 +1,4 @@
-﻿<link href="~/assets/css/customize.css" rel="stylesheet" />
-<link href="~/assets/css/Kim_Style.css?ver=1.1" rel="stylesheet" />
-<link href="~/assets/css/BI/Style.css?ver1.011" rel="stylesheet" />
+﻿
 <style type="text/css">
     .btnLogout {
         cursor: pointer;
@@ -22,19 +20,40 @@
     #menulist.content-heading {
         min-height: 60px;
     }
+
     .lbUserLogin {
-    color:#fff;
-    font-size:18px;
+        color: #fff;
+        font-size: 18px;
+      
     }
+
     a.dropdown-toggle {
         color: #fff;
     }
 
+
+    .sidenavR .funkyradio input[type="radio"]:checked ~ label, .sidenavR .funkyradio input[type="checkbox"]:checked ~ label {
+        color: #fff;
+    }
+
+    .sidenavR .funkyradio input[type="radio"]:hover:not(:checked) ~ label, .sidenavR .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+        color: #fff;
+    }
+
+
+    .sidenavR ol, .sidenavR ul {
+        margin-top: 0;
+        margin-bottom: 10px;
+        padding-left: 1rem;
+    }
+
+    th p {
+       
+        color: #fff;
+    }
 </style>
 <div class="page-topbar">
-    <div class="logo-area">
 
-    </div>
 
     <div class="quick-area">
 
@@ -62,14 +81,14 @@
             </div>
 
             <div class="col-xs-3">
-                
+
                 <div class="profile_details">
                     <ul>
 
 
 
 
-                     
+
                         <li class="dropdown dropdown-user">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
                                 <span class="lbUserLogin">
@@ -101,7 +120,10 @@
 
 
     var ObjUserLogin;
-    var UserSessionUrl='@Url.Action("TakeSession", Html.ViewContext.RouteData.GetRequiredString("controller"))';
+    var UserSessionUrl = '@Url.Action("TakeSession", Html.ViewContext.RouteData.GetRequiredString("controller"))';
+
+
+
     $('.btnLogout').click(function () {
         Logout();
     });
@@ -111,6 +133,11 @@
     $(function () {
 
         LoadUserSession();
+
+        $('.sidebar_toggle').on('click', function () {
+            $('.page-sidebar-wrapper').toggleClass('active');
+            $(this).toggleClass('active');
+        });
 
     });
 
@@ -140,11 +167,11 @@
                 setTimeout(function () {
 
                     $('.lbUserLogin').text(data.USER_NAME +' '+ data.USER_SURNAME);
-                     
+
                 }, 500);
 
-             
-                
+
+
                 if (findMenu != null) {
                    // $('.mmMapView').invisibleAbsolute();
                    /* mmMainMenu
@@ -172,6 +199,31 @@
             .always(function () {
 
             });;}
+
+
+
+
+        function openNav(percent) {
+            document.getElementById("mySidenav").style.width = percent != null ? percent : "20%";
+            $('.mySidenav').removeClass("invisible");
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+    function openNavR(percent) {
+        $('.sidenavR').attr("style", "width:" +( percent != null ? percent : "20%"))
+
+        $('.sidenavR').removeClass("invisible");
+
+        }
+
+        function closeNavR() {
+            document.getElementById("mySidenavR").style.width = "0";
+            $('.sidenavR').addClass("invisible");
+        }
+
 
 
 

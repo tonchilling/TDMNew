@@ -1,435 +1,133 @@
 ﻿
-@{
-    ViewBag.Title = "IndexTu";
-
-}
 
 
 @section Scripts {
+
+    
 }
 
-<script src="~/Scripts/waiting.js?ver=1.0220"></script>
-
-<link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
-
-<link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-
-<!-- CORE CSS FRAMEWORK - START -->
-<link href="~/assets/css/BI/bootstrap.min.css?ver=1.3330" rel="stylesheet" />
-
-<link href="~/assets/css/BI/pace-theme-flash.css" rel="stylesheet" />
-<link href="~/assets/css/BI/bootstrap-theme.min.css" rel="stylesheet" />
-<!-- CORE CSS FRAMEWORK - END -->
-<!-- CORE CSS TEMPLATE - START -->
-<link href="~/assets/css/BI/animate.min.css" rel="stylesheet" />
-<link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
-<link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
-
-<link href="~/assets/css/Kim_Style.css?ver1.33" rel="stylesheet" />
-<link href="~/assets/css/BI/Style.css?ver1.333dd3" rel="stylesheet" />
-
-<!-- CORE CSS TEMPLATE - END -->
-<link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
 
 
-<!-- Bootstrap -->
-<script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="~/assets/js/jquery-ui.js"></script>
-<script src="~/assets/js/bootstrap-select.min.js?33"></script>
-<style type="text/css">
 
-    .divTitle {
-        margin-top: 60px;
-    }
 
-</style>
-<body class="nav-md">
-    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
-    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
 
-    <section id="main-content">
-        <section id="menulist">
-            <div class="content-heading bg-white">
 
-                <div class="row">
-                    <div class="col-sm-12">
-                        <!-- Header -->
-                        <div class="row ">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <h3 class=" text-center  text-info"> การเปลี่ยนแปลงราคาซื้อขาย</i></h3>
-                            </div>
-                        </div>
+
+
+
+<section id="menulist">
+    <div class="content-heading bg-white">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Header -->
+                <div class="row ">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h3 class=" text-center  text-info"> การเปลี่ยนแปลงราคาซื้อขาย</i></h3>
                     </div>
-
                 </div>
             </div>
 
-        </section>
-        <section class="wrapper main-wrapper row" style=''>
+        </div>
+    </div>
+
+</section>
+<section class="row" style=''>
 
 
-            <div class="col-xs-12">
-                <section class="box ">
-                    <header class="panel_header">
-                        <div class="col-sm-10">
+    <div class="col-xs-12">
+        <section class="box ">
+            <header class="panel_header">
+                <div class="col-sm-11">
 
-                            <h3 class="text-primary pull-left">รายงานแสดงการเปลี่ยนแปลงราคาซื้อขายและแสดงผลค่าเฉลี่ยอัตราเพิ่มสูงสุดและอัตราต่ำสุด (S/A ratio)</h3>
-                        </div>
-                        <div class="actions panel_actions pull-right">
-                            <a class="box_toggle fa fa-chevron-down"></a>
-                            <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
-                            <a class="box_close fa fa-times"></a>
-                        </div>
-                    </header>
-                    <div class="content-body">
+                    <h4 class="text-primary pull-left">รายงานแสดงการเปลี่ยนแปลงราคาซื้อขายและแสดงผลค่าเฉลี่ยอัตราเพิ่มสูงสุดและอัตราต่ำสุด (S/A ratio)</h4>
+                </div>
+                <div class="actions panel_actions pull-right">
+                    <a class="box_toggle fa fa-chevron-down"></a>
+                    <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                    <a class="box_close fa fa-times"></a>
+                </div>
+            </header>
+            <div class="content-body">
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
 
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="panel panel-primary">
-                                            <div class="panel-heading">
-                                                <div class="row">
-                                                    <div class="col-xs-6">
-                                                        <h3 class="headerwhite">เลือกพื้นที่ที่ต้องการค้นหา</h3>
-                                                    </div>
-                                                </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="headerwhite">การเปลี่ยนแปลงราคาซื้อขาย</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <!--<div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
                                             </div>
-                                            <div class="panel-body">
-
-                                                <div class="row ">
-                                                    <div class="col-xs-6" style="padding:0px">
-                                                        <div class="row  funkyradio">
-                                                            <div class="col-xs-12">
-                                                                <b>เลือกภาค/คลัสเตอร์</b>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row  funkyradio">
-                                                            <div class="col-xs-6 ">
-
-                                                                <div class="funkyradio-success">
-                                                                    <input type="radio" name="Type1" id="rdRegion" checked />
-                                                                    <label for="rdRegion">ภาค</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-6">
-                                                                <div class="funkyradio-primary">
-                                                                    <input type="radio" name="Type1" id="rdCluster" />
-                                                                    <label for="rdCluster">คลัสเตอร์</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-3">
-                                                        <div class="form-group">
-                                                            <span>&nbsp;</span>
-                                                            <select class="form-control form-control-lg ddlYear" name="ddlYear" id="ddlYear" required>
-                                                                <option value="">เลือกปี</option>
-                                                               
-
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                        </div>-->
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="divTable">
+                                                    <table id="tbSort" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr class="bg-info">
+                                                                <th scope="col" class="center">จังหวัด</th>
+                                                                <th scope="col" class="center">ช่วงเวลา</th>
+                                                                <th scope="col" class="center">S/A Ratio<br>ต่ำสุด</th>
+                                                                <th scope="col" class="center">S/A Ratio<br>สูงสุด</th>
+                                                                <th scope="col" class="center">S/A Ratio<br>เฉลี่ย</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-xs-6 pnlRegion">
-
-                                                        <div class="form-group">
-                                                            <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
-                                                                <option value="">เลือกภาค</option>
-                                                                <option value="1">ภาคกลาง</option>
-                                                                <option value="2">ตะวันตก</option>
-                                                                <option value="3">เหนือ</option>
-                                                                <option value="4">ตะวันออกเฉียงเหนือ</option>
-                                                                <option value="5">ใต้</option>
-                                                                <option value="6">ตะวันออก</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-6">
-                                                        <div class="form-group">
-
-                                                            <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
-                                                                <option value="">เลือกจังหวัด</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row">
-
-                                                    <div class="col-xs-6 col-xs-offset-6">
-                                                        <select class="form-control form-control-lg"
-                                                                id="ddlProvince1"
-                                                                title="เลือกจังหวัดเพื่อเปรียบเทียบ"
-                                                                placeholder="จังหวัด" multiple></select>
-
-                                                    </div>
-
-
-
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-xs-1 col-xs-offset-5">
-                                                        <button class="form-control btn btn-primary btnSearch">ค้นหา</button>
-
-                                                    </div>
-                                                    <div class="col-xs-1 ">
-
-                                                        <button class="form-control btn btn-default btnCancel">ยกเลิก</button>
-                                                    </div>
-
-                                                </div>
-
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                            </div>
 
-                                        <div class="panel panel-primary">
-                                            <div class="panel-heading">
-                                                <h3 class="headerwhite">การเปลี่ยนแปลงราคาซื้อขาย</h3>
-                                            </div>
-                                            <div class="panel-body center">
-                                                <!--<div class="row">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <iframe class="map-height" id="tdmap" width="100%" frameborder="0" style="border:0;height:800px" allowfullscreen></iframe>
-                                                    </div>
-                                                </div>-->
-                                                <div class="row">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="divTable">
-                                                            <table id="tbSort" class="table table-bordered table-striped">
-                                                                <thead>
-                                                                    <tr class="bg-info">
-                                                                        <th scope="col" class="center">จังหวัด</th>
-                                                                        <th scope="col" class="center">ช่วงเวลา</th>
-                                                                        <th scope="col" class="center">S/A Ratio<br>ต่ำสุด</th>
-                                                                        <th scope="col" class="center">S/A Ratio<br>สูงสุด</th>
-                                                                        <th scope="col" class="center">S/A Ratio<br>เฉลี่ย</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody></tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                <div class="chart-container">
+                                    <div class="chart1" style="height:600px;" id="chart1"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
         </section>
-    </section>
-</body>
+    </div>
+</section>
 
 
 <script>
 
-    $(function () {
+    var currentYear = @DateTime.Now.Year
 
+    $(document).on("click", ".blockSearch", function () {
 
-        var iframeElement = document.getElementById('tdmap');
-        // iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
-        gisIframeWindow = null
-        iframeElement.onload = function () {
-            //   gisIframeWindow = iframeElement.contentWindow;
-
-
+        if (IsMobile()) {
+            openNavR('60%');
+        }
+        else {
+            openNavR('40%');
         }
 
-
-
-        $(document).on("click", ".btnCancel", function () {
-            gisIframeWindow.GIS.mapClick();
-        });
     });
 
 
-
-
-
-    var map = {};
-    map.zoom2 = function (data) {
-        var shape = "POLYGON((11192608.387724396 1878156.1069176663,11265987.934878146 1770532.7710921667,11119228.840570647 1741180.9522306668,11192608.387724396 1878156.1069176663))";
-        var srid = 102100;
-        var symbol = {
-            "type": "esriSLS",
-            "style": "esriSLSSolid",
-            "color": [115, 76, 0, 255],
-            "width": 1
-        }
-
-        var gIdGlobal = gisIframeWindow.GIS.addGraphic(shape, srid, symbol);
-        console.log(gIdGlobal);
-    }
-
-    map.zoom = function (data) {
-        var jsonData = {
-            zoomBy: "MapService",
-            "graphicLayerId": "parcel1",
-            mapServiceJsonList: [{
-                layerName: "TD_VIEW",
-                layerIndexName: "PARCEL_47_50",
-                where: "PARCEL_47_50",
-                titleField: "PARCEL_47_50",
-                detailField: "",
-                rendering: {
-                }
-            }]
-        }
-
-        var senderData = {
-            event: 'zoom-map',
-            data: jsonData
-        }
-        senderData = JSON.stringify(senderData);
-        encrpty(senderData).then(function (encryptData) {
-            gisIframeWindow.postMessage(encryptData, 'https://p-staging.treasury.go.th/TD2');
-        });
-    }
-
-    map.zoomProc = function (id) {
-        var senderData = zoom_select_province(id);
-        _mapPostMessage(senderData);
-    }
-
-    map.zoomAmphoe = function (id) {
-        var senderData = zoomBy_MapService_baseMap('AMPHOE', id);
-        _mapPostMessage(senderData);
-    }
-
-    map.zoomTambol = function (id) {
-        var senderData = zoomBy_MapService_baseMap('TAMBOL', id);
-        _mapPostMessage(senderData);
-    }
-
-    map.drawPOI = function (x, y, r) {
-        var transRes = map.transform(x, y);
-        map.buffer(transRes[0].shape, r);
-    }
-
-    map.clear = function () {
-        gisIframeWindow.GIS.removeGraphic();
-    }
-
-    map.addGraphic = function (shape, symbol) {
-        var sridIn = 32647;
-        var sridOut = [102100];
-        var trans = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
-
-        symbol = symbol || {
-            "type": "esriSLS",
-            "style": "esriSLSSolid",
-            "color": [0, 0, 0, 255],
-            "width": 1
-        }
-
-        return gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
-    }
-
-    map.addGraphicCity = function (shape, symbol) {
-        var sridIn = 32647;
-        var sridOut = [102100];
-        var trans = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
-
-        symbol = symbol || {
-            "type": "esriSLS",
-            "style": "esriSLSSolid",
-            "color": [115, 76, 0, 255],
-            "width": 2
-        }
-
-        return gisIframeWindow.GIS.addGraphic(trans[0].shape, 102100, symbol);
-    }
-
-    map.removeGraphic = function (gId) {
-        gisIframeWindow.GIS.removeGraphic(gId);
-    }
-
-    map.transform = function (x, y) {
-        var shape = `POINT(${x} ${y})`,
-            sridIn = 32647,
-            sridOut = [102100];
-
-        var transRes = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
-        return transRes;
-    }
-
-    map.buffer = function (shape, r) {
-        var srid = 102100,
-            radius = parseInt(r),
-            addGraphic = true;
-        gisIframeWindow.GIS.buffer(shape, srid, radius, addGraphic);
-    }
-
-    map.transformShape = function (x, y) {
-        var shape = `POINT(${x} ${y})`,
-            sridIn = 32647,
-            sridOut = [24047, 24048];
-
-        var transRes = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
-        return transRes;
-    }
-
-    map.transformPolygon = function (polygon) {
-        var shape = polygon,
-            sridIn = 32647,
-            sridOut = [24047, 24048];
-
-        var transRes = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
-        return transRes;
-    }
-
-    map.openMeasurementTool = function (toolName) {
-        gisIframeWindow.GIS.openFunction('measurement', { toolName: toolName });
-    }
-
-    map.activateDraw = function (callback) {
-        // Input
-        var toolType = 'polygon',
-            clearGraphicWhenComplete = true;
-
-        // Call method
-        gisIframeWindow.GIS.activateDraw(toolType, clearGraphicWhenComplete, function (drawEvent) {
-            var shape = drawEvent.shape,
-                sridIn = drawEvent.srid,
-                sridOut = [24047, 24048];
-
-            // Call method
-            var result = gisIframeWindow.GIS.transform(shape, sridIn, sridOut);
-
-            callback(result);
-        });
-    }
-
-
-    map.clear = function () {
-        gisIframeWindow.GIS.removeGraphic();
-    }
-
 </script>
-<script src="~/assets/BI/pace.min.js"></script>
-<script src="~/assets/BI/viewportchecker.js"></script>
-<script src="~/assets/BI/jquery-jvectormap-2.0.1.min.js"></script>
-<script src="~/assets/BI/jquery-jvectormap-world-mill-en.js"></script>
-<script src="~/assets/BI/dashboard.js"></script>
-<script src="~/assets/BI/echarts-custom-for-dashboard.js"></script>
 
-<script src="~/assets/BI/perfect-scrollbar.min.js"></script>
-<script src="~/assets/BI/Script.js?ver=1.2233ddd442"></script>
-<script src="~/Scripts/Home/Menu3.js?ver=1.02deaaa392"></script>
+
+<script src="~/Scripts/Home/Menu3.js?ver=1.5555"></script>
 
 
 

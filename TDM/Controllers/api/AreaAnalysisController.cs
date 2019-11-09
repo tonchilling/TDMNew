@@ -23,7 +23,7 @@ namespace TDM.Controllers.api
         private JsonSerializerSettings jsonSetting = JsonHelper.createJsonSetting();
         private TDManagementEntities tdmEntities = null;
         private TDASSETEntities tdaEntities = null;
-       
+
         int overMax = 10;
         protected AreaAnalysisController()
         {
@@ -107,7 +107,7 @@ namespace TDM.Controllers.api
                 updateProject.PROVINCE_ID = project.PROVINCE_ID;
                 updateProject.AMPHOE_ID = project.AMPHOE_ID;
                 updateProject.TAMBOL_ID = project.TAMBOL_ID;
-                updateProject.Shape = project.Shape!=null ? project.Shape:null;
+                updateProject.Shape = project.Shape != null ? project.Shape : null;
                 tdmEntities.SaveChanges();
 
                 repos.AddPROJECT_IMPACT_GEOMETRY(updateProject);
@@ -123,7 +123,7 @@ namespace TDM.Controllers.api
         [HttpPost]
         public IHttpActionResult AddProject(PROJECT_IMPACT project)
         {
-            var repos = new TDAssetRespository(); 
+            var repos = new TDAssetRespository();
             try
             {
                 project.ID = 0;
@@ -140,7 +140,7 @@ namespace TDM.Controllers.api
             }
         }
 
-        
+
 
         [HttpPost]
         public IHttpActionResult DeleteProject(DelProjectImpact project)
@@ -255,7 +255,7 @@ namespace TDM.Controllers.api
             {
                 searchDto.ProvinceCode = searchDto.Code;
             }
-                var estimateData = repos.GetPROJECT_IMPACT(searchDto);
+            var estimateData = repos.GetPROJECT_IMPACT(searchDto);
 
             if (estimateData != null)
             {
@@ -329,7 +329,7 @@ namespace TDM.Controllers.api
                 prov_name = prov_name == null ? "" : prov_name;
                 subject_id = subject_id == null ? "" : subject_id;
 
-                
+
 
                 var PROVINCES = tdaEntities.PROVINCEs.Where(p => p.NAME_T.Contains(prov_name));
 
@@ -337,9 +337,9 @@ namespace TDM.Controllers.api
                 var projects = _projects.Where(x =>
                     (subject_id == null || x.SUBJECT_ID.Contains(subject_id))
                     && (subject_name == null || x.SUBJECT_NAME.Contains(subject_name))
-                    && (prov_name == null || prov_name.Length == 0 || (PROVINCES.Count() > 0 
+                    && (prov_name == null || prov_name.Length == 0 || (PROVINCES.Count() > 0
                     && (
-                          x.PROVINCE_ID==PROVINCES.FirstOrDefault().PRO_C 
+                          x.PROVINCE_ID == PROVINCES.FirstOrDefault().PRO_C
                         /* tdaEntities.PROJECT_AREA_47.Any(y => y.SUBJECT_ID.Equals(x.SUBJECT_ID) && PROVINCES.Any(z => z.PRO_C.Equals(y.PROV_CODE)))
                          || tdaEntities.PROJECT_AREA_48.Any(y => y.SUBJECT_ID.Equals(x.SUBJECT_ID) && PROVINCES.Any(z => z.PRO_C.Equals(y.PROV_CODE))))*/
                         )
@@ -373,7 +373,7 @@ namespace TDM.Controllers.api
 
                 foreach (var c in projects)
                 {
-                    
+
                     c.PROVINCE = tdaEntities.PROVINCEs.Where(p => p.PRO_C == c.PROVINCE_ID).Select(r => new PROVINCE_ViewModel()
                     {
                         PRO_C = r.PRO_C,
@@ -393,20 +393,20 @@ namespace TDM.Controllers.api
                         c.CREATE_BY,
                         c.UPDATE_DATE,
                         c.UPDATE_BY,
-                       c.PROVINCE,
-                       
+                        c.PROVINCE,
+
                         c.IS_PUBLISHED,
-                        STATUS = tdmEntities.STATUS_IMPACT.Where(y => y.ID == (c.Shape!=null?2:1)).First(),
-                        SHAPETOOLTYPE= (c.Shape!=null && c.Shape!="" && c.Shape.IndexOf('(')>0)?c.Shape.Substring(0,c.Shape.IndexOf('(')-1):"",
+                        STATUS = tdmEntities.STATUS_IMPACT.Where(y => y.ID == (c.Shape != null ? 2 : 1)).First(),
+                        SHAPETOOLTYPE = (c.Shape != null && c.Shape != "" && c.Shape.IndexOf('(') > 0) ? c.Shape.Substring(0, c.Shape.IndexOf('(') - 1) : "",
                         //ACTIVE=!c.IS_DELETED,
                         ACTIVE = !c.IS_PUBLISHED,
                         TotalImpactCount = projectImpactLists.Count(),
-                        TotalImpactArea = projectImpactLists.Sum(p=>p.Area)
+                        TotalImpactArea = projectImpactLists.Sum(p => p.Area)
                     };
                     result.Add(project);
                 }
 
-                    result = result.Skip(start).Take(count).ToList();
+                result = result.Skip(start).Take(count).ToList();
                 return Json(result, jsonSetting);
             }
             catch (Exception ex)
@@ -622,7 +622,7 @@ namespace TDM.Controllers.api
             int bcount = 0;
             try
             {
-                
+
                 var httpRequest = HttpContext.Current.Request;
 
                 PROJECT_IMPACT importInfo = null;
@@ -632,7 +632,7 @@ namespace TDM.Controllers.api
                     var imageInfo = httpRequest.Form["ImageInfo"];
                     if (imageInfo != null)
                     {
-                        importInfo =  (new System.Web.Script.Serialization.JavaScriptSerializer()).Deserialize<PROJECT_IMPACT>(imageInfo);
+                        importInfo = (new System.Web.Script.Serialization.JavaScriptSerializer()).Deserialize<PROJECT_IMPACT>(imageInfo);
                     }
                 }
 
@@ -692,7 +692,7 @@ namespace TDM.Controllers.api
 
                                         try
                                         {
-                                            
+
                                             Shapefile indexMapFile = Shapefile.OpenFile(f);
                                             indexMapFile.Reproject(KnownCoordinateSystems.Geographic.Asia.Indian1975);
 
@@ -708,9 +708,9 @@ namespace TDM.Controllers.api
                                                 {
                                                     utmShape = feature.Geometry.Coordinates
                                                                 .Select(coordinate => latLngUTMConverter.convertLatLngToUtm(coordinate.Y, coordinate.X))
-                                                                .Select(utm=> $"{utm.Easting} {utm.Northing}")
+                                                                .Select(utm => $"{utm.Easting} {utm.Northing}")
                                                                 .Aggregate((current, next) => current + ", " + next);
-                                                    
+
                                                     geometries.Add(new Geometry()
                                                     {
                                                         //Shape = feature.Geometry.ToString(),
@@ -719,7 +719,7 @@ namespace TDM.Controllers.api
                                                         ORIGIN_X = feature.DataRow["ORIGIN_X"].ToString(),
                                                         ORIGIN_Y = feature.DataRow["ORIGIN_Y"].ToString()
                                                     });
-                                                   
+
 
                                                 }
                                             }
@@ -739,7 +739,7 @@ namespace TDM.Controllers.api
 
 
                     }
-                    
+
 
                     /*save data*/
 
@@ -779,9 +779,9 @@ namespace TDM.Controllers.api
             catch (Exception exc)
             {
 
-                result = Request.CreateResponse(HttpStatusCode.InternalServerError,exc.Message);
+                result = Request.CreateResponse(HttpStatusCode.InternalServerError, exc.Message);
             }
-            
+
             return result;
         }
 
@@ -797,28 +797,30 @@ namespace TDM.Controllers.api
             {
                 ProjectImpactImportedID = data.ProjectImpactID,
                 RequireOtherPage = 0,
-               Project= project,
-                Detail = results.Select(r=> new { Chanode=r.Chanode,
-                    Area =r.Area,
+                Project = project,
+                Detail = results.Select(r => new {
+                    Chanode = r.Chanode,
+                    Area = r.Area,
                     Shape = r.Shape.WellKnownValue,
-                   /**/ REG_P_WAH=r.REG_P_WAH,
-                    REG_AMT=r.REG_AMT,
-                    RVAL_P_WAH =r.RVAL_P_WAH,
-                    RVAL_AMT=r.RVAL_AMT,
-                    PROVINCE_ID= r.PROVINCE_ID,
-                    ProvinceName= r.PROVINCE_ID.Trim() != "" ? tdaEntities.PROVINCEs.Where(p=>p.PRO_C == r.PROVINCE_ID).FirstOrDefault().NAME_T:"",
-                    AMPHOE_ID =r.AMPHOE_ID,
-                    AmphoeName = r.AMPHOE_ID.Trim()!="" ? (tdaEntities.AMPHOEs.Where(p => p.DIS_C == r.PROVINCE_ID + r.AMPHOE_ID).FirstOrDefault()!=null?tdaEntities.AMPHOEs.Where(p => p.DIS_C == r.PROVINCE_ID+r.AMPHOE_ID).FirstOrDefault().NAME_T :"") : "",
-                    TAMBOL_ID =r.TAMBOL_ID,
-                    TambolName = r.TAMBOL_ID.Trim() != "" ? (tdaEntities.TAMBOLs.Where(p => p.SUB_C == r.PROVINCE_ID + r.AMPHOE_ID + r.AMPHOE_ID).FirstOrDefault()!=null? tdaEntities.TAMBOLs.Where(p => p.SUB_C == r.PROVINCE_ID + r.AMPHOE_ID+r.AMPHOE_ID).FirstOrDefault().NAME_T:"") :""
+                    /**/
+                    REG_P_WAH = r.REG_P_WAH,
+                    REG_AMT = r.REG_AMT,
+                    RVAL_P_WAH = r.RVAL_P_WAH,
+                    RVAL_AMT = r.RVAL_AMT,
+                    PROVINCE_ID = r.PROVINCE_ID,
+                    ProvinceName = r.PROVINCE_ID.Trim() != "" ? tdaEntities.PROVINCEs.Where(p => p.PRO_C == r.PROVINCE_ID).FirstOrDefault().NAME_T : "",
+                    AMPHOE_ID = r.AMPHOE_ID,
+                    AmphoeName = r.AMPHOE_ID.Trim() != "" ? (tdaEntities.AMPHOEs.Where(p => p.DIS_C == r.PROVINCE_ID + r.AMPHOE_ID).FirstOrDefault() != null ? tdaEntities.AMPHOEs.Where(p => p.DIS_C == r.PROVINCE_ID + r.AMPHOE_ID).FirstOrDefault().NAME_T : "") : "",
+                    TAMBOL_ID = r.TAMBOL_ID,
+                    TambolName = r.TAMBOL_ID.Trim() != "" ? (tdaEntities.TAMBOLs.Where(p => p.SUB_C == r.PROVINCE_ID + r.AMPHOE_ID + r.AMPHOE_ID).FirstOrDefault() != null ? tdaEntities.TAMBOLs.Where(p => p.SUB_C == r.PROVINCE_ID + r.AMPHOE_ID + r.AMPHOE_ID).FirstOrDefault().NAME_T : "") : ""
 
                 }).ToList(),
-                     PageNo = data.PageNo,
-                     Shapes = results.Select(r => r.Shape.WellKnownValue).ToList(),
+                PageNo = data.PageNo,
+                Shapes = results.Select(r => r.Shape.WellKnownValue).ToList(),
 
-                 }, jsonSetting);
+            }, jsonSetting);
 
-          
+
 
 
         }

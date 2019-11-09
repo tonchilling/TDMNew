@@ -6,6 +6,15 @@ var tabSelect = '1';
 var resultAll;
 var LocationType = 1;
 var section1Tab = '1';
+var SectionRegion = [];
+
+var SectionProvince = [];
+
+
+var SectionAmphure = [];
+
+var SectionTumbol = [];
+
 
 var viewListManager = {
     init: function () {
@@ -21,13 +30,47 @@ var viewListManager = {
 */
 var _mapCurrModule = 1;
 
+$('#ddlProvince1').selectpicker({
+    liveSearch: true,
+    size: 5,
+});
 function formatCurrency(data) {
     data = parseFloat(data);
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+function LoadAddress() {
+
+    //  $('#ddlProvince').empty();
+    //$('#ddlDistrict').empty();
+    //$('#ddlSubdistrict').empty();
+
+
+    $('#ddlRegion').prop('disabled', true);
+    $("#ddlProvince").prop('disabled', true);
+    $('#ddlDistrict').prop('disabled', true);
+    $('#ddlSubdistrict').prop('disabled', true);
+    $.get(mapApi.getServerPath() + "/api/Address/GetAddressList", function (addressList) {
+
+        SectionProvince = addressList.ProvinceList;
+        SectionAmphure = addressList.AmphoeList;
+        SectionTumbol = addressList.TambolList;
+
+
+        $('#ddlRegion').prop('disabled', false);
+        $("#ddlProvince").prop('disabled', false);
+        $('#ddlDistrict').prop('disabled', false);
+        $('#ddlSubdistrict').prop('disabled', false);
+
+        $('#ddlRegion').trigger("change");
+    });
+}
+
+
 var searchForm = {
 
     initComp: function (eleName) {
+       
         searchForm.setupSearchForm();
        /*  setTimeout(function () {
             var target = $('#pnlSectionSearch1');
@@ -71,7 +114,7 @@ var searchForm = {
         $('#ddlSubdistrict').prop('disabled', 'disabled');
 
         $('#bttSearch').click(function () {
-            waitingDialog.show('Waiting for Searching', { dialogSize: 'md', progressType: 'success' });
+         //   waitingDialog.show('Waiting for Searching', { dialogSize: 'md', progressType: 'success' });
             searchForm.search();
         });
 
@@ -91,10 +134,76 @@ var searchForm = {
         $('#ddlProvince').append("<option value='999999'>ทั้งหมด</option>");
 
        
-      
-     
+        LoadAddress();
 
         $('#ddlRegion').change(function (event) {
+            selectCode = $(this).val();
+            selectLocationLevel = 0;
+            $('#ddlProvince').empty();
+            $('#ddlProvince1').empty();
+            $('#ddlDistrict').empty();
+            $('#ddlSubdistrict').empty();
+
+            $('#ddlProvince').append("<option value=''>เลือกจังหวัด</option>");
+            $('#ddlDistrict').append("<option value=''>เลือกอำเภอ</option>");
+            $('#ddlSubdistrict').append("<option value=''>เลือกตำบล</option>");
+
+
+            ReLoadAddress(selectCode);
+        });
+        $('#ddlProvince').change(function (event) {
+            var selectCode = $("#ddlProvince").val();
+
+            $('#ddlDistrict').empty();
+            $('#ddlSubdistrict').empty();
+            $('#ddlSubdistrict').append("<option value=''>เลือกตำบล</option>");
+
+
+         
+
+
+            if (selectCode == '') {
+                selectLocationLevel = 1;
+                selectCode = $('#ddlRegion').val();
+                $('#ddlDistrict').append("<option value=''>เลือกอำเภอ</option>");
+              
+
+            }
+
+            else {
+                // $("#ddlProvince").val(selectId)
+
+                selectLocationLevel = 2;
+               
+
+            }
+
+            ReLoadAddress(selectCode);
+        });
+        $('#ddlDistrict').change(function (event) {
+            selectCode = $(this).val();
+           
+            $('#ddlSubdistrict').empty();
+            if (selectCode == '') {
+                selectLocationLevel = 2;
+                selectCode = $("#ddlProvince").val();
+                $('#ddlSubdistrict').append("<option value=''>เลือกตำบล</option>");
+               
+            }
+
+            else {
+
+                selectLocationLevel = 3;
+              
+            }
+
+            ReLoadAddress(selectCode);
+        });
+        $('#ddlSubdistrict').change(function (event) {
+           
+        });
+
+     /*   $('#ddlRegion').change(function (event) {
 
             var regionId = $('#ddlRegion').val();
            
@@ -178,7 +287,7 @@ var searchForm = {
             });
 
             event.stopPropagation();
-        });
+        });*/
         $('#ddlRegion').trigger("change");
       
     },
@@ -199,7 +308,7 @@ var searchForm = {
     search: function () {
         /**/
        
-        var idOfAll = '999999';
+        var idOfAll = '';
         var searchType = 'PROVINCE';
         var targetId = '';
 
@@ -236,7 +345,7 @@ var searchForm = {
 
         }
 
-        waitingDialog.show('Waiting for Searching', { dialogSize: 'md', progressType: 'success' });
+       // waitingDialog.show('Waiting for Searching', { dialogSize: 'md', progressType: 'success' });
 
         try {
 
@@ -267,7 +376,7 @@ var searchForm = {
            
 
             map.clear();
-            map.clear();
+           // map.clear();
             /*
             Comment for remove dialog
             $("#overlay").show();
@@ -292,7 +401,7 @@ var searchForm = {
                         } catch (e) {
 
                         }
-                        waitingDialog.hide();
+                      //  waitingDialog.hide();
                        // $("#overlay").hide();
                     });
                     } catch (e) {
@@ -313,7 +422,7 @@ var searchForm = {
                         } catch (e) {
 
                         }
-                        waitingDialog.hide();
+                     //   waitingDialog.hide();
                       //  $("#overlay").hide();
                     });
                 }
@@ -333,7 +442,7 @@ var searchForm = {
                         } catch (e) {
 
                         }
-                        waitingDialog.hide();
+                      //  waitingDialog.hide();
                       //  $("#overlay").hide();
                     });
                 } else {
@@ -349,7 +458,7 @@ var searchForm = {
                         } catch (e) {
 
                         }
-                        waitingDialog.hide();
+                   //     waitingDialog.hide();
                       //  $("#overlay").hide();
                     });
                 }
@@ -367,7 +476,7 @@ var searchForm = {
                         } catch (e) {
 
                         }
-                        waitingDialog.hide();
+                     //   waitingDialog.hide();
                       //  $("#overlay").hide();
                     });
                 } else {
@@ -383,7 +492,7 @@ var searchForm = {
                         } catch (e) {
 
                         }
-                        waitingDialog.hide();
+                     //   waitingDialog.hide();
                       //  $("#overlay").hide();
                     });
                 }
@@ -401,6 +510,179 @@ var searchForm = {
 
 
 }
+
+
+function ReLoadAddress(selectCode) {
+
+    var filterData = {};
+
+    if (selectLocationLevel == '4') {
+
+        filterData = SectionTumbol.filter(t => t.SUB_C == selectCode);
+        filterData = filterData[0];
+
+        if (LocationType == '2')
+            LoadProvice(filterData.ClusterCode, filterData.PRO_C);
+        else
+            LoadProvice(filterData.RegionCode != null ? filterData.RegionCode : null, filterData.PRO_C);
+
+
+       // $("#ddlRegion").val(filterData.RegionCode);
+        LoadDistinct(filterData.PRO_C, filterData.DIS_C);
+        LoadSubDistinct(filterData.DIS_C, filterData.SUB_C);
+    } else if (selectLocationLevel == '3') {
+
+        filterData = SectionAmphure.filter(t => t.DIS_C == selectCode);
+        filterData = filterData[0];
+
+        if (LocationType == '2')
+            LoadProvice(filterData.ClusterCode, filterData.PRO_C);
+        else
+            LoadProvice(filterData.RegionCode, filterData.PRO_C);
+
+      //  $("#ddlRegion").val(filterData.RegionCode);
+        LoadDistinct(filterData.PRO_C, filterData.DIS_C);
+        LoadSubDistinct(filterData.DIS_C);
+    } else if (selectLocationLevel == '2') {
+
+        filterData = SectionProvince.filter(t => t.PRO_C == selectCode);
+
+        filterData = filterData[0];
+
+        if (LocationType == '2')
+            LoadProvice(filterData.ClusterCode, filterData.PRO_C);
+        else {
+
+        //    $("#ddlRegion").val(filterData.RegionCode);
+            LoadProvice(filterData.RegionCode, filterData.PRO_C);
+
+        }
+        LoadDistinct(filterData.PRO_C);
+        LoadSubDistinct(null);
+    } else if (selectLocationLevel == '1') {
+
+        LoadProvice(selectCode, '');
+        LoadDistinct(null);
+        LoadSubDistinct(null);
+    } else if (selectLocationLevel == '0') {
+        LoadProvice(selectCode, '');
+        LoadDistinct(null);
+        LoadSubDistinct(null);
+    }
+
+}
+
+
+function LoadProvice(regionId, provincecode) {
+
+    $('#ddlProvince').empty();
+    $('#ddlProvince').append("<option value=''>เลือกจังหวัด</option>");
+    $('#ddlProvince').prop('disabled', false);
+
+    if (SectionProvince != null && SectionProvince.length > 0) {
+        $('#ddlProvince').empty();
+        $('#ddlProvince').append("<option value=''>เลือกจังหวัด</option>");
+
+        if (regionId == "") {
+
+            $.each(SectionProvince, function (index, province) {
+                $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
+            });
+
+            var proviceOption1 = $("#ddlProvince option").clone();
+            $("#ddlProvince1").empty();
+
+            $("#ddlProvince1").append(proviceOption1);
+           
+            $('#ddlProvince1').selectpicker('refresh');
+
+           // $("#ddlProvince1").selectpicker('refresh');
+        }
+        /// Load by Region Code
+        else if (LocationType == "1") {
+            $.each(SectionProvince.filter(p => p.RegionCode == regionId), function (index, province) {
+                $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
+            });
+
+          //  var proviceOption1 = $("#ddlProvince option").clone();
+            var proviceOption1 = $("#ddlProvince option:not([value='" + provincecode + "']):not([value='999999'])").clone();
+            $("#ddlProvince1").empty();
+            $("#ddlProvince1").append(proviceOption1);
+            $("#ddlProvince1").selectpicker('refresh')
+        }
+       
+
+        /// Load by Cluster Code
+        else if (LocationType == "2") {
+            $.each(SectionProvince.filter(p => p.ClusterCode == regionId), function (index, province) {
+                $("#ddlProvince").append("<option value='" + province.PRO_C + "'>" + province.NAME_T + "</option>");
+            });
+        }
+
+
+        if (provincecode != null)
+            $('#ddlProvince').val(provincecode);
+
+      /*  var proviceOption1 = $("#ddlProvince option").clone();
+
+
+        $("#ddlProvince1").empty();
+        $("#ddlProvince1").append(proviceOption1);
+        $("#ddlProvince1").selectpicker('refresh')
+
+
+        var proviceOption2 = $("#ddlProvince option:not([value='" + provincecode + "']):not([value='999999'])").clone();
+        $("#ddlProvince2").empty();
+        $("#ddlProvince2").append(proviceOption2);
+        $("#ddlProvince2").selectpicker('refresh')*/
+
+
+    }
+}
+
+
+function LoadDistinct(provinceid, distinctid) {
+
+    $('#ddlDistrict').empty();
+    $('#ddlDistrict').append("<option value=''>เลือกอำเภอ</option>");
+    $('#ddlDistrict').prop('disabled', false);
+
+    if (SectionAmphure != null && SectionAmphure.length > 0) {
+
+
+
+        $.each(SectionAmphure.filter(p => p.PRO_C == provinceid), function (index, district) {
+            $("#ddlDistrict").append("<option value='" + district.DIS_C + "'>" + district.NAME_T + "</option>");
+        });
+
+        if (distinctid != null && distinctid != '')
+            $('#ddlDistrict').val(distinctid);
+
+    }
+}
+
+
+function LoadSubDistinct(districtId, subdistinctid) {
+
+    $('#ddlSubdistrict').empty();
+    $('#ddlSubdistrict').append("<option value=''>เลือกตำบล</option>");
+    $('#ddlSubdistrict').prop('disabled', false);
+
+    if (SectionTumbol != null && SectionTumbol.length > 0) {
+
+
+
+        $.each(SectionTumbol.filter(p => p.DIS_C == districtId), function (index, subDistricts) {
+            $("#ddlSubdistrict").append("<option value='" + subDistricts.SUB_C + "'>" + subDistricts.NAME_T + "</option>");
+        });
+
+        if (subdistinctid != null && subdistinctid != "")
+            $('#ddlSubdistrict').val(subdistinctid);
+
+    }
+}
+
+
 
 function testx() {
     alert('xxxx');
@@ -687,7 +969,7 @@ symbol = ParcelMapController.getMapPhysicalInfo(targetInfo.MapStructure);
 function switchTabExten(id) {
     
     /**/
-    if (id == 'tab1') {
+    if (id == 'tab1' || id == 'tab2') {
         
         $("#tdmap").appendTo(".divLand");
     } else if (id == 'tab4') {

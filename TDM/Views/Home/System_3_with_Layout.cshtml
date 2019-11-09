@@ -6,15 +6,68 @@
 </style>
 <body class="nav-md">
 
+    <div id="mySidenavR" class="sidenavR invisible">
+
+        <ul class="leftMenu">
+            <li> <a class="closebtn" onclick="closeNavR()">×</a></li>
+            <li class="mmLeftMenu">
+
+                <div class="row">
+                    <div class="col-md-6 padding2">
+                        <select class="full-width" style="height:35px; width:100%" id="province" name="selected_province">
+                            <!-- name="selected_province"-->
+                        </select>
+                    </div>
+                    <div class="col-md-6 padding2">
+                        <select class="full-width" style="height:35px; width:100%" id="district">
+                            <option value="">อำเภอ/เขต</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 padding2">
+                        <select class="full-width" style="height:35px; width:100%" id="sub-district">
+                            <option value="">ตำบล/แขวง</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 padding2">
+                        <select class="full-width" style="height:35px; width:100%" id="branch">
+                            <option value="">สำนักงานที่ดิน</option>
+                        </select>
+                    </div>
+                </div>
+
+
+            </li>
+
+        </ul>
+
+    </div>
+
+
     @{
         Layout = "~/Views/Shared/_Layout_for_System_3.cshtml";
+
     }
+
+
+    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
     <!-- MAIN MENU - START -->
     @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
     <!-- MAIN MENU - END -->
 
 
     <section id="main-content">
+
+        <div class=" blockSearch" onclick="openNavR()">
+            <ul class="list-unstyled share-sticky hidden-sm-down border-left-0 p-1 mb-0 slideRight">
+                <li class="sum text-center bg-success">
+                    <i class="fa fa-search"></i>
+                    <strong>ค้นหา</strong>
+                </li>
+
+            </ul>
+        </div>
         <section id="menulist">
             <div class="content-heading bg-white">
 

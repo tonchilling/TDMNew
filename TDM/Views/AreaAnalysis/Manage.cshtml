@@ -26,16 +26,7 @@
 
     }
 
-    <link href="~/assets/fonts/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="~/assets/css/bootstrap-select.min.css" type="text/css">
-    <link rel="stylesheet" href="~/assets/css/owl.carousel.css" type="text/css">
-    <link rel="stylesheet" href="~/assets/css/jquery.nouislider.min.css" type="text/css">
-    <link rel="stylesheet" href="~/assets/css/leaflet.css" type="text/css">
-    <link rel="stylesheet" href="~/assets/css/jquery.mCustomScrollbar.css" type="text/css">
-    <link rel="stylesheet" href="~/assets/css/colors/green.css" type="text/css">
-    <link rel="stylesheet" href="~/assets/css/user.style.css" type="text/css">
+
     <link href="~/assets/css/sweetalert.css" rel="stylesheet" />
 
     <title>Treasury Map</title>
@@ -43,49 +34,17 @@
     <!-- FAVICON -->
     <link rel="icon" href="~/~/assets/img/favicon.png" type="images/png" />
 
-    <!-- APPLE TOUCH ICON -->
-    <link rel="apple-touch-icon" href="img/webclip.png">
-    <link href="~/assets/fonts/font-awesome.css" rel="stylesheet" />
-    <link href="~/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
-    <link href="~/assets/css/owl.carousel.css" rel="stylesheet" />
-    <link href="~/assets/css/jquery.nouislider.min.css" rel="stylesheet" />
-    <link href="~/assets/css/leaflet.css" rel="stylesheet" />
-    <link href="~/assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
-    <link href="~/assets/css/colors/green.css" rel="stylesheet" />
-    <link href="~/assets/css/user.style.css" rel="stylesheet" />
-    <link href="~/assets/css/custom.css" rel="stylesheet" />
-    <!-- Custom Theme Style -->
-    <link href="~/assets/css/custom_pera/custom.min.css" rel="stylesheet">
-    <link href="~/Content/site.css" rel="stylesheet" />
-    <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    <link href="~/assets/css/multi-select.css" rel="stylesheet" />
-    <link href="~/assets/css/Kim_Style.css" rel="stylesheet">
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+
     <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
     <script src="~/assets/js/datatables/dataTables.bootstrap.min.js"></script>
-    <script src="~/assets/js/datatables/dataTables.buttons.min.js"></script>
-    <script src="~/assets/js/datatables/buttons.bootstrap.min.js"></script>
-    <script src="~/assets/js/datatables/buttons.flash.min.js"></script>
-    <script src="~/assets/js/datatables/buttons.html5.min.js"></script>
-    <script src="~/assets/js/datatables/buttons.print.min.js"></script>
+   
     <script src="~/assets/js/datatables/dataTables.fixedHeader.min.js"></script>
     <script src="~/assets/js/datatables/dataTables.keyTable.min.js"></script>
     <script src="~/assets/js/datatables/dataTables.responsive.min.js"></script>
     <script src="~/assets/js/datatables/responsive.bootstrap.js"></script>
     <script src="~/assets/js/datatables/dataTables.scroller.min.js"></script>
-    <script src="~/Scripts/waiting.js?ver=1.0220"></script>
-    <script src="~/assets/js/datatables/pdfmake.min.js"></script>
-    <script src="~/assets/js/datatables/vfs_fonts.js"></script>
-    <script src="https://js.arcgis.com/4.10/"></script>
-
-    <!-- Datatables -->
-    <link href="~/assets/css/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/css/datatables/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/css/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/css/datatables/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/css/datatables/scroller.bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/css/Kim_Style.css?v5" rel="stylesheet">
+   
 
 
     <style>
@@ -117,167 +76,110 @@
             max-width: none;
         }
     </style>
+
     <!-- OG TAGS -->
     <meta property="og:title" content="Treasury Map" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="ค้นหาแปลงที่ดินจากจุดสนใจ" />
 </head>
-<body onunload="" class="map-fullscreen page-homepage navigation-off-canvas" id="page-top">
-    <!-- Outer Wrapper-->
-    <div id="outer-wrapper">
-        <!-- Inner Wrapper -->
-        <div id="inner-wrapper">
-
-            <!-- Page Canvas-->
-            <div id="page-canvas">
-                <!--Off Canvas Navigation-->
-                <nav class="off-canvas-navigation" style="display:none">
-                    <header>Navigation</header>
-                    <div class="main-navigation navigation-off-canvas"></div>
-                </nav>
-                <!--end Off Canvas Navigation-->
-                <!--Page Content-->
-                <div id="page-content">
 
 
 
-                    <style>
-                        .tab-search-icon img {
-                            width: 32px;
-                        }
-                    </style>
+    <style>
+        .tab-search-icon img {
+            width: 32px;
+        }
 
-                    <!-- Map Canvas-->
-                    <div class="list-solid">
-                        <form class="main-search" id="formSearch" role="form" method="post" action="">
-                            <div class="container body">
-                                <div class="main_container">
+        .panel_header {
+            padding: 10px;
+        }
+    </style>
 
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="x_panel tile  ">
-                                                <div class="x_title">
-                                                    <div class="col-md-10 col-sm-8 col-xs-9">
-                                                        <label class="Label__Header">จัดการพื้นที่ที่ได้รับผลกระทบ</label>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-4 col-xs-3">
-                                                        <ul class="nav navbar-right panel_toolbox">
-                                                            <li>
-                                                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                            </li>
-                                                            <li class="dropdown">
-                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                                <ul class="dropdown-menu" role="menu">
-                                                                    <li>
-                                                                        <a href="#">Settings 1</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#">Settings 2</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a class="close-link"><i class="fa fa-close"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <div class="x_content">
+        <section id="menulist">
+            <div class="content-heading bg-white">
 
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: #4367b0; color: #fff; padding-top:10px; padding-bottom: 10px;">
-                                                            เงื่อนไขการค้นหา
-                                                        </div>
-
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border:solid 1px #d2d2d2; padding:20px 40px;">
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div>รหัสโครงการ</div>
-                                                                <input type="text" name="ProjectID" class="form-control input__screen-full" placeholder="รหัสโครงการ">
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div>ชื่อโครงการ</div>
-                                                                <input type="text" name="ProjectName" class="form-control input__screen-full" placeholder="ชื่อโครงการ">
-                                                            </div>
-
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 input__screen-full">
-                                                                <div>พื้นที่ที่กระทบกับโครงการ</div>
-                                                                <select name="ProvName" title="พื้นที่ที่กระทบกับโครงการ" data-live-search="true" id="allProvince"></select>
-                                                            </div>
-                                                            <!---->
-                                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div>วันที่เผยแพร่ข้อมูล</div>
-                                                                <input type="text" name="PublishDate" class="form-control input__screen-full" id='datetimepicker4' placeholder="วันที่เผยแพร่ข้อมูล">
-                                                            </div>
-                                                                
-                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
-                                                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
-                                                                    <button type="button" onclick="onSearchProjectClick('Submit')" class="btn btn-default"><i class="fa fa-search"></i> ค้นหา</button>
-                                                                </div>
-                                                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                                                    <button type="reset" onclick="onSearchProjectClick('Reset')" class="btn btn-grey-dark"><i class="fa fa-refresh"></i> ยกเลิก</button>
-                                                                </div>
-                                                                <!-- /.form-group -->
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:15px 0 0 0;">
-                                                            <a href="#" class="btn btn-default" onclick="AddProject(0)"><i class="fa fa-plus"></i> เพิ่มโครงการ</a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                            <div id="results-detail" class="scroller__track col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
-                                                                <table id="tdProjectImpactList" class="table table-bordered table-striped tblInfo"></table>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                           
-                           
-                            
-                        </form>
-
-                    </div>
-
-                    @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
-
-                    <div class="modal fade modal-manage" id="myModal1">
-                        <div class="modal-dialog">
-                            <div class="modal-content" style="background-color: #f4f4f2;">
-                                <div class="modal-header">
-                                    <a href="#" class="modal-close" data-dismiss="modal">&times;</a>
-                                    <h3 class="modal-title">พื้นที่ที่ได้รับผลกระทบ</h3>
-                                </div>
-                                <div class="modal-body" id="myModalBodyDiv1">
-
-                                </div>
+                <div class="row">
+                    <div class="col-sm-12 divView">
+                        <!-- Header -->
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h3 class=" text-center  text-info">จัดการพื้นที่ผลกระทบ</i></h3>
                             </div>
                         </div>
                     </div>
 
-                    <input type="hidden" id="hiddenProjectId" />
-                    <!-- end Map Canvas-->
                 </div>
-                <!-- end Page Content-->
             </div>
-            <!-- end Page Canvas-->
 
+        </section>
+        <div class="clearfix"></div>
+
+
+
+
+            <div class="divSection1 row">
+
+                <div class="col-xs-12">
+
+                    <section class="box ">
+                        <header class="panel_header bg-info">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <i class="fa fa-area-chart fa-2x " aria-hidden="true"> จัดการพื้นที่ผลกระทบ</i>
+                                    <span class="fa-2x lbCaption"></span>
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <a href="#" class="btn btn-success pull-right" onclick="AddProject(0)"><i class="fa fa-plus"></i> เพิ่มโครงการ</a>
+                                </div>
+                            </div>
+
+                        </header>
+                        <div class="content-body">
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div id="results-detail" class="scroller__track col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
+                                                <table id="tdProjectImpactList" class="table table-bordered table-striped tblInfo"></table>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <input type="hidden" id="hiddenProjectId" />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+
+
+   
+    <div class="modal fade modal-manage" id="myModal1">
+        <div class="modal-dialog">
+            <div class="modal-content" >
+                <div class="modal-header bg-info">
+                    <a href="#" class="modal-close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title">พื้นที่ที่ได้รับผลกระทบ</h3>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv1">
+
+                </div>
+            </div>
         </div>
-        <!-- end Inner Wrapper -->
     </div>
 
-    <!-- end Outer Wrapper-->
 
     <script src="~/Scripts/Shared/helper.js"></script>
 
@@ -285,75 +187,37 @@
     <script src="~/Scripts/Shared/http.js?v=1"></script>
     <script src="~/assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="~/assets/js/moment-with-locales.min.js"></script>
-    <script src="~/assets/js/before.load.js"></script>
-    <script src="~/assets/js/leaflet.js"></script>
-    <script src="~/assets/js/leaflet-providers.js"></script>
-    <script src="~/assets/js/leaflet.markercluster.js"></script>
-    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/assets/js/smoothscroll.js"></script>
-    <script src="~/assets/js/bootstrap-select.min.js"></script>
-    <script src="~/assets/js/icheck.min.js"></script>
-    <script src="~/assets/js/jquery.hotkeys.js"></script>
-    <script src="~/assets/js/jquery.nouislider.all.min.js"></script>
-    <script src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="~/assets/jquery.gvChart-0.1.min.js"></script>
-    <script src="~/assets/js/custom.js"></script>
-    <script src="~/assets/js/maps.js"></script>
+  
+    
     <script src="~/assets/css/bootstrap-daterangepicker/daterangepicker.min.js"></script>
     <script src="~/assets/css/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="~/assets/css/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
     <script src="~/assets/css/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="~/assets/css/clockface/js/clockface.js"></script>
-    <script src="~/assets/js/tab.js"></script>
-    <script src="~/assets/js/charts-google.min.js"></script>
-    <script src="~/assets/js/Chart.js"></script>
-    <script src="~/assets/js/Chart/echarts.min.js"></script>
 
-    <script src="~/assets/js/jquery.multi-select.js"></script>
-    <script src="~/assets/js/jquery.quicksearch.js"></script>
 
     <script src="~/Scripts/respond.js"></script>
 
 
 
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
-    <script src="~/assets/js/JSZip/jszip.js"></script>
-
-
-
-    <script src="~/assets/js/ArcgisToGeojsonUtils/ArcgisToGeojsonUtils.js"></script>
-
-
-    <script src="~/assets/js/ReadShapeFile/dbf.js?33e343"></script>
-    <script src="~/assets/js/ReadShapeFile/shapefile.js?33e343"></script>
-    <script src="~/assets/js/ReadShapeFile/stream.js"></script>
-    <script src="~/assets/js/togeojson/togeojson.js"></script>
     <script src="~/assets/js/sweetalert.js?"></script>
 
     <script src="~/Scripts/AreaAnalysis/Manage.js?ver=1.4334"></script>
 
     <script>
 
-                      /*  var iframeElement = document.getElementById('tdmap');
-                        iframeElement.src = 'https://p-staging.treasury.go.th/TD2';
-                       var  gisIframeWindow = null;
-                        iframeElement.onload = function () {
-                            gisIframeWindow = iframeElement.contentWindow;
-                        }*/
+        $(document).on("click", ".blockSearch", function () {
 
-                       // var root= "<%= ResolveUrl("~/ASHX/PageControlHandler.ashx")%>";
-                        /**/
-                        //var root = ~/;
-                        /**/
+            if (IsMobile()) {
+                openNavR('60%');
+            }
+            else {
+                openNavR('40%');
+            }
+
+        });
     </script>
-    <style type="text/css">
-    </style>
 
 
 
-    <!--[if lte IE 9]>
-    <script type="text/javascript" src="~/assets/js/ie-scripts.js"></script>
-    <![endif]-->
-</body>
 </html>

@@ -15,28 +15,160 @@
     <meta name="Description" content=" กรมธนารักษ์">
     <title>กรมธนารักษ์</title>
 
-    <style type="text/css">
-        .table > tbody > tr.tdDetail > td {
-            padding: 0px;
-            line-height: 0px;
-            height: 0px;
+
+    @section Scripts {
+        @Scripts.Render("~/assets/css/customize.css?v113")
+        @Scripts.Render("~/assets/css/Kim_Style.css?v333")
+    }
+
+    <style>
+        .panel-login {
+            border-color: #ccc;
+            -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+            -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
         }
 
-        .absolute {
-            position: absolute;
+            .panel-login > .panel-heading {
+                color: #00415d;
+                background: linear-gradient(to top, #6ac9fb, #6ac2fb, #6cbafa, #71b2f7, #78a9f4);
+                border-color: #fff;
+                text-align: left;
+            }
+
+                .panel-login > .panel-heading a, .panel-heading span {
+                    text-decoration: none;
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 18px;
+                    -webkit-transition: all 0.1s linear;
+                    -moz-transition: all 0.1s linear;
+                    transition: all 0.1s linear;
+                }
+
+                    .panel-login > .panel-heading a.active {
+                        color: #33c9f2;
+                        font-size: 18px;
+                    }
+
+        .right {
+            text-align: right;
+        }
+
+        #dashboard-section1 h4 {
+            text-align: center;
+            min-height: 2em;
+        }
+
+        .form-check-inline {
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-left: 0;
+            margin-right: .75rem;
+            width: auto;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .rowChartTab {
+            overflow-x: scroll;
+            flex-wrap: nowrap;
+        }
+
+        .chartTab1, .chartTab2, .chartTab3 {
+            display: inline;
+            float: none !important;
+        }
+
+        .panel {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            margin-bottom: 30px;
+            border: 1px solid #d1d6e6;
+            background: #fff;
+        }
+
+            .panel .panel-heading {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                position: relative;
+                line-height: 1;
+                border-bottom: 1px solid #eaeff2;
+                background-color: #f8f9fa;
+            }
+
+                .panel .panel-heading .panel-title {
+                    display: inline-block;
+                    vertical-align: middle;
+                    *vertical-align: auto;
+                    *zoom: 1;
+                    *display: inline;
+                    margin: 0;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #717d84;
+                }
+
+        .btn-default {
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        .divTitle {
+            margin-top: 60px;
+        }
+
+        .divView {
+            min-height: 80px;
+        }
+
+        .slimScrollDiv {
+            margin-top: 0px;
+        }
+
+        .content-heading {
+            opacity: 1;
+        }
+
+        .lblStatus {
+            padding-left: 30px;
+        }
+
+            .lblStatus > a {
+                font-size: 18px;
+                text-decoration-line: underline
+            }
+
+        .cardBI {
+            width: 300px;
         }
     </style>
-    @section Scripts {
-        @Scripts.Render("~/assets/css/customize.css?v1113")
-        @Scripts.Render("~/assets/css/Kim_Style.css?vwwww33333")
-    }
-    <link href="~/assets/css/Kim_Style.css" rel="stylesheet" />
-    <link href="~/assets/css/customize.css" rel="stylesheet" />
-    <link href="~/assets/css/bootstrap-select.min.css" rel="stylesheet" />
+    <script src="~/Scripts/waiting.js?ver=1.0220"></script>
+
+    <!--
+    <link href="~/assets/css/customize.css" rel="stylesheet" />-->
+    <script src="~/Scripts/Main.js"></script>
+
     <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
     <!-- CORE CSS FRAMEWORK - START -->
-    <link href="~/assets/css/BI/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/BI/bootstrap.min.css?ver=1.3330" rel="stylesheet" />
+
     <link href="~/assets/css/BI/pace-theme-flash.css" rel="stylesheet" />
     <link href="~/assets/css/BI/bootstrap-theme.min.css" rel="stylesheet" />
     <!-- CORE CSS FRAMEWORK - END -->
@@ -45,192 +177,97 @@
     <link href="~/assets/css/BI/perfect-scrollbar.css" rel="stylesheet" />
     <link href="~/assets/css/BI/jquery-jvectormap-2.0.1.css" rel="stylesheet" />
 
-    <link href="~/assets/css/BI/Style.css?ver=1ddrd" rel="stylesheet" />
+
 
     <!-- CORE CSS TEMPLATE - END -->
+    <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-select.min.css?ver=1.1" rel="stylesheet" />
 
-    <style type="text/css">
-        .selectpicker {
-            -moz-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-            -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05);
-            -moz-transition: 0.3s;
-            -webkit-transition: 0.3s;
-            transition: 0.3s;
-            background-color: #fff;
-        }
-
-            .selectpicker:hover, .selectpicker:focus, .selectpicker:active, .selectpicker.active, .open .dropdown-toggle.selectpicker {
-                color: #333;
-                background-color: #fff;
-                /*border-color: gold;*/
-            }
-
-
-        .dropdown-menu > li > a {
-            display: block;
-            padding: 3px 20px;
-            clear: both;
-            font-size: 14px;
-            line-height: 1.42857143;
-            color: #333;
-            white-space: nowrap;
-        }
-
-        body .section4 p {
-            color: #428bca;
-        }
-
-        .bootstrap-select.btn-group .dropdown-menu li a i.check-mark {
-            display: none;
-        }
-    </style>
     <!-- Bootstrap -->
     <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/assets/js/jquery-ui.js"></script>
-    <script src="~/assets/js/bootstrap-select.min.js?33"></script>
+    <script src="~/assets/js/bootstrap-select.min.js?ver=2"></script>
+    <style type="text/css">
+        .tblChart tr td {
+            padding: 20px;
+        }
 
+
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 10px 0;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body class="nav-md">
-    <div class="page-topbar">
-        <div class="logo-area">
-
-        </div>
-        <div class="quick-area">
-            <div class="pull-left">
-                <ul class="info-menu left-links list-inline list-unstyled">
-                    <li class="sidebar-toggle-wrap">
-                        <a href="#" data-toggle="sidebar" class="sidebar_toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
+    <div id="wait"></div>
+   
+    <div id="mySidenavR" class="sidenavR invisible">
+     
+            <ul class="leftMenu">
+                <li> <a  class="closebtn" onclick="closeNavR()">×</a></li>
+                <li class="mmLeftMenu">
 
 
-
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-    <!-- START CONTENT -->
-
-    <div class="page-sidebar pagescroll expandit">
-
-        <!-- MAIN MENU - START -->
-        <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-
-            <!-- USER INFO - START -->
-            <div class="profile-info row">
-
-                <div class="profile-image col-xs-4">
-                    <a href="ui-profile.html">
-                        <img alt="" src="~/assets/img/profile.jpg" class="img-responsive img-circle">
-                    </a>
-                </div>
-
-                <div class="profile-details col-xs-8">
-
-                    <h3>
-                        <a href="ui-profile.html">User</a>
-
-                        <!-- Available statuses: online, idle, busy, away and offline -->
-                        <span class="profile-status online"></span>
-                    </h3>
-
-                    <p class="profile-title">Admin</p>
-
-                </div>
-
-            </div>
-            <!-- USER INFO - END -->
-
-
-
-            <ul class="wraplist" style="height: auto;">
-
-                <li class="menusection">ค้นหา  <input type="button" class="btn btn-primary pull-right" value="ค้นหา" /></li>
-                <li class="">
-                    <a href="#">
-
-                        <div class="row">
-                            <div class="col-xs-11">
-                                <i class="fa fa-search icon-primary"></i>  <span class="title">เลือกพื้นที่ที่ต้องการค้นหา</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-11">
-                                <div class="form-group">
-                                    <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
-                                        <option value="">เลือกภาค</option>
-                                        <option value="1">ภาคกลาง</option>
-                                        <option value="2">ตะวันตก</option>
-                                        <option value="3">เหนือ</option>
-                                        <option value="4">ตะวันออกเฉียงเหนือ</option>
-                                        <option value="5">ใต้</option>
-                                        <option value="6">ตะวันออก</option>
-                                    </select>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-11">
-                                <div class="form-group">
-                                    <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
-                                        <option value="">เลือกจังหวัด</option>
-                                        <option value="1">กรุงเทพ</option>
-                                        <option value="2">นนทบุรี</option>
-
-                                    </select>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-11">
-                                <div class="form-group">
-                                    <select class="form-control form-control-lg" name="ddlAmphure" id="ddlAmphure" required>
-                                        <option value="">เลือกอำเภอ</option>
-                                        <option value="1">สาธร</option>
-                                        <option value="2">ดินแดง</option>
-
-                                    </select>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </a>
-                </li>
-                <li class="">
-                    <a href="#">
-
-
-
-
-                    </a>
-                    <div class="row">
+                    <div class="row" style="padding-bottom:1rem">
                         <div class="col-xs-11">
-
-                            <span class="title">เลือกประเภท</span>
+                            <i class="fa fa-2x  fa-search icon-warning"></i>  <span class="title">เลือกพื้นที่</span>
                         </div>
+                    </div>
+                    <div class="row" style="padding-bottom:1rem">
+                        <div class="col-sm-11">
+
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <h4 id="lblSection" ></h4>
+                                </div>
+                                    <div class="card-body text-center">
+                                        <i class=" fa fa-1x  fa-cubes icon-rounded icon-info zoom btnLand "></i>
+                                        <i class="fa fa-building fa-1x icon-rounded icon-danger zoom  btnCondo  "></i>
+                                        <i class=" glyphicon glyphicon-home fa-1x icon-rounded icon-success zoom  btnBuilding"></i>
+                                        <i class="fa fa-bank fa-1x icon-rounded icon-warning zoom  btnGov  "></i>
+                                    </div>
+                                </div>
+                            </div>
+
                     </div>
 
                     <div class="row">
                         <div class="col-xs-11">
-                            <div class="form-group">
-                                <select class="form-control form-control-lg"
-                                        title="เลือกประเภท"
-                                        placeholder="เลือกประเภท"
-                                        name="ddlType"
-                                        id="ddlType" multiple>
+                            <div class="funkyradio">
+                                <div class="funkyradio-warning">
+                                    <input type="checkbox" name="Type1" id="rdCluster" />
+                                    <label for="rdCluster">คลัสเตอร์</label>
+                                </div>
+                            </div>
+                        </div>
 
-                                    <option value="1">ที่ดิน</option>
-                                    <option value="2">อาคารชุด</option>
-                                    <option value="3">สิ่งปลูกสร้าง</option>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                    <option value="">เลือกภาค</option>
+                                    <option value="1">ภาคกลาง</option>
+                                    <option value="2">ตะวันตก</option>
+                                    <option value="3">เหนือ</option>
+                                    <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                    <option value="5">ใต้</option>
+                                    <option value="6">ตะวันออก</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                    <option value="">เลือกจังหวัด</option>
+                                    <option value="1">กรุงเทพ</option>
+                                    <option value="2">นนทบุรี</option>
 
                                 </select>
                             </div>
@@ -238,19 +275,28 @@
                         </div>
 
                     </div>
-
-                    <div class="row  divProvince1 invisible">
+                    <div class="row">
                         <div class="col-xs-11">
                             <div class="form-group">
-                                <select class="form-control form-control-lg"
-                                        title="จังหวัดที่เปรียบเทียบ"
-                                        placeholder="จังหวัดที่เปรียบเทียบ"
-                                        name="ddlProvince1" id="ddlProvince1" multiple>
+                                <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                    <option value="">เลือกอำเภอ</option>
+                                    <option value="1">สาธร</option>
+                                    <option value="2">บางรัก</option>
 
-                                    <option value="1">นนทบุรี</option>
-                                    <option value="2">นครปฐม</option>
-                                    <option value="3">ปทุมธานี</option>
+                                </select>
+                            </div>
 
+                        </div>
+
+                    </div>
+                    <div class="row invisible">
+                        <div class="col-xs-11">
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                    <option value="">เลือกตำบล</option>
+                                    <option value="1">ทุ่งมหาเมฆ</option>
+                                    <option value="2">ยานนาวา</option>
+                                    <option value="3">ทุ่งวัดดอน</option>
                                 </select>
                             </div>
 
@@ -259,83 +305,229 @@
                     </div>
 
                 </li>
-
-                <li class="menusection">
-                    <input type="button" class="btn btn-info center" value="DB" />
-                    <input type="button" class="btn btn-purple center" value="Query" />
-                    <input type="button" class="btn btn-warning center" value="Graph" />
-                </li>
-
-
 
             </ul>
 
-
-
-        </div>
-        <!-- MAIN MENU - END -->
-
-
-
     </div>
+    <!-- START CONTENT -->
+    @Html.Partial("~/Views/Shared/_HeaderBar.cshtml")
+    @Html.Partial("~/Views/Shared/_LeftMenu.cshtml")
     <section id="main-content">
-        <section class="wrapper main-wrapper row" style=''>
 
-            <div class='col-xs-12'>
-                <div class="page-title">
+        <div class=" blockSearch" onclick="openNavR()">
+            <ul class="list-unstyled share-sticky hidden-sm-down border-left-0 p-1 mb-0 slideRight">
+                <li class="sum text-center bg-success">
+                    <i class="fa fa-search"></i>
+                    <strong>ค้นหา</strong> 
+                </li>
+               
+            </ul>
+        </div>
+       
+        <section id="menulist">
+            <div class="content-heading bg-white">
 
-                    <div class="pull-left">
-                        <!-- PAGE HEADING TAG - START --><h1 class="title">Mode</h1><!-- PAGE HEADING TAG - END -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- Header -->
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h3 class=" text-center  text-info">หน้าหลัก</i></h3>
+
+
+
+
+                            </div>
+                        </div>
                     </div>
-
 
                 </div>
             </div>
+
+
+
+        </section>
+
+
+
+        <section class="wrapper main-wrapper row" style=''>
+
+
 
             <div class="clearfix"></div>
             <div class="col-lg-12">
                 <section class="box nobox marginBottom0">
                     <div class="content-body">
                         <div class="row">
-                            <div class="col-xs-2">
-                                <div class="r4_counter db_box bg-primary">
-                                    <i class='pull-left fa fa-2x fa-area-chart icon-rounded icon-info btnLand'></i>
+
+
+
+                            <div class="col-lg-3 col-sm-6 col-xs-12">
+                                <div class="r4_counter db_box bg-info  btnLand zoom">
+                                    <i class='pull-left fa fa-2x fa fa-cubes icon-rounded icon-info '></i>
                                     <div class="stats">
-                                        <h4><strong>ที่ดิน</strong></h4>
+                                        <h2 class=" text-center">ที่ดิน</h2>
+
+                                    </div>
+                                    <div class="footer">
+                                        <h3>รายงานเกี่ยวกับข้อมุลที่ดิน</h3>
 
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-2">
-                                <div class="r4_counter db_box bg-danger">
-                                    <i class='pull-left fa fa-area-chart icon-md icon-rounded icon-accent btnCondo'></i>
+
+                            <div class="col-lg-3 col-sm-6 col-xs-12">
+                                <div class="r4_counter db_box bg-danger  btnCondo zoom">
+                                    <i class='pull-left fa fa-building icon-md icon-rounded icon-warning '></i>
                                     <div class="stats">
-                                        <h4><strong>อาคารชุด</strong></h4>
+                                        <h2 class=" text-center">อาคารชุด</h2>
+
+                                    </div>
+                                    <div class="footer">
+                                        <h3>รายงานเกี่ยวกับ อาคารชุด</h3>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-2">
-                                <div class="r4_counter db_box bg-info">
-                                    <i class='pull-left fa fa-area-chart icon-md icon-rounded icon-primary btnBuilding'></i>
+
+                            <div class="col-lg-3 col-sm-6 col-xs-12">
+                                <div class="r4_counter db_box bg-success  btnBuilding zoom">
+                                    <i class='pull-left glyphicon glyphicon-home icon-md icon-rounded icon-info '></i>
                                     <div class="stats">
-                                        <h4><strong>สิ่งปลูกสร้าง</strong></h4>
+                                        <h2 class=" text-center"><strong class="">สิ่งปลูกสร้าง</strong></h2>
+
+                                    </div>
+                                    <div class="footer">
+                                        <h3>รายงานเกี่ยวกับ สิ่งปลูกสร้าง</h3>
+
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-lg-3 col-sm-6 col-xs-12">
+                                <div class="r4_counter db_box bg-warning  btnGov zoom">
+                                    <i class='pull-left fa fa-bank icon-md icon-rounded icon-accent '></i>
+                                    <div class="stats">
+                                        <h2 class=" text-center">พื้นที่โครงการรัฐ</h2>
+
+                                    </div>
+                                    <div class="footer">
+                                        <h3>รายงานเกี่ยวกับ พื้นที่โครงการรัฐ</h3>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                         </div> <!-- End .row -->
                     </div>
                 </section>
             </div>
 
+            <div class="col-xs-12 ">
+                <div class="divView  content-heading bg-white"></div>
+
+            </div>
+
+
+
             <div class="clearfix"></div>
+            <!--Land-->
 
-
-            <div class="divLand invisible">
+            <div class="divLand m-fadeOut">
                 <!-- MAIN CONTENT AREA STARTS -->
+                <!-- Dashboard Menu -->
+
                 <div class="col-xs-12">
                     <section class="box ">
                         <header class="panel_header">
-                            <h2 class="title pull-left">ที่ดิน</h2>
+                            <div class="col-sm-10">
+                                <h2 class=" text-info"><i class="fa fa-calendar" aria-hidden="true"> แผนงานและโครงการ</i></h2>
+                                <div class="lblStatus text-info"></div>
+                            </div>
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+                        <div class="content-body">
+                            <div class="row" style="text-align:center;">
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group text-left">
+
+                                        <select class="form-control form-control-lg"
+                                                name="ddlLand" id="ddlLand">
+                                            <option value="0">เลือกทั้งหมด</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align:center; overflow-x:auto">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="divSection1Land">
+                                        <table class="tblChart">
+
+                                            <tr></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <div class="col-sm-10">
+                                <h2 class="  text-info"><i class="fa fa-cube" aria-hidden="true"> สรุปราคา สูงสุด/ต่ำสุด</i></h2>
+                                <div class="lblStatus text-info"></div>
+                            </div>
+                            <div class="col-sm-2 padding-40">
+                                <a class="btn btn-info pull-right btnViewMap" href="~/DashboardSystem3">เรียกดูแผนที่</a>
+                            </div>
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+
+                        <div class="content-body">
+
+                            <div class="row" style="text-align:center; overflow-x:auto">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                    <div class="divSection1 m-fadeOut">
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="col-xs-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <div class="col-sm-10">
+                                <h2 class=" text-info"><i class="fa fa-table" aria-hidden="true"> รายละเอียด</i></h2>
+                                <div class="lblStatus text-info"></div>
+                            </div>
+                            <div class="col-sm-2 padding-40">
+                                <a class="btn btn-info pull-right btnViewMap" href="~/DashboardSystem3">เรียกดูแผนที่</a>
+                            </div>
                             <div class="actions panel_actions pull-right">
                                 <a class="box_toggle fa fa-chevron-down"></a>
                                 <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
@@ -345,55 +537,83 @@
                         <div class="content-body">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <table class="table table-bordered table-striped   " id="EstimateChartTable0">
-                                        <thead>
-                                            <tr class="bg-primary">
-                                                <th scope="col">เลขที่ฉโนด</th>
-                                                <th scope="col">จังหวัด</th>
-                                                <th scope="col">อำเภอ</th>
-                                                <th scope="col">ตำบล</th>
-                                                <th scope="col">ราคาประเมิน</th>
-                                                <th scope="col">ราคาซื้อขาย</th>
+                                    <div class="divSection2 table-responsive">
+                                        <table class="table table-bordered table-striped   " id="EstimateChartTable0">
+                                            <thead>
+                                                <tr class="bg-info">
+                                                    <th scope="col">เลขที่ฉโนด</th>
+                                                    <th scope="col">จังหวัด</th>
+                                                    <th scope="col">อำเภอ</th>
+                                                    <th scope="col">ตำบล</th>
+                                                    <th scope="col">ราคาประเมิน</th>
+                                                    <th scope="col">ราคาซื้อขาย</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1333</td>
-                                                <td>กุรงเทพ</td>
-                                                <td>ยานนาวา</td>
-                                                <td>สาธร</td>
-                                                <td>200,000 </td>
-                                                <td>250,000 </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1333</td>
+                                                    <td>กุรงเทพ</td>
+                                                    <td>ยานนาวา</td>
+                                                    <td>สาธร</td>
+                                                    <td>200,000 </td>
+                                                    <td>250,000 </td>
 
-                                            </tr>
-                                            <tr>
-                                                <td>19933</td>
-                                                <td>กุรงเทพ</td>
-                                                <td>ดินแดง</td>
-                                                <td>ดินแดง</td>
-                                                <td>100,000 </td>
-                                                <td>120,000 </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>19933</td>
+                                                    <td>กุรงเทพ</td>
+                                                    <td>ดินแดง</td>
+                                                    <td>ดินแดง</td>
+                                                    <td>100,000 </td>
+                                                    <td>120,000 </td>
 
-                                            </tr>
-                                            <tr>
-                                                <td>144433</td>
-                                                <td>กุรงเทพ</td>
-                                                <td>พระขโนง</td>
-                                                <td>บางจาก</td>
-                                                <td>150,000 </td>
-                                                <td>190,000 </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>144433</td>
+                                                    <td>กุรงเทพ</td>
+                                                    <td>พระขโนง</td>
+                                                    <td>บางจาก</td>
+                                                    <td>150,000 </td>
+                                                    <td>190,000 </td>
 
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div> <!-- End .row -->
 
                         </div>
                     </section>
                 </div>
-                <div class="col-xs-12 col-md-6 col-lg-4">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <div class="col-sm-10">
+                                <h2 class="  text-info"><i class="fa fa-bar-chart" aria-hidden="true"> กราฟ</i></h2>
+                                <div class="lblStatus text-info"></div>
+                            </div>
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+                        <div class="content-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="chart-container">
+                                        <div class="chart3" style="height:600px;" id="chart3"></div>
+                                    </div>
+                                </div>
+                            </div> <!-- End .row -->
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="col-xs-12 col-md-8 col-lg-6">
                     <section class="box ">
                         <header class="panel_header">
                             <h2 class="title pull-left"></h2>
@@ -407,7 +627,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="chart-container">
-                                        <div class="chart1" style="height:300px" id="chart1"></div>
+                                        <div class="chart1" style="height:600px" id="chart1"></div>
                                     </div>
                                 </div>
                             </div> <!-- End .row -->
@@ -415,7 +635,7 @@
                     </section>
                 </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-4">
+                <div class="col-xs-12 col-md-8 col-lg-6">
                     <section class="box ">
                         <header class="panel_header">
                             <h2 class="title pull-left"></h2>
@@ -429,7 +649,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="chart-container">
-                                        <div class="chart2" style="height:300px" id="chart2"></div>
+                                        <div class="chart2" style="height:600px" id="chart2"></div>
                                     </div>
                                 </div>
                             </div> <!-- End .row -->
@@ -437,37 +657,100 @@
                     </section>
                 </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-4">
-                    <section class="box ">
-                        <header class="panel_header">
-                            <h2 class="title pull-left"></h2>
-                            <div class="actions panel_actions pull-right">
-                                <a class="box_toggle fa fa-chevron-down"></a>
-                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
-                                <a class="box_close fa fa-times"></a>
-                            </div>
-                        </header>
-                        <div class="content-body">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="chart-container">
-                                        <div class="chart3" style="height:300px;" id="chart3"></div>
-                                    </div>
-                                </div>
-                            </div> <!-- End .row -->
-                        </div>
-                    </section>
-                </div>
 
             </div>
 
             <!-- Condo-->
 
-            <div class="divCondo invisible">
+            <div class="divCondo m-fadeOut">
+
                 <div class="col-xs-12">
                     <section class="box ">
                         <header class="panel_header">
-                            <h2 class="title pull-left">อาคารชุด</h2>
+                            <div class="col-sm-10">
+                                <h2 class=" text-danger"><i class="fa fa-calendar" aria-hidden="true"> แผนงานและโครงการ</i></h2>
+                                <div class="lblStatus text-danger"></div>
+
+                            </div>
+
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+
+                        <div class="content-body">
+                            <div class="row" style="text-align:center;">
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group text-left">
+
+                                        <select class="form-control form-control-lg"
+                                                name="ddlCondo" id="ddlCondo">
+                                            <option value="0">เลือกทั้งหมด</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align:center; overflow-x:auto">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="divSection1Condo">
+                                        <table class="tblChart">
+
+                                            <tr></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+
+                <div class="col-xs-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <div class="col-sm-10">
+                                <h2 class="  text-danger"><i class="fa fa-cube" aria-hidden="true"> สรุปราคา สูงสุด/ต่ำสุด</i></h2>
+                                <div class="lblStatus text-danger"></div>
+                            </div>
+                            <div class="col-sm-2 padding-40">
+                                <a class="btn btn-danger pull-right btnViewMap" href="~/DashboardSystem3">เรียกดูแผนที่</a>
+                            </div>
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+
+                        <div class="content-body">
+
+                            <div class="row" style="text-align:center; overflow-x:auto">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="divSection1">
+                                        <table class="tblChart">
+
+                                            <tr></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <div class="col-sm-10">
+                                <h2 class="text-danger"><i class="fa fa-table" aria-hidden="true"> อาคารชุด</i></h2>
+                                <div class="lblStatus text-danger"></div>
+                            </div>
+                            <div class="col-sm-2 padding-40">
+                                <a class="btn btn-danger pull-right btnViewMap" href="~/DashboardSystem3">เรียกดูแผนที่</a>
+                            </div>
                             <div class="actions panel_actions pull-right">
                                 <a class="box_toggle fa fa-chevron-down"></a>
                                 <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
@@ -477,47 +760,49 @@
                         <div class="content-body">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <table class="table table-bordered table-striped   " id="EstimateChartTable0">
-                                        <thead>
-                                            <tr class="bg-primary">
-                                                <th scope="col">ชื่ออาคารชุด</th>
-                                                <th scope="col">จังหวัด</th>
-                                                <th scope="col">อำเภอ</th>
-                                                <th scope="col">ตำบล</th>
-                                                <th scope="col">ราคาซื้อขาย</th>
+                                    <div class="divSection2">
+                                        <table class="table table-bordered table-striped   " id="EstimateChartTable0">
+                                            <thead>
+                                                <tr class="bg-danger">
+                                                    <th scope="col">ชื่ออาคารชุด</th>
+                                                    <th scope="col">จังหวัด</th>
+                                                    <th scope="col">อำเภอ</th>
+                                                    <th scope="col">ตำบล</th>
+                                                    <th scope="col">ราคาซื้อขาย</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>ลุมพินีเพลส</td>
-                                                <td>กุรงเทพ</td>
-                                                <td>ยานนาวา</td>
-                                                <td>บางรัก</td>
-                                                <td>3,500,000 </td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td>คอนโด 2</td>
-                                                <td>กุรงเทพ</td>
-                                                <td>ดินแดง</td>
-                                                <td>ดินแดง</td>
-                                                <td>1,500,000 </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>ลุมพินีเพลส</td>
+                                                    <td>กุรงเทพ</td>
+                                                    <td>ยานนาวา</td>
+                                                    <td>บางรัก</td>
+                                                    <td>3,500,000 </td>
 
 
-                                            </tr>
-                                            <tr>
-                                                <td>คอนโด เพลส 1</td>
-                                                <td>กุรงเทพ</td>
-                                                <td>พระขโนง</td>
-                                                <td>บางจาก</td>
-                                                <td>1,950,000 แปลง</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>คอนโด 2</td>
+                                                    <td>กุรงเทพ</td>
+                                                    <td>ดินแดง</td>
+                                                    <td>ดินแดง</td>
+                                                    <td>1,500,000 </td>
 
 
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                </tr>
+                                                <tr>
+                                                    <td>คอนโด เพลส 1</td>
+                                                    <td>กุรงเทพ</td>
+                                                    <td>พระขโนง</td>
+                                                    <td>บางจาก</td>
+                                                    <td>1,950,000 แปลง</td>
+
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div> <!-- End .row -->
 
@@ -525,7 +810,29 @@
                     </section>
                 </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-4">
+
+                <div class="col-xs-12 col-md-5 col-lg-5">
+                    <section class="box ">
+                        <header class="panel_header">
+
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+                        <div class="content-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="chart-container">
+                                        <div class="chartCondo1" style="height:400px" id="chartCondo1"></div>
+                                    </div>
+                                </div>
+                            </div> <!-- End .row -->
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-md-7 col-lg-7">
                     <section class="box ">
                         <header class="panel_header">
                             <h2 class="title pull-left"></h2>
@@ -538,8 +845,8 @@
                         <div class="content-body">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="chart-container">
-                                        <div class="chartCondo1" style="height:300px" id="chartCondo1"></div>
+                                    <div class="">
+                                        <div class="chartCondo3" style="height:400px;" id="chartCondo3"></div>
                                     </div>
                                 </div>
                             </div> <!-- End .row -->
@@ -547,98 +854,165 @@
                     </section>
                 </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-4">
-                    <section class="box ">
-                        <header class="panel_header">
-                            <h2 class="title pull-left"></h2>
-                            <div class="actions panel_actions pull-right">
-                                <a class="box_toggle fa fa-chevron-down"></a>
-                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
-                                <a class="box_close fa fa-times"></a>
-                            </div>
-                        </header>
-                        <div class="content-body">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="chart-container">
-                                        <div class="chartCondo2" style="height:300px" id="chartCondo2"></div>
-                                    </div>
-                                </div>
-                            </div> <!-- End .row -->
-                        </div>
-                    </section>
-                </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-4">
-                    <section class="box ">
-                        <header class="panel_header">
-                            <h2 class="title pull-left"></h2>
-                            <div class="actions panel_actions pull-right">
-                                <a class="box_toggle fa fa-chevron-down"></a>
-                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
-                                <a class="box_close fa fa-times"></a>
-                            </div>
-                        </header>
-                        <div class="content-body">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="chart-container">
-                                        <div class="chartCondo3" style="height:300px;" id="chartCondo3"></div>
-                                    </div>
-                                </div>
-                            </div> <!-- End .row -->
-                        </div>
-                    </section>
-                </div>
+
 
             </div>
             <!-- Building-->
-            <div class="divBuilding invisible">
+            <div class="divBuilding m-fadeOut">
+
                 <div class="col-xs-12">
                     <section class="box ">
                         <header class="panel_header">
-                            <h2 class="title pull-left">สิ่งปลูกสร้าง</h2>
+                            <div class="col-sm-10">
+                                <h2 class=" text-success"><i class="fa fa-calendar" aria-hidden="true"> แผนงานและโครงการ</i></h2>
+                                <div class="lblStatus text-success"></div>
+                            </div>
+                            <div class="col-sm-2 padding-40">
+                                <a class="btn btn-success pull-right btnViewMap" href="~/DashboardSystem3">เรียกดูแผนที่</a>
+                            </div>
                             <div class="actions panel_actions pull-right">
                                 <a class="box_toggle fa fa-chevron-down"></a>
                                 <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
                                 <a class="box_close fa fa-times"></a>
                             </div>
                         </header>
+
                         <div class="content-body">
+                            <div class="row" style="text-align:center;">
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="form-group text-left">
+
+                                        <select class="form-control form-control-lg"
+                                                name="ddlBuilding" id="ddlBuilding">
+                                            <option value="0">เลือกทั้งหมด</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align:center; overflow-x:auto">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="divSection1Building">
+                                        <table class="tblChart">
+
+                                            <tr></tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+
+                <div class="col-xs-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <div class="col-sm-8">
+                                <h2 class=" text-success"><i class="fa fa-table" aria-hidden="true"> สิ่งปลูกสร้าง</i></h2>
+                                <div class="lblStatus text-success"></div>
+                            </div>
+                            <div class="col-sm-4 padding-40 right">
+
+                                <input type="button" class="btn btnSearchBuiding btn-success" value="ค้นหา" />
+                                <a type="button" class="btn btn-success btnViewMap" value="เรียกดูแผนที่" href="~/DashboardSystem3">เรียกดูแผนที่</a>
+                            </div>
+                            <div class="actions panel_actions pull-right">
+
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+                        <div class="content-body">
+                            <div class="row" style="padding-bottom:10px;">
+                                <div class="col-xs-3 ">
+                                    <label>ประเภทสิ่งปลูกสร้าง</label>
+                                    <select class="form-control form-control-lg" name="ddlConstructionType" id="ddlConstructionType" placeholder="สิ่งปลูกสร้าง"></select>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label>จังหวัด</label>
+                                        <select class="form-control form-control-lg"
+                                                title="เลือกจังหวัด"
+                                                placeholder="เลือกจังหวัด"
+                                                name="ddlProvince1" id="ddlProvince1"></select>
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <label>จังหวัดที่เปรียบเทียบ</label>
+                                        <select class="form-control form-control-lg"
+                                                title="จังหวัดที่เปรียบเทียบ"
+                                                placeholder="จังหวัดที่เปรียบเทียบ"
+                                                name="ddlProvince2" id="ddlProvince2" multiple></select>
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-2">
+
+                                    <div class="form-group">
+                                        <label>เปอร์เซ็นต์ต่าง</label>
+                                        <div class='input-group'>
+
+                                            <input class="form-control txtPercent" id="txtPercent" value="10" placeholder="% ความต่าง" />
+                                            <span class="input-group-addon">
+                                                <span>%</span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="form-group">
+                                        <label>ปี</label>
+                                        <select class="form-control form-control-lg"
+                                                title="ปี"
+                                                placeholder="ปี"
+                                                name="ddlYear" id="ddlYear"></select>
+                                    </div>
+                                </div>
+
+                            </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <table class="table table-bordered table-striped   " id="EstimateChartTable0">
-                                        <thead>
-                                            <tr class="bg-primary">
-                                                <th scope="col">รหัส</th>
-                                                <th scope="col">ชื่อ</th>
-                                                <th scope="col">จังหวัด</th>
-                                                <th scope="col">ราคา/ตารางเมตร</th>
+                                    <div class="divSection1">
+                                        <table class="table table-bordered table-striped   " id="EstimateChartTable0">
+                                            <thead>
+                                                <tr class="bg-info">
+                                                    <th scope="col">รหัส</th>
+                                                    <th scope="col">ชื่อ</th>
+                                                    <th scope="col">จังหวัด</th>
+                                                    <th scope="col">ราคา/ตารางเมตร</th>
 
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>100</td>
-                                                <td>ประเภทบ้านเดี่ยว</td>
-                                                <td>จ.กรุงเทพ</td>
-                                                <td>7,500.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>200</td>
-                                                <td>ประเภททาวน์เฮ้าส์</td>
-                                                <td>จ.กรุงเทพ</td>
-                                                <td>5,500.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>100</td>
-                                                <td>ประเภทห้องแถว</td>
-                                                <td>จ.กรุงเทพ</td>
-                                                <td>4,500.00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>100</td>
+                                                    <td>ประเภทบ้านเดี่ยว</td>
+                                                    <td>จ.กรุงเทพ</td>
+                                                    <td>7,500.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>200</td>
+                                                    <td>ประเภททาวน์เฮ้าส์</td>
+                                                    <td>จ.กรุงเทพ</td>
+                                                    <td>5,500.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>100</td>
+                                                    <td>ประเภทห้องแถว</td>
+                                                    <td>จ.กรุงเทพ</td>
+                                                    <td>4,500.00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div> <!-- End .row -->
 
@@ -649,7 +1023,10 @@
                 <div class="col-xs-12 col-md-12 col-lg-12">
                     <section class="box ">
                         <header class="panel_header">
-                            <h2 class="title pull-left">แสดงราคา</h2>
+                            <div class="col-sm-10">
+                                <h2 class="text-success"><i class="glyphicon glyphicon-stats" aria-hidden="true"> กราฟแสดงราคาสิ่งปลูกสร้าง</i></h2>
+                                <div class="lblStatus text-success"></div>
+                            </div>
                             <div class="actions panel_actions pull-right">
                                 <a class="box_toggle fa fa-chevron-down"></a>
                                 <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
@@ -670,6 +1047,142 @@
 
             </div>
 
+            <div class="divGov m-fadeOut">
+
+                <!--  <div class="col-xs-12">
+                <div class="content-body">
+                    <div class="row" style="text-align:center;">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="form-group text-left">
+                                <h2 class="title pull-left">แผนงาน/โครงการ</h2>
+                                <select class="form-control form-control-lg"
+                                        name="ddlLand" id="ddlLand">
+                                    <option value="0">เลือกทั้งหมด</option>
+
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align:center; overflow-x:auto">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="divSection1Gov">
+                                <table class="tblChart">
+
+                                    <tr></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+                <div class="col-xs-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <div class="col-sm-10">
+                                <h2 class=" text-warning"><i class="fa fa-table" aria-hidden="true"> พื้นที่โครงการของรัฐ</i></h2>
+                                <div class="lblStatus text-warning"></div>
+                            </div>
+                            <div class="col-sm-2 padding-40">
+                                <a class="btn btn-warning pull-right btnViewMap" href="~/DashboardSystem3?tab=4">เรียกดูแผนที่</a>
+                            </div>
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+                        <div class="content-body">
+                            <div class="row">
+
+                                <div class="col-xs-12">
+                                    <div class="divSection1">
+                                        <table class="table table-bordered table-striped   " id="EstimateChartTable0">
+                                            <thead>
+                                                <tr class="bg-info">
+                                                    <th class="th__center">ชื่อโครงการ</th>
+                                                    <th class="th__center">พื้นที่</th>
+                                                    <th class="th__center">จำนวนแปลงที่ดินที่กระทบ</th>
+                                                    <th class="th__center">เนื้อที่รวม</th>
+                                                    <th class="th__center">ราคาประเมินทั้งหมด</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="td__Center">โครงการพื้นที่ 4</td>
+                                                    <td class="td__Center">นครราชสีมา</td>
+                                                    <td class="td__Center">31</td>
+                                                    <td class="td__Center">1,000,000</td>
+                                                    <td class="td__Center">ไม่พบ</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="td__Center">โครงการพื้นที่ 3</td>
+                                                    <td class="td__Center">นครราชสีมา</td>
+                                                    <td class="td__Center">37</td>
+                                                    <td class="td__Center">2,000,000</td>
+                                                    <td class="td__Center">ไม่พบ</td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div> <!-- End .row -->
+
+
+
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                    <section class="box ">
+                        <header class="panel_header">
+
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+                        <div class="content-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="chart-container">
+                                        <div class="ChartGov1" style="height:400px" id="ChartGov1"></div>
+                                    </div>
+                                </div>
+                            </div> <!-- End .row -->
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-6">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <h2 class="title pull-left"></h2>
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+                        <div class="content-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="">
+                                        <div class="ChartGov2" style="height:400px;" id="ChartGov2"></div>
+                                    </div>
+                                </div>
+                            </div> <!-- End .row -->
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+
 
 
 
@@ -681,7 +1194,7 @@
         </section>
 
 
-        @Html.Partial("~/Views/Shared/_PartialPage_Footer_System_3.cshtml")
+
     </section>
 
 
@@ -690,23 +1203,22 @@
     <!-- END CONTAINER -->
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
 
-    <script src="~/assets/BI/pace.min.js"></script>
+    <script src="~/assets/BI/pace.min.js?ver=1"></script>
     <script src="~/assets/BI/viewportchecker.js"></script>
     <script src="~/assets/BI/jquery-jvectormap-2.0.1.min.js"></script>
     <script src="~/assets/BI/jquery-jvectormap-world-mill-en.js"></script>
     <script src="~/assets/BI/dashboard.js"></script>
     <script src="~/assets/BI/echarts-custom-for-dashboard.js"></script>
-
+    <script src="~/Scripts/numeral2.6.min.js"></script>
     <script src="~/assets/BI/perfect-scrollbar.min.js"></script>
-    <script src="~/assets/BI/Script.js?ver=1.2233d2"></script>
-    <script src="~/assets/BI/Index.js?ver=1.22433d2"></script>
+    <script src="~/assets/BI/Script.js?ver=1.11"></script>
+    <script src="~/assets/BI/Index.js?ver=1.sddกกcc"></script>
+
+    
+
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
-    <script type="text/javascript">
 
-
-
-    </script>
 </body>
 </html>
 

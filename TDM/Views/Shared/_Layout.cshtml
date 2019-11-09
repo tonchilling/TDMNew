@@ -8,51 +8,62 @@
         //var root = @Url.Content("~");
         /**/
     </script>
- 
 
-   
 
-    <!-- Bootstrap -->
+
+
     <link href="~/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link href="~/assets/fonts/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="~/assets/css/nprogress/nprogress.css" rel="stylesheet">
-   
-    <!-- Fonts Awesome -->
-    <link rel="stylesheet" href="~/assets/css/all.css">
-    <!-- Datatables -->
     <link href="~/assets/css/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/css/datatables/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/css/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/css/datatables/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="~/assets/css/datatables/scroller.bootstrap.min.css" rel="stylesheet">
     <link href="~/assets/css/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    <!-- notification -->
-    <link href="~/assets/css/iziToast.min.css" rel="stylesheet" />
-    <link href="~/assets/css/Kim_Style.css?v1.34ss4ss33" rel="stylesheet">
-   
-    <link rel="stylesheet" href="~/assets/css/custom.css?ver=1.1">
-    <!--	<script src="~/assets/js/ViewListHandler.js"></script>-->
+    <link href="~/assets/css/bootstrap-select.min.css?ver=1.1" rel="stylesheet" />
+    <link href="~/assets/css/Kim_Style.css?ver=1.ddd" rel="stylesheet" />
+    <link href="~/assets/css/BI/Style.css?ver1.555" rel="stylesheet" />
+    <!-- CORE CSS TEMPLATE - END -->
+    <link href="~/assets/js/jquery-ui.css" rel="stylesheet" />
 
-    <script src="~/assets/js/jquery-2.1.0.min.js"></script>
     <script src="~/assets/js/jquery-3.3.1.js"></script>
+    <script src="~/assets/js/jquery-ui.js"></script>
 
-  
-    <!-- Bootstrap -->
-   
+    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/bootstrap-select.min.js?ver=2"></script>
+    <script src="~/Scripts/numeral2.6.min.js"></script>
+    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/assets/js/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/assets/js/Chart/echarts.min.js?ddd"></script>
+    <script src="~/assets/js/Chart/echart.js?ddd"></script>
+    <script src="~/Scripts/waiting.js?ver=1.0220"></script>
+    <script src="~/assets/css/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/css/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="~/assets/css/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
+    <script src="~/assets/BI/Script.js?ver=1.2233d42"></script>
+    <script src="~/Scripts/Main.js?ver=bb"></script>
     <script>
-   // var rootUrl = '/TDManagement';
+        // var rootUrl = '/TDManagement';
         var rootUrl = '';
-    </script>
-   
-  @RenderSection("scripts")
 
-   @* @Styles.Render("~/Content/css")*@
- 
- 
+        var colorList = [
+            '#C1232B', '#32c5d2', '#FCCE10', '#E87C25', '#27727B',
+            '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+            '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+        ];
+    </script>
+
+    @RenderSection("scripts")
+    @{
+
+
+        List<int>
+   RegisterYearList = (List<int>
+   )ViewData["RegisterYear"];
+    }
+    @* @Styles.Render("~/Content/css")*@
+
+
     <style type="text/css">
+
+
         .main_container .top_nav {
             display: block;
             margin-left: 0px;
@@ -61,7 +72,55 @@
         .table > tbody > tr.tdDetail > td {
             padding: 0px;
         }
+
+        .btnLogout {
+            cursor: pointer;
+        }
+
+            .btnLogout:hover, .btnLogout > span:hover {
+                color: #b9ea3f;
+                text-underline-position: unset;
+            }
+
+        .rowheader {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+
+        #menulist.content-heading {
+            min-height: 60px;
+        }
+
+
+
+        a.dropdown-toggle {
+            color: #fff;
+        }
+
+
+        .sidenavR .funkyradio input[type="radio"]:checked ~ label, .sidenavR .funkyradio input[type="checkbox"]:checked ~ label {
+            color: #fff;
+        }
+
+        .sidenavR .funkyradio input[type="radio"]:hover:not(:checked) ~ label, .sidenavR .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+            color: #fff;
+        }
+
+
+        .sidenavR ol, .sidenavR ul {
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-left: 1rem;
+        }
+
+        th p {
+            color: #fff;
+        }
     </style>
+
     <title>Treasury Map</title>
 
     <!-- FAVICON -->
@@ -69,74 +128,1536 @@
 
     <!-- APPLE TOUCH ICON -->
     <link rel="apple-touch-icon" href="img/webclip.png">
-  
+
     <!-- OG TAGS -->
     <meta property="og:title" content="Treasury Map" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="ค้นหาแปลงที่ดินจากจุดสนใจ" />
 </head>
-<body onunload="" class="map-fullscreen page-homepage navigation-off-canvas" id="page-top">
-    <!-- Outer Wrapper-->
-    <div id="outer-wrapper">
-        <!-- Inner Wrapper -->
-        <div id="inner-wrapper">
-            <!-- Navigation-->
-            <div class="header">
-                <div class="top_nav">
-                    <div class="nav_menu">
-                        <nav>
-                            <ul class="nav navbar-nav ">
-                                <li class="">
-                                    <a href="~/"><img src="~/assets/img/logo.png" alt="logo"></a>
-                                </li>
-                               
-                            </ul>
-                        </nav>
+<body id="page-top">
+    @{ var Menu = Request.QueryString["Menu"];}
+    <class class="page-topbar">
+
+
+        <div class="quick-area">
+
+            <div class="row rowheader">
+                <div class="col-xs-2">
+                    <div class="pull-left">
+                        <ul class="info-menu left-links list-inline list-unstyled">
+                            <li class="sidebar-toggle-wrap">
+                                <button type="button" id="sidebarCollapse" class="navbar-btn ">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </button>
+
+                            </li>
+
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xs-7">
+
+                    <h3 class=" text-center lblMHeader  text-light"><i class="fa fa-bar-chart" aria-hidden="true"></i> ระบบสารสนเทศด้านการประเมินราคาที่ดินสำหรับผู้บริหาร</h3>
+
+
+                </div>
+
+                <div class="col-xs-3">
+
+                    <div class="profile_details">
+                        <ul>
+
+
+
+
+
+                            <li class="dropdown dropdown-user">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                    <span class="lbUserLogin">
+
+                                    </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li class="btnLogout">
+                                        <a class="btnLogout">
+
+                                            <i class="fa fa-power-off text-danger"></i> ออกจากระบบ
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+
+                        </ul>
                     </div>
                 </div>
             </div>
-            <!-- end Navigation-->
-            <!-- Page Canvas-->
-            <div id="page-canvas">
-                <!--Off Canvas Navigation-->
-                <nav class="off-canvas-navigation" style="display:none">
-                    <header>Navigation</header>
-                    <div class="main-navigation navigation-off-canvas"></div>
-                </nav>
-                <!--end Off Canvas Navigation-->
-                <!--Page Content-->
-                <div id="page-content">
-                    @RenderBody()
+        </div>
 
+    </class>
+    <div id="mySidenavR" class="sidenavR invisible">
+
+        <ul class="leftMenu">
+            <li> <a class="closebtn" onclick="closeNavR()">×</a></li>
+            <li>
+                <div class="row" style="padding-bottom:1rem">
+                    <div class="col-xs-11">
+                        <i class="fa fa-2x  fa-search icon-warning"></i>  <span class="title">ค้นหา</span>
+                    </div>
                 </div>
-                <!-- end Page Content-->
-            </div>
-            <!-- end Page Canvas-->
+
+
+                @if (Menu == "1" || Menu == "0" || Menu == null)
+                {
+                    <div class="row" style="padding-bottom:1rem">
+                        <div class="col-sm-11">
+
+                            <div class="card bg-white">
+                                <div class="card-header text-center">
+                                    <h4 id="lblSection"></h4>
+                                </div>
+                                <div class="card-body text-center">
+                                    <i class=" fa fa-1x  fa-cubes icon-rounded icon-info zoom btnLand "></i>
+                                    <i class="fa fa-building fa-1x icon-rounded icon-danger zoom  btnCondo  "></i>
+                                    <i class=" glyphicon glyphicon-home fa-1x icon-rounded icon-success zoom  btnBuilding"></i>
+                                    <i class="fa fa-bank fa-1x icon-rounded icon-warning zoom  btnGov  "></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="funkyradio">
+                                <div class="funkyradio-warning">
+                                    <input type="checkbox" name="Type1" id="rdCluster" />
+                                    <label for="rdCluster">คลัสเตอร์</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                    <option value="">เลือกภาค</option>
+                                    <option value="1">ภาคกลาง</option>
+                                    <option value="2">ตะวันตก</option>
+                                    <option value="3">เหนือ</option>
+                                    <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                    <option value="5">ใต้</option>
+                                    <option value="6">ตะวันออก</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                    <option value="">เลือกจังหวัด</option>
+                                    <option value="1">กรุงเทพ</option>
+                                    <option value="2">นนทบุรี</option>
+
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                    <option value="">เลือกอำเภอ</option>
+                                    <option value="1">สาธร</option>
+                                    <option value="2">บางรัก</option>
+
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <input type="button" class="btn btnSearchBuiding btn-success " value="ค้นหา" />
+                        </div>
+
+                    </div>
+                    <div class="row invisible">
+                        <div class="col-xs-11">
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                    <option value="">เลือกตำบล</option>
+                                    <option value="1">ทุ่งมหาเมฆ</option>
+                                    <option value="2">ยานนาวา</option>
+                                    <option value="3">ทุ่งวัดดอน</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                }
+
+                @if (Menu == "2")
+                {
+
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="form-group">
+                                <select class="form-control form-control-lg ddlTemplate">
+                                    <option value="">เลือก Template</option>
+
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                }
+                else if (Menu == "3")
+                {
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
+                            <div class="row  divTab1">
+
+                                <div class="col-sm-6 col-xs-12" style="padding:0px">
+                                    <div class="row  funkyradio">
+                                        <div class="col-sm-6 col-xs-12 ">
+
+                                            <div class="funkyradio-success">
+                                                <input type="radio" name="Type2" id="rdCost" checked="checked">
+                                                <label for="rdCost">ราคาประเมิน</label>
+                                            </div>
+                                        </div>
+                                   
+                                   
+                                        <div class="col-sm-6 col-xs-12 ">
+                                            <div class="funkyradio-primary">
+                                                <input type="radio" name="Type2" id="rdMarket">
+                                                <label for="rdMarket">ราคาซื้อขาย</label>
+                                            </div>
+
+                                            <div class="form-group invisible" style="position:absolute">
+                                                <select class="form-control form-control-lg" name="ddlType" id="ddlType" required>
+                                                    <option value="0">ทั้งหมด</option>
+                                                    <option value="1">ราคาประเมิน</option>
+                                                    <option value="2">ราคาซื้อขาย</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="row ">
+                                    <div class="col-sm-6 col-xs-12" style="padding:0px">
+                                        <div class="row  funkyradio">
+                                            <div class="col-sm-12 col-xs-12">
+                                                <b>เลือกภาค/คลัสเตอร์</b>
+                                            </div>
+                                        </div>
+                                        <div class="row  funkyradio">
+                                            <div class="col-sm-6 col-xs-12 ">
+
+                                                <div class="funkyradio-success">
+                                                    <input type="radio" name="TypeSearch" id="rdRegionSearch" checked="checked" />
+                                                    <label for="rdRegionSearch">ภาค</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12">
+                                                <div class="funkyradio-primary">
+                                                    <input type="radio" name="TypeSearch" id="rdClusterSearch" />
+                                                    <label for="rdClusterSearch">คลัสเตอร์</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-12 pnlRegion">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                                <option value="">เลือกภาค</option>
+                                                <option value="1">ภาคกลาง</option>
+                                                <option value="2">ตะวันตก</option>
+                                                <option value="3">เหนือ</option>
+                                                <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                                <option value="5">ใต้</option>
+                                                <option value="6">ตะวันออก</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="ddlProvince">เลือกจังหวัด</label>
+                                            <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                                <option value="">เลือกจังหวัด</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 divTab1">
+                                        <div class="form-group">
+                                            <label for="ddlDistrict">เลือกอำเภอ</label>
+                                            <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                                <option value="">เลือกอำภอ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-6 col-xs-12 divTab1">
+                                        <div class="form-group">
+                                            <label for="ddlSubdistrict">เลือกตำบล</label>
+                                            <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                                <option value="">เลือกตำบล</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6  col-xs-12 divTab1 divSection21" style="padding:0px">
+                                        <div class="row  ">
+                                            <div class="col-sm-6 col-xs-12" style="height:22px">
+
+                                            </div>
+                                        </div>
+                                        <div class="row  funkyradio">
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="funkyradio-success">
+
+                                                    <input type="radio" name="rdType1" id="rdType1" checked />
+                                                    <label class="lbType1" for="rdType1">ราคาประเมิน/ตรว.</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12 divTab1">
+                                                <div class="funkyradio-primary">
+
+                                                    <input type="radio" name="rdType1" id="rdType2" />
+                                                    <label class="lbType2" for="rdType2">ราคาประเมิน/แปลง</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-3  col-xs-12divTab1  divSection22 invisible">
+                                        <div class="row  ">
+                                            <div class="col-sm-6 col-xs-12" style="height:22px">
+
+                                            </div>
+                                        </div>
+                                        <div class="row  ">
+                                            <div class="col-sm-12 col-xs-12" style="height:22px">
+                                                <div class="form-group" style="height:22px">
+                                                    <div class='input-group date' id='txtSFromDate'>
+
+                                                        <input class="form-control txtSFromDate" autocomplete="off" id="txtSearchStartDate" placeholder="จากวันที่" />
+                                                        <span class="input-group-addon  bg-primary">
+                                                            <span class="glyphicon glyphicon-calendar " style="color:#ffffff"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 divTab1 divSection22 invisible">
+
+                                        <div class="row  ">
+                                            <div class="col-sm-12 col-xs-12" style="height:22px">
+
+                                            </div>
+                                        </div>
+                                        <div class="row  ">
+                                            <div class="col-sm-12 col-xs-12" style="height:22px">
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='txtSToDate'>
+                                                        <input class="form-control txtSToDate" id="txtSearchEndDate" autocomplete="off" placeholder="ถึงวันที่" />
+                                                        <span class="input-group-addon bg-primary">
+                                                            <span class="glyphicon glyphicon-calendar" style="color:#ffffff"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row divSection2Building  invisible" style="padding-bottom:10px">
+
+                                    <div class="col-xs-6 ">
+                                        <label for="ddlConstructionType">ประเภท</label>
+                                        <select class="form-control form-control-lg" name="ddlConstructionType" id="ddlConstructionType" placeholder="สิ่งปลูกสร้าง">
+                                            <option value="">ประเภทสิ่งปลูกสร้าง</option>
+                                            <option value="1">โรงเรียน</option>
+                                            <option value="2">บ้้าน</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6">
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-xs-12">
+                                                <label for="ddlProvince1">เลือกจังหวัดเพื่อเปรียบเทียบ</label>
+                                                <select class="form-control form-control-lg"
+                                                        id="ddlProvince1"
+                                                        title="จังหวัด"
+                                                        placeholder="จังหวัด" multiple></select>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row" style="padding-top:10px">
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="form-group">
+                                                    <label for="ddlProvince1">ความต่าง</label>
+                                                    <div class='input-group'>
+                                                        <input class="form-control txtPercent" id="txtPercent" value="10" placeholder="% ความต่าง" />
+                                                        <span class="input-group-addon">
+                                                            <span>%</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="row divTab1 ">
+                                    <div class="col-md-2 col-xs-12">
+                                        <div class="form-group">
+                                            <input class="form-control MinCostEstimate0" id="MinCostEstimate0" value="0" placeholder="ราคาต่ำสุด" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="CostEstimateSlider0" id="CostEstimateSlider0"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-1 minDiv" id="minDiv0"></div>
+                                            <div class="col-md-1 offset-md-10 maxDiv" id="maxDiv0"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-xs-12">
+                                        <div class="form-group">
+                                            <input class="form-control MaxCostEstimate0" id="MaxCostEstimate0" value="100000000" placeholder="ราคาสูงสุด" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-sm-2 col-xs-6 col-sm-offset-4">
+                                        <button class="form-control  btn btn-primary  btn-large btnSearch" id="bttSearch" name="bttSearch"><i class="fa fa-search"></i>  ค้นหา </button>
+                                    </div>
+                                    <div class="col-sm-2 col-xs-6">
+                                        <button class="form-control  btn btn-default  btn-large btnCancel" id="btnCancel" name="btnCancel"><i class="fa fa-refresh"></i> ยกเลิก </button>
+                                    </div>
+                                </div>
+                                <!-- Add Control ระบุความสนใจตามเขตการปกครอง -->
+
+                            </div>
+
+                    </div>
+                }
+                else if (Menu == "4")
+                {
+                    <div class="row ">
+                        <div class="col-sm-6 col-xs-12" style="padding:0px">
+                            <div class="row  funkyradio">
+                                <div class="col-sm-12 col-xs-12">
+                                    <b>เลือกภาค/คลัสเตอร์</b>
+                                </div>
+                            </div>
+                            <div class="row  funkyradio">
+                                <div class="col-sm-6 col-xs-12">
+
+                                    <div class="funkyradio-success">
+                                        <input type="radio" name="Type1" id="rdRegion" checked />
+                                        <label for="rdRegion">ภาค</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="funkyradio-primary">
+                                        <input type="radio" name="Type1" id="rdCluster" />
+                                        <label for="rdCluster">คลัสเตอร์</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="form-group">
+                                <span>&nbsp;</span>
+                                <select class="form-control form-control-lg ddlYear" name="ddlYear" id="ddlYear">
+                                    <option value="">เลือกปี</option>
+                                    @foreach (var item in RegisterYearList.OrderByDescending(o => o))
+                                    {
+                                        <option value="@item" @(item == DateTime.Now.Year ? "selected" : "")>@item.ToString("##00")</option>
+
+                                    }
+
+
+
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12 pnlRegion">
+
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                    <option value="">เลือกภาค</option>
+                                    <option value="1">ภาคกลาง</option>
+                                    <option value="2">ตะวันตก</option>
+                                    <option value="3">เหนือ</option>
+                                    <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                    <option value="5">ใต้</option>
+                                    <option value="6">ตะวันออก</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                    <option value="">เลือกจังหวัด</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+
+                        <div class="col-sm-6 col-xs-12 divTab1">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                    <option value="">เลือกอำภอ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6  col-xs-12 divTab1">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                    <option value="">เลือกตำบล</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-6 col-sm-offset-3">
+                            <button class="form-control btn btn-primary btnSearch">ค้นหา</button>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+
+                            <button class="form-control btn btn-default">ยกเลิก</button>
+                        </div>
+
+                    </div>
+
+                }
+                else if (Menu == "5")
+                {
+
+                    <div class="row invisible " style="position:absolute">
+                        <div class="col-sm-6 col-xs-12" style="padding:0px">
+                            <div class="row  funkyradio">
+                                <div class="col-sm-12 col-xs-12">
+                                    <b>เลือกภาค/คลัสเตอร์</b>
+                                </div>
+                            </div>
+                            <div class="row  funkyradio">
+                                <div class="col-sm-6 col-xs-12">
+
+                                    <div class="funkyradio-success">
+                                        <input type="radio" name="Type1" id="rdRegion" checked />
+                                        <label for="rdRegion">ภาค</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="funkyradio-primary">
+                                        <input type="radio" name="Type1" id="rdCluster" />
+                                        <label for="rdCluster">คลัสเตอร์</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row invisible " style="position:absolute">
+                        <div class="col-sm-6 col-xs-12 pnlRegion">
+
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                    <option value="">เลือกภาค</option>
+                                    <option value="1">ภาคกลาง</option>
+                                    <option value="2">ตะวันตก</option>
+                                    <option value="3">เหนือ</option>
+                                    <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                    <option value="5">ใต้</option>
+                                    <option value="6">ตะวันออก</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                    <option value="">เลือกจังหวัด</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row invisible " style="position:absolute">
+
+
+                        <div class="col-sm-6 col-xs-12 divTab1">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                    <option value="">เลือกอำภอ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6  col-xs-12 divTab1">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                    <option value="">เลือกตำบล</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyStart" />
+                                    <span class="input-group-btn  ">
+                                        <button class="btn default btn-info " type="button">
+                                            <i class="fa fa-calendar text-light"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyStart" />
+                                    <span class="input-group-btn ">
+                                        <button class="btn default btn-info " type="button">
+                                            <i class="fa fa-clock-o text-light"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="dateOnlyEnd" />
+                                    <span class="input-group-btn ">
+                                        <button class="btn default btn-info " type="button">
+                                            <i class="fa fa-calendar text-light"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="fdivtimeOnlyEnd">
+                            <div class="form-group">
+                                <div class="input-group" id="inputgrouptimeOnlyEnd">
+                                    <input class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly" id="timeOnlyEnd" />
+                                    <span class="input-group-btn " id="spantimeOnlyEnd">
+                                        <button class="btn default btn-info" type="button" id="buttontimeOnlyEnd">
+                                            <i class="fa fa-clock-o text-light"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="ddlsystem" class="selectpicker"
+                                    data-live-search="true" multiple="true" title="ทุกระบบ" data-selected-text-format="count>3"
+                                    data-hide-disabled="false" data-dropup-auto="false"
+                                    data-style="btn-inverse" data-mobile="false"
+                                    data-show-subtext="true"></select>
+
+                        </div>
+
+                    </div>
+                    <div class="row" style="padding-top:10px;">
+                        <div class="col-sm-3 col-xs-6 col-sm-offset-3">
+                            <button class="form-control btn btn-primary btnSearch">ค้นหา</button>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+
+                            <button class="form-control btn btn-default">ยกเลิก</button>
+                        </div>
+
+                    </div>
+                }
+                else if (Menu == "6")
+                {
+
+                    <div class="row ">
+                        <div class="col-xs-6" style="padding:0px">
+                            <div class="row  funkyradio">
+                                <div class="col-xs-12">
+                                    <b>เลือกภาค/คลัสเตอร์</b>
+                                </div>
+                            </div>
+                            <div class="row  funkyradio">
+                                <div class="col-xs-6 ">
+
+                                    <div class="funkyradio-success">
+                                        <input type="radio" name="Type1" id="rdRegion" checked />
+                                        <label for="rdRegion">ภาค</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="funkyradio-primary">
+                                        <input type="radio" name="Type1" id="rdCluster" />
+                                        <label for="rdCluster">คลัสเตอร์</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 pnlRegion">
+
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                    <option value="">เลือกภาค</option>
+                                    <option value="1">ภาคกลาง</option>
+                                    <option value="2">ตะวันตก</option>
+                                    <option value="3">เหนือ</option>
+                                    <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                    <option value="5">ใต้</option>
+                                    <option value="6">ตะวันออก</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                    <option value="">เลือกจังหวัด</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+
+                        <div class="col-xs-6 divTab1">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlDistrict" id="ddlDistrict" required>
+                                    <option value="">เลือกอำภอ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6 divTab1">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlSubdistrict" id="ddlSubdistrict" required>
+                                    <option value="">เลือกตำบล</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="x_panel">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label style="line-height: 2.5em;">ช่วงเวลา</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="CostRankSlider"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-3">
+                                        <div class="form-group">
+                                            <div class='input-group ' id='txtSFromDate'>
+
+                                                <input class="form-control txtSFromDate" autocomplete="off" id="txtSearchStartDate" placeholder="จากวันที่" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-3">
+                                        <div class="form-group">
+                                            <div class='input-group ' id='txtSToDate'>
+                                                <input class="form-control txtSToDate" autocomplete="off" id="txtSearchEndDate" placeholder="ถึงวันที่" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label style="line-height: 2.5em;">ชื่ออาคารชุด</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input class="form-control txtName" id="txtName" placeholder="ชื่ออาคารชุด">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-6 col-sm-offset-3">
+                            <button class="form-control btn btn-primary btnSearch">ค้นหา</button>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+
+                            <button class="form-control btn btn-default">ยกเลิก</button>
+                        </div>
+
+                    </div>
+                }
+                else if (Menu == "7")
+                {
+
+                    <div class="row ">
+                        <div class="col-xs-6" style="padding:0px">
+                            <div class="row  funkyradio">
+                                <div class="col-xs-12">
+                                    <b>เลือกภาค/คลัสเตอร์</b>
+                                </div>
+                            </div>
+                            <div class="row  funkyradio">
+                                <div class="col-xs-6 ">
+
+                                    <div class="funkyradio-success">
+                                        <input type="radio" name="Type1" id="rdRegion" checked />
+                                        <label for="rdRegion">ภาค</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="funkyradio-primary">
+                                        <input type="radio" name="Type1" id="rdCluster" />
+                                        <label for="rdCluster">คลัสเตอร์</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <span>&nbsp;</span>
+                                <select class="form-control form-control-lg ddlYear" name="ddlYear" id="ddlYear" required>
+                                    <option value="">เลือกปี</option>
+
+
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 pnlRegion">
+
+                            <div class="form-group">
+                                <select class="form-control form-control-lg" name="ddlRegion" id="ddlRegion" required>
+                                    <option value="">เลือกภาค</option>
+                                    <option value="1">ภาคกลาง</option>
+                                    <option value="2">ตะวันตก</option>
+                                    <option value="3">เหนือ</option>
+                                    <option value="4">ตะวันออกเฉียงเหนือ</option>
+                                    <option value="5">ใต้</option>
+                                    <option value="6">ตะวันออก</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+
+                                <select class="form-control form-control-lg" name="ddlProvince" id="ddlProvince" required>
+                                    <option value="">เลือกจังหวัด</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-xs-6 col-xs-offset-6">
+                            <select class="form-control form-control-lg"
+                                    id="ddlProvince1"
+                                    title="เลือกจังหวัดเพื่อเปรียบเทียบ"
+                                    placeholder="จังหวัด" multiple></select>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row" style="padding-top:10px">
+                        <div class="col-sm-3 col-xs-6 col-sm-offset-3">
+                            <button class="form-control btn btn-primary btnSearch">ค้นหา</button>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+
+                            <button class="form-control btn btn-default">ยกเลิก</button>
+                        </div>
+
+                    </div>
+
+
+                }
+                else if (Menu == "9")
+                {
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div>รหัสโครงการ</div>
+                                    <input type="text" name="ProjectID" class="form-control input__screen-full" placeholder="รหัสโครงการ">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div>ชื่อโครงการ</div>
+                                    <input type="text" name="ProjectName" class="form-control input__screen-full" placeholder="ชื่อโครงการ">
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 input__screen-full">
+                                    <div>พื้นที่ที่กระทบกับโครงการ</div>
+                                    <select name="ProvName" title="พื้นที่ที่กระทบกับโครงการ" data-live-search="true" id="allProvince"></select>
+                                </div>
+                                <!---->
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div>วันที่เผยแพร่ข้อมูล</div>
+                                    <input type="text" name="PublishDate" class="form-control input__screen-full" id='datetimepicker4' placeholder="วันที่เผยแพร่ข้อมูล">
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
+                                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: right;">
+                                        <button type="button" onclick="onSearchProjectClick('Submit')" class="btn btn-primary"><i class="fa fa-search"></i> ค้นหา</button>
+                                    </div>
+                                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <button type="reset" onclick="onSearchProjectClick('Reset')" class="btn btn-grey-dark"><i class="fa fa-refresh"></i> ยกเลิก</button>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class=" blockSearch">
+        <ul class="list-unstyled share-sticky hidden-sm-down border-left-0 p-1 mb-0 slideRight">
+            <li class="sum text-center bg-info">
+                <i class="fa fa-search"></i>
+                <strong>ค้นหา</strong>
+            </li>
+
+        </ul>
+    </div>
+    <div class="wrapper body-content">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+
+            <ul class="list-unstyled components mLeftmenu">
+
+
+
+             
+                <li class="nav-item   mmLeftMenu  mmMainMenu">
+                    <a href="~/BI/Index?Menu=1" class="nav-link nav-toggle">
+                        <i class="glyphicon glyphicon-home" style="color:red"></i>
+                        <span class="title">หน้าหลัก</span>
+                    </a>
+                </li>
+                <li class="nav-item   mmLeftMenu  mmBIReport">
+                    <a href="~/BI/BIViewer?Menu=2" class="nav-link nav-toggle">
+                        <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                        <span class="title">รายงานด้วย BI</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item  mmLeftMenu  mmMapView ">
+                    <a href="~/DashboardSystem3?Menu=3" class="nav-link nav-toggle">
+                        <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                        <span class="title">เรียกดูแผนที่/ราคา</span>
+                    </a>
+                </li>
+                <li class="nav-item mmLeftMenu mmLand ">
+                    <a href="~/Home/Menu1?Menu=4" class="nav-link nav-toggle">
+                        <i class="fa fa-bar-chart" style="color:blue"></i>
+                        <span class="title">รายงายซื้อขายจดทะเบียนที่ดิน</span>
+                    </a>
+                </li>
+                <li class="nav-item  mmLeftMenu  mmCondo">
+                    <a href="~/Home/Menu2?Menu=6" class="nav-link nav-toggle">
+                        <i class="fa fa-bar-chart" style="color:blue"></i>
+                        <span class="title">แนวโน้มการซื้อขายอาคารชุด</span>
+                    </a>
+                </li>
+                <li class="nav-item mmLeftMenu  mmChangeLand">
+                    <a href="~/Home/Menu3?Menu=7" class="nav-link nav-toggle">
+                        <i class="glyphicon glyphicon-random" style="color:red"></i>
+                        <span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>
+                    </a>
+                </li>
+                <li class="nav-item mmLeftMenu   mmEnterSystem">
+                    <a href="~/Home/Menu4?Menu=5" class="nav-link nav-toggle">
+                        <i class="fa fa-users" style="color:purple"></i>
+                        <span class="title">ปริมาณการเข้าใช้ระบบ</span>
+                    </a>
+                </li>
+                <li class="nav-item mmLeftMenu   mmBISystem ">
+                    <a href="~/BI/BIManager?Menu=8" class="nav-link nav-toggle">
+                        <i class="glyphicon glyphicon-eye-open" style="color:green"></i>
+                        <span class="title">สร้างรายงาน BI</span>
+                    </a>
+                </li>
+
+
+
+
+
+
+                @if (Menu == "1" || Menu == "0" || Menu == null)
+                {
+
+
+                }
+
+                @if (Menu == "2")
+                {
+
+                }
+
+
+                @if (Menu == "8")
+                {
+                    <li class="mmLeftMenu menusection">ค้นหา  </li>
+                    <li class="mmLeftMenu">
+                        <a href="#">
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <i class="fa fa-search icon-primary"></i>  <span class="title">View Database</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button class="btnConnect btn btn-primary">View Datatabse</button>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+                    </li>
+                    <li class="">
+                        <div class="row">
+
+                            <div class="col-xs-12">
+                                <div class="sectionDB bd">
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </li>
+                }
+
+
+            </ul>
+            <!--  <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                </li>
+                <li>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                </li>
+            </ul>-->
+        </nav>
+
+
+
+
+        <!-- Page Content Holder -->
+        <div id="content">
+
+
+            @RenderBody()
+
+
+
 
         </div>
-        <!-- end Inner Wrapper -->
     </div>
-    <!-- end Outer Wrapper-->
 
- 
 
-    <script>
-     //   config.root = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["root"]));
+
+    @if (Menu == "2")
+    {
+
+    <!-- Modal -->
+    <div class="modal fade-scale menu2Modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close text-danger fa-3x" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2 class="text-success text-center">เลือกรายงาน BI</h2>
+                </div>
+
+               
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+
+
+                            <div id="body">
+                                <div class="out-wrap">
+                                    <ul id="tabs" class="nav nav-tabs " role="tablist">
+                                        <li role="presentation" class="active text-center"><a href="#land" class="fa-2x" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-1x fa-cubes icon-info "></i> ที่ดิน</a></li>
+                                        <li role="presentation"><a href="#condo" aria-controls="profile"  class="fa-2x text-center"  role="tab" data-toggle="tab"><i class=" fa fa-building fa-1x  icon-info "></i> อาคารชุด</a></li>
+                                        <li role="presentation"><a href="#construction" aria-controls="messages"  class="fa-2x text-center" role="tab" data-toggle="tab"> <i class=" glyphicon glyphicon-home fa-1x  icon-info"></i> สิ่งปลูกสร้าง</a></li>
+                                        <li role="presentation"><a href="#goverment" aria-controls="settings"  class="fa-2x text-center" role="tab" data-toggle="tab"><i class="pull-left fa fa-bank fa-1x  icon-info "></i> พื้นที่โครงการรัฐ</a></li>
+                                        <li role="presentation"><a href="#other" aria-controls="about"  class="fa-2x text-center" role="tab" data-toggle="tab"><i class="fa fa-1x  fa-windows icon-info" aria-hidden="true"></i>  อื่นๆ</a></li>
+                                      
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="land">
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="BIMenu1"></div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="condo">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="BIMenu2"></div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="construction">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="BIMenu3"></div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="goverment">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="BIMenu4"></div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane" id="other">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="BIMenu5"></div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+
+    <script type="text/javascript">
+         //   config.root = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["root"]));
      //   config.mapUrl = @Html.Raw(Json.Encode(System.Configuration.ConfigurationManager.AppSettings["mapUrl"]));
+
+    var ObjUserLogin;
+    var UserSessionUrl = '@Url.Action("TakeSession", Html.ViewContext.RouteData.GetRequiredString("controller"))';
+
+        function IsMobile() {
+            if (navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+            ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+    $('.btnLogout').click(function () {
+        Logout();
+    });
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+
+    $(function () {
+
+        LoadUserSession();
+
+        $('.sidebar_toggle').on('click', function () {
+            $('.page-sidebar-wrapper').toggleClass('active');
+            $(this).toggleClass('active');
+        });
+
+    });
+
+
+        function encrpty(json) {
+            return http.post("/api/GIS/Encrypt", { text: JSON.stringify(json) });
+        }
+
+        function _mapPostMessage(senderData) {
+            encrpty(senderData).then(function (encryptData) {
+                var domain = window.document.location.origin;
+                gisIframeWindow.postMessage(encryptData, domain);
+            });
+        }
+
+
+    function LoadUserSession() {
+
+        var userSessionFromMain =( window.parent._sessionManager ==null ? null : window.parent._sessionManager.getSession());
+
+        userSessionFromMain = { USER_ID: "1" };
+        if (userSessionFromMain == null) {
+
+ // window.location.href = '@Url.Content("~/ErrorPage.html")';
+           // alert('userSessionFromMain dont have permission')
+        }
+
+
+       
+
+        $('.mLeftmenu').empty();
+        $.post(UserSessionUrl, { userId: userSessionFromMain.USER_ID }, function (data) {
+            var menuHtml = '';
+            ObjUserLogin = data;
+
+            if (data.id == null) {
+         //       $('.mmLeftMenu').invisibleAbsolute();
+             //   https://p-staging.treasury.go.th/td_homepage/
+          //    window.location.href = '@Url.Content("~/ErrorPage.html")';
+            }
+            else {
+                var findMenu = data.menuList.filter(function (o) {
+                    return o.id == 684300
+                });
+                setTimeout(function () {
+
+                    if (userSessionFromMain.USER_ID == "1") {
+
+
+                     //   $('.mmBISystem').addClass("invisible");
+                    }
+
+                    $('.lbUserLogin').text(data.USER_NAME +' '+ data.USER_SURNAME);
+
+                }, 500);
+
+
+                var menuObj;
+
+                if (findMenu != null) {
+
+                   
+                    menuObj = findMenu.filter(function (o) {
+                        return o.menuid == 'S2_100'
+                    });
+
+                    if (menuObj != null) {
+
+                        menuHtml += '<li class="nav-item   mmLeftMenu  mmMainMenu">';
+                        menuHtml += '<a href="/BI/Index?Menu=1" class="nav-link nav-toggle">';
+                        menuHtml += '<i class="glyphicon glyphicon-home" style="color:red"></i>';
+                       menuHtml += ' <span class="title" > หน้าหลัก</span> ';
+                        menuHtml += '</a>';
+                        menuHtml += '</li>';
+                    }
+
+                    menuObj = findMenu.filter(function (o) {
+                        return o.menuid == 'S2_826'
+                    });
+
+                    if (menuObj != null) {
+                        menuHtml += '<li class="nav-item   mmLeftMenu  mmBIReport">';
+                        menuHtml += '<a href="/BI/BIViewer?Menu=2" class="nav-link nav-toggle">';
+                        menuHtml += '<i class="glyphicon glyphicon-eye-open" style="color:green"></i>';
+                        menuHtml += ' <span class="title">รายงานด้วย BI</span> ';
+                        menuHtml += '</a>';
+                        menuHtml += '</li>';
+                    }
+
+                    menuObj = findMenu.filter(function (o) {
+                        return o.menuid == 'S2_827'
+                    });
+
+                    if (menuObj != null) {
+                        menuHtml += '<li class="nav-item  mmLeftMenu  mmMapView">';
+                        menuHtml += '<a href="/DashboardSystem3?Menu=3" class="nav-link nav-toggle">';
+                        menuHtml += '<i class="glyphicon glyphicon-eye-open" style="color:green"></i>';
+                        menuHtml += '<span class="title">เรียกดูแผนที่/ราคา</span>';
+                        menuHtml += '</a>';
+                        menuHtml += '</li>';
+                    }
+
+                   
+
+                    menuObj = findMenu.filter(function (o) {
+                        return o.menuid == 'S2_828'
+                    });
+
+                    if (menuObj != null) {
+                        menuHtml += '<li class="nav-item mmLeftMenu mmLand ">';
+                        menuHtml += '<a href="/Home/Menu1?Menu=4" class="nav-link nav-toggle">';
+                        menuHtml += '<i class="fa fa-bar-chart" style="color:blue"></i>';
+                        menuHtml += '<span class="title">รายงายซื้อขายจดทะเบียนที่ดิน</span>';
+                        menuHtml += '</a>';
+                        menuHtml += '</li>';
+                    }
+
+
+                    menuObj = findMenu.filter(function (o) {
+                        return o.menuid == 'S2_829'
+                    });
+
+                    if (menuObj != null) {
+                        menuHtml += '<li class="nav-item  mmLeftMenu  mmCondo">';
+                        menuHtml += '<a href="~/Home/Menu2?Menu=6" class="nav-link nav-toggle">';
+                        menuHtml += '<i class="fa fa-bar-chart" style="color:blue"></i>';
+                        menuHtml += '<span class="title">แนวโน้มการซื้อขายอาคารชุด</span>';
+                        menuHtml += '</a>';
+                        menuHtml += '</li>';
+                    }
+
+                    menuObj = findMenu.filter(function (o) {
+                        return o.menuid == 'S2_830'
+                    });
+
+                    if (menuObj != null) {
+
+                        if (menuObj != null) {
+                            menuHtml += '<li class="nav-item mmLeftMenu  mmChangeLand">';
+                            menuHtml += '<a href="~/Home/Menu3?Menu=7" class="nav-link nav-toggle">';
+                            menuHtml += '<i class="glyphicon glyphicon-random" style="color:red"></i>';
+                            menuHtml += '<span class="title">การเปลี่ยนแปลงราคาซื้อขาย</span>';
+                            menuHtml += '</a>';
+                            menuHtml += '</li>';
+                        }
+
+                    }
+
+                    menuObj = findMenu.filter(function (o) {
+                        return o.menuid == 'S2_831'
+                    });
+
+                    if (menuObj != null) {
+                        if (menuObj != null) {
+                            menuHtml += '<li class="nav-item mmLeftMenu   mmEnterSystem">';
+                            menuHtml += '<a href="~/Home/Menu4?Menu=5" class="nav-link nav-toggle">';
+                            menuHtml += '<i class="fa fa-users" style="color:purple"></i>';
+                            menuHtml += '<span class="title">ปริมาณการเข้าใช้ระบบ</span>';
+                            menuHtml += '</a>';
+                            menuHtml += '</li>';
+                        }
+                    }
+
+                    menuObj = findMenu.filter(function (o) {
+                        return o.menuid == 'S2_832'
+                    });
+
+                    if (menuObj != null) {
+                        if (menuObj != null) {
+                            if (menuObj != null) {
+                                menuHtml += '<li class="nav-item mmLeftMenu   mmBISystem ">';
+                                menuHtml += '<a href="~/BI/BIManager?Menu=8" class="nav-link nav-toggle">';
+                                menuHtml += '<i class="glyphicon glyphicon-eye-open" style="color:green"></i>';
+                                menuHtml += '<span class="title">สร้างรายงาน BI</span>';
+                                menuHtml += '</a>';
+                                menuHtml += '</li>';
+                            }
+                        }
+                    }
+
+
+
+                    $('.mLeftmenu').append(menuHtml);
+                   
+                   // $('.mmMapView').invisibleAbsolute();
+                   /* mmMainMenu
+                    mmBIReport
+                    mmMapView
+                    mmLand
+                    mmCondo
+                    mmChangeLand
+                    mmEnterSystem
+                    mmCreateBIReport*/
+                }
+            }
+
+        }).done(function () {
+            setTimeout(function () {
+
+                waitingDialog.hide()
+
+            }, 500);
+        })
+            .fail(function () {
+                alert("error");
+                waitingDialog.hide()
+            })
+            .always(function () {
+
+            });;}
+
+
+
+
+        function openNav(percent) {
+            document.getElementById("mySidenav").style.width = percent != null ? percent : "20%";
+            $('.mySidenav').removeClass("invisible");
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+    function openNavR(percent) {
+        $('.sidenavR').attr("style", "width:" +( percent != null ? percent : "20%"))
+
+        $('.sidenavR').removeClass("invisible");
+
+        }
+
+        function closeNavR() {
+            document.getElementById("mySidenavR").style.width = "0";
+            $('.sidenavR').addClass("invisible");
+        }
+
+
+
+
     </script>
-   
 
-    <!-- FastClick -->
-    <script src="~/assets/js/fastclick/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="~/assets/js/nprogress/nprogress.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="~/assets/js/custom_pera/custom.min.js"></script>
-    <!-- Custom Pera Scripts -->
-    <script src="~/assets/js/custom_pera/custom.pera.js"></script>
 
-    <script src="~/assets/js/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/assets/js/datatables/dataTables.bootstrap.min.js"></script>
+
+
+
+    <!--
     <script src="~/assets/js/datatables/dataTables.buttons.min.js"></script>
     <script src="~/assets/js/datatables/buttons.bootstrap.min.js"></script>
     <script src="~/assets/js/datatables/buttons.flash.min.js"></script>
@@ -147,44 +1668,14 @@
     <script src="~/assets/js/datatables/dataTables.responsive.min.js"></script>
     <script src="~/assets/js/datatables/responsive.bootstrap.js"></script>
     <script src="~/assets/js/datatables/dataTables.scroller.min.js"></script>
-  
+
     <script src="~/assets/js/datatables/pdfmake.min.js"></script>
     <script src="~/assets/js/datatables/vfs_fonts.js"></script>
     <script src="~/assets/css/bootstrap-daterangepicker/daterangepicker.min.js"></script>
     <script src="~/assets/css/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="~/assets/css/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-    <script src="~/assets/css/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/assets/css/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>-->
     <!-- e Chart -->
-    <script src="~/assets/js/Chart/echarts.min.js?revV122"></script>
-    <!-- notification -->
-    <script src="~/assets/js/iziToast.js"></script>
-
-   
-    <script src="~/Scripts/Main.js?ver=aaaaa"></script>
-
-   
-    @*<script type="text/javascript" src="~/assets/js/jquery-2.1.0.min.js"></script>
-        <script type="text/javascript" src="~/assets/js/before.load.js"></script>
-        <script type="text/javascript" src="~/assets/js/leaflet.js"></script>
-        <script type="text/javascript" src="~/assets/js/leaflet-providers.js"></script>
-        <script type="text/javascript" src="~/assets/js/leaflet.markercluster.js"></script>
-        <script type="text/javascript" src="~/assets/js/jquery-migrate-1.2.1.min.js"></script>
-        <script type="text/javascript" src="~/assets/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="~/assets/js/smoothscroll.js"></script>
-        <script type="text/javascript" src="~/assets/js/bootstrap-select.min.js"></script>
-        <script type="text/javascript" src="~/assets/js/icheck.min.js"></script>
-        <script type="text/javascript" src="~/assets/js/jquery.hotkeys.js"></script>
-        <script type="text/javascript" src="~/assets/js/jquery.nouislider.all.min.js"></script>
-        <script type="text/javascript" src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script type="text/javascript" src="~/assets/js/custom.js"></script>
-        <script type="text/javascript" src="~/assets/js/maps.js"></script>*@
-    @*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC1jJD77MZNqvFn0PT7JHYY_rcu2W_tA7I"></script>*@
-
-    <style type="text/css">
-    </style>
-
-
-
     <!--[if lte IE 9]>
     <script type="text/javascript" src="~/assets/js/ie-scripts.js"></script>
     <![endif]-->

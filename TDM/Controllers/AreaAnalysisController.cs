@@ -8,10 +8,10 @@ using TDM.Models;
 using AutoMapper;
 namespace TDM.Controllers
 {
-    public class AreaAnalysisController : Controller
+    public class AreaAnalysisController : BaseController
     {
-       
-        public  TDManagementEntities db = new TDManagementEntities();
+
+        public TDManagementEntities db = new TDManagementEntities();
         public TDASSETEntities tdaEntities = new TDASSETEntities();
         public IEnumerable<SelectListItem> ProvinceList { get; set; }
 
@@ -21,9 +21,9 @@ namespace TDM.Controllers
         }
         public ActionResult Manage()
         {
-            
+
             return View();
-            
+
         }
 
         public ActionResult AddEditProject(int projectId, int statusId = 0)
@@ -47,22 +47,22 @@ namespace TDM.Controllers
                 model.PROVINCE_ID = project.PROVINCE_ID;
                 model.AMPHOE_ID = project.AMPHOE_ID;
                 model.TAMBOL_ID = project.TAMBOL_ID;
-                model.Shape = project.Shape != null ? project.Shape.ToString() : "" ;
+                model.Shape = project.Shape != null ? project.Shape.ToString() : "";
                 model.Buffer = project.Buffer != null ? project.Buffer.ToString() : "0";
-               
+
             }
             try
             {
-                
+
 
                 model.PROVINCE = tdaEntities.PROVINCEs.Select(r => new PROVINCE_ViewModel()
                 {
                     PRO_C = r.PRO_C,
                     ON_PRO_THA = r.ON_PRO_THA
-                    
+
                 }).ToList();
 
-                model.AMPHOE = tdaEntities.AMPHOEs.Where(a=>a.PRO_C== model.PROVINCE_ID).Select(r => new AMPHOE_ViewModel()
+                model.AMPHOE = tdaEntities.AMPHOEs.Where(a => a.PRO_C == model.PROVINCE_ID).Select(r => new AMPHOE_ViewModel()
                 {
                     DIS_C = r.DIS_C,
                     ON_DIS_THA = r.ON_DIS_THA
@@ -77,17 +77,18 @@ namespace TDM.Controllers
                 }).ToList();
 
 
-                if(model.PUBLISH_DATE == null)
+                if (model.PUBLISH_DATE == null)
                 {
                     model.PUBLISH_DATE = DateTime.Now;
                 }
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 return Json(ex);
             }
             var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(model);
 
-           //var json = System.IO.File.ReadAllText(@"C:\inetpub\wwwroot\GitHub\TDMNew\3Parties\json.txt");
+            //var json = System.IO.File.ReadAllText(@"C:\inetpub\wwwroot\GitHub\TDMNew\3Parties\json.txt");
 
             model = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<PROJECT_IMPACT_ViewModel>(json);
             return PartialView("Manage_Modal", model);
@@ -106,6 +107,6 @@ namespace TDM.Controllers
         {
             return View("TestMap");
         }
-            
+
     }
 }
